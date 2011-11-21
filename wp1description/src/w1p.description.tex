@@ -2,18 +2,111 @@
 %%There is just one section and two subsections.
 \documentclass{article}
 
+
+\title{Work Package 1 detailed description}
+\date{\today}
+\author{Peter Bloem}
+
 \begin{document}
 
+\maketitle
 
-\section{Title}
+\begin{abstract}
+A concise, non-formal description of the aims of Work Package 1 of Project 23
+(Data2Semantics) of the COMMIT project. This documents provides the basic
+intuitions required to understand the questions which this projects hopes to
+answer.
+\end{abstract}
 
-\subsection{Subtitle}
+Consider what we might mean by a `dataset'. A fMRI image of a subject's brain,
+taken while the subject performs a specific task, a large body of annotated
+language, TIFF images of the Taj Mahal, a collection of chess positions which
+end in a draw. To be able to talk about data in the most general sense, we
+suggest that any dataset can be translated to a single string of ones and zeroes
+(as it is when stored on a computer system). We then build our basic concepts on
+this description of data, so that we can be sure that they apply to everything
+that we call data.
 
-Plain text.
+Any process, from simple operations like sorting a list of numbers, to learning
+natural languages or discovering scientific knowledge, can be thought of as a
+procedure on such a string of ones and zeroes. Any procedure that can be
+described unambiguously and performed independent of any human interpretation or
+ill-understood processes is called \emph{effective}. The notions of data encoded
+as ones and zeroes, and effective procedures on such data have been thoroughly
+studied over the last century.
 
-\subsection{Another subtitle}
 
-More plain text.
+This project will ask the following questions of such data:
+\begin{itemize}
+  \item Can we say, a priori, that some datasets are more interesting than
+  others
+  \item Can we describe a context in the broadest possible terms and define
+  the interestingness or utility of a dataset withing such a context?
+  \item What happens to the scientific process as we move into an era of
+  increasingly large datasets? Will all scientific problems be solved simply by
+  fast enough computer programs and large enough datasets, or will we find new
+  limits that will defeat supercomputers and petabyte-sized datasets?
+\end{itemize}
+
+\section{Question 1: Complexity and Interestingness}
+
+Consider the  following two datasets:
+\indent101010101010101010101010101010101010101010101010101010101010101010101010101010\ldots
+\indent101000110111111001110001011111010000001000101000110000111101010100101001100001\ldots
+These examples represent extremes on a spectrum of interestingness. They are
+sometimes called \emph{the clock} and \emph{the coinflip}. The first (the clock)
+shows a high degree of regularity. It's perfectly predictable. The second shows
+the highest possible degree of `chaos'. It's perfectly unpredictable.
+
+There are many well defined notions of complexity. These measures tend to consider the coinflip maximally
+complex and the clock maximally simple. While this certainly captures, for
+instance, the effort required to describe the data, intuitively, it leaves
+something to be desired.
+
+Consider an old-fashioned black-and-white television. If we leave the
+television off, the screen remains black. This is analogous to the clock above.
+If we don't tune the receiver to a specific channel, we get a uniform static. By
+most notions, he most complex signal the television is capable of displaying. It
+is also commonly said that this signal contains the highest possible level of
+information. That is were our intuition starts to confict with the theory.
+
+Because while the static contains a lot of information in the sense that it is
+difficult to describe exactly in simple terms, it is of no use to us. We are
+much more interested in the television programs we see when we tune the dial to
+a specific frequency. These are not entirely predictable and not entirely
+unpredictable. We tend to be interested in the phenomena that lie somewhere
+between the clock and the coinflip. Maximal information isn't enough, there must
+be such a thing as `useful information'.
+
+Intuitively, we guess that any datasets near the extremes will never be
+interesting to anyone. How far can we push this? Can we narrow the band of
+strings that are likely to be interesting? Can we suggest an optimum of a priori
+interestingness somewhere between the clock and the coinflip? How far can we
+take this without defining any kind of a context against which to measure
+interestingness.
+
+\section{Question 2: Conditional Complexity}
+
+A priori interestingness can only go so far. A TIFF image of the Mona Lisa
+may have a high a priori interestingness, but it's unlikely to to be of any use
+to a theoretical physicist. 
+
+Determining interestingness on the basis of a context is easy to do in domain
+specific terms. Given a well-formulated research question in molecular biology,
+it should be simple enough to evaluate the utility of any dataset in answering
+the research question, provided that the dataset is written in the same
+`language' as the question. If we take the notion of `well-formed' questions to
+its logical extreme, we end up with a computer program to be run on a dataset. A
+query.
+
+Can we generalize again? Ignore domain specific coding and programming and
+simply consider the landscape of all datasets and all queries? The notions of
+\epmh{data} and \emph{computer program} have been thoroughly generalized. The
+concept of a question, or a query has (to our knowledge) not received the same
+treatment.
+
+\section{Question 3: Convergence}
+
 
 
 \end{document}
