@@ -1,8 +1,16 @@
 \documentclass{article}
 
 \usepackage{charter}
+\usepackage{eulervm}
+\usepackage{amsmath, amsthm, amssymb}
 
-\title{Investigating the random set}
+\theoremstyle{definition}
+\newtheorem*{thm}{Definition}
+\newtheorem*{dfn}{Definition}
+\newtheorem*{exm}{Example}
+
+
+\title{Kolmogorov Complexity}
 \date{\today}
 \author{Peter Bloem}
 
@@ -15,8 +23,41 @@
 \maketitle
 
 \begin{abstract}
-\noindent Brief, formal definitions of various flavors of Kolmogorov Complexity, and an investigation of the set of random strings it defines.
+\noindent This document provides a brief description of Kolmogorov Complexity and Marting L\o:f randomness. It may do some experimental tweking of notation and traditional definition, to highlight the important points in the development of Kolmogorov complexity that are often glossed over.
 \end{abstract}
 
+\section*{Notation and preliminaries}
+
+$\cal{B}$ is the set of finite binary strings, including the empty string $\epsilon$. Members of $\cal B$ tend to be named $x$, $y$ and $z$.
+
+A subset of $\cal B$ has the \textbf{prefix-property} if no member of the set is a prefix of another member. We fix one such subset $\cal P$ as a canonical example. Members of $\cal{P}$ tend to be named $\bar{x}$, $\bar{y}$, $\bar{z}$. \footnote{Note that this is different from the convention of having $\bar{x}$ be the prefix free encoding of $x$.} 
+
+If we fix some canonical ordering of $\cal B$, we can match each finite binary string to a natural number, thus ordering the binary string. We will sometimes consider the two interchangeable. Note that this also serves as an ordering for all subsets of $\cal A$. Let ${\cal A}_i$ be the $i$-th member of $\cal A$. For any binary string $x$, let ${\mathbb N}_x$ be the corresponding natural number by the agreed ordering.
+
+Each subset of $\cal{B}$ encodes binary strings, we name this function after its set as follows: if ${\cal A} \subseteq {\cal B}$ then ${\cal A}({\cal B}_i) = {\cal A}_i$. Thus, ${\cal P}(x)$ is the prefix encoding of $x$.
+
+If $x$ and $y$ are binary strings, then $xy$ represents the concatenation of the two.
+
+\section*{The universal Turing machine}
+
+\begin{dfn}
+A \textbf{pairing function} $\langle\,\,\cdot,\,\cdot\,\rangle_f$ is any function $f: \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{N}$ which is \emph{primitive recursive} and \emph{invertible}.
+\end{dfn}
+
+\begin{exm} The G\"{o}del pairing function is defined as $\langle a, b \rangle_g = 2^a3^b$. Since $2$ and $3$ are prime, each $a$ and $b$ will result in a product of a different sequence of primes, and thus a unique integer.
+\end{exm}
+
+\begin{exm} The \em{prefix pairing function} $\langle a, b \rangle_p = {\cal P}(a)b$ for any set ${\cal P}$ with the prefix property. Since a is prefix encoded, there is only one pair of inputs to each output. [Is this actually primitive recursive?]
+\end{exm}
+
+\begin{thm}
+The set of all pairing functions is recursively enumerable.
+\end{thm}
+
+\begin{dfn}
+A Turing machine $U$ is called universal if there is some pairing function $f$ and enumeration ${T_i}$ of Turing machines, such that if $x = \langle i, p\rangle$ then $U(x) = T_i(p)$. That is, a universal Turing machine can simulate any other turing machine running any other program.
+\end{dfn}
+
+If we think of Turing machines as computing a sequence of elements from ${\mathbb N} \cup \{\infty\}$, then a universal Turing machine weaves all these sequences together in a way that is easily decoded. 
 
 \end{document}
