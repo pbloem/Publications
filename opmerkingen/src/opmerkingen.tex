@@ -1,0 +1,68 @@
+%%This is a very basic article template.
+%%There is just one section and two subsections.
+\documentclass{article}
+
+\usepackage{charter}
+\usepackage{eulervm}
+\usepackage{amsmath, amsthm, amssymb}
+
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}
+\newtheorem{lma}{Lemma}
+\newtheorem*{dfn}{Definition}
+\newtheorem*{exm}{Example}
+
+\title{Facticity: opmerkingen}
+\date{\today}
+
+% non-indented, spaced paragraphs
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.1in}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\begin{document}
+
+\maketitle
+
+\section{Lemma 3}
+
+Volgens mij klopt dit bewijs niet. I neem aan dat ``$|\bar{\imath}| + |p| > |p|$'' zoiets moet zijn als ``$|\bar{\imath}| + |p| > |q|$''. De $p$ van $K_2$ is immers niet dezelfde als die van $C$. 
+
+Vervolgens zeg je $U(\bar{\epsilon}p) = x$. Volgens een eerdere definitie is $U(\bar{\epsilon}x) = x$. Het werkt als je de prefix code van de $U$ van $C$ zelf neemt (zeg $u$): $U(\bar{u}p) = x$. In dat geval stelt het lemma $C(x) + |\bar{u}| \geq K_2(x)$. 
+
+Overigens is dit volgens mij alleen nodig als $C$ en $K_2$ gedefinieerd zijn tov verschillende $U$'s. Als ze allebei gebruik maken van de prefix UTM, dan heb je altijd $\bar{\imath}p = q$.
+
+\section{Nickname problem}
+
+Ik vraag me af of deze oplossing vh. nickname problem werkt. Specifiek het idee om uit te gaan van de Kolmogorov Complexiteit van de canonieke beschrijving van de TM. 
+
+Ik kan een beschrijving van een Turing Machine arbitrair complexer maken door een routine toe te voegen die 100000 random bits print en weer verwijdert. Dit draagt niet bij aan de modelinformatie (dus de beschrijving is 100k bits minder 'faithful'), maar de Kolmogorov complexiteit groeit wel met 100000 bits. De Kolmogorov complexiteit van T is dus niet per se een goed ideaal van de model informatie. 
+
+Ik ben er nog niet helemaal uit, maar het lijkt me dat je dit probleem op moet lossen op basis van functionele eigenschappen ipv. op basis van de programma's.
+
+In Lemma 6 heb je het over een optimaal programma, maar ik kan geen definitie vinden? Is dit een standaard term? Ik heb het in deze context nog nooit gehoord. 
+
+Ik vraag me bij Lemma 6 ook af of het wel terecht is om te zeggen dat de dichtheid van random strings in de limiet 1 is, omdat beschrijvingen niet random gegenereerd worden. Als ik een enumeratie maak op basis van bijv C programma's, dan zijn de beschrijvingen allemaal sterk comprimeerbaar.
+
+\section{Definitie 8}
+
+Volgens werkt de definitie zoals hij er nu staat alleen als je de notatie niet helemaal letterlijk neemt. Volgens wikipedia is een argmin altijd over een functie (ipv een set) en in het predicaat is $i$ geen vrije variabele.
+
+Dit is het beste wat ik kon bedenken:
+\[
+\varphi(x) = \min \left \{|i|\ |\ \exists{p} : |\bar{\imath}p| = K_2(x), \,U(\bar{\imath}p) = x\right\}
+\]
+
+of misschien
+\[
+P(x) = \left\{(i,p)\ |\ U(\bar{\imath}p) = x\right\}
+\]
+\[
+k_2(x) = \argmin_{(i, p) \in P(x)} |\bar{\imath}p|
+\]
+\[
+\varphi(x) = \min \left \{ i \ |\ (i, \cdot) \in k_2(x)\right\}
+\]
+
+\end{document}

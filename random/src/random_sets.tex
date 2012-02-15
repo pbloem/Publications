@@ -5,7 +5,8 @@
 \usepackage{amsmath, amsthm, amssymb}
 
 \theoremstyle{definition}
-\newtheorem*{thm}{Definition}
+\newtheorem{thm}{Theorem}
+\newtheorem{lma}{Lemma}
 \newtheorem*{dfn}{Definition}
 \newtheorem*{exm}{Example}
 
@@ -23,7 +24,7 @@
 \maketitle
 
 \begin{abstract}
-\noindent This document provides a brief description of Kolmogorov Complexity and Marting L\o:f randomness. It may do some experimental tweking of notation and traditional definition, to highlight the important points in the development of Kolmogorov complexity that are often glossed over.
+\noindent This document provides a brief description of Kolmogorov Complexity and Marting L\"of randomness. It may do some experimental tweaking of notation and traditional definition, to highlight the important points in the development of Kolmogorov complexity that are often glossed over.
 \end{abstract}
 
 \section*{Notation and preliminaries}
@@ -38,7 +39,21 @@ Each subset of $\cal{B}$ encodes binary strings, we name this function after its
 
 If $x$ and $y$ are binary strings, then $xy$ represents the concatenation of the two.
 
-\section*{The universal Turing machine}
+\section*{Turing Machines}
+
+\ldots
+
+It is common to distinguish explicity between a Turing machine $T_i$ and the function which it computes. In this article we will forego this distinction and refer to both as $T_i$.
+
+For some purposes it is important to analyse the internal workings of Turing Machines as well as their output. For instance, for those Turing machines which never finish, but print out some infinite sequence in the limit, or for those problems where we are interested in running time as well as output. For the current article, we will only look at the input and output values (with $\infty$ as the `output' value for a non-halting Truing machine). If two machines have idental outputs for all inputs, then we shall consider them functionally equal.
+
+\section*{Universality}
+
+Informally, a universal Turing Machine (UTM) is a machine which combines the computational power of all other turing machines. Usually this means that the universal turing machine is given a description of another turing machine and a program, and then simulates the running of that machine internally and gives the output that the target machine would give for the program.
+
+Usually a reference UTM is described by giving a simple pairing functions to compose the two inputs and some proof is given that a UTM exists that decomposes the input, and simulates the target machine running the program.
+
+For the purposes of this article we would like to be able to decide which Turing Machines have this property of universality. There are different ways to defines this, and we will compare these.
 
 \begin{dfn}
 A \textbf{pairing function} $\langle\,\,\cdot,\,\cdot\,\rangle_f$ is any function $f: \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{N}$ which is \emph{primitive recursive} and \emph{invertible}.
@@ -50,14 +65,40 @@ A \textbf{pairing function} $\langle\,\,\cdot,\,\cdot\,\rangle_f$ is any functio
 \begin{exm} The \em{prefix pairing function} $\langle a, b \rangle_p = {\cal P}(a)b$ for any set ${\cal P}$ with the prefix property. Since a is prefix encoded, there is only one pair of inputs to each output. [Is this actually primitive recursive?]
 \end{exm}
 
-\begin{thm}
+\begin{lma}
 The set of all pairing functions is recursively enumerable.
-\end{thm}
+\end{lma}
 
-\begin{dfn}
-A Turing machine $U$ is called universal if there is some pairing function $f$ and enumeration ${T_i}$ of Turing machines, such that if $x = \langle i, p\rangle$ then $U(x) = T_i(p)$. That is, a universal Turing machine can simulate any other turing machine running any other program.
+\begin{dfn}[Universally Simulating Turing Machine]
+A Turing machine $U$ is called \textbf{universally simulating} if there is some pairing function $f$ and enumeration ${T_i}$ of Turing machines, such that if $x = \langle i, p\rangle$ then $U(x) = T_i(p)$. That is, a universal Turing machine can simulate any other turing machine running any other program.
 \end{dfn}
 
+We call $U$'s specific pairing function $\langle \cdot, \cdot \rangle_U$ and drop the index if it is clear from context.
+
+This definition comes from the standard notion of a UTM simulating other turing machines. This is usually evaluated with respect to some specific pairing function. If we want to determine the notion of universality without reference to an arbitrary pairing function, then the question becomes whether a given Turing machine becomes universal if we decode the inputs with some pairing function. 
+
+We might ask, for instance whether the identity function $T_I(x) = x$ is universal. If so, there should be a pairing function which separates all $x$ into a pair $\langle T_i, p\rangle$ such that $T_i(p) = x$. One of the many reasons that this function cannot exist is that each possible output $x$ occurs only once in the output of $T_i$, when is should be occuring for every $\langle i, p\rangle$ where $T_i(p) = x$.
+
 If we think of Turing machines as computing a sequence of elements from ${\mathbb N} \cup \{\infty\}$, then a universal Turing machine weaves all these sequences together in a way that is easily decoded. 
+
+\begin{dfn}[Universally Minimizing Turing Machine]
+Consider the smallest program which produces $x$ on some Turing Machine $T$. Call this program $X^*_T$. For some $x$, $T$ might have the shortest program for $x$ over all Turing Machines. If, for all $x$, $T$'s shortest program is never more than a constant additive term away from any other Turing machine, T is \textbf{universally minimizing}.
+
+That is, T is universally minimizing if for all $x$ and any other Turing Machine $Q$:
+\[
+\left | l(x^*_T) - l(x^*_Q) \right | \leq c_{Q T}
+\]
+Where $c_{Q T}$ does not depend on $x$.
+
+This is also known as \em{universality by adjunction}
+\end{dfn}
+
+If $T$ does not produce $x$ for any input, then we say that $l(x^*_T) = \infty$.
+
+It is simple to see that a universally simulating Turing machine must be a universally minimizing Turing machine. If $p$ is the shortest program for $x$ on $Q$ then any universally simulating Turing machine $U$ can produce $Q$ as $U(\langle Q, p\rangle)$. Specifying $Q$ will cost $c_Q$ extra bits, independent of $x$, thus satisfying the requirement for a universal minimizing turing machine.
+
+The reverse---is every universally minimizing TM also universally simulating?---is more complicated. Any universally minimizing TM must at least be able to produce all possible outputs in ${\cal B} \cup \infty$. If not, the distance to a program that does produce this output would be infinite, and thus not bounded by a constant.
+
+
 
 \end{document}

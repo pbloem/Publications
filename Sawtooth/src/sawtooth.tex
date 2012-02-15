@@ -1,0 +1,47 @@
+%%This is a very basic article template.
+%%There is just one section and two subsections.
+\documentclass{article}
+
+\usepackage{charter}
+\usepackage{eulervm}
+\usepackage{amsmath, amsthm, amssymb}
+
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}
+\newtheorem{lma}{Lemma}
+\newtheorem*{dfn}{Definition}
+\newtheorem*{exm}{Example}
+
+\title{Kolmogorov Complexity}
+\date{\today}
+
+% non-indented, spaced paragraphs
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.1in}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\noindent This article aims to highlight some of the basic properties of the sawtooth diagram for facticity versus complexity.
+\end{abstract}
+
+\section*{The random strings}
+
+As is well known, the majority of strings is random. Thus, their minimal model is that of all strings (ie. the copying Turing Machine). As n goes to infinity, the set has density 1. That means that if we create a density plot of an approximation of $K(x)$ versus $\phi(x)$ for all strings of a reasonable length, we will only see a single point in the bottom right of the diagram. 
+
+If on the other hand, we do a scatter plot we are likely to see the rough structure of the facticity curve, but in the limit, the whole area below $K(x) = \phi(x)$ and $\phi(x) = \frac{1}{2}$ will be filled, obscuring most of the interesting detail.
+
+To study the structure of this diagram in detail, we need to restrict ourselves to a subsets of strings. 
+
+\section*{The simple Shannon models}
+
+To start with, we can assume that we are studying compressible strings with an 
+uneven number of ones and zeroes. For such strings, we have a simple compression scheme: store the frequency of ones in a prefix code and then code the rest of the string in $nH(x)$ bits.
+
+
+\section*{Complex Shannon models}
+
+
+\end{document}
