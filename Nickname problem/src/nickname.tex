@@ -1,0 +1,57 @@
+%%This is a very basic article template.
+%%There is just one section and two subsections.
+\documentclass{article}
+
+\usepackage{charter}
+\usepackage{eulervm}
+\usepackage{amsmath, amsthm, amssymb}
+
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}
+\newtheorem{lma}{Lemma}
+\newtheorem*{dfn}{Definition}
+\newtheorem*{exm}{Example}
+
+\title{The Nickname Problem}
+\date{\today}
+
+% non-indented, spaced paragraphs
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.1in}
+
+\begin{document}
+
+\maketitle
+The \textbf{nickname problem} arises when we use an indexing of the computable functions as a mathematical representation of all possible models, and their complexity. 
+
+Consider, for instance, the string $\sigma$ representing the collected works of Shakespeare in binary form. We can define a simple enumeration of the recursive functions based on Turing Machines as usual, with the single change that a Turing Machine which outputs $\sigma$ (disregarding its input) is given index 20. While pathological, this index is perfectly computable, and $\sigma$ would be seen as a highly compressible string, consisting purely of model information. 
+
+We might also construct an enumeration which places a Turing machine at index 0 which produces the collected works of Shakespeare only for a high input with slightly smaller than any other description of $\sigma$. Under this enumeration, the string would be seen as reasonably compressible, but with only one bit of model information.
+
+The nickname problem is inescapable. Kolmogorov Complexity itself suffers from a similar problem, where for a given string a pathological universal machine can be constructed which compresses that string to a single bit. Like with Kolmogorov complexity, we would like some assurance that this kind of pathological fiddling can only affect a limited number of string in a limited way. In other words, we can change the nature of facticity by switching to a different universal machine, but only to a limited extent.
+
+\begin{dfn}
+For a given index of the computable functions $\{\phi_i\}$ we define $i^* = \min\left\{\phi_j : \phi_j \simeq \phi_i\right\}$. That is, the minimal index of a function that is equivalent to $\phi_i$
+\end{dfn}
+
+\begin{dfn}
+An index of the computable functions $\{\phi_i\}$ is called \textbf{compact} if for every 
+$\phi_i(\bar{x}y)$ we have a $\phi_j$ such that $\phi_i(\bar{x}y) \simeq \phi_j(y)$ and  $|j| - |i| \leq |x| + O(1)$
+\end{dfn}
+
+Note that this is a natural property of basic computational metaphors. We can always take part of the argument of one function and hardcode it into the program at the cost of its length, and some additional bits to add it to the argument before processing. 
+
+A \textbf{non-compact} index would imply a computational metaphor which does not allow this type of manipulation.
+
+\begin{lma}
+Let $\{\phi_i\}$ and $\{\psi_j\}$ be two compact, computable enumerations of the computable functions. For a given computable function $\phi_i \simeq \psi_j$,  we have $\mbox{abs}(i^* - j^*) \leq O(1)$ 
+\end{lma}
+\begin{proof}
+Let $\phi_u$ be a universal function for $\psi$, such that $\phi_u(\bar{\imath}x) \simeq \psi_i(x)$. Since $\psi$ is computable this function exists in $\phi$. We have $\psi_{j^*}(x) \simeq \phi_u(\overline{\jmath^*}x)$. By the compactness of $\phi$, we have some $h$ with $|h| \leq |u| + |\overline{\jmath^*}| + O(1)$ such that $\phi_{h}(x) \simeq \phi_u(\overline{\jmath^*}x) \simeq \psi_{j^*}(x)$. 
+
+\end{proof}
+
+
+
+
+\end{document}
