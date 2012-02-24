@@ -1,0 +1,88 @@
+\documentclass{article}
+
+\usepackage{charter}
+\usepackage{eulervm}
+\usepackage{amsmath, amsthm, amssymb}
+
+\theoremstyle{definition}
+\newtheorem*{thm}{Theorem}
+\newtheorem{lma}{Lemma}
+\newtheorem*{dfn}{Definition}
+\newtheorem*{exm}{Example}
+
+\title{Review: {\em Lossless compressors: Degree of compression and optimality}}
+\date{\today}
+
+% non-indented, spaced paragraphs
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.1in}
+
+\begin{document}
+
+\maketitle
+
+\section{Global review}
+
+The paper aims to analyse compression from an Algorithmic Information point of view. Its three main contributions are:
+\begin{itemize}
+  \item A definition of a normalizatio procedure for compression algorithms, which ensures that the compressed string is always shorter than or equal to the or length of the original string plus one, at the cost of one bit. (section 2)
+  \item An analysis, mostly by counting arguments, of the expected compression under the uniform distribution. (section 3)
+  \item An application of Levin's theorem to compression, suggesting that there is an algorithm which can output any . (section 4)
+\end{itemize}
+
+Overall, the paper is clearly written, and easy to understand for readers with a reasonable background.
+
+It is difficult for me to asses to what extent the paper presents a novel or relevant view. The results discussed in section 3, for example, have clear analogues in Kolmogorov Complexity, as does the result of section 4. This leaves me wondering why the authors have opted to invent their own framework, which is only a slight modification of that of Kolmogorov Complexity.
+
+It is of course possible that I am misinterpreting these results and the way they fit into existing research. Without that information, however, I am
+forced to assume that this paper does not contain a great deal of novel or relevant research.
+
+To remedy this, the paper would benefit from a conclusions section at the end, summarizing the results and the way in which they tie together.
+
+To be considered for acceptance the paper should clearly state (better yet, demonstrate) the relevance and novelty of its results. The latter is particularly important with respect to the field of Kolmogorov Complexity where many of the methods and results that the authors seem to present as novel are in fact commonplace.
+
+\section{Specific review}
+\subsection*{Section 1}
+
+The introduction is clear, and well written, although the reference to the linear congruential method (which I needer to look up) seems obscure and technical, where a simpler example would suffice.
+
+\subsection*{Section 2}
+
+The idea that compressors may actually inflate, rather than compress seems like an important theoretical detail. The method of normalization is helpful for theoretical purposes.
+
+The normalization of the universal Turing Machine on page 2 can also be achieved by setting an empty Turing Machine $T(x) = x$ at index 0 in a prefix coded enumeration. This method does not have the drawback of adding a bit of complexity to all compressible strings as well. Both methods, however, trade universality for specificity. $C(x)$ is more well-behaved, but holds for fewer computational metaphors. For this reason it is general asserted that $C(x) \leq |x| + O(1)$ instead of replacing the constant order with a $1$. 
+
+The phrasing in the abstract that the authors ``reformulate a particular result of Algorithmic Information theory'' attaches too much importance to this method.
+
+\subsection*{Section 3}
+My main issue with this section is that (as the authors themselves assert at the top of page 8) compression over the uniform distribution is largely useless, as the uncompressible strings will quickly grow towards density one. Thus the expected compression under this distribution will be 0 for any computable method.
+
+Secondly, when quantifiying over all compressors (like in section 3.1 definition 1), the set over which this quantification happens is never defined.  One assume the computable compressors (also an undefined notion), but then 
+
+While Theorem 1 is quite clear, its proff is difficult to follow. In particular the step that starts with ``there must be some maximum value\ldots'' could do with greater explanation.
+
+The last line of the derivation in the middle of the proof to Theorem 2 should read $= 2^n(n-2) + 2 + n$ rather than $= 2^n(n-2) + 2$.
+
+The relevance of Theorems 3 and 5 is not clear to me. If we are free to choose any values for $\epsilon_i$, the result does not appear that remarkable. Perhaps an example of the values of $\{\epsilon_i\}$ would make things more clear.
+
+Overall this section seems to present some refinements of the incompressibility results of Li \& Vitanyi, section 2.2. If they were presented as such (without the reliance on probability distributions and the compressor/decompressor framework) there may be some novelty. 
+
+
+\subsection*{Section 4}
+
+
+
+
+\section{Minor issues}
+
+Here I present some specific stylistic errors and remarks for the benefit of the authors. Overall the paper did suffer from any great number of such problems, but a second proofreading would not be an unnecessary luxury.
+
+\begin{itemize}
+  \item The document lacks page numbers. I number the title page as 1.
+  \item The notation is a little confusing with respect to the standard notations of Kolmogorov Complexity. $C(x)$ of course has a different meaning from it's normal use (which is not diffcult to overcome), but it is also define to return the compressed program rather than the lentgh of that program, as the definition is in Kolmogorov Complexity. I would recommend using lowercase letters $c(x)$ and $d(x)$ to avoid confusion.
+  \item On page 2: ``The set of words with length $n$ is $\Sigma^n$ and will be denoted by $S_n$''. It seems to me that not much is won by referring to this set as $S_n$ rather than $\Sigma^n$.
+  \item ``Relatively to an optimal compressor \ldots'' should be ``Relative to an optimal compressor\ldots''
+\end{itemize}
+
+
+\end{document}

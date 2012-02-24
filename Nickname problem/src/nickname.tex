@@ -31,27 +31,27 @@ We might also construct an enumeration which places a Turing machine at index 0 
 The nickname problem is inescapable. Kolmogorov Complexity itself suffers from a similar problem, where for a given string a pathological universal machine can be constructed which compresses that string to a single bit. Like with Kolmogorov complexity, we would like some assurance that this kind of pathological fiddling can only affect a limited number of string in a limited way. In other words, we can change the nature of facticity by switching to a different universal machine, but only to a limited extent.
 
 \begin{dfn}
-For a given index of the computable functions $\{\phi_i\}$ we define $i^* = \min\left\{\phi_j : \phi_j \simeq \phi_i\right\}$. That is, the minimal index of a function that is equivalent to $\phi_i$
+For a given index of the computable functions $\{\phi_i\}$ we define $i^*_\phi = \min\left\{\phi_j : \phi_j \simeq \phi_i\right\}$. That is, the minimal index of a function that is equivalent to $\phi_i$. The subscript may be dropped when it is clear from context.
 \end{dfn}
 
 \begin{dfn}
 An index of the computable functions $\{\phi_i\}$ is called \textbf{compact} if for every 
-$\phi_i(\bar{x}y)$ we have a $\phi_j$ such that $\phi_i(\bar{x}y) \simeq \phi_j(y)$ and  $|j| - |i| \leq |x| + O(1)$
+$\phi_i(\bar{x}y)$ we have a $\phi_j$ such that $\phi_i(\bar{x}y) \simeq \phi_j(y)$ and  $|j| - |i| \leq |\bar{x}| + O(1)$
 \end{dfn}
 
 Note that this is a natural property of basic computational metaphors. We can always take part of the argument of one function and hardcode it into the program at the cost of its length, and some additional bits to add it to the argument before processing. 
 
-A \textbf{non-compact} index would imply a computational metaphor which does not allow this type of manipulation.
+We can construct a non-compact enumeration by starting with a compact one, and inserting after function $i$ a series of $f(i)$ copies of $\phi_0$, where $f(i)$ is some fast growing function like $2^{i!}$.
 
 \begin{lma}
-Let $\{\phi_i\}$ and $\{\psi_j\}$ be two compact, computable enumerations of the computable functions. For a given computable function $\phi_i \simeq \psi_j$,  we have $\mbox{abs}(i^* - j^*) \leq O(1)$ 
+Let $\{\phi_i\}$ and $\{\psi_j\}$ be two compact, computable enumerations of the computable functions. For a given computable function $\phi_i \simeq \psi_j$,  we have $\mbox{abs}(|i^*| - |j^*|) \leq c(\max(i^*, j^*)) + O(1)$. Where $c(x) \leq 2 \log(|x|) + 1$ is the overhead of prefix encoding $x$
 \end{lma}
 \begin{proof}
 Let $\phi_u$ be a universal function for $\psi$, such that $\phi_u(\bar{\imath}x) \simeq \psi_i(x)$. Since $\psi$ is computable this function exists in $\phi$. We have $\psi_{j^*}(x) \simeq \phi_u(\overline{\jmath^*}x)$. By the compactness of $\phi$, we have some $h$ with $|h| \leq |u| + |\overline{\jmath^*}| + O(1)$ such that $\phi_{h}(x) \simeq \phi_u(\overline{\jmath^*}x) \simeq \psi_{j^*}(x)$. 
 
+Thus $|i^*| \leq |h| = |u| + |\overline{\jmath^*}| + O(1) = |j*| + c(\jmath^*) + O(1)$. Reversing $\phi$ and $\psi$ gives us $|j^*| \leq |i^*| + c(i^*) + O(1)$. Combining these, we get the desired result.
 \end{proof}
 
-
-
+This lemma tells us that so long as we restrict our numberings to be compact and computable, we can never gain more than a logarithmic difference between model sizes. In the limit as $i \rightarrow \infty$, this term represents a vanishing proportion.
 
 \end{document}
