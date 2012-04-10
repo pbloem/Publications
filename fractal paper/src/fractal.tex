@@ -1,0 +1,40 @@
+\documentclass{article}
+
+\usepackage{charter}
+\usepackage{eulervm}
+\usepackage{amsmath, amsthm, amssymb}
+
+\theoremstyle{definition}
+\newtheorem*{thm}{Theorem}
+\newtheorem{lma}{Lemma}
+\newtheorem*{dfn}{Definition}
+\newtheorem*{exm}{Example}
+
+\title{Fractal modelling}
+\date{\today}
+
+% non-indented, spaced paragraphs
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.1in}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We present a method for modelling data with fractals, mathematical constructs with certain interesting properties, such as non-smoothness, infinite detail and non-integer dimension. Fractal models can vary their intrinsic dimension smoothly to fit that of the dataset. We use the well known family of Iterated Function Systems as statistical models and present a new algorithm for fitting such models to a given dataset (the so called inverse problem). To show the value of such models, we construct a classifier from them, and compare this classifier against other popular classifiers.
+\end{abstract}
+
+\section{Introduction}
+\section{Preliminaries}
+\subsection{Fractals}
+\subsection{Iterated Function Systems}
+\section{Methods}
+\subsection{The inverse problem}
+\subsection{Classification}
+\section{Conclusions and Further Work}
+
+One advantage of the IFS model that has been left unexplored in the current work is that it assigns each point in the dataset a $k$-ary string so that a small distance between points suggest simlar strings. Thus, a point pattern in a Euclidean space is naturally mapped to the space of strings in a way that uses the structure of the dataset rather than the structure of the embedding space.
+
+Future investigation might focus on the use of IFS models in clustering, spatial indexing and the induction of random fractals (as discussed in \cite{})
+\end{document}

@@ -1,0 +1,154 @@
+\documentclass{article}
+
+\usepackage{charter}
+\usepackage{eulervm}
+\usepackage{amsmath, amsthm, amssymb}
+
+\theoremstyle{definition}
+\newtheorem*{thm}{Theorem}
+\newtheorem{lma}{Lemma}
+\newtheorem*{dfn}{Definition}
+\newtheorem*{exm}{Example}
+
+\title{Opmerkingen Facticity}
+\author{Peter Bloem}
+\date{\today}
+
+% non-indented, spaced paragraphs
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.1in}
+
+\begin{document}
+
+\maketitle
+
+\subsubsection*{algemeen}
+\begin{itemize}
+
+    \item Met de latex code \begin{verbatim}\bar{\imath} of \overline{\imath}\end{verbatim} komt het streepje over de $i$ en $j$ in plaats van het puntje: $\overline{\imath}$. Het is een kwestie van smaak, maar ik vind het zelf overzichtelijker.
+    
+    \item Je zegt een aantal keer "Interesting/Important is the following lemma...". Volgens mij is dit ongebruikelijk Engels. Ik zou eerder zeggen "The following lemma is interesting..."
+\end{itemize}
+
+
+\subsubsection*{pg 1}
+\begin{itemize}
+
+    \item Laatste zin abstract: ``to define the meaningful or usefulness of a dataset'' $\rightarrow$ ``to the define the meaningfulness or usefulness of a dataset''
+\end{itemize}
+
+
+\subsubsection*{pg 2}
+\begin{itemize}
+
+    \item Definitie self-delimiting code: ``$\bar{x} = 0^{log n}1cx$'' die $n$ moet een $c$ zijn, denk ik.
+    
+    \item ``A Turing Machine is prefix-free if it only accepts programs in prefix-free code'' Dit is voor geen van de TM's in dit paper het geval. De UTM accepteert alleen TM indices in prefix vorm, maar de complete programma's zijn niet prefix-free.
+
+   \item In de definitie heb je het over self-delimiting codes, maar in het voorbeeld over prefix-free codes. 
+\end{itemize}
+
+\subsubsection*{pg 3}
+\begin{itemize}
+
+   \item In de definitie van klassieke Kolmogorov complexiteit en het kortste programma is het subscript na de ``$\min$'' niet nodig. Het is het minimum van een set van getallen.
+    
+   \item     Vlak voor lemma 2: ``the following lemma's''  $\rightarrow$  ``the following lemmas''
+\end{itemize}
+
+
+\subsubsection*{pg 3}
+
+\begin{itemize}
+  \item   De inverse entropie is niet een functie van $S$, maar van the entropie: $H(S) = h$, $H'(h) = S$.
+  \item        De $p$'s in de formule moeten denk ik ook $h$'s zijn
+  \item        Ik zou zelf de $^{-1}$ achter de $H$ zetten, ipv achter de haakjes: $H^{-1(h)}$.
+  \item        Dit komt terug op pagina's 7, 8 \& 9
+  \item    Bewijs van Lemma 6: ``Since x stochastic...''  $\rightarrow$  ``Since x is stochastic...''
+  \item    Eerste paragraaf sectie 3: ``The following lemma's...''  $\rightarrow$  ``The following lemmas...''
+  \item    Definitie 10: ``for all elements of set of descriptions''  $\rightarrow$  ``for all elements of a set of descriptions''
+\end{itemize}
+
+
+\subsubsection*{pg 5}
+\begin{itemize}
+
+  \item      Bewijs lemma 8: ``q reads in i converts it to...''  $\rightarrow$  ``q reads in i, converts it to...''
+  \item      De laatste stap van het bewijs van Lemma 8: $|\bar{q}i|$ valt binnen een constante term vanaf $C(t)$, maar bewijst dat dat $|\bar{q}i|$ niet berekenbaar is? In principe kan een niet-recursieve functie best tot binnen een constante term benaderd worden door een recursieve functie, lijkt me.
+\end{itemize}
+
+
+\subsubsection*{pg 6}
+\begin{itemize}
+
+  \item      Bewijs lemma 11: ``Suppose $x$ is compressible and $\phi(x) > 0$.''  $\rightarrow$  ``Suppose $x$ is compressible and $\phi(x) = 0$.''
+\end{itemize}
+
+\subsubsection*{pg 7}
+\begin{itemize}
+
+
+  \item      ``In the paragraph...'' -> ``In this paragraph''
+\end{itemize}
+
+\subsubsection*{pg 8}
+\begin{itemize}
+
+  \item      Definitie 14: ``the minimal number of trials a collector of n coupons has to make to collect all n coupons as n log(n)''  $\rightarrow$  ``the number of trials a collector of n coupons can expect to make as n log(x)''. Het minimum is n, uiteraard.
+  \item      Definitie Collapse point for binary stochastic strings: Latex fout
+\end{itemize}
+
+\subsubsection*{pg 9}
+\begin{itemize}
+
+  \item      Lemma 14: Een kleine letter $u$ voor de index vd UTM is misschien meer in de lijn van je andere indices, zoals $s$, $i$, $q$, etc.
+  \item      Lemma 14: In mijn afleiding valt de $+ 1$ aan het einde weg en is de basis wortel 2 ipv 2:
+\begin{align*}
+		U(\bar{u}p) &= U(\bar{p}\epsilon) = x \\
+        |\bar{u}p| &> |\bar{p}\epsilon| \\
+        |\bar{u}| + |p| &> |p| + 2 \log (|p|) + 1 \\
+        |\bar{u}| &> 2 \log(|p|) + 1 \\
+        2\log\varphi(x) &< |\bar{u}| - 1 \\
+		\log\varphi(x) &< \frac{1}{2}(|\bar{u}| - 1) \\
+		\varphi(x) &< \sqrt{2}^{|u| + 2\log(u)}  
+\end{align*}
+\end{itemize}
+
+\subsubsection*{pg 11}
+\begin{itemize}
+  \item De notatie $d$ geldt strikt genomen niet voor integers. Misschien dat $\Delta$ toepasselijker is.
+  \item Een omkeerbaar/deterministisch proces bevat altijd de informatie over de huidige tijdsstap, dus volgens heb je dan (voor de meeste waardes van $t$) 
+\[
+\frac{dK(x+t)}{dt} = \frac{d(log(t) + O(1))}{dt} = \frac{1}{x \ln(2)}
+\]
+\item 
+\end{itemize}
+
+\subsubsection*{pg 12}
+\begin{itemize}
+  \item Laatste zin sectie 3: ``are maximally instable'' $\rightarrow$ ``are maximally unstable''.
+\end{itemize}
+
+\subsubsection*{pg 13}
+\begin{itemize}
+  \item De definitie van resource-bounded facticity gebruikt nog de oude formulering.
+  \item ``Theorem 1 shows that the definition of facticity in terms of $K^*(M)$\ldots'': is dit nog een verwijzing naar gen. Kolmogorov complexity? 
+\end{itemize}
+
+\subsubsection*{pg 14}
+\begin{itemize}
+  \item Halverwege: ``Gell-Mann and Lloye [17] \ldots''  $\rightarrow$ ``Gell-Mann and Llody [17] \ldots''
+\end{itemize}
+
+\subsubsection*{pg 15}
+\begin{itemize}
+  \item Objection 1: Volgens mij mis je een slash voor de argmax/argmin in de MDL formules.
+\end{itemize}
+
+\subsubsection*{pg 16}
+\begin{itemize}
+	\item ``The reason is that $K$ does not observe ICP.'' In deze versie van het paper is het ICP hier nog niet genoemd. Een referentie/uitleg zou nuttig zijn.
+	\item Clearly we have to put constraints of\ldots''  $\rightarrow$ ``Clearly we have to put constraints on\ldots''
+\end{itemize}
+
+\end{document}
