@@ -25,12 +25,34 @@
 We present a method for modelling data with fractals, mathematical constructs with certain interesting properties, such as non-smoothness, infinite detail and non-integer dimension. Fractal models can vary their intrinsic dimension smoothly to fit that of the dataset. We use the well known family of Iterated Function Systems as statistical models and present a new algorithm for fitting such models to a given dataset (the so called inverse problem). To show the value of such models, we construct a classifier from them, and compare this classifier against other popular classifiers.
 \end{abstract}
 
-\section{Introduction}
+
 \section{Preliminaries}
 \subsection{Fractals}
+
+Fractals are mathematical objects (figures, sets or measures) with certain remarkable properties. No official definition exists for what does and does not constitute a fractal, but the following properties are central to all treatments:
+\begin{itemize}
+  \item They are selfsimilar. A part is a scaled down copy of the whole. See for instance the Sierpinski triangle (fig !@), which can be seen as three scaled up copies of itself. In some cases the self similarity is statistical, so that the scaled down copy is statistically similar to the whole
+  \item They have infinite detail. 'Zooming in' reveals ever finer detail. In the case of the Sierpinski triangle we will simple see the same structure recurring over and over again, but fractals like the Mandelbrot set reveal a great variety of detail.
+  \item They can have non-integer dimension. This basic and counter-intuitive fact is not easily explained. It will be discussed in section @! 
+\end{itemize}
+
+The earliest examples of fractals were described around the beginning of the twentieth century as counterexamples to conjectures in planar geometry and largely considered pathological. It was not until the 1970s that they were considered as a family of mathematical objects that could accurately describe many physical phenomena. Coast lines, trees, clouds and lightning bolts could all be described more accurately as fractals, than as lines, spheres or cubes.
+
 \subsection{Iterated Function Systems}
+
+
 \section{Methods}
 \subsection{The inverse problem}
+One of the main challenges in all forms of fractal modelling has been \textit{the inverse problem}. Whereas the chaos game produces a set of points from a fractal model, the inverse problem is to find a fractal for a given set of datapoints. In short, fitting a fractal model to data.
+
+So far, two approaches have succesfully tackled the inverse problem in some form:
+\begin{itemize}
+  \item Genetic algorithms. A straightforward search through the space of IFSs. The drawback of this approach is one of time complexity. The running time of these approaches scale poorly in the number of dimensions and components.
+  \item Partitioned iterated function systems. This is a modified version of the problem to make the model tractable and feaible in the domina of image compression. This approach does not translate well to n-dimensional point patterns.
+\end{itemize}
+
+
+
 \subsection{Classification}
 \section{Conclusions and Further Work}
 
