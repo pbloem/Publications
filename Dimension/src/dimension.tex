@@ -1,0 +1,93 @@
+\documentclass{article}
+
+\usepackage{charter}
+\usepackage{eulervm}
+\usepackage{amsmath, amsthm, amssymb}
+
+\theoremstyle{definition}
+\newtheorem*{thm}{Theorem}
+\newtheorem{lma}{Lemma}
+\newtheorem*{dfn}{Definition}
+\newtheorem*{exm}{Example}
+
+\title{Measuring Dimension}
+\date{\today}
+
+% non-indented, spaced paragraphs
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.1in}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+The intrinsic dimension of a dataset is one of the most telling statistics that can be calculated, and one that has received a great deal of attentation over the past decades. Most methods for estimating dimension relsy on at least some subjective judgment to make a selection in the data. Adapting methods recently described [@! cite] for the statistical analysis of power laws, we revisit an existing MLE estimator and present a simple, objective procedure to estimate the dimension of a dataset. The procedure runs without human intervention, and produces a value for the dimension, uncertainty bounds and a significance value.\end{abstract}
+
+\section{Introduction}
+
+Definitions of dimension, fractal dimension and measuring dimension.
+
+Previous work. Theiler. Manifold learning. Databases (Cite faloutsos)We will not discuss the mathematical backgrounds of dimension (Cite Edgar). We will not focus greatly on the algorithmic complexity.
+
+\section{Dimension}
+
+Scaling laws.
+
+Box counting dimension, Correlation integral, Haussdorff & Packing dimension.
+
+Box counting estimator, Correlation estimator, Takens estimator.
+
+\subsection{Physics}
+\subsection{Statistics and Machine Learning}
+\subsection{}
+
+\section{Methods}
+
+\subsection{Maximum Likelihood Estimator}
+
+Derivation of Takens' MLE and its standard error. Comparison to the Hill estimator and discussion of the differences.
+ 
+\subsection{Estimating the $d_Max$ parameter}
+
+Quick review of the methods described in Clauset. Translation of the method to this estimator. Experiment showing the validity of the method for this MLE.
+
+\subsection{Uncertainty}
+
+Quick review of the approach of Clauset.
+
+\subsection{Significance}
+
+Review of the approach of Clauset, and a description of the method translated to this problem.
+
+\subsection{Metric data}
+
+Discussion of the use of dimension for metric data and the use of the significance measure.
+
+\subsection{Runnning time}
+
+Discussion of the running time an an investigation of the effects of reducing the data size.
+\section{Experiments}
+\subsection{Data sets}
+
+\begin{itemize}
+  \item Swiss roll
+  \item 8-loop
+   
+  \item Hands
+  \item Faces
+
+  \item Sierpinski
+  \item Cantor
+  \item Menger Sponge
+   
+  \item 
+\end{itemize}
+
+\subsection{Results}
+
+\section{Conclusion}
+
+We have presented a straightforward, objective method for calculating a maximum likelihood estimate of the intrinsic dimension of a dataset. We have com 
+
+\end{document}

@@ -10,7 +10,7 @@
 \newtheorem*{dfn}{Definition}
 \newtheorem*{exm}{Example}
 
-\title{Fractal modelling}
+\title{Fractal Modeling}
 \date{\today}
 
 % non-indented, spaced paragraphs
@@ -22,7 +22,7 @@
 \maketitle
 
 \begin{abstract}
-We present a method for modelling data with fractals, mathematical constructs with certain interesting properties, such as non-smoothness, infinite detail and non-integer dimension. Fractal models can vary their intrinsic dimension smoothly to fit that of the dataset. We use the well known family of Iterated Function Systems as statistical models and present a new algorithm for fitting such models to a given dataset (the so called inverse problem). To show the value of such models, we construct a classifier from them, and compare this classifier against other popular classifiers.
+Fractals are mathematical objects that display great detail and complexity from a simple description. It has often been suggested that fractals mimic the structures of nature and everyday life better than the shapes of classical geometry \cite{}. These properties make fractals interesting candidates for modeling data. We present an overview of existing concepts that are relevant to this task, and a new algorithm for fitting fractal models to data. 
 \end{abstract}
 
 
@@ -31,27 +31,36 @@ We present a method for modelling data with fractals, mathematical constructs wi
 
 Fractals are mathematical objects (figures, sets or measures) with certain remarkable properties. No official definition exists for what does and does not constitute a fractal, but the following properties are central to all treatments:
 \begin{itemize}
-  \item They are selfsimilar. A part is a scaled down copy of the whole. See for instance the Sierpinski triangle (fig !@), which can be seen as three scaled up copies of itself. In some cases the self similarity is statistical, so that the scaled down copy is statistically similar to the whole
-  \item They have infinite detail. 'Zooming in' reveals ever finer detail. In the case of the Sierpinski triangle we will simple see the same structure recurring over and over again, but fractals like the Mandelbrot set reveal a great variety of detail.
-  \item They can have non-integer dimension. This basic and counter-intuitive fact is not easily explained. It will be discussed in section @! 
+  \item They are self-similar. A part is a scaled down copy of the whole. See for instance the Sierpinski triangle (fig !@), which can be seen as three scaled down copies of itself. In some cases the self similarity is statistical, so that the scaled down copy is statistically similar to the whole, but not exactly so.
+  \item They have infinite detail. 'Zooming in' reveals ever finer detail. In the case of the Sierpinski triangle we will simply see the same shape recurring again and again, but fractals like the Mandelbrot set reveal a great variety of detail.
+  \item They can have non-integer dimension, for instance the Sierpinski triangle has dimension about 1.58. This basic and counter-intuitive fact is not easily explained. It will be discussed in section @!.
 \end{itemize}
 
-The earliest examples of fractals were described around the beginning of the twentieth century as counterexamples to conjectures in planar geometry and mostly considered pathological. It was not until the 1970s that they were began to be seen as a single and useful family of mathematical objects that could accurately describe many physical phenomena. Coast lines, trees, clouds and lightning bolts can all be described more accurately as fractals than as lines, spheres or cubes.
+The earliest examples of fractals were described around the beginning of the twentieth century as counterexamples to conjectures in planar geometry and mostly considered pathological. It was not until the 1970s that they began to be seen as a single and useful family of mathematical objects that could accurately describe many physical phenomena. [@! Cite mandelbrot] Beno\^it Mandelbrot, commonly regarded as the father of fractal geometry, put it as follows in the \emph{The Fractal Geometry of Nature} [@! cite]:
 
-
+\begin{quotation}
+\noindent Clouds are not spheres, mountains are not cones, coastlines are not circles, and bark is not smooth, nor does lightning travel in a straight line.
+\end{quotation}
 
 \subsection{Iterated Function Systems}
 
 
 \section{Methods}
-\subsection{The inverse problem}
-One of the main challenges in all forms of fractal modelling has been \textit{the inverse problem}. Whereas the chaos game produces a set of points from a fractal model, the inverse problem is to find a fractal for a given set of datapoints. In short, fitting a fractal model to data.
+
+\subsection{Dimension}
+
+\section{Modeling}
+
+There are many well-known algorithms for 
+
+One of the main challenges in all forms of fractal modelling has been \textit{the inverse problem}. Whereas the chaos game produces a set of points from a fractal model, the inverse problem is to find a fractal for a given set of data points. In short, fitting a fractal model to data.
 
 So far, two approaches have succesfully tackled the inverse problem in some form:
 \begin{itemize}
   \item Genetic algorithms!@. A straightforward search through the space of IFSs. The drawback of this approach is one of time complexity. The running time of these approaches scale poorly in the number of dimensions and components.
   \item Partitioned iterated function systems!@. This is a modified version of the problem to make the model tractable and feasible in the domain of image compression. This approach does not translate well to n-dimensional point patterns.
 \end{itemize}
+
 
 \subsection{Classification}
 \section{Conclusions and Further Work}

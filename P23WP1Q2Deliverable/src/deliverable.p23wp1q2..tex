@@ -5,6 +5,7 @@
 \usepackage{amsmath, amsthm, amssymb}
 \usepackage{authordate1-4}
 \usepackage{url}
+\usepackage{booktabs}
 
 \theoremstyle{definition}
 \newtheorem*{thm}{Theorem}
@@ -25,26 +26,38 @@
 
 \maketitle
 
+\nocite{*}
 \begin{abstract}
-\noindent This document presents some complexity measures on graph data. We focus specifically on those measures that are designed for `complex networks': large graphs like social networks, technological networks and biological networks.
+\noindent In this quarter, we have implemented various complexity measures for graphs. This document provides a description of those methods and the preliminary results of applying the methods to several datasets. We focus specifically on those measures that are designed for \emph{complex networks}: large graphs like social, technological and biological networks.
 \end{abstract}
+
+\section*{Code}
+
+The code is written in Java, using the JUNG graph library. All code is available from GitHub in the following repsitories.
+\begin{description}
+\item[D2S Tools] (\url{https://github.com/Data2Semantics/d2s-tools}) Common code shared by WP1 and WP2.
+\item[Lilian] (\url{https://github.com/pbloem/Lilian}) Implementation of the complexity measures, including some tools for running experiments. This repository also contains a great deal of code unrelated to this deliverable. The relevant code resides mostly in the package \texttt{org.lilian.util.graphs.jung}.
+\end{description}
 
 \section*{Complexity measures}
 \subsection*{Basic graph measures}
 \begin{description}
-\item[Number of nodes ($N$)] A count of the number of nodes (or vertices) in the network.
-\item[Number of links ($L$)] A count of the number of links (or edges) in the network. 
+\item[Number of nodes ($N$)] A count of the number of nodes in the network.
+\item[Number of links ($L$)] A count of the number of links in the network. 
 \item[Mean degree ($\bar{d}$)] The mean number of nodes a node is connected to.
-\item[Degree standard deviation ($\sigma_d$)]  The sample standard deviation of the degrees.
+\item[Degree standard deviation ($\sigma_d$)] The sample standard deviation of the degrees.
 \item[Size of the largest component ($W$)] Size of the largest connected subgraph.
 \item[Proportion of the largest component ($W_p$)] The size of the largest connected subgraph divided by the size of the total graph. (Note that rounding will sometimes cause this to appear as 1.0, even when the largest component is smaller than the total graph).
-\item[Diameter of the largest component ($D$)] If we define the distance between two nodes as the length of the shortest path, then the diameter is the longest posssible distance in the graph. If the graph is not connected, then the diameter is infinite, so we report the diameter of the largest connected component.  
+\item[Diameter of the largest component ($D$)] If we define the distance between two nodes as the length of the shortest path between them, then the diameter is the longest possible distance in the graph. If the graph is not connected, then the diameter is infinite, so we report the diameter of the largest connected component.  
 \item[Mean distance ($M$)] The mean distance between two nodes. A large network with a small mean distance is said to have the \textit{small world} property, ie. there is likely to be a short path between any to nodes.
-\item[Clustering Coefficient ($C$, $C_{WS}$)] The clustering coefficient measures the level of \textit{transitivity in the network}. For instance, if system a on the internet is connected to system b, and b is connected to system c, with what probability can we say that a connects to c also.
+\item[Clustering Coefficient ($C$, $C_{WS}$)] The clustering coefficient measures the level of \textit{transitivity} in the network. For instance, if system $a$ on the internet is connected to system $b$, and $b$ is connected to system $c$, with what probability can we say that $a$ connects to $c$ also?
 
-There is also a local clustering coefficient $C_i$, which is the same but only for the neighbouring nodes of node $i$. The mean local clustering coefficient we call $C_{WS}$. The two values  
+There is also a local clustering coefficient $C_i$, which is defined in the same way, but only for the neighbouring nodes of node $i$. The mean local clustering coefficient we call $C_{WS}$. The values $C$ and $C_{WS}$are not necessarily similar. If they diverge, this can be taken as a sign that the clustering coefficient is not a meaning measure for this network.\cite{newman2010networks}
 \end{description}
-\subsection*{Scale free networks ($\alpha$,$p_\alpha$)}
+
+\subsection*{Scale free networks ($\alpha$, $p_\alpha$)}
+
+\textit{The implementation of these measures is still under construction.}
 
 The degree distribution (the probability that a node has a given number of neighbours) is one of the most telling attributes of a network. In particular the networks for which the degree distribution follows a power law are interesting. These networks are called \emph{scale free}, and they have many  interesting characteristics, such as a tolerance to random attacks and the small world property. \cite{barabasi1999emergence}
 
@@ -53,88 +66,104 @@ The significance level of the conclusion that the degree distribution follows a 
 
 \subsection*{Assortative mixing ($r$)}
 
-Another important property of a network is whether nodes are likely to be connected to nodes that are similar, for some measure of similarity. Nodes in friendship networks, for instance tend to be connected to nodes with similar properties (gender, height, ethnicity). This is called assortative mixing. An example of disassortative mixing is a sexual contact network, where the majority of links are between different genders.
+Another important property of a network is whether nodes are likely to be connected to nodes that are similar to themselves (for some measure of similarity). Nodes in friendship networks, for instance, tend to be connected to nodes with similar properties (gender, height, ethnicity). This is called \emph{assortative mixing}. An example of disassortative mixing is a sexual contact network, where the majority of links are between different genders.
 
-We can also test for assortative mixing by structural properties of the graph. Most commonly, the degree of nodes is used for this. For instance, do people with many friends tend to be friends with other people with many friends, or do websites with many links often link to other websites with many links.
+We can also test for assortative mixing by structural properties of the graph. Most commonly, the degree of nodes is used for this. For instance, do people with many friends tend to be friends with other people with many friends, or do websites with many links often link to other websites with many links?
 
-The most common measure for Assortative mixing by degree is the Pearson correlation coefficient between the degrees on either side of an edge. We call this value $r$. Since $r$ represents a correlation, it ranges from -1 to 1, with -1 being perfect disassortive mixing and 1 being perfect assortative mixing. 
+The most common measure for assortative mixing by degree is the Pearson correlation coefficient between the degrees on either side of an edge. \cite{newman2002assortative} We call this value $r$. Since $r$ represents a correlation, it ranges from -1 to 1, with -1 being perfect disassortive mixing and 1 being perfect assortative mixing. 
 
-A high value of $r$ is associated with resilience to targeted attack.
+A high value of $r$ is associated with resilience to targeted attack.\cite{newman2002assortative}
 
 \subsection*{Self-similarity ($d_B$)}
 
-For data sets like point patterns, metric data of tabular data, the notion of dimension can be a very descriptive property. There are many methods that allow on to measure the intrinsic dimension of the dataset, without considering the specifics of its representation. 
+For data sets like point patterns, metric data or tabular data, the notion of \emph{dimension} can be a very descriptive property. There are many methods that allow one to measure the intrinsic dimension of the dataset, without relying on the specifics of its representation. 
 
-Almost all notions of intrinsic dimension rely on so called scaling laws. A scaling law relates a one dimensional measure $x$ (like the width of a box) to some measure over the dataset $y$ (like the number of point that fall in a box). The laws of geometry then tell us that these should be (roughly) related as $y \sim x^\alpha$, where $\alpha$ is the intrinsic dimension of the dataset.
+Almost all notions of intrinsic dimension are based on \emph{scaling laws}. A scaling law relates a one dimensional measure $x$ (like the width of a box) to some measure over the dataset $y$ (like the number of data points covered by the box). The laws of geometry then tell us that these should be (roughly) related as $y \sim x^\alpha$, where $\alpha$ is the intrinsic dimension of the dataset.
 
 If we try a similar approach with networks we will soon see it fall down. If for instance, we take some random node in a small-world network and ask how many nodes $N(l)$ are within a distance $l$ of it, the small-world property will ensure that most nodes are within a small distance. The growth will be logarithmic rather than polynomial.
 
-To find an analogue to dimension for networks, Song et al @!cite devise the following method: cover the network in clusters of nodes called boxes, such that each box has a maximum distance between any two nodes of $l_B$. If we create a new network with a node for each box and links between nodes if these is a single-step connection between the corresponding boxes, we find that this new (smaller) network will, for many networks, have the same degree distribution as the old. Applying the procedure again will have the same result. In this sense, the network is said to be \emph{self-similar}.
+To find an analogue to dimension for networks, Song et al \cite{song2005self} devise the following method: cover the network in clusters of nodes called boxes, such that each box has a maximum distance between any two nodes of $l_B$. If we create a new network with a node for each box and links between nodes where there is a single-step connection between the corresponding boxes, we find that this new (smaller) network will, for many networks, have the same degree distribution as the old. Applying the procedure again will have the same result. In this sense, the network is said to be \emph{self-similar}.
 
 If we apply a single step for different values $l_B$ and count the resulting number of boxes $N_B(l_B)$, we find the following relation for self-similar networks:
 \[
-\frac{N_B(lb)}{N} \approx l_B^{d_B}
+\frac{N_B(l_b)}{N} \approx {l_B}^{d_B}
 \]
-Where $N$ is the number of nodes in the network and $d_B$ is a characteristic scaling exponent of the network, analogous to dimension. The exact properties of this self-fimilar scaling have not been fully investigated, but some relation has been found between robustness and self similarity. @! Cite
+Where $N$ is the number of nodes in the network and $d_B$ is a characteristic scaling exponent of the network, analogous to dimension. The exact properties of this self-fimilar scaling have not been fully investigated, but some relation has been found between robustness and self similarity. \cite{song2006origins}
 
+\subsection*{Compressibility ($\kappa$)}
 
-\subsection*{Compressibility}
-The minimum/maximum compression ratio $\kappa_{\mbox{min}}$, $\kappa_{\mbox{max}}$ and the median $ \bar{\kappa}$
+One of the most useful and theoretically well-founded notions of complexity is Kolmogorov Complexity. Put simply, the Kolmogorov Complexity of some data is the length of the shortest program that outputs that data on a universal computer. Kolmogorov Complexity is often approximated by compressability with some simple compression algorithm (such a GZIP). \cite{li2008introduction}
 
-\section*{Introduction}
+We would like to bring the subject of Graph complexity under the umbrella of Kolmogorov Complexity in some meaningful way. To begin with, we study the compressibility of networks. We take some random permutation of the nodes, generate the bottom half of the adjacency matrix and then flatten that into a binary string. From this representation the network structure can be reconstructed. We then chekc the compression ratio we get with GZIP.
+
+Repeating this experiment 1000 times will tell us two things. First, how compressible (and thus how random) the structure of the network is and second, how much influence the ordering of the nodes has on the compression. 
+
+We call the minimum/maximum compression ratio $\kappa_{\mbox{min}}$, $\kappa_{\mbox{max}}$ and the mean $ \bar{\kappa}$. If the network was too large to perform multiple runs, we report only the compressibility for a single run
 
 \section*{Data}
 
-We test these complexity measures on the following datasets.
+We test these complexity measures on the following datasets:
 
 \subsection*{Technological networks}
 
 \subsubsection*{The internet}
 
-The internet is a classic example of a large, complex network. So large, in fact that we have little hope capturing a full snapshot of the whole thin at once. The best we can do is to capture some part of it using traceroutes. We have two datasets, each representing autonomous systems as vertices, with edges between those that are directly connected.
-
-The large dataset was downloaded from the Stanford Large Network Dataset Collection(\url{http://snap.stanford.edu/data/as-skitter.html}), and it contains roughly 1.7 million nodes. @! Cite
-
-The smaller dataset was downloaded from the personal page of Mark Newman (\url{http://www-personal.umich.edu/~mejn/netdata/}), and it contains @!Cite
+The internet is a classic example of a large, complex graph. So large, in fact that we have little hope of seeing a full snapshot of the whole network at once. The best we can do is to capture some part of it using traceroutes. We use a dataset downloaded from the personal page of Mark Newman (\url{http://www-personal.umich.edu/~mejn/netdata/}), which contains around 23 thousand nodes.
 
 \subsubsection*{The world wide web}
+
+The world wide web, while closely associated with the internet, is a fundamentally different type of network. For example, a link between two systems on the internet will bear some relation to physical proximity of the systems. Linking to a website that is hosted far away costs nothing.
+
+The WWW dataset was downloaded from the iCeNSA website \url{icensa.nd.edu} and is the same dataset used in \cite{song2005self}.
+
 \subsection*{Social networks}
 \subsubsection*{Epinions}
+
+Epinions.org is a review site where users can choose to `trust' one another. these trust relations are then used to determine the value of a given review. The total network, downloaded form \url{http://snap.stanford.edu/data/soc-Epinions1.html} contains about 76 thousand nodes.
+
+Originally used in \cite{richardson2003trust}.
+
 \subsubsection*{Actor network}
+
+The network of which actors have appeared together in films (and the related ``six degrees of Kevin Bacon'' game) is one of the earliest models of the theory of complex networks. 
+
+This dataset was downloaded form the iCeNSA website \url{icensa.nd.edu} and generated from data from the Internet Movie database.
 
 \subsection*{Biological networks}
 \subsubsection*{E. Coli Cellular network}
+
+Interactions between the metabolites of E. Coli in the course of the metabolic cycle. Downloaded from the iCeNSA website \url{icensa.nd.edu}. Also used in \cite{song2005self}.
+
 \subsubsection*{C. Elegans Neural Network}
 
+C. Elegans, a nematode worm, is a model organism for research into biological neural networks. The whole of its neural network (some 307 cells) has been mapped out.
+
+Our dataset (downloaded from \url{http://www-personal.umich.edu/~mejn/netdata/} and verified with other sources) contains only 297 nodes. We assume that this is only the largest connected component.
+
+Citations for the dataset: \cite{watts1998collective,white1986structure}
 
 \subsection*{RDF Data}
 \subsubsection*{IAFB Dataset}
 
-
-\section*{Code}
-
-The code is written in Java, using the JUNG graph library. All code is available in GitHub in the following repsitories.
-\begin{description}
-\item[D2S Tools] (\url{https://github.com/Data2Semantics/d2s-tools}) Common code shared by WP1 and WP2.
-\item[Lilian] (\url{https://github.com/pbloem/Lilian}) Implementation of the complexity measures, including some tools for running experiments, and much unrelated code.
-\end{description}
+This dataset was included to test our methods on RDF data. We take the dataset from \cite{bloehdorn2007kernel} and disregard any predicates that are not part of the domain specific ontology (http://swrc.ontoware.org/ontology). Resources are translated to vertices and predicates are translated to edges.
 
 \begin{landscape}
 
-\section*{Results}
+\section*{Preliminary results}
+
+These are the results that have been gathered so far. They still require further testing and verification with results reported by others. Some measures are too intensive to be applied to the larger datasets. For others, our implementations can be improved to accomodate larger datasets.
 
 \begin{tabular}{l | r r r r r r r r r r r r r r r }
   \hline
-    & $N$ & $L$ & $W$ & $W_p$ & $D$ & $M$ & $C$ & $C_{\mbox{WS}}$ & $\alpha$ & $p_\alpha$ & $r$ & $d_B$ & $\bar{\kappa}$ & $\kappa_{\mbox{min}}$ & $\kappa_{\mbox{max}}$  \\
+    & $N$ & $L$ & $W$ & $W_p$ & $D$ & $M$ & $C$ & $C_{WS}$ & $\alpha$ & $p_\alpha$ & $r$ & $d_B$ & $\bar{\kappa}$ & $\kappa_{\mbox{min}}$ & $\kappa_{\mbox{max}}$  \\
     \hline
- Internet (big) & N & L & W & Wp & D & C & C WS & alpha & p alpha & r & dB & kappa & kappa min & kappa max \\
- Internet (small) & N & L &  W & Wp & D & C & C WS & alpha & p alpha & r & dB & kappa & kappa min & kappa max \\    
- WWW & & & & & & & & & & & & & & & km \\
- Epinions & & & & & & & & & & & & & & & km \\ 
- Actors  & & & & & & & & & & & & & & & km \\
- E. Coli  & & & & & & & & & & & & & & & km \\
- C. Elegans  & & & & & & & & & & & & & & & km \\
- IAFB  & & & & & & & & & & & & & & & km \\ 
+ Internet & 22963 & 48436 & 75877.0 & 1.0 & & & & & & & & & & & \\   
+ WWW & 325729 & 1497134 & & & & & & & & & & & & & \\
+ Epinions & 75879 & 508837 & & & & & & & & & -0.01 & & & & \\ 
+ Actors  & 383640 & 1229020 & & & & & & & & & & & & & \\
+ E. Coli  & 2859 & 6890 & 2859 & 1.0 & 18 & 4.70 & 0 & 0 & & & -0.16 & & & & \\
+ C. Elegans  & 297 & 2345 & 297 & 1.0 & 5 & 2.45 & 0.18 & 0.29 & & & -0.15 & -4.5 & 0.39 & 0.38 & 0.39 \\
+ IAFB  & 8318 & 61255 & 8318 & 1.0 & & & & & & & -0.26 & & 0.025 & &  \\ 
  \hline
 
 \end{tabular}
