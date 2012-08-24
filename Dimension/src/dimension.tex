@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[10pt]{article}
 
 \usepackage{charter}
 \usepackage{eulervm}
@@ -12,7 +12,7 @@
 
 \usepackage{float}
 
-\title{Measuring dimension across scales}
+\title{Measuring dimension}
 \date{\today}
 
 % non-indented, spaced paragraphs
@@ -29,23 +29,174 @@
 \maketitle
 
 \begin{abstract}
-The intrinsic dimension of a dataset is one of the most telling statistics that can be calculated, and one that has received a great deal of attentation over the past decades. Most methods for estimating dimension relsy on at least some subjective judgment to make a selection in the data. Adapting methods recently described [@! cite] for the statistical analysis of power laws, we revisit an existing MLE estimator and present a simple, objective procedure to estimate the dimension of a dataset. The procedure runs without human intervention, and produces a value for the dimension, uncertainty bounds and a significance value.\end{abstract}
-
+\noindent The intrinsic dimension of a dataset is one of the most telling statistics that can be calculated, and one that has received a great deal of attentation over the past decades. Most methods for estimating dimension rely on at least some subjective judgment to make a selection in the data. Adapting methods recently described in \cite{clauset2007power} for the statistical analysis of power laws, we revisit an existing MLE estimator and present a simple, objective procedure to estimate the dimension of a dataset. The procedure runs without human intervention, and produces a value for the dimension, uncertainty bounds and a significance value. We also extend the procedure to extract multiple characteristic dimensions from a dataset and revisit the concept of \textit{lacunarity} in the context of these methods.\end{abstract}
 \section{Introduction}
+The \textit{intrinsic dimension} of a dataset does not refer to how many features are used to represent it, but---loosely speaking---to how few features could be used to represent it. It is also the exponent of various power laws that determine the way the internal structure of the dataset scales. For many datasets, in particular those with coarse ``fractal'' features or those drawn from a chaotic process, dimension is one of the few well defined statistics available, and usually the most expressive.
+
+In the natural sciences, the intrinsic dimension takes the role of the observable: predicted by theory, and derived from experiment. Fractal phenomena do not respond well to traditional geometric measures. We cannot measure the length of a coast line, or the surface area of our lungs. In the words of Eugene Stanley \cite{stanley1986growth}:
+
+\begin{quotation}
+\small
+\noindent If you are an experimentalist, you try to measure the fractal dimension of things in nature. If you are a theorist, you try to calculate the fractal dimension of of models chosen to describe experimental situations; if there is no agreement then you try another model.
+\end{quotation}
+
+As noted by Stanley, this is only a simplistic view and the study of the dimension of a dataset can also give vital clues to scaling behaviors and critical phenomena in the process from which the data originated. Thus the theorist can not only validate his work by the dimension, but also use it as a guide. When we investigate the notion of dimension more closely we must give up intuitive notion and the only thing we can say is that the gemotry of a set or space produces various power laws related to scaling and that these power laws will usually have the same exponent in common. There is a common intuition in the natural sciences that power law phenomena with the same exponent will likely share some similarity in their underlying components. Thus the dimension can be an important guide in finding the universal principles common to  complex phenomana.
+
+The fields of machine learning and statistics have their own interest in the notion of dimension. Intrinsic dimension has been shown to be an effective lower bound to the number of features to which a dataset can be reduced without losing information.\cite{kumaraswamy2008fractal} Since many methods and algorithms work faster and more accurately on low dimensional data, dimensionality reduction is an important factor in bringing high dimensional data into the domain of machine learning. The field of manifold learning in particular has succeeded in mapping data in many hundreds of dimensions to low dimensional euclidean spaces\cite{roweis2000nonlinear} and often relies on acurate estimates of intrinsic dimension.\cite{levina2004maximum} 
+
+Most methods for measuring dimension have relied at least in some part on subjective judgements and processes that make it difficult to capture experimental error. A similar situation was present in the study of power law distributions until recently Clauset, Shalizi and Newman published \cite{clauset2007power}, in which they dealt with various problems, and described a simple objective approach for estimating the exponent of such distributions with no subjective elements and a clear indications of uncertainty and significance with respect of the assumptions.
+
+The methods in this paper come from the realization that the relatively unknown Takens estimator for dimension is also based on the assumption of a power law distribution (albeit of a different form than the ones studied by Clauset et al.), allowing these methods can be adapted to the estimation of dimension. This process also gives us a means to determine multiple dimensions for datasets that can be considered to have different dimensions for different ranges of scales, and we can give a new measure for the lacunarity, a measure of the `gapiness' or texture of a dataset that is often used in combination with dimension. 
+
+There is a wealth of research on the subject of dimension and related subjects. For a good overview on definitions of dimension and proposed estimators, we recommend \cite{theiler1990estimating}. For a derivation of dimension from basic mathematics (topology and metric spaces) we refer the reader to \cite{edgar2008measure}.
+
+\section{Dimension}
+
+Dimension is usually introduced in layman's terms as the ``amount of numbers required to define a single point on a surface, in a volume or in some other set''. This definition, while it explains why a line has lower dimension than a square or the surface of a sphere, breaks down on closer inspection. There are may ways to encode three numbers into one (for instance with the use of space-filling curves, or simply by alternating digits) so that we can, theoretically, locate a single point in a volume by only one coordinate. 
+
+Nevertheless, something fundamental seems to separate basic curves from figures in the plane from figures in space. Some property that we have come to call dimension, before defining it rigorously. In fact, investigations show that once notions of dimension become well defined they can be naturally extends to metric spaces, or even topological spaces. 
+
+Topology has several (equivalent definitions) defined inductively. For instance the covering dimension is based on the idea that a set of dimension $d$ can be covered with open sets so that no more than $d-1$ will overlap anywhere. Starting with the convention that the empty set has dimension $-1$, this gives us a complete notion of dimension.
+
+A spanner was thrown in the works with the investigation of \textit{fractals}, Coarse, non-smooth shapes that reveal ever greater detail as one `zooms in'. The problem with these figures was that they did not seem to obey the Euclidean scaling laws. An example of such a law is that scaling a square so that its sides increase by $s$, will increase its surface by $s^2$. Similarly, a cube scaled in the same way will see its volume increased by $s^3$ and its surface area will increase by $s^2$. By the seventeenth century, the scaling laws had been generalized to all curves, surfaces and solids. Except fractals.
+
+To illustrate how fractal figures seem to break the scaling laws consider figure @!.a (adapted from [@! Cite Manfred Schroeder]). This figure contains seven hexagon tiles arranged into a larger shape. We can now replace each line segment with three smaller line segments as shown in the figure. We note that this operation does not change the surface area of the figure. Afterwards we are left with another collection of line segments, so we can apply the operation again. In the limit we get the figure shows in @!.2, a fractal. It can be shown that this fractal shape is invariant to the transformation.
+
+The issue arises when we recognize that the outline of this figure is exactly a scaled up version of one of its tiles. This is possible because the outline we started with was a scaled up (and slightly rotated) version of the tiles after one transformation. Thus, the outline is always one transformation ahead of the tiles, a difference which disappears in the limit. The length scaling between the outline at step $n$ and a tile at step $n+1$ is $3$. $3^2 \neq 7$ so it seems like this figure violates the scaling laws. 
+
+The situation is resolved when we re-evaluate our notion of dimension. Consider the outline of the figure, traditionally seen as a 1 dimensional curve. If we measure its length (a 1 dimensional measure) we see that it goes to infinity in the limit of our process. If we take from this the hypothesis that its dimension is not $1$, since the 1-dimensional measure fails, but greater than one, we might try to measure its surface area by covering it with ever smaller squares and summing their areas. This measure goes to zero. We are left with the impression that this shape has a dimension above $1$ and below $2$.
+
+In fact, if we decide to hold to the scaling law and release our grip on the notion of dimension qwe see that the value that makes the scaling law work will satisfy $3^d = 7$, which gives us  $d = \log_3 7 \approx 1.77$. A non-integer dimension. Upon investigation, the choice was easy, the fractal dimension (properly defined) were consistent and well behaved. Our notion of dimension was relaxed, and the scaling laws were upheld.
+
+Not only were these pathological counterexamples given a place in Euclidean geometry, they were connected to many natural phenomena. The coast-line of Britain, for example, behaves the same way as the side of our tiles. If we try to measure its length, our values for increasing accuracy of measurement will go to infinity. The same goes for the surface area of a human lung or a mountain range. Luckily, the rate with which conventional these measures fail allows us to get a hint of the intrinsic dimension.
+
+\subsection{Hausdorff dimension}
+
+[@! is this necessary? Maybe move it to appendix and derive the scaling laws for box counting and correlation there]  
+
+For theoretical purposes, the Hausdorff dimension is the most popular definition of dimension. It's not much in measuring dimension, but it can help us understand where the various scaling laws come from that help us to measure notions of dimension that are more suited to estimation from data. Of course, most of the notions of dimension agree with each other for most sets, or have well-understood equalities.
+
+A complete treatment of Hausdorff dimension is beyond the scope of this article (@! Edgar provides a reasonably direct overview of the basic requirements for understanding Hausdorff dimension). We will give some intuition and the basic definitions. 
+
+The basic notion behind Hausdorff dimension is that there are measures that are intrinsic to a given dimension (ie. length is related to dimension 1 and area to dimension 2) and that these measures will be $\infty$ or $0$ when they are applied to sets with dimension below or above the true dimension respectively. A fractal with dimension 1.5 will have length $\infty$ and area $0$.
+
+The Hausdorff dimension is defined over metric spaces. Euclidean spaces and sets in Euclidean space are specific instances of metric spaces. We will first introduce some basic concepts.
+
+\begin{dfn}
+A covering $E$ of a metric space $S$ is a sets of sets such that $S \subseteq\bigcup_e \in E e$. 
+\end{dfn}
+
+\begin{dfn}
+The diameter of a set $X$ in metric space $S$ with metric $\sigma$ is
+\[
+\mbox{diam}(X) = \sup_{x, y \in X}\sigma(x, y)
+\]
+\end{dfn}
+
+\begin{dfn}
+The quantity $H^d(x, r)$ of a metric space $X$ is the covering of $X$ that minimizes the sum of the diameters raised to $d$:
+\[
+H^d(X, r) = \inf_E \sum_e \in E \mbox{diam}(e)^d
+\]  
+\end{dfn}
+
+Where the infimum is taken over all coverings $E$.
+
+If we let $r$ got to zero, we get the measure mentioned above
+
+\begin{dfn}
+\[
+H^d(X) = \lim_{r \rightarrow 0} H^d(X, r)
+\] 
+\end{dfn}
+
+This measure has an intrinsic dimensionality $d$. If it is used on sets with the wrong dimension, it produces $0$ or $\infty$. Specifically, it can be shown that for each argument $X$ there is a single unique value $D_H$ such that 
+\[
+H^d(X) = \left \{ 
+\begin{array}{rl}
+  \infty &\mbox{if} d < D_H(X) \\
+  0 &\mbox{if} d > D_H(X)
+\end{array} \right.
+\]
+
+This value is the Hausdorff dimension of $X$.
+
+\subsection{Box counting dimension}
+
+The box counting dimension is one of the earlier general-purpose definitions of dimension, and one of the first to be used experimentally. Let $X \subseteq {\mathbb R}^d$. The we can cover the ${\mathbb R}^d$ with a grid of $d$-dimensional hypercubes with sides of length $\epsilon$. We then count how many of these hypercubes contain elements of $X$ and call this value $N_\epsilon$. We assume the following relation:
+\begin{align}
+\label{box-counting-assumption}
+N_\epsilon = \left (\frac{1}{\epsilon}\right) ^ d
+\end{align}
+
+If we take the logarithm on both sides, we get
+
+\begin{align*}
+ - d \ln \epsilon = \ln N_\epsilon
+ d = - \frac{\ln \epsilon}{\ln N_\epsilon}
+\end{align*}
+
+In other words a linear relationship in log-log axes. A common approach, especially in the early days of measuring 
+
+The logic behind assumption \ref{box-counting-assumption} is detailed in @!. However, this relation is not guaranteed to hold exactly. A common tactic is to assume the relation 
+\begin{align}
+N_\epsilon = \Phi(\frac{1}{\epsilon})\left (\frac{1}{\epsilon}\right) ^ d
+\end{align}
+
+Where $\Phi\left(\epsilon\right)$ is called the \textit{pre-factor}. If we say that the pre-factor satisfies
+\[
+\lim_{\epsilon \rightarrow 0} \frac{\ln \Phi(\frac{1}{\epsilon})}{\ln \frac{1}{\epsilon}} = 0
+\]
+We can estimate the dimension using 
+\[
+D_B = \lim_{\epsilon \rightarrow 0} \frac{\ln N_\epsilon}{ \ln \epsilon}
+\]
+
+\subsection{Correlation dimension}
 
 Definitions of dimension, fractal dimension and measuring dimension.
 
 Previous work. Theiler. Manifold learning. Databases (Cite faloutsos)We will not discuss the mathematical backgrounds of dimension (Cite Edgar). We will not focus greatly on the algorithmic complexity.
 
-\section{Dimension}
+\subsection{Dimension of measures}
 
-Scaling laws.
+The dimension of a finite set of points, by any definition, is zero. Thus the dimension of a dataset will always be zero. When we talk about applying some estimator to a dataset we are not measuring the dimension of the dataset, but rather the dimension of the underlying probability distribution. We will usually assume that there is some probability measure over our instance space from which the elements in our dataset were independently drawn. It is the dimension of this measure that we are estimating. But before we do so, we must have some idea of how the dimension of a measure is defined.
 
-Box counting dimension, Correlation integral, Haussdorff & Packing dimension.
+Most commonly, this is done by extension of the box counting dimension. If we take the approach to the box counting dimension for sets and instead of counting the boxes which contain points of a set, we count the boxes with non-zero probability under our measure, we are in essence measuring the dimension of the support of the measure. However, the dimension of the support will not always capture the scaling we are interested in. Consider, for instance, a uniform distribution $U_0$ over the interval $[0, 1]$. We can cut this interval in two, and define a new distribution $U_1$ which combines a uniform distribution over the top half of the inteval with three quarters of the probability mass and a uniform distribution over the bottom half with the remaining probability mass. We repeat this process so that $U_{n+1}$ takes the uniform segments of $U_n$ and cuts them in half, distributing their probability mass over the new segements with the same ratio as before. The limiting distribution of this process ($\lim_{n \rightarrow \infty} U_n$) has the interval $[0, 1]$ as its support, and thus dimension $1$ by the definition above. The fractal shape, however, suggests that there are many interesting scaling laws that will give us an insight into its structure.
 
-Box counting estimator, Correlation estimator, Takens estimator.
+We can change the definition of dimension by introducing a parameter $q$ that determines how much more we care about regions with high probability than about regions with low probability. We define the quantity $I_q$ as an analgoue of the box counting dimension:
+\[
+I_q(p, \epsilon) = \sum_{c \in C_\epsilon}p(c)^q 
+\]
+Where $C$ is the covering of the probability distribution in boxes of side length $\epsilon$. The \textit{generalized dimension} of $X$ is then defined as
+\[
+D_q(p) = \frac{1}{q-1} \lim_{\epsilon \rightarrow 0} \frac{\ln I_q(X, \epsilon)}{\ln \epsilon}
+\]
 
-\section{The Takens estimator}
+For $D_0$ reduces to the box counting dimension of the support. $D_1$ causes a division by zero, but letting $q \rightarrow 1$ we can formulate 
+\[
+D_1(p) = lim_{\epsilon \rightarrow 0} \frac{1}{\ln \epsilon} \sum_{c \in C_\epsilon} p(c) \ln p(\epsilon)
+\] 
+The right part of this is the negative of the entropy of the distribution over $C$ under $p$. In essence $D_1$ measures how the entropy of a covering scales with the accuracy of that covering.
+
+For $q = 2$ we get 
+\[
+D_2(p) = \lim_{\epsilon \rightarrow 0} \frac{1}{\ln \epsilon}\ln \sum_{c \in C_\epsilon} {p(c)^2}
+\]
+This is called the correlation dimension, and this is the dimension we focus on. It has the advantage that it is easy to estimate. It should be noted that for many distributions $D_q$ does not vary with $q$, so that we can choose $q$ to suit our needs. Where the dimension does depend on $q$ (the so called \textit{multifractals}) $2$ provides reasonable compromise between caprturing the whole support, and capturing the scaling within the probability density function.
+
+The theoretical basis for the generalized dimension is usually based on an analogous treatment of the Hausdorff dimension. We will leave the subject at this brief introduction, noting only that we will technically be estimating $D_2$.
+
+\subsection{Non-independent data}
+
+As noted before, we assume that our data is independently sampled from some probability distribution. This may not be the case. In particular time series data\ldots
+
+Read Theiler's EEG paper. Discuss natural measures briefly. Also ergodicity?
+
+
+\section{Methods}
+
+\subsection{The Takens estimator}
 
 Like the Hill estimator. State assumptions for MLE. 
 
@@ -61,7 +212,6 @@ We test this assumption by taking datasets in full (after shuffling the data) an
 
 
 
-\subsection{Physics}
 \subsection{Statistics and Machine Learning}
 
 \section{Estimating dimension}
@@ -70,7 +220,7 @@ We test this assumption by taking datasets in full (after shuffling the data) an
 
 Derivation of Takens' MLE and its standard error. Comparison to the Hill estimator and discussion of the differences.
  
-\subsection{Estimating the $d_Max$ parameter}
+\subsection{Estimating the $d_{\max}$ parameter}
 
 Quick review of the methods described in Clauset. Translation of the method to this estimator. Experiment showing the validity of the method for this MLE.
 
@@ -92,7 +242,7 @@ Discussion of the running time an an investigation of the effects of reducing th
 
 \section{A multiscale estimator}
 
-Consider a datset produces by drawing random points in some 1D curve in 2D Euclidean space, but with a small term of 2D Gaussian noise added. The theoretical dimension of this process, for any definition of dimension will be 2, since the limit towards the smallest scales determines the dimension. However, the shape that we are interested in (the distribution without the noise term) has dimension 1. 
+Consider a dataset produced by drawing random points in some 1D curve in 2D Euclidean space, but with a small term of 2D Gaussian noise added. The theoretical dimension of this process, for any definition of dimension, will be 2 since the limit towards the smallest scales determines the dimension. However, the shape that we are interested in (the distribution without the noise term) has dimension 1. 
 
 This is an example of a distribution with multiple intrinsic dimensions. The data is generated by different processes that each create a dimensionality in the data at a particular scale. It's not uncommon to see data with more than two intrinsic dimensions. In the log-log plot produces by the Grassberger-Procaccia estimator, this behavior will produce linear segments for the relevant length scales.
 
@@ -102,19 +252,19 @@ To start with we assume that our data has some number of intrinsic scales determ
 
 We define the correlation integral over an interval simply as $C(r_{i-1}, r_i) = C(r_i) - C(r_{i-1})$. Our assumption that the dimension $D_t^i$ determines scaling in this interval tells us that 
 \[
-p(d \leq r | d \in [r_{i-1}, r_i)) = \frac{p(d \leq r | d \in [r_{i-1}, r_i))}{p(d \d \in [r_{i-1}, r_i)])} = \frac{p(d \in [r_{i-1}, r])}{p(d \in [r_{i_1}, r_i))}
+p(d \leq r | d \in [r_{i-1}, r_i)) = \frac{p(d \leq r | d \in [r_{i-1}, r_i))}{p(d \in [r_{i-1}, r_i)])} = \frac{p(d \in [r_{i-1}, r])}{p(d \in [r_{i_1}, r_i))}
 \]
 \[
  = \frac{C(r) - C(r_{i-1})}{C(r_i) - C(r_{i-1})} = \frac{cr^{D^i_t} - cr_{i-1}^{D^i_t}}{cr^{D^i_t} - cr{i-1}^{D^i_t}}\
 \]
 
 We turn this into a probability function by taking the derivative over $r$, and we use this to compute the score (the derivative of the log likelihood of the data). Setting the score to zero gives us a maximum likelihood estimator for $D^t_i$. This process is detailed in appendix @!. Unlike the single scale version, we do not find a closed form version of the MLE. We are left with:
+
 \[
-\frac{1}{D^t_i} - \frac{\ln \frac{r_i}{r_{i-1}}}{(\frac{r_i}{r_{i-1}})^{D^t_i}} - \frac{\Sum_{r \in R_i}\ln r - |R_i| \ln r_{i-1}}{|R_i|} = 0
+\frac{1}{D^t_i} - \frac{\ln \frac{r_i}{r_{i-1}}}{(\frac{r_i}{r_{i-1}})^{D^t_i}} - \frac{\sum_{r \in R_i}\ln r - |R_i| \ln r_{i-1}}{|R_i|}= 0
 \]
 
 Which is unlikely to be expressible in $D^t_1$. However, as proved in the appendix, the function is strictly decreasing in $D^i_t$, for the required values of the constants, so that we can use a simple binary search to pinpoint its root. Call the the left hand side of the equation above $f(x)$. Then the search algorithm works as follows
-
 
 \begin{pseudo}[h]
 	\textbf{starting with $x = 1$ repeat $x \leftarrow 2x$ until $f(x)$ becomes negative}  \\
@@ -131,11 +281,14 @@ Which is unlikely to be expressible in $D^t_1$. However, as proved in the append
  	\textbf{return} $\mbox{find}(x, x_{\max})$ \\	
 \end{pseudo}
 
-This algorithm first searches for an $x$ that makes $f(x)$ negative, and then bisects theinterval $[0, x]$ recursively until the interval is smaller tha a given $\epsilon$, at which point the middle of the interval is taken as the estimate of $D_i^t$.
+This algorithm first searches for an $x$ that makes $f(x)$ negative, and then bisects the interval $[0, x]$ recursively until the interval is smaller tha a given $\epsilon$, at which point the middle of the interval is taken as the estimate of $D_i^t$.
 
 To find the interval limits $r_i$ we proced as we did before with $d_{\max}$ and search for a set of values from the data which minimize the Kolmogorov-Smirnov statistic with the filtered data. We compare each interval with the data filtered to that interval and take the sum of all intervals for a given set as the value to minimize. As searching a for a single value was already expensive in the single-scale case, here we must give up on the idea of checking all possible values and instead search for a suitable set of ranges.  
 
 @!NOTE: Try contiguous and non-contiguous scaling intervals. 
+
+\section{Lacunarity}
+
 
 
 \section{Experiments}
@@ -167,6 +320,7 @@ Galaxies & & & & \\
 DNA random walk & & & & \\
 Turning cup & & & & \\ 
 Faces & & & & \\ 
+Sunspots & & & & \\
 
 Newsgroup posts (edit distance, possibly normalized by length) & & & & \\
 Protein sequences (mPAM metric) & & & & \\
@@ -232,15 +386,15 @@ However, this hides the reliance on $r_{\max}$. As we will be iterating over all
 
 The only difference between the single- and the multiscale MLE is that the latter has a lower bound to its range in addition to an upper bound. Unfortunately this small difference causes the derivation of the MLE to become a great deal less elegant.
 
-We start with the cumulative distribution function as described in the text. We use $r_{i-1} = r_j$ to clear up the notation.
+We start with the cumulative distribution function as described in the text. We use $r_{i-1} = r_h$ tohelp with the notation.
 
 \begin{align*}
-p(d \leq r | d \in [r_{i-1}, r_i)) = \frac{r^{D_i} - {r_{j}}^{D_i}}{{r_i}^{D_i} - {r_{j}}^{D_i}} = \frac{\left(\frac{r}{r_j}\right)^{D_i} - 1}{\left(\frac{r_i}{r_j}\right)^{D_i} - 1}
+p\left(d \leq r \mid r \in \left[r_h, r_i\right)\right) = \frac{r^{D_i} - {r_h}^{D_i}}{{r_i}^{D_i} - {r_{h}}^{D_i}} = \frac{\left(\frac{r}{r_h}\right)^{D_i} - 1}{\left(\frac{r_i}{r_h}\right)^{D_i} - 1}
 \end{align*}
 We take the derivative with respect to $r$ to get the probability density function.
 
 \begin{align*}
-p(d = r | \ldots) = {D_i}r^{D_i-1} \frac{1}{\left(\frac{r_i}{r_j}\right)^{D_i} - 1}
+p(d = r \mid \ldots) = {D_i}r^{D_i-1} \frac{1}{\left(\frac{r_i}{r_j}\right)^{D_i} - 1}
 \end{align*}
 
 This gives us the following log likelihood function:
@@ -256,26 +410,57 @@ Taking the derivative:
 \frac {\partial \ln{\cal L}(R_i|D_i)}{\partial D_i} &=  \frac{|R_i|}{D_i} + \sum \ln r - |R_i| \frac{\left(\frac{r_i}{r_j}\right)^{D_i} \ln \frac{r_i}{r_j}}{\left(\frac{r_i}{r_j}\right)^{D_i} -1}
 \end{align*}
 
-Setting to zero and solving for $D_t$
+Setting to zero gives us.
 
 \begin{align*}
 \frac{|R_i|}{D_i} + \sum \ln r - |R_i| \frac{\left(\frac{r_i}{r_j}\right)^{D_i} \ln \frac{r_i}{r_j}}{\left(\frac{r_i}{r_j}\right)^{D_i} -1} &= 0 \\
-\frac{1}{D_i}  - \frac{\left(\frac{r_i}{r_j}\right)^{D_i} \ln \frac{r_i}{r_j}}{\left(\frac{r_i}{r_j}\right)^{D_i} -1} &= \frac{-\sum \ln r}{|R_i|}
+\frac{1}{D_i}  - \frac{\left(\frac{r_i}{r_j}\right)^{D_i} \ln \frac{r_i}{r_j}}{\left(\frac{r_i}{r_j}\right)^{D_i} -1} - \frac{-\sum \ln r}{|R_i|} &= 0  
 \end{align*}
 
-@! If we pre-normalize $R_i$ we may still get a closed form solution!
+Wehave little hope of solving this for $D_i$, but as shown in lemma \ref{monotonicity}, the left of this equation is strictly decreasing in the range over which we are interested. This allows us to find the value of $D_i$ by binary search as detailed in the main text.
 
-\subsection{Proof of monotonicity}
+In the single-scale case we could normalize the data by scaling the original data, so that the maximum distance would become one. In this case we might be tempted to scale the distances so that we get $r_j' = 0$ and $r_i' = 1$ which would allow us to use the single-scale MLE. Unfortunately this transformation, while linear in the space of the distances does not correspond to an affine transformation of the original data \footnote{Or even a bijective transformation, since it maps all point pairs at distance $r_h$ to points with distance $0$, ie. a single point.}, and does not preserve $D_i$. We must make due with the non-closed form expression of the MLE.
+
+\subsection{Monotonicity of the multi-scale MLE}
 
 The following lemma tells us that the function describing the maximum likelihood estimate for the multiscale case is strictly decreasing over positive values, so that we can search for its root with a simple binary search.
 
 \begin{lma}
+\label{monotonicity}
 The function
 \[
-f(x) = \frac{1}{x} + \frac{\ln(a)}{a^x - 1} + c
+f(x) = \frac{1}{x} + \frac{a^x \ln(a)}{a^x - 1} + c
 \]
-is strictly decreasing for $ x \in [0, \infty)$ and $ a \in [0, 1]$ 
+is strictly decreasing for $ x \in (0, \infty)$ and $ a \in (0, 1)$.
 \end{lma}
+\begin{proof}
+Taking the derivative gives us. 
+
+\[
+f'(x) = -\frac{1}{x^2} + \left [ \frac{\sqrt{a^x}\ln a}{a^x - 1} \right ]^2
+\]
+
+$f$ is stricly decreasing in the given domain if $f'(x) < 0$ holds. Assume for a contradiction that
+\begin{align*}
+-\frac{1}{x^2} + \left [ \frac{\sqrt{a^x}\ln a}{a^x - 1} \right ]^2 \geq 0
+\end{align*}
+Which rewrites to 
+\begin{align*}
+\frac{1}{x}  &\leq \frac{\sqrt{a^x}\ln a}{a^x - 1}
+x  &\geq \frac{a^x - 1}{\sqrt{a^x}\ln a}
+\end{align*}
+We know that $x > 0$ so that 
+\begin{align*}
+0  &> (a^x - 1)\frac{1}{\sqrt{a^x}\ln a}
+\end{align*}
+
+For the conditions stated $a^x < 1$ so that the left factor is negative. $\sqrt{a^x}$ is positive and $\ln a$ negative so that the right factor is negative as well, giving us a contradiction.
+\end{proof}
+
+
 \subsection{Algorithms}
+
+\bibliographystyle{siam}
+\bibliography{dimension}
 
 \end{document}
