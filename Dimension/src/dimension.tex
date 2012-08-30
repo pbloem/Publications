@@ -40,7 +40,7 @@ In the natural sciences, the intrinsic dimension takes the role of the observabl
 \noindent If you are an experimentalist, you try to measure the fractal dimension of things in nature. If you are a theorist, you try to calculate the fractal dimension of of models chosen to describe experimental situations; if there is no agreement then you try another model.
 \end{quotation}
 
-As noted by Stanley, this is only a simplistic view and the study of the dimension of a dataset can also give vital clues to scaling behaviors and critical phenomena in the process from which the data originated. Thus the theorist can not only validate his work by the dimension, but also use it as a guide. When we investigate the notion of dimension more closely we must give up intuitive notion and the only thing we can say is that the gemotry of a set or space produces various power laws related to scaling and that these power laws will usually have the same exponent in common. There is a common intuition in the natural sciences that power law phenomena with the same exponent will likely share some similarity in their underlying components. Thus the dimension can be an important guide in finding the universal principles common to  complex phenomana.
+For this reason, any scientist who deals with fractal phenomena will want to measure dimension, in order to capture those phenomena in meaningful statistics. Examples are biologists studying the emergence of structure, geologists studying the fractal surfaces and outlines of land masses and rock formations or physicists studying the measures of strange attractors.
 
 The fields of machine learning and statistics have their own interest in the notion of dimension. Intrinsic dimension has been shown to be an effective lower bound to the number of features to which a dataset can be reduced without losing information.\cite{kumaraswamy2008fractal} Since many methods and algorithms work faster and more accurately on low dimensional data, dimensionality reduction is an important factor in bringing high dimensional data into the domain of machine learning. The field of manifold learning in particular has succeeded in mapping data in many hundreds of dimensions to low dimensional euclidean spaces\cite{roweis2000nonlinear} and often relies on acurate estimates of intrinsic dimension.\cite{levina2004maximum} 
 
@@ -362,7 +362,7 @@ p(d \leq r | d \leq r_{\max}) = \frac{p(d \leq r)}{p(d \leq r_{\max})} = \frac{C
 We take the derivative (over $r$) to get the probability density function:
 
 \[
-p(d = r | d \leq r_{\max}) = D_t \frac{r^{D_t-1}}{{r_{\max}}^D_t} = D_t \frac{1}{r} \left (\frac{r}{r_{\max}} \right ) ^ {D_t} 
+p(d = r | d \leq r_{\max}) = D_t \frac{r^{D_t-1}}{{r_{\max}}^{D_t}} = D_t \frac{1}{r} \left (\frac{r}{r_{\max}} \right ) ^ {D_t} 
 \]
 
 Let $R$ be the set of distances in the dataset less than $r_{\max}$. The the likelihood of this dataset is
