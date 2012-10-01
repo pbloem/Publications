@@ -1,4 +1,4 @@
-\documentclass[11pt, twocolumn]{article}
+\documentclass[11pt]{article}
 
 \usepackage{charter}
 \usepackage{eulervm}
@@ -24,20 +24,20 @@
 \maketitle
 
 \begin{abstract}
-\noindent Fractals are mathematical objects that display great detail and complexity from a simple description. It has often been suggested that fractals mimic the structures of nature and everyday life better than the shapes of classical geometry \cite{}. These properties make fractals interesting candidates for modeling data. We present an overview of existing concepts that are relevant to this task, and a new algorithm for fitting fractal models to data. 
+\noindent Fractals are mathematical objects that display great detail and complexity despite having simple descriptions. It has often been suggested that fractals mimic the structures of nature and everyday life better than the shapes of classical geometry @! \cite{}. These properties make fractals interesting candidates for modeling data. We present an overview of existing concepts that are relevant to this task, and a new algorithm for fitting fractal models to data. 
 \end{abstract}
 
 
 \section{Preliminaries}
 \subsection{Fractals}
 
-Fractals are mathematical objects (generally sets or measures) with certain remarkable properties. What constitutes a fractal is not precisely defined\footnote{Mandelbrot, who coined the word, originally defined it as a set whose topological dimension differs from its Hausdorff dimension. He later retracted this definition, stated that he preferred the word to be not precisely defined.}, but the following properties are common:
+Fractals are mathematical objects (generally sets or measures) with certain remarkable properties. What constitutes a fractal is not precisely defined\footnote{Mandelbrot originally defined it as a set whose topological dimension differs from its Hausdorff dimension. He later retracted this definition, stating that he preferred the word to be not precisely defined.}, but the following properties are common:
 
 
 \begin{itemize}
   \item Self similarity: A part is a scaled down copy of the whole. See for instance the Sierpinski triangle (fig !@). It consists of three triangular shapes which are scaled down copies of the whole (as such these three components each also consist of scaled down copies of themselves, and so on).
-  \item Infinitely small detail: 'Zooming in' reveals ever finer detail. In the case of the Sierpinski triangle we will simply see the same shape recurring again and again, but fractals like the Mandelbrot set reveal a great variety of detail.
-  \item Non-integer dimension: for instance the Sierpinski triangle has dimension about 1.58. This basic and counter-intuitive fact is not easily explained. It will be discussed in section @!.
+  \item Infinitely small detail: 'Zooming in' reveals ever finer detail. In the case of the Sierpinski triangle we will simply see the same shape recurring again and again, but fractals like the Mandelbrot set reveal a great variety of shapes.
+  \item Non-integer dimension: for instance the Sierpinski triangle has dimension about 1.58. This is a counter intuitive notion, that is not simple to explain. We refer the reader to @! for an intuitive explanation.
 \end{itemize}
 
 The earliest examples of fractals were described around the beginning of the twentieth century as counterexamples to conjectures in planar geometry and mostly considered pathological. It was not until the 1970s that they began to be seen as a single and useful family of mathematical objects that could accurately describe many physical phenomena. [@! Cite mandelbrot] Beno\^it Mandelbrot, commonly regarded as the father of fractal geometry, put it as follows in the \emph{The Fractal Geometry of Nature} [@! cite]:
@@ -47,22 +47,22 @@ The earliest examples of fractals were described around the beginning of the twe
 \noindent Clouds are not spheres, mountains are not cones, coastlines are not circles, and bark is not smooth, nor does lightning travel in a straight line.
 \end{quotation}
 
-Fractal geometry has been used in various forms in fields such as physics @!, biology @! and economics. The first connection between fractals and the natural world was in the form of tangible objetcs such as coast lines, trees or bronchia, but the more hidden aspects of reality were soon shown to have fractal properties as well. The path traced out by the Brownian motion of a particle, the price chart for a commodity or the level of floods in a river delta all benefited from a fractal perspective.
+Fractal geometry has been used in various forms in fields such as physics @!, biology @! and economics. The first connection between fractals and the natural world was in the form of tangible objetcs such as coast lines, trees or bronchia, but the more hidden aspects of reality were soon shown to have fractal properties as well. The path traced out by the Brownian motion of a particle, the price chart for a commodity or the level of floods in a river delta have all been studied as fractals to great effect.
 
-One of the problems of fractal analysis has always been the difficulty of finding a fractal model for a given set of data. The assumption that data contains fractal properties by itself already allows us to calculate certain statistics (such as its dimension), but the various fractal models that have been proposed are difficult to fit to data. This is called the \emph{inverse problem}. Instead of generating an image from a given mathematical description of a fractal (a popular programming exercise) we are asked to consider an image or dataset and find a good fractal model for it.
+One of the problems of fractal analysis has always been the difficulty of finding a fractal model for a given set of data. The assumption that data contains fractal properties by itself already allows us to calculate certain statistics (such as its dimension), but the various families of fractals that have been proposed are difficult to fit to data. This is called the \emph{inverse problem}. Instead of generating an image from a given mathematical description of a fractal (a popular programming exercise) we are asked to consider an image or dataset and find a good fractal model for it.
 
 This problem was investigated thoroughly in the context of image compression, but has received relatively little attention in the area of statistics, and fitting a fractal model to data rather than an image. In particular the case of data in arbitrary dimensions has been left largely uninvestigated.
 
 \section{Methods}
 
-In this paper we focus on numerical data in many dimensions. That is, each instance in our dataset is represented by a fixed number of numerical features. Call our dataset $X$, our instance $x \in X$ and $x \in {\mathbb R}^d$. We will assume that our dataset represents iid draws from a probability distribution over ${\mathbb R}^d$ which we will try to model.
+In this paper we focus on numerical data in many dimensions. That is, each instance in our dataset is represented by a fixed number of numerical features. Call our dataset $X$, our instance $x \in X$ and $x \in {\mathbb R}^d$. We will assume that our dataset represents iid draws from a probability distribution over ${\mathbb R}^d$ which we will attempt to model.
 
 \subsection{Iterated Function Systems}
 
 If we are to fit fractal models to data then the classic examples of single fractals are of little use to us. We require a family of fractals which is easy to  
 parametrize, and likely to generate a large number of organic and useful patterns. We will use the formalism of \emph{Iterated Function Systems} (IFSs) for this purpose. We will briefly review the formalism here. For a more rigorous treament, we recommend [@!cite hutchinson].
 
-Iterated Function Systems are a simple generalization of many of the simpler fractals. Consider the Sierpinski Gasket (fig @!). As noted before, it consists of three scaled down versions of itself. In mathematical terms, if we take the union of three specific transformations applied to the Sierpinski Gasket, we will get the Sierpinski gasket again. The key result in the theory of iterated function systems is that for these three transformations there is only one set that has this property. The three transformations together form a scaling law, and we say the the Sierpinski gasket satisfies the scaling law.
+Iterated Function Systems are a simple generalization of many classic fractals. Consider the Sierpinski Gasket (fig @!). As noted before, it consists of three scaled down versions of itself. In mathematical terms, if we take the union of three specific transformations applied to the Sierpinski Gasket, we will get the Sierpinski gasket again. The key result in the theory of iterated function systems is that for these three transformations there is only one set that has this property. The three transformations together form a scaling law, and we say the the Sierpinski gasket satisfies the scaling law.
 
 If we replace the transformations by others (making sure that they are contractive) the set for which this property holds will still be uniquely determined by the transformations, although it will differ from the Sierpinski gasket. Another helpful property of IFSs is that when we start with a different set, and we apply the transformations iteratively, the resulting sequence of sets will converge towards the unique single set that satisfies the scaling law.
 
@@ -104,7 +104,7 @@ The method described below can easily be extended to other families of transform
 
 For various reasons, it can be useful to generate a set of points drawn from an IFS probability distribution. The most common method to achieve this is known as the \emph{chaos game}. The algorithm is simple: we start with some initial point $x_0$ we choose a random component $S_i$ from the IFS (so that $S_i$ is chosen with probability $w_i$) and and let $x_1 = S_i(x_0)$. We iterate this process and discard the first 50 or so points. The rest of the sequence $x_n$ can be used as a set of points drawn from the IFS.
 
-It should be mentioned that the points generated in this way are not independently drawn. Any two succesive points in the sequence will satisfy the relation $x_{n+1} = S_i(x_{n})$. This is not true for two independently drawn points. For our experiments we generate a sequence and then shuffle the data to remove this dependency where it is relevant.
+It should be mentioned that the points generated in this way are not independently drawn. Any two succesive points in the sequence will satisfy the relation $x_{n+1} = S_i(x_{n})$. This is not true for two independently drawn points. For our experiments we generate a sequence and then shuffle the data to remove this dependency where it is undesirable.
 
 \subsection{Code space}
 
@@ -119,11 +119,11 @@ S_\sigma(X) = x_\sigma
 \] 
 That is, the sequence of functions maps each $X$ to a unique point $x_\sigma$. In the case of probability measures, every probability measure is mapped to a probability measure that gives $x_\sigma$ full probability mass.
 
-We will require the inverse process of this. Given a point on or near the support of some IFS, we wish to find $\sigma$. To this end we start with the standard normal multivariate distribution and apply all maps $S_\sigma$ for all $\sigma$ of a given lentgh $k$. The $\sigma$ with the greatest probability is used as a code for the point.
+We will require the inverse process: given a point on or near the support of some IFS, we wish to find $\sigma$. To this end we start with the standard normal multivariate distribution and apply all maps $S_\sigma$ for all $\sigma$ of a given lentgh $k$. The $\sigma$ with the greatest probability is used as a code for the point.
 
 Since the variance of the distribution drops off exponentially this method will fail if points are to far off the support of the IFS (even if logarithmic probabilities are used). To increase the range of the method we fall back on the distance from the point to the mean of the distribution. If the first method cannot distinguish between codes, we chose the code whose probability distribution has its mean closest to the point.
 
-We should provide some caution about the use of the codes, as the ordering is often reversed from what our intuition suggests. If we number the three components of the Sierpinski triangle clockwise 0, 1 and 2, we might number a small section of the triangle by first moving into a one of the large subsections 2, then into one of the subsections of subsection 1 and then into subsection 0 of that. Intuitively, this is the most natural way of coding sections of the Sierpinski triangle. [@! fig]
+A word of caution on codes is appropriate: the ordering is often reversed from what our intuition suggests. If we number the three components of the Sierpinski triangle clockwise 0, 1 and 2, we might number a small section of the triangle by first moving into a one of the large subsections 2, then into one of the subsections of subsection 1 and then into subsection 0 of that. Intuitively, this is the most natural way of coding sections of the Sierpinski triangle. [@! fig]
 
 If we wish to map the whole triangle to this subset, we must reverse the codes: the transformation that maps to the smallest subsection must be applied first. The sequence of transformations which will map the whole triangle into the required subspace is:
 \[
@@ -131,21 +131,21 @@ S_0(S_1(S_2(x)))
 \]
 and its code $\sigma$ is thus $(0, 1, 2)$. If we wish to travel into the Sierpinski gasket by this code, we must read it right-to-left.
 
-We also note that when we use a simple IFS as a model for the codes---such as the two component IFS that maps the interval $[0,1]$ onto its lower and upper half, or the four component IFS that maps the unit square onto its four quarters---its codes coincide with commonly used spatial indexing functions and string based construction for the continuum. In this sense we can see the iterated function system as covering a subspace of ${\mathbb R}^d$ and the codes as describing a kind of metric that is intrinsic to the data rather than the embedding space.
+We also note that when we use a simple IFS as a model for the codes---such as the two component IFS that maps the interval $[0,1]$ onto its lower and upper half, or the four component IFS that maps the unit square onto its four quarters---its codes coincide with commonly used spatial indexing functions and string-based constructions for the continuum. In this sense we can see the iterated function system as covering a subspace of ${\mathbb R}^d$ and the codes as describing a kind of metric that is intrinsic to the data rather than the embedding space.
 
 \subsection{Dimension}
 
-The curse of dimensionality is a blanket term for many effects related the analysis of high dimensional data. The main cause of these problems is that as dimensionality increases, the volume of a subspace (such as the unit ball) increases exponentially with it. This means, for instance, that vast amounts of samples are required to maintain the same level of coverage in a high dimensional space as in a low dimensional one. 
+The curse of dimensionality is a blanket term for many effects related the analysis of high dimensional data. The main cause of these problems is that as dimensionality increases, the volume of a subspace (such as the unit ball) increases exponentially with it. This means, for instance, that vast amounts of samples are required to maintain the same level of coverage in a high dimensional space as compared to a low dimensional one. 
 
-The solution to many of these problems is that while the data has a high-dimensional representation, it has a lopw intrinsic dimension. That is, it can be mapped to a low dimensional space without any oss of information.
+The solution to many of these problems is that while the data has a high-dimensional representation, it has a low intrinsic dimension. That is, it can be mapped to a low dimensional space without any loss of information.
 
 IFSs have a particular advantage over classical models like Gaussian mixtures in that they can vary their intrinsic dimension over the whole range of positive reals.
 
-Whe measure the dimension of datasets and data generated from models using Takens' estimator:
+We measure the dimension of datasets and data generated from models using Takens' estimator:
 \[
 D(d_{\mbox{max}}) = -\frac{|A|}{\sum_{a \in A} \ln a} 
 \]
-Where $A$ is the set of distances between pairs of data points lower than parameter $d_{\mbox{max}}$. We choose $d_{\mbox{max}}$ as the value that produces the lowest Kolmogorov Smirnov statistic with the probability distribution underlying the Takens estimator. This method is based on the work for general power laws in @! and is detailed in @!.
+Where $A$ is the set of distances between pairs of data points lower than parameter $d_{\mbox{max}}$. We choose $d_{\mbox{max}}$ as the value that produces the lowest Kolmogorov Smirnov statistic with the probability distribution underlying the Takens estimator. This method is based on the work for general power laws in @! and is detailed in @! (to be published).
 
 \subsection{Evaluating models}
 
@@ -229,13 +229,13 @@ We tackle this problem by finding the MVN for both sets. Ideally we would then e
 
 The algorithm as described above does not give us a way to retrieve the component weights. For the coding step we already take the weights into accounts, so the only thing we must do is retrieve them from the coded dataset. 
 
-If we have a collection of points $X_\sigma$ with code $\sigma$ and a collection of points $X_\tau$ with code $\tau$ such that $S_i$ should satisfy $S_i(x_\sigma) = x_\tau$, we know that if we generate the IFS model, $w_i$ of the probability mass at stage $t$ always gets distributed to component $S_i$ for stage $t + 1$. thus we can expect the relative size of these sets to follow $w_i$: $|X_\tau| = w_i |X_\sigma|$. Over all such sets $X_\sigma^j$ and $X_\tau^j$ we must minimize the squared error:
+If we have a collection of points $X_\sigma$ with code $\sigma$ and a collection of points $X_\tau$ with code $\tau$ such that $S_i$ should satisfy $S_i(x_\sigma) = x_\tau$, we know that if we generate the IFS model, $w_i$ of the probability mass at stage $t$ always gets distributed to component $S_i$ for stage $t + 1$. Thus we can expect the relative size of these sets to follow $w_i$: $|X_\tau| = w_i |X_\sigma|$. Over all such sets $X_\sigma^j$ and $X_\tau^j$ we must minimize the squared error:
 \[
-\overline{w_i} = \argmin_{w_i} \sum_{j} \left( |X_\sigma^j| - w_i |X_\tau^j| \right)^2
+\overline{w_i} = \argmin_{w_i} \sum_{j} \left( |X_\tau^j| - w_i |X_\sigma^j| \right)^2
 \]
 This works out as 
 \[
-\overline{w_i} = \frac{\sum_{j}|X_\sigma^j||X_\tau^j|}{2\sum_{j}|X_\tau^j|^2}
+\overline{w_i} = \frac{\sum_{j}|X_\sigma^j||X_\tau^j|}{\sum_{j}|X_\sigma^j|^2}
 \]
 
 \subsubsection{Edge cases}
@@ -264,7 +264,51 @@ Finally, we expect that the codes described in section @! are of actual use outs
 
 Finally we give some indication of the time performance of the algorithm.
 
-\subsection{Dimension scaling}
+\subsection{Datasets}
+
+\begin{description}
+  \item[forest]
+  \item[census]
+  \item[abalone]
+\end{description}
+
+\subsection{Model fitting and dimension scaling}
+
+First, we fit IFS models to our datasets (ignoring the class information). We report the Haussdorff distance of a sample of 1000 points from the data to 1000 points generated by the model (we consider the iris dataset to be too small for this purpose). For this test we test on a random 25\% of the data and repeat the experiment 20 and report the sample standard deviation and the mean.
+
+We are also interested in the dimensional scaling of the model. In this case we are interested in the training behavior of the model, so we do not withhold test data. We measure the dimension of the dataset on a random sample of 300 points (repeating 20 times to estimate the sample standard deviation) and generate 300 points from the best model and measure the dimension in the same way, taking the standard deviation over 20 separately trained models, so that it represents the combined uncertainty over training the model and estimating dimension.
+
+In all cases we train the model for 300 generations and select the best model by Hausdorff distance. 
+
+\begin{table}
+\begin{tabular}{l | r r r r | r |}
+\hline
+ & ifs1 & ifs3 & ifs5 & ifs7 & mog \\
+\hline
+census & 0.02 (0.04, 80) & & & & \\
+forest & & & & & \\
+abalone & & & & & \\
+\hline
+
+\end{tabular}
+\caption{Hausdorff distances for models trained against various datasets.}
+\label{tablelabel}
+\end{table}
+
+\begin{table}
+\begin{tabular}{l | r r r r r | r |}
+\hline
+  & dim & ifs1 & ifs3 & ifs5 & ifs7 & mog \\
+\hline
+census & 3.2 (0.2) & 2.9 (0.45) & & & & \\
+forest &  & & & & & \\
+abalone & &  & & & & \\
+\hline
+
+\end{tabular}
+\caption{Hausdorff distances for models trained against various datasets.}
+\label{tablelabel}
+\end{table}
 
 \subsection{Classification}
 
