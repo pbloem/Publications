@@ -12,7 +12,7 @@
 
 \DeclareMathOperator*{\argmin}{arg\,min}
 
-\title{Fractal Modeling}
+\title{Fractal Modeling for Machine Learning}
 \date{\today}
 
 % non-indented, spaced paragraphs
@@ -24,15 +24,13 @@
 \maketitle
 
 \begin{abstract}
-\noindent Fractals are mathematical objects that display great detail and complexity despite having simple descriptions. It has often been suggested that fractals mimic the structures of nature and everyday life better than the shapes of classical geometry @! \cite{}. These properties make fractals interesting candidates for modeling data. We present an overview of existing concepts that are relevant to this task, and a new algorithm for fitting fractal models to data. 
+\noindent We present a new algorithm for fitting fractals to data. We use this algorithm to investigate the use of fractal models in a machine learning context. Fractals are mathematical objects that display great detail and complexity despite having simple descriptions. It has often been suggested that fractals model many natural and other real-world structures better than the shapes of classical geometry \cite{mandelbrot1982fractal}.
 \end{abstract}
 
 
-\section{Preliminaries}
-\subsection{Fractals}
+\section{Introduction}
 
-Fractals are mathematical objects (generally sets or measures) with certain remarkable properties. What constitutes a fractal is not precisely defined\footnote{Mandelbrot originally defined it as a set whose topological dimension differs from its Hausdorff dimension. He later retracted this definition, stating that he preferred the word to be not precisely defined.}, but the following properties are common:
-
+Fractals are mathematical objects (generally sets or measures) with certain remarkable properties. What constitutes a fractal is not precisely defined\footnote{Mandelbrot originally defined it as a set whose topological dimension differs from its Hausdorff dimension, but retracted this definition, stating that he preferred the word to be not precisely defined.}, but the following properties are common:
 
 \begin{itemize}
   \item Self similarity: A part is a scaled down copy of the whole. See for instance the Sierpinski triangle (fig !@). It consists of three triangular shapes which are scaled down copies of the whole (as such these three components each also consist of scaled down copies of themselves, and so on).
@@ -40,63 +38,69 @@ Fractals are mathematical objects (generally sets or measures) with certain rema
   \item Non-integer dimension: for instance the Sierpinski triangle has dimension about 1.58. This is a counter intuitive notion, that is not simple to explain. We refer the reader to @! for an intuitive explanation.
 \end{itemize}
 
-The earliest examples of fractals were described around the beginning of the twentieth century as counterexamples to conjectures in planar geometry and mostly considered pathological. It was not until the 1970s that they began to be seen as a single and useful family of mathematical objects that could accurately describe many physical phenomena. [@! Cite mandelbrot] Beno\^it Mandelbrot, commonly regarded as the father of fractal geometry, put it as follows in the \emph{The Fractal Geometry of Nature} [@! cite]:
+The earliest examples of fractals were described around the beginning of the twentieth century as counterexamples to conjectures in planar geometry and mostly considered pathological. It was not until the 1970s that they began to be seen as a single and useful family of mathematical objects that could accurately describe many physical phenomena. Beno\^it Mandelbrot, commonly regarded as the father of fractal geometry, put it as follows in the \emph{The Fractal Geometry of Nature} \cite{mandelbrot1982fractal}:
 
 \begin{quotation}
 \small
 \noindent Clouds are not spheres, mountains are not cones, coastlines are not circles, and bark is not smooth, nor does lightning travel in a straight line.
 \end{quotation}
 
-Fractal geometry has been used in various forms in fields such as physics @!, biology @! and economics. The first connection between fractals and the natural world was in the form of tangible objetcs such as coast lines, trees or bronchia, but the more hidden aspects of reality were soon shown to have fractal properties as well. The path traced out by the Brownian motion of a particle, the price chart for a commodity or the level of floods in a river delta have all been studied as fractals to great effect.
+Fractal geometry has been used in many fields, including physics @! \cite{}, geology \cite{cheng1997multifractal}, biology \cite{goldberger1992fractal} and economics \cite{turiel2003multifractal}. The first connection between fractals and the natural world was in the form of tangible objects such as coast lines, trees or bronchia, but the more hidden aspects of reality were soon shown to have fractal properties as well. The path traced out by the Brownian motion of a particle, the price chart for a commodity or the level of floods in a river delta have all been studied as fractals to great effect.
 
-One of the problems of fractal analysis has always been the difficulty of finding a fractal model for a given set of data. The assumption that data contains fractal properties by itself already allows us to calculate certain statistics (such as its dimension), but the various families of fractals that have been proposed are difficult to fit to data. This is called the \emph{inverse problem}. Instead of generating an image from a given mathematical description of a fractal (a popular programming exercise) we are asked to consider an image or dataset and find a good fractal model for it.
+The main problem with fractal analysis has always been the difficulty of finding a fractal model for a given set of data. The assumption that data contains fractal properties by itself already allows us to calculate certain statistics (such as its dimension), but the various families of fractals that have been proposed are difficult to fit to data. This is called the \emph{inverse problem}. Instead of generating an image or dataset from a given mathematical description of a fractal, we are asked to consider an image or dataset and find a good fractal model for it.
 
 This problem was investigated thoroughly in the context of image compression, but has received relatively little attention in the area of statistics, and fitting a fractal model to data rather than an image. In particular the case of data in arbitrary dimensions has been left largely uninvestigated.
 
+\subsection{Previous research}
+[@! Review the literature that does exist]
+
 \section{Methods}
 
-In this paper we focus on numerical data in many dimensions. That is, each instance in our dataset is represented by a fixed number of numerical features. Call our dataset $X$, our instance $x \in X$ and $x \in {\mathbb R}^d$. We will assume that our dataset represents iid draws from a probability distribution over ${\mathbb R}^d$ which we will attempt to model.
+In this paper we focus on numerical data an arbitrary number of dimensions. Each instance in our dataset is represented by a fixed number of numerical features. Call our dataset $X$, our instance $x \in X$ and $x \in {\mathbb R}^d$. We will assume that our dataset represents iid samples from a probability distribution over ${\mathbb R}^d$ which we will attempt to model.
 
 \subsection{Iterated Function Systems}
 
-If we are to fit fractal models to data then the classic examples of single fractals are of little use to us. We require a family of fractals which is easy to  
-parametrize, and likely to generate a large number of organic and useful patterns. We will use the formalism of \emph{Iterated Function Systems} (IFSs) for this purpose. We will briefly review the formalism here. For a more rigorous treament, we recommend [@!cite hutchinson].
+If we are to fit fractal models to data then we require a family of fractals which is easy to parametrize, and likely to encompass a large number of organic and useful patterns. We will use the formalism of \emph{Iterated Function Systems} (IFSs) for this purpose. 
 
-Iterated Function Systems are a simple generalization of many classic fractals. Consider the Sierpinski Gasket (fig @!). As noted before, it consists of three scaled down versions of itself. In mathematical terms, if we take the union of three specific transformations applied to the Sierpinski Gasket, we will get the Sierpinski gasket again. The key result in the theory of iterated function systems is that for these three transformations there is only one set that has this property. The three transformations together form a scaling law, and we say the the Sierpinski gasket satisfies the scaling law.
+Since the aim of this paper is to present our induction algorithm and to introduce IFS models to a machine learning context, we will provide only an informal treatment of the properties of IFSs that are already well established. For a more rigorous treatment, we recommend \cite{hutchinson2000deterministic} and the references therein.
 
-If we replace the transformations by others (making sure that they are contractive) the set for which this property holds will still be uniquely determined by the transformations, although it will differ from the Sierpinski gasket. Another helpful property of IFSs is that when we start with a different set, and we apply the transformations iteratively, the resulting sequence of sets will converge towards the unique single set that satisfies the scaling law.
+Iterated Function Systems are a simple generalization of many classic fractals. Consider the Sierpinski Gasket (fig @!). As noted before, it consists of three scaled down versions of itself. In mathematical terms, if we view the Sierpinski gasket as a set in ${\mathbb R}^2$ and take the union of three specific transformations applied to it, we will get the Sierpinski gasket again. The key result in the theory of iterated function systems is that for these three transformations there is only one set that has this property. The three transformations together form a scaling law, and we say the the Sierpinski gasket satisfies the scaling law.
 
-We will use the following notation. Let $S_1$, $S_2$, \ldots, $S_n$ be a set of contractive transformations, then there exists a single set $K$ that satisfies the following property:
+We will use the following notation. Let $S_1$, $S_2$, \ldots, $S_n$ be a set of contractive transformations on ${\mathbb R}^d$. (We will later limit the family of allowable functions, but from a mathematical point of view we only require them to be contractive). There exists a single set $Q$ that satisfies the following property:
+\begin{align}
+Q = S_1(Q) \cup S_2(Q) \cup \ldots \cup S_k(Q) \label{scaling law}
+\end{align}
+
+We call $\{S_i\}$ a \textit{scaling law}, and we say that $Q$ satisfies it.
+ 
+If we apply the transformations $S_i$ to a set $X$ that doesn't satisfy the scaling law (and take the union of the results), we get a different set $X'$. Call this function $S$: $S(X) = \bigcup S_i(X)$. One of the core results about IFSs is that when we iterate $S$ as $S^{n+1}(X) = S(S^n(X))$, then we get 
 \[
-K = S_1(K) \cup S_2(K) \cup \ldots \cup S_n(K)
-\] 
-
-If we consider the property a function of set $X \subseteq {\mathbb R}^d$: $S(X) = \bigcup S_i(X)$ with and we iterate the function $S^{n+1}(X) = S(S^n(X))$, then we have 
-\[
-\lim_{n \rightarrow \infty} S^n{X_0} = K
+\lim_{n \rightarrow \infty} S^n(X_0) = Q
 \]
-With $X_0$ any non-empty set and $K$ the unique set that satisfies $S$'s scaling law.
+With $X_0$ any non-empty set and $Q$ the unique set that satisfies the scaling law $\{S_i\}$.
 
-Of course, in statistics, we are usually interested in finding probability distributions rather than sets. The IFS formalism can be extended to measures in a natural way. First, we must extend the concept of a map to measures. Let $p$ be some probability measure over ${\mathbb R}^d$ and $F:{\mathbb R}^d \rightarrow {\mathbb R}^d$ be some map on ${\mathbb R}^d$. Then we define the mapping of $p$ by $F$ as:
+Of course, in statistics, we are interested in finding probability distributions rather than sets. The IFS formalism can be extended to measures in a natural way. First, we must extend the concept of a map to measures. Let $p$ be some probability measure over ${\mathbb R}^d$ and $F:{\mathbb R}^d \rightarrow {\mathbb R}^d$ be some map on ${\mathbb R}^d$. Then we define the mapping of $p$ by $F$ as:
 \[
 (F(p))(X) = v(F^{-1}(X))
 \]
-So if $p$ is a probability measure, then $F(p)$ is a probability measure as well, which assigns $X$ the same probability as $p$ would assign to $F^{-1}(X)$, where $F^{-1}$ is the inverse of $F$.
+So if $p$ is a probability measure, then $F(p)$ is also a probability measure and $F(p)$ assigns $X$ the same probability as $p$ would assign to $F^{-1}(X)$, where $F^{-1}$ is the inverse of $F$.
 
-Our IFS over probability measures is made up, as before, of $n$ transformations, but here we also introduce $n$ weights $w_i$ with the constraint that they sum to one. The full scaling law then becomes
+Our IFS over probability measures consists, as before, of $k$ transformations, but here we also introduce $k$ weights $w_i$ with the constraint that they sum to one. Let $q$ be a probability distribution and $S = \{(S_i, w_i)\}$ be a scaling law. We say that $q$ satifies $S$ iff:
 \[
-k(X) = \sum_{i\in[1, n]} w_i S_i(k)(X)
+q(X) = \sum_{i\in[1, k]} w_i S_i(q)(X)
 \] 
 
-As before, there is a unique probability measure that satisfies this scaling law, and if we use the scaling law as a function on probability measures:
-\[
-p = \sum w_i S_i(p)
-\]
-the iteration of this function will converge to the unique value $k$ as described above.
+As before q is uniquely defined by $S$. If we apply the transformations and weights to a different probability distribution iteratively, we get a sequence which converges to $q$:
+\begin{align*}
+p_{n+1} &= \sum w_i S_i(p_n) \\
+\lim_{n \rightarrow \infty} p_n &= q 
+\end{align*}
+
+This type of IFS is what we will use as a formalism for modeling datasets with fractals.
 
 \subsection{Representing IFSs}
 
-As discussed, an IFs is completely determined by its component transformations and their weights. The definition does not specify any kind of transformation, to make fitting IFSs to data feasible we must fix a family of transformations. For the purposes of this paper we will use similarities (also known as similitudes), transformations consisting of a translation, a rotation and a uniform scaling.
+As discussed, an IFS is completely determined by its component transformations and their weights. The definition does not specify any kind of transformation, so to make fitting IFSs to data feasible we must fix a family of transformations which we can search. For the purposes of this paper we will use \emph{similarities} (also known as \emph{similitudes}): maps on ${\mathbb R}^d$ consisting of a translation, a rotation and a uniform scaling.
 
 The method described below can easily be extended to other families of transformations such as affine transformations or neural networks. The only requirement is that we must have some way of finding a transformation $F$ given two ordered point sets ${x_i}, {y_i} \subseteq {\mathbb R}^d$ so that $|F(x_i) - y_i|$ is minimized. For similarities there is a direct and optimal method. [@! cite]
 
@@ -104,11 +108,15 @@ The method described below can easily be extended to other families of transform
 
 For various reasons, it can be useful to generate a set of points drawn from an IFS probability distribution. The most common method to achieve this is known as the \emph{chaos game}. The algorithm is simple: we start with some initial point $x_0$ we choose a random component $S_i$ from the IFS (so that $S_i$ is chosen with probability $w_i$) and and let $x_1 = S_i(x_0)$. We iterate this process and discard the first 50 or so points. The rest of the sequence $x_n$ can be used as a set of points drawn from the IFS.
 
-It should be mentioned that the points generated in this way are not independently drawn. Any two succesive points in the sequence will satisfy the relation $x_{n+1} = S_i(x_{n})$. This is not true for two independently drawn points. For our experiments we generate a sequence and then shuffle the data to remove this dependency where it is undesirable.
+It should be mentioned that the sequence of points generated this way dos not represent a sequence of independent draws. Any two successive points in the sequence will satisfy the relation $x_{n+1} = S_i(x_{n})$ for some $i$. This is not true for two independently drawn points. For our experiments we generate a sequence and then shuffle the data to remove this dependency where it is undesirable.
+
+A more correct (and more expensive) way to generate random data from an IFS is to start with a draw from some initial distribution (eg. a multivariate normal) and apply $n$ transformations randomly chosen from $S$. The distribution of the resulting random variable will converge to $S$ with $n$. For multiple points the process can be repeated. This process adds a factor of $n$ to the time complexity of the chaos game, so it is not commonly used. 
 
 \subsection{Code space}
 
-Let $(\sigma_i)$ be a sequence with $\sigma_i \in [1, n]$ for some IFS $S$ with $n$ components. We can compose the components of the IFS acording to the elements of $\sigma$. Call this function $S_sigma$:
+[@! picture]
+
+Let $(\sigma_i)$ be a sequence with $\sigma_i \in [1, n]$ for some IFS $S$ with $n$ components. We can compose the components of the IFS acording to the elements of $\sigma$. Call this function $S_\sigma$:
 \[
 S_\sigma = S_{\sigma_1} \circ S_{\sigma_2} \circ \ldots \circ S_{\sigma_m}
 \]
@@ -117,43 +125,30 @@ Since each $S_i$ is contractive, we can let the length of $\sigma$ go to infinit
 \[
 S_\sigma(X) = x_\sigma  
 \] 
-That is, the sequence of functions maps each $X$ to a unique point $x_\sigma$. In the case of probability measures, every probability measure is mapped to a probability measure that gives $x_\sigma$ full probability mass.
+That is, the sequence of functions maps each $X$ to a unique point $x_\sigma$. In the case of probability measures, every probability measure is mapped to a probability measure that gives the single point $x_\sigma$ full probability mass. Figure [@!] illustrates the concept, an Iterated Function System assigns a code to each point on its support. Finite codes map to subsets of the support. Since the size of the subsets decreases exponentially we can talk about the endpoint of a finite coee without losing much accuracy. We will take the point to which the origin is mapped by $S_\sigma$ as the canonical choice of the endpoint of finite $\sigma$.
 
-We will require the inverse process: given a point on or near the support of some IFS, we wish to find $\sigma$. To this end we start with the standard normal multivariate distribution and apply all maps $S_\sigma$ for all $\sigma$ of a given lentgh $k$. The $\sigma$ with the greatest probability is used as a code for the point.
+Finding the endpoint for given code is straightforward, but we will also require the inverse process: given a point $x$ on or near the support of some IFS, we wish to find $\sigma$. To this end we start with the standard normal multivariate distribution and apply all maps $S_\sigma$ for all $\sigma$ of a given length $l$ giving us a set of $k^l$ normal distributions. The $\sigma$ which assigns $x$ the greatest probability is chosen.
 
-Since the variance of the distribution drops off exponentially this method will fail if points are to far off the support of the IFS (even if logarithmic probabilities are used). To increase the range of the method we fall back on the distance from the point to the mean of the distribution. If the first method cannot distinguish between codes, we chose the code whose probability distribution has its mean closest to the point.
+Since the variance of the distribution drops off exponentially as the length $l$ is increased, this method will fail if points are too far off the support of the IFS (even if logarithmic probabilities are used). To increase the range of the method we fall back on the distance from the point to the mean of the distribution. If the first method cannot distinguish between codes, we choose the code whose probability distribution has its mean closest to the point.
 
-A word of caution on codes is appropriate: the ordering is often reversed from what our intuition suggests. If we number the three components of the Sierpinski triangle clockwise 0, 1 and 2, we might number a small section of the triangle by first moving into a one of the large subsections 2, then into one of the subsections of subsection 1 and then into subsection 0 of that. Intuitively, this is the most natural way of coding sections of the Sierpinski triangle. [@! fig]
+A word of caution on codes is appropriate: the ordering is often the reverse of what our intuition suggests. If we number the three components of the Sierpinski triangle clockwise from the top 0, 1 and 2, we might number a small section of the triangle by first moving into the top subtriangle (applying transformation 0), then into the left subtriangle (2) of that and then into the right subtriangle (1) of that. Intuitively, this is the most natural way of coding sections of the Sierpinski triangle. [@! fig]
 
 If we wish to map the whole triangle to this subset, we must reverse the codes: the transformation that maps to the smallest subsection must be applied first. The sequence of transformations which will map the whole triangle into the required subspace is:
 \[
 S_0(S_1(S_2(x)))
 \]
-and its code $\sigma$ is thus $(0, 1, 2)$. If we wish to travel into the Sierpinski gasket by this code, we must read it right-to-left.
+so its code $\sigma$ is $(0, 1, 2)$. If we wish to `travel into' the Sierpinski gasket by this code, we must read it right-to-left.
 
-We also note that when we use a simple IFS as a model for the codes---such as the two component IFS that maps the interval $[0,1]$ onto its lower and upper half, or the four component IFS that maps the unit square onto its four quarters---its codes coincide with commonly used spatial indexing functions and string-based constructions for the continuum. In this sense we can see the iterated function system as covering a subspace of ${\mathbb R}^d$ and the codes as describing a kind of metric that is intrinsic to the data rather than the embedding space.
+Finally, we wish to note that a line segment, the square, the cube and higher dimensional analogues can be represented as simple IFSs of $2^d$ components. For instance, for the unit line, we map the whole onto its lower and upper half with two components. The codes of this IFS are binary strings and the subsets they code are the diadic intervals. For the square, we can map the whole onto each one of its quadrants and get quaternary codes. Using this mechanism we can always map any dataset into the bi-unit hypercube and find a straightforward coding fot the instances in $2^d$-ary codes. What fractal fitting offers us is a potential for a subspace that fits the data more compactly and gives us a good code of lower arity.
 
-\subsection{Dimension}
-
-The curse of dimensionality is a blanket term for many effects related the analysis of high dimensional data. The main cause of these problems is that as dimensionality increases, the volume of a subspace (such as the unit ball) increases exponentially with it. This means, for instance, that vast amounts of samples are required to maintain the same level of coverage in a high dimensional space as compared to a low dimensional one. 
-
-The solution to many of these problems is that while the data has a high-dimensional representation, it has a low intrinsic dimension. That is, it can be mapped to a low dimensional space without any loss of information.
-
-IFSs have a particular advantage over classical models like Gaussian mixtures in that they can vary their intrinsic dimension over the whole range of positive reals.
-
-We measure the dimension of datasets and data generated from models using Takens' estimator:
-\[
-D(d_{\mbox{max}}) = -\frac{|A|}{\sum_{a \in A} \ln a} 
-\]
-Where $A$ is the set of distances between pairs of data points lower than parameter $d_{\mbox{max}}$. We choose $d_{\mbox{max}}$ as the value that produces the lowest Kolmogorov Smirnov statistic with the probability distribution underlying the Takens estimator. This method is based on the work for general power laws in @! and is detailed in @! (to be published).
 
 \subsection{Evaluating models}
 
 The standard way of evaluating the fit of a model to a dataset is the likelihood of the model given the data. This is often used in optimization algorithms for fitting probability models to data. In the case of fractal models, the likelihood function has an important drawback. 
 
-Consider a dataset drawn from the Sierpinski gasket with a minute amount of two dimensional noise added. Since the Sierpinski gasket has dimension less than two, the probability that the point will still fall within the Sierpinski gasket will be zero. Thus all points will have probability zero under the Sierpinski gasket and its likelihood will be zero. Intuitively, the Sierpinski gasket is a good model for this data (since the noise term can be made arbitarily small).
+Consider a dataset drawn from the Sierpinski gasket with a minute amount of two dimensional noise added. Since the Sierpinski gasket has dimension less than two, the probability that the point will still fall within the Sierpinski gasket will be zero. Thus all points will have probability zero under the Sierpinski gasket and its likelihood will be zero. Intuitively, the Sierpinski gasket is a good model for this data.
 
-For this reason we will often use the Hausdorff distance to evaluate our models. The Hausdorff $H(X, Y)$ distance between two sets $X$ and $Y$ is defined as follows:
+For this reason we will often use the Hausdorff distance to evaluate our models. The Hausdorff distance  $H(X, Y)$ between two sets $X$ and $Y$ is defined as follows:
 \[ 
 H'(X, Y) = \max_{x\in X} \min_{y\in Y} d(x, y) 
 \]
@@ -162,13 +157,31 @@ H(X, Y) = \max\left \{H(X, Y), H(Y, X)\right\}
 \]
  (for infinite sets the $\max$ and $\min$ functions should be replaced with $\sup$ and $\inf$)
  
-The most intuitive way of understanding the Hausdorff distance is as a game where player one must get from one set to the other in as small a distance as possible, and the the second player will choose his starting point to maximize that distance.
+The most intuitive way of understanding the Hausdorff distance is as a game where the first player must get from one set to the other in as small a distance as possible, and the second player will choose his starting point to maximize that distance.
 
-Hausdorff distance is a common tool in dealing with the fractal inverse problem [@! cite]. We will use it to evaluate an IFS model by generating a number of points from the model and calculating the Hausdorff distance of that set to the model. Since the Hausdorff distance has not been substantiated as a statistical measure, we can only use it as an intermediate indication of model quality. 
+Hausdorff distance is a common tool in dealing with the fractal inverse problem [@! cite]. We will use it to evaluate an IFS model by generating a number of points from the model and calculating the Hausdorff distance of that set to the model. Since the Hausdorff distance has not been substantiated as a statistical measure, we can only use it as an intermediate indication of model quality. To prove the utility of IFS models we will use them to solve three classical machine learning problems (classification, dimension reduction and clustering).
+
+We estimate the uncertainty in the estimate of the Hausdorff distance by repeating the process $50$ times and calculating the sample standard deviation. 
+
+\subsection{Dimension}
+
+The curse of dimensionality is a blanket term for many effects related the analysis of high dimensional data. The main cause of these problems is that as dimensionality increases, the volume of a subspace (such as the unit ball) increases exponentially with it. This means, for instance, that vast amounts of samples are required to maintain the same level of coverage in a high dimensional space as compared to a low dimensional one. 
+
+The solution to many of these problems is that while the data has a high-dimensional representation, it has a low intrinsic dimension. That is, it can be mapped to a low dimensional space without any loss of information. A simple example is that of all points lying on a line in some high dimensional space. 
+
+IFSs have a particular advantage over classical models like Gaussian mixtures: their intrinsic dimension varies over the whole range of positive reals. A search through the space of IFSs can return models of any dimension.
+
+We measure the dimension of datasets and data generated from models using Takens' estimator:
+\[
+D(d_{\mbox{max}}) = -\frac{|A|}{\sum_{a \in A} \ln a} 
+\]
+Where $A$ is the set of distances between pairs of data points lower than parameter $d_{\mbox{max}}$. We choose $d_{\mbox{max}}$ as the value that produces the lowest Kolmogorov Smirnov statistic with the probability distribution underlying the Takens estimator. This method is based on the work for general power laws in @! and is detailed in @! (to be published). 
+
+We estimate the uncertainty of this estimate as follows: bootstrap a version of the dataset by sampling to the same size with replacement, and estimate the dimension of that dataset. We repeat the process 50 times and take the sample standard deviation as an estimate of the uncertainty.
 
 \subsection{Analogous model: Mixture of Gaussians}
 
-To study the IFS as a statistical model, it helps to have an anlogous model to compare it with. We use the Mixture of Gaussians (MoG) model. This model consists of $n$ multivariate Gaussians over ${\mathbb R}^d$ each represented by a mean $\mu \in {\mathbb R}^D$ and a $d \times d$ covariance matrix $\Sigma$. Each component also has a prior $w_i$. The complete model described the following probability distribution:
+To study the IFS as a statistical model, it helps to have a commonly used analogous model to compare it with. We use the Mixture of Gaussians (MoG) model. This model consists of $n$ multivariate Gaussians over ${\mathbb R}^d$ each represented by a mean $\mu \in {\mathbb R}^D$ and a $d \times d$ covariance matrix $\Sigma$. Each component also has a prior $w_i$. The complete model describes the following probability distribution:
 \[
 p(X) = \sum_{i \in [1,n]} w_i N(x|\mu_i, \Sigma)
 \]
@@ -202,9 +215,9 @@ Given these codes it's a relatively simple matter to find which points maps to w
 
 \begin{itemize}
 \item We start with in initial IFS $S$, chosen by one of the methods described below. 
-\item (Expectation) We assign each datapoint a code $\sigma$ of length $k$ (where $k$ is a parameter of the algorithm). The codes are provides by the model $S$ as described in section @!.
-\item (Maximization) We know that if a point $x_\sigma$ is mapped using one of our components we have $S_i(x_\sigma) = x_{i\sigma}$. That is, the symbol for the mapping component is prepended to the code. For each $x_\sigma$ in our dataset we search the data for a point with a code $\tau = i\sigma_{:-1}$, the symbol $i$ followed by the elements of $\sigma$ save for the last. For each $i$ we maintain ordered lists of the matches found.
-\item (Maximization) For each component $S_i$ we know have two lists of points such that $S_i$ should map one into the other with minimal squared error. We used the method described in @! to find the optimal similarity transformation. 
+\item (Expectation) We assign each datapoint a code $\sigma$ of length $k$ (where $k$ is a parameter of the algorithm). The codes are provided by the model $S$ as described in section @!.
+\item (Maximization) We know that if a point $x_\sigma$ is mapped using one of our components we have $S_i(x_\sigma) = x_{i\sigma}$. That is, the symbol for the mapping component is prepended to the code. For each $x_\sigma$ in our dataset we search the data for a point with a code $\tau = i\sigma_{1:k-1}$, the symbol $i$ followed by the elements of $\sigma$ save for the last. For each $i$ we maintain ordered lists of the matches found.
+\item (Maximization) For each component $S_i$ we now have two lists of points such that $S_i$ should map one into the other with minimal squared error. We used the method described in @! to find $S_i$. 
 \end{itemize}
  
 \subsection{Improvements}
@@ -219,11 +232,13 @@ We store this transformation with the model to map the model back to the origina
 
 The algorithm as described here can work at all depths $k$. Since each depth may contain information about self similar scaling in the data, we want to consider all depths $\leq k$ rather than just $k$. This is easily done by considering codes of all length up to and including $k$. We build a code tree of the codes generated from the dataset and search it systematically for the required matches at all levels.
 
+% This means that for each $i$ we have two sets of points at each depth. If the components are equally weighted, we will have a set of about $1/n$ of the data, mapping into a set of about $1/{n^2}$ of the data. At depth two the ratios become $1/{n^2}$ and $1/{n^3}$ and so on. For large depths, only specific codes will have matching points.
+
 \subsubsection{Multiple matches}
 
-It is prefectly possible that we may get multiple points per code. Indeed, at low depths, it is almost certain. In this case we have two sets of points $X_\sigma$ and $X_\tau$ such that the points in the formar should map onto the latter. But our algorithm for finding the map $S_i$ requires the individual points to be matched to each other. If the number of points is low we can simply take the mean of both sets, but if the number of points is high, we risk throwing away a lot of information (in particular about rotation). Theoretically each point in the first set should map onto every point in the other but this creates an explosion of possiblities. If we pair the points up randomly we introduces artifacts in the induced rotation.
+It is perfectly possible that we get multiple points per code. Indeed, at low depths, it is almost certain. In this case we have two sets of points $X_\sigma$ and $X_\tau$ such that the points in the former should map onto the latter. But our algorithm for finding the map $S_i$ requires the individual points to be matched to each other. If the number of points is low we can simply take the mean of both sets, but if the number of points is high, we risk throwing away a lot of information (in particular about rotation). Theoretically each point in the first set should map onto every point in the other but this creates an explosion of possiblities. If we pair the points up randomly we introduces artifacts in the induced rotation.
 
-We tackle this problem by finding the MVN for both sets. Ideally we would then extend our method for finding maps to paired MVNs rather than paired points, but this is a highly complex problem. Instead, we find for each MVN the transformation that transforms the standard distribution into that MVN. We then generate a small amount (20 in our experiments) of points from the standard MVN and map these to both sets. We add these 20 point pairs to the list of matched points from which the maps will be calculated. 
+We tackle this problem by finding the MVN for both sets. Ideally we would then extend our method for finding maps to paired MVNs rather than paired points, but this is a highly complex problem. Instead, we find for each MVN the transformation that transforms the standard distribution ($N(0, I)$) into that MVN. We then generate a small amount of points (20 in our experiments) from the standard MVN and map these to both sets. We add these 20 point pairs to the list of matched points from which the maps will be calculated. 
 
 \subsubsection{Weights}
 
@@ -240,27 +255,27 @@ This works out as
 
 \subsubsection{Edge cases}
 
-Some undesired behavior can emerge when the initial model is far from the optimum. Consider for instance the case where the Sierpinski triangle is the current model and all data isto the top right of the triangle. The symbol 2 would not occur in any of the codes and we would have no basis to find $S_2$ in the maximization step. If this occurs, we will `split' one of the components that could be found in two (distributing the weight equally) and perturb each component slightly to ensure that the components differ. The idea behind this approach is simple. For every place in every code that used to be assigned to the original component there is now around a fifty/fifty probability of the place being assigned to the other code. In the next step roughly half of the matches of the component will have been `donated' to the other component.
+Some undesired behavior can emerge when the initial model is far from the optimum. Consider for instance the case where the Sierpinski triangle is the current model and all data is to the top right of the triangle. The symbol 2 would not occur in any of the codes and we would have no basis to find $S_2$ in the maximization step. If this occurs, we will `split' one of the components that could be found in two (distributing the weight equally) and perturb each component slightly to ensure that the components differ. The idea behind this approach is simple. For every place in every code that used to be assigned to the original component there is now around a fifty/fifty probability of the place being assigned to the other code. In the next step roughly half of the matches of the component will have been `donated' to the other component.
 
 The perturbation is done by flattening the model into a vector of values in ${\mathbb R}$ and ading a small random value $N(0, \sigma)$ to each. In our experiments $\sigma$ was set to 0.1.
 
-\subsubsection{Branching}
+% \subsubsection{Branching}
 
-[@! Test if this helps]
+% [@! Test if this helps]
 
-As an optimization algorithm, EM is strictly linear in the sense that it only considers a single model at each iteration. To avoid local minima it can often help to evaluate multiple models per iteration. To test whether our algorithm benefits from such additions we introduce a branching mode which works as follows.
+%As an optimization algorithm, EM is strictly linear in the sense that it only considers a single model at each iteration. To avoid local minima it can often help to evaluate multiple models per iteration. To test whether our algorithm benefits from such additions we introduce a branching mode which works as follows.
 
-During the iteration of the algorithm we maintain a buffer of models. After each iteration, we generate $b$ versions of the current best model perturbed by a parameter $\sigma$ as with the edge cases. We add these models to the buffer and sort it by Hausdorff distance with the data (as described in section @!). We discard all but the top $h$ models. At the next iteration, we continue with the top model from the list and repeat the procedure.
+%During the iteration of the algorithm we maintain a buffer of models. After each iteration, we generate $b$ versions of the current best model perturbed by a parameter $\sigma$ as with the edge cases. We add these models to the buffer and sort it by Hausdorff distance with the data (as described in section @!). We discard all but the top $h$ models. At the next iteration, we continue with the top model from the list and repeat the procedure.
 
-This method is analogous with beam search. Its advantage is that we perform the expensive EM step the same number of times as the non-branching model, and the extra cost lies purely in testing evaluating the extra models. (This is not inexpensive in itself, but any branching algorithm will need to test candidate models anyway).
+%This method is analogous with beam search. Its advantage is that we perform the expensive EM step the same number of times as the non-branching model, and the extra cost lies purely in testing evaluating the extra models. (This is not inexpensive in itself, but any branching algorithm will need to test candidate models anyway).
 
 \section{Results}
 
-There are three expected benefits to fractal modeling that we wish to expore here. First, we expect that the models will scale their dimension to fit that of the data (whereas our comparison model will be unable to do so). To test this we will fit models to various datasets and estimate their dimension. 
+There are three expected benefits to fractal modeling that we wish to explore here. First, we expect that the models will scale their dimension to fit that of the data (whereas our comparison model will be unable to do so). To test this we will fit models to various datasets and estimate their dimension. 
 
 Second, we expect that the IFS distributions make good fits. Since we cannot test this directly using likelihood, we will embed the models in a classifier and test its performance on various data sets.
 
-Finally, we expect that the codes described in section @! are of actual use outside of the fitting procedure. These codes describe a metric space that is much more compact\footnote{in an informal sense} that the Euclidean space in which the data is embedded. Furthermore, the transformation to strings allows the use of a whole family of technique that was not previously available.
+Finally, we expect that the codes described in section @! are of actual use outside of the fitting procedure. These codes describe a metric space that is much more compact\footnote{in an informal sense} than the Euclidean space in which the data is embedded. Furthermore, the transformation to strings promises the use of a whole family of techniques that was not previously available.
 
 Finally we give some indication of the time performance of the algorithm.
 
@@ -274,9 +289,13 @@ Finally we give some indication of the time performance of the algorithm.
 
 \subsection{Model fitting and dimension scaling}
 
-First, we fit IFS models to our datasets (ignoring the class information). We report the Haussdorff distance of a sample of 1000 points from the data to 1000 points generated by the model (we consider the iris dataset to be too small for this purpose). For this test we test on a random 25\% of the data and repeat the experiment 20 and report the sample standard deviation and the mean.
+[@! EXPERIMENT Fit models to data ]
 
-We are also interested in the dimensional scaling of the model. In this case we are interested in the training behavior of the model, so we do not withhold test data. We measure the dimension of the dataset on a random sample of 300 points (repeating 20 times to estimate the sample standard deviation) and generate 300 points from the best model and measure the dimension in the same way, taking the standard deviation over 20 separately trained models, so that it represents the combined uncertainty over training the model and estimating dimension.
+[@! EXPERIMENT for various datasets, for various depths and component sizes, scatter plot the difference between the model dimension and the data dimension against the model accuracy (by hausdorff distance) show uncertainty with error bars]
+
+First, we fit IFS models to our datasets (ignoring the class information). We report the Haussdorff distance of a sample of 1000 points from the data to 1000 points generated by the model (we consider the iris dataset to be too small for this purpose). For this test we test on a random 25\% of the data, repeat the experiment 20 times and report the sample standard deviation and the mean.
+
+We are also interested in the dimensional scaling of the model. In this case we are interested in the training behavior of the model, so we do not withhold test data. We measure the dimension of the dataset on a random sample of 300 points (repeating 50 times to measure the uncertainty) and generate 300 points from the best model and measure the dimension in the same way. We expect that the difference between the model dimension and the data dimension depends on the quality of the model. To investigate we produce a scatterplot of the absolute difference between the two ($\delta d$) and the quality of the model fit by Hausdorff distance ($d_H$). 
 
 In all cases we train the model for 300 generations and select the best model by Hausdorff distance. 
 
@@ -301,8 +320,8 @@ abalone & & & & & \\
   & dim & ifs1 & ifs3 & ifs5 & ifs7 & mog \\
 \hline
 census & 3.2 (0.2) & 2.9 (0.45) & & & & \\
-forest &  & & & & & \\
-abalone & &  & & & & \\
+forest & & & & & & \\
+abalone & & & & & & \\
 \hline
 
 \end{tabular}
@@ -312,16 +331,34 @@ abalone & &  & & & & \\
 
 \subsection{Classification}
 
-\subsection{Coding}
+\subsubsection{Bayesian}
+\subsubsection{Single model}
 
-@! Investigate the use of DFAs on the code form of the dataset. Use for classification.
-@! Map the codes back to a space ${\mathbb R}^{d'}$ as a method of dimensionality reduction. 
+\begin{table}
+\begin{tabular}{l r | r r | r r r r r |}
+\hline
+  & dim & ifs bayes & ifs single & mog & ann & tree & svm & knn \\
+\hline
+census & 3.2 (0.2) & 2.9 (0.45) & & & & \\
+forest & & & & & & \\
+abalone & & & & & & \\
+\hline
 
+\end{tabular}
+\caption{Hausdorff distances for models trained against various datasets.}
+\label{tablelabel}
+\end{table}
 \subsection{Performance}
 
 \section{Conclusions}
 
-We have presented a framework for a fractal based approach to the statistics of point patterns. We introduced an EM-style algorithm for fitting fractal models to data. Compared to search algorithms for other types of models the algorithm is relatively expensive, but compared to other approaches for fractal modeling the algorithm represents a significant imporvement @!. 
+We have presented a framework for a fractal approach to the statistics of point patterns. We introduced an EM-style algorithm for fitting fractal models to data. Compared to search algorithms for other types of models the algorithm is relatively expensive, but compared to other approaches for fractal modeling the algorithm represents a significant improvement @!. 
 
-We have given some indication of how the study of fractal modeling can open up interesting new prospects in machine learning, for instance by 
+Further, we have given some indication of how the study of fractal modeling can open up interesting new prospects in machine learning. We expect that these methods will allow many avenues of future research. One option would be to investigate the use of more expressive maps. The similitudes used here could be replaced by neural networks, for instance. The EM search algorithm is fairly simple, and could be extended to try various branches and backtrack if it deviates too far from a good model.
+
+Finally, there is the task of learning random fractals. The random fractal model is an extension of the Iterated Function System which produces not one single set but a distribution over all sets. The dataset for which to learn a random fractal would not consist of one list of vectors, but of a list of list of vector. For instance, a collection of timeseries preceding a critical event, or a collection of images of snowflakes. In [@!] we showed a proof-of-concept, indicating that, in principle, such models can be learned by evolutionary algorithm, but we did not advance beyond the simplest conceivable model. If the EM algorithm described here could be extended to random fractals, it would open up a new type of machine learning task.
+
+\bibliographystyle{siam}
+\bibliography{fractal}
+
 \end{document}
