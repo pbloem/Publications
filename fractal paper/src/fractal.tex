@@ -1,8 +1,11 @@
-\documentclass[11pt]{article}
+\documentclass[10pt]{article}
 
 \usepackage{charter}
 \usepackage{eulervm}
 \usepackage{amsmath, amsthm, amssymb}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
 
 \theoremstyle{definition}
 \newtheorem*{thm}{Theorem}
@@ -10,7 +13,12 @@
 \newtheorem*{dfn}{Definition}
 \newtheorem*{exm}{Example}
 
+\usepackage{color}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+
 \DeclareMathOperator*{\argmin}{arg\,min}
+
 
 \title{Fractal Modeling for Machine Learning}
 \date{\today}
@@ -32,13 +40,33 @@
 
 Fractals are mathematical objects (generally sets or measures) with certain remarkable properties. What constitutes a fractal is not precisely defined\footnote{Mandelbrot originally defined it as a set whose topological dimension differs from its Hausdorff dimension, but retracted this definition, stating that he preferred the word to be not precisely defined.}, but the following properties are common:
 
-\begin{itemize}
-  \item Self similarity: A part is a scaled down copy of the whole. See for instance the Sierpinski triangle (fig !@). It consists of three triangular shapes which are scaled down copies of the whole (as such these three components each also consist of scaled down copies of themselves, and so on).
-  \item Infinitely small detail: 'Zooming in' reveals ever finer detail. In the case of the Sierpinski triangle we will simply see the same shape recurring again and again, but fractals like the Mandelbrot set reveal a great variety of shapes.
-  \item Non-integer dimension: for instance the Sierpinski triangle has dimension about 1.58. This is a counter intuitive notion, that is not simple to explain. We refer the reader to @! for an intuitive explanation.
-\end{itemize}
+\begin{description}
+  \item[Self similarity] A part is a scaled down copy of the whole. See for instance the Sierpinski triangle (fig !@). It consists of three triangular shapes which are scaled down copies of the whole (as such these three components each also consist of scaled down copies of themselves, and so on).
+  \item[Infinitely small detail] 'Zooming in' reveals ever finer detail. In the case of the Sierpinski triangle we will simply see the same shape recurring again and again, but fractals like the Mandelbrot set reveal a great variety of shapes.
+  \item[Non-integer dimension] for instance the Sierpinski triangle has dimension of about $1.58$. This is a counter-intuitive notion, that is not simple to explain. We refer the reader to \cite{schroeder2009fractals} for an intuitive explanation.
+\end{description}
 
-The earliest examples of fractals were described around the beginning of the twentieth century as counterexamples to conjectures in planar geometry and mostly considered pathological. It was not until the 1970s that they began to be seen as a single and useful family of mathematical objects that could accurately describe many physical phenomena. Beno\^it Mandelbrot, commonly regarded as the father of fractal geometry, put it as follows in the \emph{The Fractal Geometry of Nature} \cite{mandelbrot1982fractal}:
+ 
+\begin{figure}[h!]
+  \centering
+  \begin{subfigure}[b]{\textwidth}@!
+    %\includegraphics[width=\textwidth]{}
+    \label{fig:sierpinski}
+  \end{subfigure}
+  
+  \begin{subfigure}[b]{\textwidth}@!
+   % \includegraphics[width=\textwidth]{}
+    \label{fig:sierpinski-measure}
+  \end{subfigure}
+  
+  \begin{subfigure}[b]{\textwidth}@!
+    %\includegraphics[width=\textwidth]{}
+    \label{fig:ifs-measure}
+  \end{subfigure}
+  \caption{(\ref{fig:sierpinski}) The Sierpinski gasket, a simple example fractal. Starting with any initial image, we can compose three transformations of the original. The iteration of this map converges to the Sierpinski gasket. The initial image does not influence the end result. (\ref{fig:sierpinski-measure}) Starting with probability measures rather then images, we can define a fractal probability measure. Again the choice of initial distribution doesn't matter. In this example we have assigned one of the transformations a higher weight than the other two. (\ref{fig:ifs-measure})If we change the transformations, the limit set changes too. Here we show some probability distributions that are described in this way. Note that simple shapes such as the triangle, the square and the line can also be described like this.}  
+\end{figure}
+
+The earliest examples of fractals were described around the beginning of the twentieth century as counterexamples to conjectures in planar geometry and mostly considered pathological. It was not until the 1970s that they began to be seen as a single and useful family of mathematical objects that could accurately describe many physical phenomena. Mandelbrot put it as follows in the \emph{The Fractal Geometry of Nature} \cite{mandelbrot1982fractal}:
 
 \begin{quotation}
 \small
@@ -49,7 +77,7 @@ Fractal geometry has been used in many fields, including physics @! \cite{}, geo
 
 The main problem with fractal analysis has always been the difficulty of finding a fractal model for a given set of data. The assumption that data contains fractal properties by itself already allows us to calculate certain statistics (such as its dimension), but the various families of fractals that have been proposed are difficult to fit to data. This is called the \emph{inverse problem}. Instead of generating an image or dataset from a given mathematical description of a fractal, we are asked to consider an image or dataset and find a good fractal model for it.
 
-This problem was investigated thoroughly in the context of image compression, but has received relatively little attention in the area of statistics, and fitting a fractal model to data rather than an image. In particular the case of data in arbitrary dimensions has been left largely uninvestigated.
+This problem was investigated thoroughly in the context of image compression \cite{hart1996fractal}, but has received relatively little attention in the area of statistics, and fitting a fractal model to data rather than an image. In particular the case of data in arbitrary dimensions has been left largely uninvestigated.
 
 \subsection{Previous research}
 [@! Review the literature that does exist]
@@ -113,7 +141,7 @@ It should be mentioned that the sequence of points generated this way dos not re
 A more correct (and more expensive) way to generate random data from an IFS is to start with a draw from some initial distribution (eg. a multivariate normal) and apply $n$ transformations randomly chosen from $S$. The distribution of the resulting random variable will converge to $S$ with $n$. For multiple points the process can be repeated. This process adds a factor of $n$ to the time complexity of the chaos game, so it is not commonly used. 
 
 \subsection{Code space}
-
+\label{sec:code-space}
 [@! picture]
 
 Let $(\sigma_i)$ be a sequence with $\sigma_i \in [1, n]$ for some IFS $S$ with $n$ components. We can compose the components of the IFS acording to the elements of $\sigma$. Call this function $S_\sigma$:
@@ -215,22 +243,24 @@ Given these codes it's a relatively simple matter to find which points maps to w
 
 \begin{itemize}
 \item We start with in initial IFS $S$, chosen by one of the methods described below. 
-\item (Expectation) We assign each datapoint a code $\sigma$ of length $k$ (where $k$ is a parameter of the algorithm). The codes are provided by the model $S$ as described in section @!.
+\item (Expectation) We assign each datapoint a code $\sigma$ of length $d$ (where $d$ is a parameter of the algorithm). The codes are provided by the model $S$ as described in section \ref{sec:code-space}. 
 \item (Maximization) We know that if a point $x_\sigma$ is mapped using one of our components we have $S_i(x_\sigma) = x_{i\sigma}$. That is, the symbol for the mapping component is prepended to the code. For each $x_\sigma$ in our dataset we search the data for a point with a code $\tau = i\sigma_{1:k-1}$, the symbol $i$ followed by the elements of $\sigma$ save for the last. For each $i$ we maintain ordered lists of the matches found.
-\item (Maximization) For each component $S_i$ we now have two lists of points such that $S_i$ should map one into the other with minimal squared error. We used the method described in @! to find $S_i$. 
+\item (Maximization) For each component $S_i$ we now have two lists of points such that $S_i$ should map one into the other with minimal squared error. We used the method described in \cite{umeyama1991least} to find $S_i$. 
 \end{itemize}
+
+We will often use a subsample of the data, to allow us to increase the depth or number of components. In such cases, we reample at each EM iteration.
  
 \subsection{Improvements}
 
 \subsubsection{Centering and scaling the data}
 
-Iterated function systems are not very good at approximating data that is weighted far from the origin. for this reason we find the affine transformation which maps the data to the range $[0,1]$ in each dimension and puts the mean at the origin.
+Iterated function systems are not very good at approximating data that is weighted far from the origin. For this reason we find the affine transformation which maps the data to the range $[0,1]$ in each dimension and puts the mean at the origin.
 
-We store this transformation with the model to map the model back to the original space.
+We store this transformation with the model to map the model back to the data space as needed.
 
 \subsubsection{Using all depths}
 
-The algorithm as described here can work at all depths $k$. Since each depth may contain information about self similar scaling in the data, we want to consider all depths $\leq k$ rather than just $k$. This is easily done by considering codes of all length up to and including $k$. We build a code tree of the codes generated from the dataset and search it systematically for the required matches at all levels.
+The algorithm as described here can work at all depths $d$. Since each depth may contain information about self similar scaling in the data, we want to consider all depths $\leq d$ rather than just $d$. This is easily done by considering codes of all length up to and including $k$. We build a code tree of the codes generated from the dataset and search it systematically for the required matches at all levels.
 
 % This means that for each $i$ we have two sets of points at each depth. If the components are equally weighted, we will have a set of about $1/n$ of the data, mapping into a set of about $1/{n^2}$ of the data. At depth two the ratios become $1/{n^2}$ and $1/{n^3}$ and so on. For large depths, only specific codes will have matching points.
 
@@ -293,16 +323,17 @@ Finally we give some indication of the time performance of the algorithm.
 
 [@! EXPERIMENT for various datasets, for various depths and component sizes, scatter plot the difference between the model dimension and the data dimension against the model accuracy (by hausdorff distance) show uncertainty with error bars]
 
-First, we fit IFS models to our datasets (ignoring the class information). We report the Haussdorff distance of a sample of 1000 points from the data to 1000 points generated by the model (we consider the iris dataset to be too small for this purpose). For this test we test on a random 25\% of the data, repeat the experiment 20 times and report the sample standard deviation and the mean.
+First, we fit IFS models to our datasets (ignoring the class information). We report the Haussdorff distance of a sample of 1000 points from the data to 1000 points generated by the model (we consider the iris dataset to be too small for this purpose). We withhold a random 25\% of the data for testing, repeat the experiment 20 times and report the sample standard deviation and the mean of the resulting values for symmetric error.
 
-We are also interested in the dimensional scaling of the model. In this case we are interested in the training behavior of the model, so we do not withhold test data. We measure the dimension of the dataset on a random sample of 300 points (repeating 50 times to measure the uncertainty) and generate 300 points from the best model and measure the dimension in the same way. We expect that the difference between the model dimension and the data dimension depends on the quality of the model. To investigate we produce a scatterplot of the absolute difference between the two ($\delta d$) and the quality of the model fit by Hausdorff distance ($d_H$). 
+We are also interested in the dimensional scaling of the model. In this case we are interested in the training behavior of the model, so we do not withhold test data. We measure the dimension of the dataset on a random sample of 300 points (repeating 25 times to measure the uncertainty) and generate 300 points from the best model and measure the dimension in the same way. We expect that the difference between the model dimension and the data dimension depends on the quality of the model. Figure @! plots the data dimension against the model dimension. 
+
 
 In all cases we train the model for 300 generations and select the best model by Hausdorff distance. 
 
 \begin{table}
 \begin{tabular}{l | r r r r | r |}
 \hline
- & ifs1 & ifs3 & ifs5 & ifs7 & mog \\
+ & ifs1 & ifs3 & ifs7 & mog \\
 \hline
 census & 0.02 (0.04, 80) & & & & \\
 forest & & & & & \\
@@ -329,26 +360,46 @@ abalone & & & & & & \\
 \label{tablelabel}
 \end{table}
 
+\begin{figure}[htb]
+\centering
+\includegraphics[width=\textwidth]{../img/out-table.pdf}
+\caption{Dimensional scaling. The marker size and color both indicate the quality of the model fit by Hausdorff distance. }
+\label{fig:dim_scale}
+\end{figure}
+
+
 \subsection{Classification}
 
 \subsubsection{Bayesian}
+
 \subsubsection{Single model}
 
+An alternative way to construct a classifier with IUFS modelling is to learn a single model for the whole dataset, ignoring class labels. For some datasets, the set of all points may present a more coherent and simple distribution than the sets split by class label. Another advantage of this approach is that we only have to learn one model, which is cheaper both in training and in evaluation.
+
+The model provides us with a mapping from the data space (${\mathbb R}^d$) to code space (${1, \ldots, k}^d$). To turn this model into a classifier we proceed as follows. We build a code tree such that each possible code represents a path from the root to the leaf node. We then traverse this tree for each point in the training set, maintaining a frequency count fora each class observed at each node. Thus, the root node gives us the frequency distribution over the classes for the whole dataset, and each node below it refines that to a distribution over a section of the dataset whose code starts with a given prefix. This turns each node into a very basic classifier, which simply returns the class with the highest frequency count. The root node will give us the classifier that uses nothing mode than class frequencies and each node below it will use more information about the neighbourhood of the point.
+
+For each point to be classified we take the probabilities at each node in the path and average them evenly.
+
+
+
 \begin{table}
-\begin{tabular}{l r | r r | r r r r r |}
+\begin{tabular}{| l | r l r l | r l r l  r l r l |}
 \hline
-  & dim & ifs bayes & ifs single & mog & ann & tree & svm & knn \\
+  & ifs bayes & & ifs single & & mog & & ann & & knn & & tree & \\
 \hline
-census & 3.2 (0.2) & 2.9 (0.45) & & & & \\
-forest & & & & & & \\
-abalone & & & & & & \\
+census  & & & & & & & 0.054 &\color{gray}(0) & 0.06 & \color{gray} (0.002) & 0.05 & \color{gray} (0.001) \\
+forest  & & & & & & & 0.163 &\color{gray}(0.001) & 0.138 &\color{gray}(0.001) & 0.12&\color{gray}(0.003) \\
+abalone & & & & & & & 0.47 & \color{gray}(0.008) & 0.47 & \color{gray}(0.006) & 0.48 & \color{gray}(0.01) \\
+mnist   & & & & & & & & & & & & \\
 \hline
 
 \end{tabular}
 \caption{Hausdorff distances for models trained against various datasets.}
-\label{tablelabel}
+\label{classification-results}
 \end{table}
-\subsection{Performance}
+\subsection{Time performance}
+
+An informal analysis of the algorithm shows that the expectation step costs $O(k^dn)$, with the maximization step taking roughly $O(n^2)$. This falsely suggests that the expectation step, being linear in the number of data points, is negligable compared to the maximization step, which is quadratic. Of course, when viewed in terms of the parameters the expectation step is exponential and this is what causes the expectation step to become the bottleneck for anything but very low values of $k$ and $d$. 
 
 \section{Conclusions}
 
@@ -356,7 +407,7 @@ We have presented a framework for a fractal approach to the statistics of point 
 
 Further, we have given some indication of how the study of fractal modeling can open up interesting new prospects in machine learning. We expect that these methods will allow many avenues of future research. One option would be to investigate the use of more expressive maps. The similitudes used here could be replaced by neural networks, for instance. The EM search algorithm is fairly simple, and could be extended to try various branches and backtrack if it deviates too far from a good model.
 
-Finally, there is the task of learning random fractals. The random fractal model is an extension of the Iterated Function System which produces not one single set but a distribution over all sets. The dataset for which to learn a random fractal would not consist of one list of vectors, but of a list of list of vector. For instance, a collection of timeseries preceding a critical event, or a collection of images of snowflakes. In [@!] we showed a proof-of-concept, indicating that, in principle, such models can be learned by evolutionary algorithm, but we did not advance beyond the simplest conceivable model. If the EM algorithm described here could be extended to random fractals, it would open up a new type of machine learning task.
+Finally, there is the task of learning random fractals. The random fractal model is an extension of the Iterated Function System which produces not one single set but a distribution over all sets. The dataset for which to learn a random fractal would not consist of one list of vectors, but of a list of list of vector. For instance, a collection of timeseries preceding a critical event, or a collection of images of snowflakes. In \cite{bloem2010fractal} we showed a proof-of-concept, indicating that such models can be learned by evolutionary algorithm in principle, but we did not advance beyond the simplest conceivable model. If the EM algorithm described here could be extended to random fractals, it would open up a new type of machine learning task, where instances ae represented by point patterns, and the model to be learned is a distribution over distributions.  
 
 \bibliographystyle{siam}
 \bibliography{fractal}
