@@ -87,9 +87,9 @@ The most fruitful algorithms for the induction of fractal models so far have bee
 
 Partitioned iterated function systems \cite{hart1996fractal} are a subset of iterated function systems (described in the next section) designed for fast image compression by fractal models. The compression algorithm segments an image in to two tilings of different size, and then attempts to map the larger tiles to the smaller tiles. The resulting set of contraction mappings can be iterated to approximate the original image. The approach works well for two dimensional data stored in binned form, but does not translate well to higher dimensions.
 
-Another approach is to represent a fractal model as a point in some space (eg. a vector or a bitstring) and to search the space for a model which approximates the data by some target function using generic search algorithms. Fractal models tend to be difficult to optimize for and only specific methods show promising results. For instance, the use of evolutionary strategies combined with Hausdorff distance as a target function has been shown to be able to reconstruct fractals from data, and to fit models to common datasets.  
+Another approach is to represent a fractal model as a point in some space (eg. a vector or a bitstring) and to search the space for a model which approximates the data by some target function using generic search algorithms. Fractal models tend to be difficult to optimize for and only specific methods show promising results. For instance, the use of evolutionary strategies combined with Hausdorff distance as a target function has been shown to be able to reconstruct fractals from data, and to fit models to common datasets. These approaches can be found in \cite{bloem2010fractal,nettleton1994evolutionary} and many others.
 
-Nevertheless, the generic nature of these search methods mean that they do not exploit any knowledge of the fractal models. We expect that the induction of fractal models can be sped up and made more accurate if we tailor the search algorithm to the model.
+The generic nature of these search methods mean that they do not exploit any knowledge of the fractal models. We expect that the induction of fractal models can be sped up and made more accurate if we tailor the search algorithm to the model.
 
 The investigation of iterated function systems has yielded some results that are promising, but have not resulted in an algorithm for the induction of fractal models in arbitrary dimensions. Examples include the method of moments \cite{rinaldo1994inverse}, similarity hashing \cite{hart1997similarity} and wavelet analysis \cite{struzik1996coastline}.
 
@@ -154,6 +154,24 @@ A more correct (and more expensive) way to generate random data from an IFS is t
 \subsection*{Code space}
 \label{sec:code-space}
 
+\begin{figure}[b!]
+  \centering
+  \begin{subfigure}[b]{0.48\textwidth}
+    \includegraphics[width=\textwidth]{../img/sierpinski-codes.pdf}
+    \caption{}
+    \label{fig:sierpinski-codes}
+  \end{subfigure}  
+  \hspace{0.015\textwidth}
+  \begin{subfigure}[b]{0.48\textwidth}
+    \includegraphics[width=\textwidth]{../img/code-construction.pdf}
+    \caption{}
+    \label{fig:code-construction}
+  \end{subfigure}
+
+  \caption{\small (a) Codes of length three on the Sierpinski triangle and the subsets they code for. (b) The construction of a subset from its code.}
+  \label{fig:codes}
+\end{figure}
+
 Let $(\sigma_i)$ be a sequence with $\sigma_i \in [1, n]$ for some IFS $S$ with $n$ components. We can compose the components of the IFS acording to the elements of $\sigma$. Call this function $S_\sigma$:
 \[
 S_\sigma = S_{\sigma_1} \circ S_{\sigma_2} \circ \ldots \circ S_{\sigma_m}
@@ -178,25 +196,6 @@ S_0(S_1(S_2(x)))
 so its code $\sigma$ is $(0, 1, 2)$. If we wish to `travel into' the Sierpinski gasket by this code, we must read it right-to-left.
 
 Finally, we wish to note that a line segment, the square, the cube and higher dimensional analogues can be represented as simple IFSs of $2^d$ components. For instance, for the unit line, we map the whole onto its lower and upper half with two components. The codes of this IFS are binary strings and the subsets they code are the diadic intervals. For the square, we can map the whole onto each one of its quadrants and get quaternary codes. Using this mechanism we can always map any dataset into the bi-unit hypercube and find a straightforward coding for the instances in $2^d$-ary codes. What fractal fitting offers us is a potential for a subspace that fits the data more compactly (ie. using fewer components) and gives us a good code of lower arity.
-
-\begin{figure}[b!]
-  \centering
-  \begin{subfigure}[b]{0.48\textwidth}
-    \includegraphics[width=\textwidth]{../img/sierpinski-codes.pdf}
-    \caption{}
-    \label{fig:sierpinski-codes}
-  \end{subfigure}  
-  \hspace{0.015\textwidth}
-  \begin{subfigure}[b]{0.48\textwidth}
-    \includegraphics[width=\textwidth]{../img/code-construction.pdf}
-    \caption{}
-    \label{fig:code-construction}
-  \end{subfigure}
-
-  \caption{\small (a) Length-three codes on the Sierpinski triangle and the subsets they code for. (b) The construction of a subset from its code.}
-  \label{fig:codes}
-\end{figure}
-
 
 \subsection*{Evaluating models}
 
@@ -225,23 +224,23 @@ The solution to many of these problems is that while the data has a high-dimensi
 
 IFSs have a particular advantage over classical models like Gaussian mixtures: their intrinsic dimension varies over the whole range of positive reals. A search through the space of IFSs can return models of any dimension.
 
-We measure the dimension of datasets and data generated from models using Takens' estimator:
+We measure the dimension of datasets and data generated from models using Takens' estimator \cite{takens1985numerical}:
 \[
 D(d_{\mbox{max}}) = -\frac{|A|}{\sum_{a \in A} \ln a} 
 \]
-Where $A$ is the set of distances between pairs of data points lower than parameter $d_{\mbox{max}}$. We choose $d_{\mbox{max}}$ as the value that produces the lowest Kolmogorov Smirnov statistic with the probability distribution underlying the Takens estimator. This method is based on the work for general power laws in @! and is detailed in @! (to be published). 
+Where $A$ is the set of distances between pairs of data points lower than parameter $d_{\mbox{max}}$. We choose $d_{\mbox{max}}$ as the value that produces the lowest Kolmogorov Smirnov statistic with the probability distribution underlying the Takens estimator. This method is based on the work for general power laws in \cite{clauset2009power} and will be detailed in a later publication. 
 
 We estimate the uncertainty of this estimate as follows: bootstrap a version of the dataset by sampling to the same size with replacement, and estimate the dimension of that dataset. We repeat the process 50 times and take the sample standard deviation as an estimate of the uncertainty.
 
 \subsection*{Analogous model: Mixture of Gaussians}
 
-To study the IFS as a statistical model, it helps to have a commonly used analogous model to compare it with. We use the Mixture of Gaussians (MoG) model. This model consists of $n$ multivariate Gaussians over ${\mathbb R}^d$ each represented by a mean $\mu \in {\mathbb R}^D$ and a $d \times d$ covariance matrix $\Sigma$. Each component also has a prior $w_i$. The complete model describes the following probability distribution:
+To study the IFS as a statistical model, it helps to have a commonly used analogous model to compare it with. We use the Mixture of Gaussians (MoG) model. This model consists of $n$ multivariate Gaussians over ${\mathbb R}^d$ each represented by a mean $\mu \in {\mathbb R}^d$ and a $d \times d$ covariance matrix $\Sigma$. Each component also has a prior $w_i$. The complete model describes the following probability distribution:
 \[
-p(X) = \sum_{i \in [1,n]} w_i N(x|\mu_i, \Sigma)
+p(x) = \sum_{i \in [1,n]} w_i N(x|\mu_i, \Sigma)
 \]
 Since every multivariate Gaussian can also be described as an affine transformation of the standard normal distribution (mean at the origin and $\Sigma$ the identity matrix), we can also represent the mixture of Gaussians as $n$ affine transformations and $n$ weights, just as the IFS:
 \[
-p(X) = \sum_{i \in [1,n]} w_i S_i(N(\mu_i, \Sigma))(X)
+p(x) = \sum_{i \in [1,n]} w_i S_i(N(0, I))(x)
 \]
 This gives us a classical model with a similar representation. Note that the representation would be equal if we used similarities for the MoG model. However since an MVN transformed with uniform scaling is rotationally symmetric that would make all the rotational parameters useless. For this reason we will allow the MoG model full affine transformations as parameters and the IFS model only similarities. Even with this discrepancy, we still consider the MoG to be a reasonable analog.
 
@@ -311,9 +310,19 @@ This works out as
 
 \subsubsection*{Edge cases}
 
-Some undesired behavior can emerge when the initial model is far from the optimum. Consider for instance the case where the Sierpinski triangle is the current model and all data is to the top right of the triangle. The symbol 2 would not occur in any of the codes and we would have no basis to find $S_2$ in the maximization step. If this occurs, we will `split' one of the components that could be found in two (distributing the weight equally) and perturb each component slightly to ensure that the components differ. The idea behind this approach is simple. For every place in every code that used to be assigned to the original component there is now around a fifty/fifty probability of the place being assigned to the other code. In the next step roughly half of the matches of the component will have been `donated' to the other component.
+As with standard EM algorithms, Some undesired behavior can emerge when the initial model is far from the optimum. Consider for instance the case where the Sierpinski triangle is the current model and all data is to the top right of the triangle. The symbol 2 would not occur in any of the codes and we would have no basis to find $S_2$ in the maximization step. If this occurs, we will `split' one of the components that could be found in two (distributing the weight equally) and perturb each component slightly to ensure that the components differ. The idea behind this approach is simple. For every place in every code that used to be assigned to the original component there is now around a fifty/fifty probability of the place being assigned to the other code. In the next step roughly half of the matches of the component will have been `donated' to the other component.
 
-The perturbation is done by flattening the model into a vector of values in ${\mathbb R}$ and ading a small random value $N(0, \sigma)$ to each. In our experiments $\sigma$ was set to 0.1.
+The perturbation is done by flattening the model into a vector of values in ${\mathbb R}$ and adding a small random value $N(0, \sigma)$ to each. In our experiments $\sigma$ was set to 0.3. After perturbation, we check if the model is still contractive, and invert it if not. This last step avoids some undersirable looping behavior that occurs when the IFS model is not contractive on average.
+
+\subsubsection*{Use the data as a basis}
+
+[@! This is not yet implemented properly]
+
+When we generate a sample from the model (to a fixed depth, rather than with the chaos game), and when we compute the probability density to a fixed point, we make use of some initial normal distribution. As the depth increases the influence of ythe choice of initial distribution increases exponentially. For low depths, however, our choice can affect the quality of our model. 
+
+To determine our initial model, we examine the situation for depth one. In this case, our data points get a conde of one symbol, and the transformations induced are those that optimally map the whole dataset to these subsets. The equivalent MOG model fits a normal distribution to each subset. For these normal distributions to be the result of a depth one IFS model, we must choose as its initial distribution the MVN fit to the data. With this choice, the MOG model and the MVN model are equivalent (so long as they use the same class of transformations).
+
+To summarize, we choose as our initial distribution an MVN fit for the data restricted to our transformation class. Since we are using Similitudes, we fit a symmetrical MVN to our data, and use that as the initial distribution.
 
 % \subsubsection{Branching}
 
