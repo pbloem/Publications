@@ -439,16 +439,15 @@ We are also interested in the dimensional scaling of the model. In this case we 
 
 In all cases we train the model for 300 generations and select the best model by Hausdorff distance. 
 
-\begin{figure}[htb]
+\begin{figure}[t]
 \centering
 
-  \begin{subfigure}[b]{0.66\textwidth}
+  \begin{subfigure}{0.66\textwidth}
 	\includegraphics[width=\textwidth]{../img/dimension/out-table.pdf}
   \end{subfigure}
-  \begin{subfigure}[b]{0.33\textwidth}
+  \begin{subfigure}{0.33\textwidth}
     \begin{tabular}{c c }
     data & model \\
-	\hline
 		\includegraphics[width=0.5\textwidth]{../img/dimension/data-henon.png} & 
 		\includegraphics[width=0.5\textwidth]{../img/dimension/model-henon.png} \\
 		\includegraphics[width=0.5\textwidth]{../img/dimension/data-ikeda.png} & 
@@ -457,7 +456,7 @@ In all cases we train the model for 300 generations and select the best model by
 		\includegraphics[width=0.5\textwidth]{../img/dimension/model-henon.png} \\
 	\end{tabular}
   \end{subfigure}
-  \caption{Dimensional scaling. The marker size and color both indicate the quality of the model fit by Hausdorff distance. }
+  \caption{To investigate the dimensional scaling of IFS models, we train them on three generated datasets. The datasets were chosen for a) their low dimension so that we can acurately measure dimension, b) their synthetic nature so that we hav an analytic value of their dimension and c) their lack of an accurate IFS approximation, so that the models will not fit perfectly. The datasets are shown on the left with their respective IFS model. They are, from top to bottom: the H\'enon attractor, the Ikeda attractor, and the R\"ossler attractor.}
   \label{fig:dim_scale}
 \end{figure}
 
