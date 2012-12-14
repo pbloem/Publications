@@ -149,9 +149,9 @@ The method described below can easily be extended to other families of transform
 
 For various reasons, it can be useful to generate a set of points drawn from an IFS probability distribution. The most common method to achieve this is known as the \emph{chaos game}. The algorithm is simple: we start with some initial point $x_0$ we choose a random component $S_i$ from the IFS (so that $S_i$ is chosen with probability $w_i$) and and let $x_1 = S_i(x_0)$. We iterate this process and discard the first 50 or so points. The rest of the sequence $x_n$ can be used as a set of points drawn from the IFS.
 
-It should be mentioned that the sequence of points generated this way does not strictly represent a sequence of independent draws. We can only say that the natural measure of this process coincides with the IFS. However, any two successive points in the sequence will satisfy the relation $x_{n+1} = S_i(x_{n})$ for some $i$. This is not true for two independently drawn points. For our experiments we generate a sequence and then shuffle the data to remove this dependency where it is undesirable.
+It should be mentioned that the sequence of points generated this way does not strictly represent a sequence of independent draws. We can only say that the natural measure of this process coincides with the IFS. However, any two successive points in the sequence will satisfy the relation $x_{n+1} = S_i(x_{n})$ for some $i$. This is not true for two independently drawn points. 
 
-A more correct (and more expensive) way to generate random data from an IFS is to start with a draw from some initial distribution (eg. a multivariate normal) and apply $n$ transformations randomly chosen from $S$. The distribution of the resulting random variable will converge to $S$ with $n$. For multiple points the process can be repeated. This process adds a factor of $n$ to the time complexity of the chaos game, so it is not commonly used. 
+A more correct (and more expensive) way to generate random data from an IFS is to start with a draw from some initial distribution (eg. a multivariate normal) and apply $n$ transformations randomly chosen from $S$. The distribution of the resulting random variable will converge to $S$ with $n$. For multiple points the process can be repeated. This process adds a factor of $n$ to the time complexity of the chaos game, but it has the advantage of drawing indepent points and being able to draw points from a model with a fixed depths. Though the process converges to the IFS with the depth, we will often learn models with a fixed depth, so drawing from a fixed-depth model keeps the various views of a single model consistent with one another. 
 
 \subsection*{Code space}
 \label{sec:code-space}
@@ -187,7 +187,7 @@ That is, the sequence of functions maps any non-empty $X$ to a unique point $x_\
 
 Finding the endpoint for given code is straightforward, but we will also require the inverse process: given a point $x$ on or near the support of some IFS, we wish to find $\sigma$. To this end we start with the standard  multivariate normal distribution and apply all maps $S_\sigma$ for all $\sigma$ of a given length $l$ giving us a set of $k^l$ normal distributions (since an affine transformation of a normal distribution is also a normal distribution). The $\sigma$ which assigns $x$ the greatest probability density is chosen.
 
-Since the variance of the distribution drops off exponentially as the length $l$ is increased, this method will fail if points are too far off the support of the IFS (even if logarithmic probabilities are used). To increase the range of the method, we fall back on the distance from the point to the mean of the distribution. If the first method cannot distinguish between codes, we choose the code whose probability distribution has its mean closest to $x$.
+Since the variance of the distribution drops off exponentially as the length $l$ is increased, this method will fail if points are too far off the support of the IFS (even if logarithmic probabilities are used). To increase the range of the method, we fall back on the distance from the point to the mean of the distribution. If the first method cannot distinguish between codes, we choose the code whose probability distribution has its mean closest to $x$ (this is equivalent to the approximation method described in section \ref{sec:density}).
 
 A word of caution on codes is appropriate: the ordering is often the reverse of what our intuition suggests. If we number the three components of the Sierpinski triangle clockwise from the top 0, 1 and 2, we might number a small section of the triangle by first moving into the top subtriangle, then into the left subtriangle (2) of that and then into the right subtriangle (1) of that. Intuitively, this is the most natural way of coding sections of the Sierpinski triangle.
 
@@ -199,30 +199,50 @@ so its code $\sigma$ is $(1, 2, 0)$. If we wish to `travel into' the Sierpinski 
 
 Finally, we wish to note that a line segment, the square, the cube and higher dimensional analogues can be represented as simple IFSs of $2^d$ components. For instance, for the unit line, we map the whole onto its lower and upper half with two components. The codes of this IFS are binary strings and the subsets they code are the diadic intervals. For the square, we can map the whole onto each one of its quadrants and get quaternary codes. Using this mechanism we can always map any dataset into the bi-unit hypercube and find a straightforward coding for the instances in $2^d$-ary codes. What fractal fitting offers us is a potential for a subspace that fits the data more compactly (ie. using fewer components) and gives us a good code of lower arity.
 
-\subsection*{Evaluating models}
+\subsection*{Calculating density}
+\label{sec:density}
 
-The standard way of evaluating the fit of a model to a dataset is the likelihood of the model given the data. This is often used in optimization algorithms for fitting probability models to data. In the case of fractal models, the likelihood function has an important drawback. 
-
-Consider a dataset drawn from the Sierpinski gasket with a minute amount of two dimensional noise added. Since the Sierpinski gasket has dimension less than two, the probability that the point will still fall within the Sierpinski gasket will be zero. Thus all points will have probability zero under the Sierpinski gasket and its likelihood will be zero. Intuitively however, the Sierpinski gasket is still a good model for this data.
-
-For this reason we will often use the Hausdorff distance to evaluate our models. The Hausdorff distance  $H(X, Y)$ between two sets $X$ and $Y$ is defined as follows:
-\[ 
-H'(X, Y) = \max_{x\in X} \, \min_{y\in Y} \, d(x, y) 
-\]
+The probability density of a given point $x$ under a given IFS model $S$ is straighforward to calculate. For a given depth, we start with a basis MVN $N(x)$ , and calculate the following sum:
 \[
-H(X, Y) = \max\left (H'(X, Y), H'(Y, X)\right )
+\sum_{\sigma \in \{1, \ldots, k\}^l} w_\sigma S(N)(x)
 \]
-where $d(\cdot, \cdot)$ is the Euclidean distance. For infinite sets the $\max$ and $\min$ functions should be replaced with $\sup$ and $\inf$.
- 
-The most intuitive way of understanding the Hausdorff distance is as a game where the first player must get from one set to the other in as small a distance as possible, and the malevolant second player will choose his starting point to maximize that distance.
 
-Hausdorff distance is a common tool in dealing with the fractal inverse problem \cite{nettleton1994evolutionary}. We will use it to evaluate an IFS model by generating a number of points from the model and calculating the Hausdorff distance of that set to the model. Since the Hausdorff distance has not been substantiated as a statistical measure, we can only use it as an intermediate indication of model quality. To prove the utility of IFS models we will test them on classification and dimensionality reduction tasks.
+That is, we transform the basis function by $S_\sigma$, the composition of the components of $S$ in the order indicated by $\sigma$ (the endpoint distribution), we weight this value by the $w_\sigma = \prod_{i \in \sigma} w_i$ (the endpoint prior) and sum over all possible $\sigma$.
+
+Clearly, this succession will quickly foce each endpoint distribution to a single point, and only points near one of the models' end points will have a probability that is distinguishable from zero in standard 64-bit floating point representation.
+
+To deal with this situation, we also use an approximated density, which can be used when the correct density approximation yields zero. Of course, we must be careful only ever to compare two correct densities, or two approximated densities, but never to mix the two.
+
+For the approximated density, we only visit the end points $S_\sigma(\mathbf{0})$ of the IFS model, forgetting the endpoint distributions. We place an MVN at this endpoint with a variance of $\rho^l$. We then sum the densities under these distributions, weighted by the endpoint priors $w_\sigma$. So that the approxiamted density becomes:
+
+\[
+\sum_{\sigma \in \{1,\ldots,k\}^l} w_\sigma N(x | S_\sigma(\mathbf{0}), I\rho^l)
+\]
+
+For our experiments we use $\rho = 0.9$.
+
+% The standard way of evaluating the fit of a model to a dataset is the likelihood of the model given the data. This is often used in optimization algorithms for fitting probability models to data. In the case of fractal models, the likelihood function has an important drawback. 
+
+% Consider a dataset drawn from the Sierpinski gasket with a minute amount of two dimensional noise added. Since the Sierpinski gasket has dimension less than two, the probability that the point will still fall within the Sierpinski gasket will be zero. Thus all points will have probability zero under the Sierpinski gasket and its likelihood will be zero. Intuitively however, the Sierpinski gasket is still a good model for this data.
+
+% For this reason we will often use the Hausdorff distance to evaluate our models. The Hausdorff distance  $H(X, Y)$ between two sets $X$ and $Y$ is defined as follows:
+%\[ 
+%H'(X, Y) = \max_{x\in X} \, \min_{y\in Y} \, d(x, y) 
+%\]
+%\[
+%H(X, Y) = \max\left (H'(X, Y), H'(Y, X)\right )
+%\]
+% where $d(\cdot, \cdot)$ is the Euclidean distance. For infinite sets the $\max$ and $\min$ functions should be replaced with $\sup$ and $\inf$.
+ 
+% The most intuitive way of understanding the Hausdorff distance is as a game where the first player must get from one set to the other in as small a distance as possible, and the malevolant second player will choose his starting point to maximize that distance.
+
+% Hausdorff distance is a common tool in dealing with the fractal inverse problem \cite{nettleton1994evolutionary}. We will use it to evaluate an IFS model by generating a number of points from the model and calculating the Hausdorff distance of that set to the model. Since the Hausdorff distance has not been substantiated as a statistical measure, we can only use it as an intermediate indication of model quality. To prove the utility of IFS models we will test them on classification and dimensionality reduction tasks.
 
 \subsection*{Dimension}
 
 The \textit{curse of dimensionality} is a blanket term for many effects related the analysis of high dimensional data. The main cause of these problems is that as dimensionality increases, the volume of a subspace (such as the unit ball) increases exponentially with it. This means, for instance, that vast amounts of samples are required to maintain the same level of coverage in a high dimensional space as compared to a low dimensional one. 
 
-The solution to many of these problems is that while the data has a high-dimensional representation, it has a low intrinsic dimension. That is, it can be mapped to a low dimensional space without any loss of information. A simple example is that of all points lying on a line in some high dimensional space. 
+The solution to many of these problems is that while the data has a high-dimensional representation, it has a low intrinsic dimension ('The blessing of self-similarity'). That is, it can be mapped to a low dimensional space without any loss of information. A simple example is that of all points lying on a line in some high dimensional space. 
 
 IFSs have a particular advantage over classical models like Gaussian mixtures: their intrinsic dimension varies over the whole range of positive reals. A search through the space of IFSs can return models of any dimension.
 
@@ -267,13 +287,13 @@ Given these codes it's a relatively simple matter to find which points maps to w
 \footnote{the names `expectation' and `maximization' of these steps are only by analogy with the EM algorithm for MoG models. We do not claim any true expectation or maximization procedures.}
 
 \begin{itemize}
-\item We start with in initial IFS $S$, chosen by one of the methods described below. 
+\item We start with an initial IFS $S$, chosen by one of the methods described below. 
 \item (Expectation) We assign each datapoint a code $\sigma$ of length $d$ (where $d$ is a parameter of the algorithm). The codes are provided by the model $S$ as described above. 
 \item (Maximization) We know that if a point $x_\sigma$ is mapped using one of our components we have $S_i(x_\sigma) = x_{i\sigma}$. That is, the symbol for the mapping component is prepended to the code. For each $x_\sigma$ in our dataset we search the data for a point with a code $\tau = i\sigma_{1:k-1}$, the symbol $i$ followed by the elements of $\sigma$ save for the last. For each $i$ we maintain ordered lists of the matches found.
 \item (Maximization) For each component $S_i$ we now have two lists of points such that $S_i$ should map one into the other with minimal squared error. We used the method described in \cite{umeyama1991least} to find $S_i$. 
 \end{itemize}
 
-We will often use a subsample of the data, to allow us to increase the depth or number of components. In such cases, we reample at each EM iteration.
+We will often use a subsample of the data, for performance reasons. In such cases, we resample for each EM iteration.
  
 \subsection*{Improvements}
 
@@ -305,13 +325,13 @@ This works out as
 
 \subsubsection*{Multiple matches ($\sigma$)}
 
-It is perfectly possible that we get multiple points per code. Indeed, at low depths, it is almost certain. In this case we have two sets of points $X_\sigma$ and $X_\tau$ such that the points in the former should map onto the latter. But our algorithm for finding the map $S_i$ requires the individual points to be matched to each other. If the number of points is low we can simply take the mean of both sets, but if the number of points is high, we risk throwing away a lot of information (in particular about rotation). Theoretically each point in the first set should map onto every point in the other but this creates an explosion of possiblities. If we pair the points up randomly we introduce artifacts in the induced rotation.
+It is perfectly possible that we get multiple data points which are assigned the same code. Indeed, at low depths, it is almost certain. In this case we have two sets of points $X_\sigma$ and $X_\tau$ such that the points in the former should map onto the latter. But our algorithm for finding the map $S_i$ requires the individual points to be matched to each other. If the number of points is low we can simply take the mean of both sets, but if the number of points is high, we risk throwing away a lot of information (in particular about rotation). Theoretically each point in the first set should map onto every point in the other but this creates an explosion of possiblities. If we pair the points up randomly we introduce artifacts in the induced rotation.
 
 We tackle this problem by finding the MVN for both sets. Ideally we would then extend our method for finding maps to paired MVNs rather than paired points, but this is a highly complex problem. Instead, we make use of the correspondence between MVNs and affine maps. We find for each MVN the transformation that transforms the standard distribution ($N(0, I)$) into that MVN. We then generate $|X_\tau|$ `spanning points' from some initial distribution and map these to both sets. We add these point pairs to the list of matched points from which the maps will be calculated.
 
 To generate the spanning points we use a spherical MVN with variance $\sigma$. This value becomes an important parameter in the algorithm. If the spanning points have a high variance, then the rotation becomes a more important part of the found affine map. The limiting case with $\sigma \rightarrow 0$ is essentially equal to just using the mean of all points with a given code and getting no rotation information from the mapping between single code pairs.
 
-The behaviour of the algorithm under varying $\sigma$ is somewhat mysterious, but trial-and-error testing suggests that for high values the algorithm is more likely to converge. This comes at the cost of some solutions, as with $\sigma = 1.0$, the algorithm is unable to find the two-component Koch curve. For all experiments reported in this paper we use $\sigma = 0.1$. 
+The behaviour of the algorithm under varying $\sigma$ is somewhat mysterious, but trial-and-error testing suggests that for high values the algorithm is more likely to converge. This comes at the cost of some solutions, as with $\sigma = 1.0$, the algorithm is unable to find the two-component Koch curve. For all experiments reported in this paper we use $\sigma = 0.1$. [@! No we don't]
 
 \subsubsection*{Edge cases}
 
@@ -339,9 +359,17 @@ To summarize, we choose as our initial distribution an MVN fit for the data rest
 
 \subsection*{Choosing the initial model}
 
-The choice of initial model is crucial for achieving good performance
+The choice of initial model is crucial for achieving good performance. The following approaches showed promise in our tests:
 
+\begin{description}
+  \item[points] For a model with $k$ components, choose $k$ points from the training data at random. For point $x$, find the transformation which contracts all points to $x$ with a contraction ratio of $0.1$.
+  \item[sphere] Choose $k$ random points on the bi-unit sphere in ${\mathbb R}^d$. Continue as with the \textbf{points} method.
+  \item[spread] Search (using for instance evolutionary strategies) for $k$ points on the bi-unit sphere so that the sum of their distances is maximized. Continue as before.
+  \item[identity] Sample $k$ small perturbations of the identity transformation. Invert if the transformation is not contractive. 
+\end{description}
 
+Tests on our datasets show that \textbf{spread} and \textbf{sphere} tend to perform best. Since \textbf{sphere} is the simplest to implement  we use that in all reported results.
+ 
 \subsection*{Convergence}
 
 \section*{Results}
@@ -456,7 +484,7 @@ In all cases we train the model for 300 generations and select the best model by
 		\includegraphics[width=0.5\textwidth]{../img/dimension/model-henon.png} \\
 	\end{tabular}
   \end{subfigure}
-  \caption{To investigate the dimensional scaling of IFS models, we train them on three generated datasets. The datasets were chosen for a) their low dimension so that we can acurately measure dimension, b) their synthetic nature so that we hav an analytic value of their dimension and c) their lack of an accurate IFS approximation, so that the models will not fit perfectly. The datasets are shown on the left with their respective IFS model. They are, from top to bottom: the H\'enon attractor, the Ikeda attractor, and the R\"ossler attractor.}
+  \caption{To investigate the dimensional scaling of IFS models, we train them on three generated datasets. The datasets were chosen for a) their low intrinsic dimension, which is easy to measure b) their synthetic nature so that we have an analytic value of their dimension and c) their lack of an accurate IFS approximation, so that the models will not fit perfectly. The datasets are shown on the left with their respective IFS model. They are, from top to bottom: the H\'enon attractor, the Ikeda attractor, and the R\"ossler attractor.}
   \label{fig:dim_scale}
 \end{figure}
 
