@@ -137,7 +137,7 @@ p_{n+1} &= \sum w_i S_i(p_n) \\
 \lim_{n \rightarrow \infty} p_n &= q 
 \end{align*}
 
-This type of IFS is what we will use as a formalism for modeling datasets with fractals. See figure\ref{fig:measures} for some examples IFS measures.
+This is the type of IFS model we will attempt to learn from data. See figure \ref{fig:measures} for some examples IFS measures.
 
 \subsection*{Representing IFSs}
 
@@ -509,6 +509,12 @@ The model provides us with a mapping from the data space (${\mathbb R}^d$) to co
 
 For each point to be classified we take the probabilities at each node in the path and average them evenly. 
 
+The single model classifier also gives us a good baseline to evaluate how well the model fitting works on natural datasets. As noted before, for any dimension $d$ we can define an IFS model in $2^d$ components which defines a uniform distribution of the $d$-dimensional hypercube. For example, in two dimensions we can start with a square and use the four transformations that map the square onto each of its quadrants. The codes assigned by this model are strongly related to basic spatial indexing techniques, and can be calculated very efficiently. 
+
+The single classifier described above, when used with such codes, classifies based on histograms over a simple binning of the feature space (averaging over various levels of coarseness). It does not perform any dimensionality reduction and very little generalization. We will refer to this method as a spatial index classifier.
+
+If we wish to assert that the EM algorithm for IFS induction results in a meaningful subspace, the single model classifier with an optimized model should perform significantly better than the spatial index classifier. 
+ 
 \begin{table}[h]
 \begin{tabular}{| l | r l r l | r l r l  r l r l |}
 \hline
