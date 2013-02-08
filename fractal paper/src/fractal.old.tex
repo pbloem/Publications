@@ -19,7 +19,7 @@
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{argmax}
 
-\title{EM-algorithms for learning Discrete and Random Iterated Function Systems}
+\title{Fractal Modeling for Machine Learning}
 \date{\today}
 
 % non-indented, spaced paragraphs
@@ -31,114 +31,119 @@
 \maketitle
 
 \begin{abstract}
-\noindent We present an algorithm for solving the \emph{inverse problem}, the task of finding an fractal model for a given data set. The algorithm is inspired by the famous Expectation Maximization algorithm for fitting models with hidden variables. We build on a connection between Mixture-of-Gaussian models and Iterated function Systems (IFSs) to design an EM-style algorithm for IFS models. We also extend our algorithm to fit Random Iterated Function Systems (RIFSs) to data.
+\noindent We present an algorithm for fitting IFS fractals to data and we investigate the use of fractal models in machine learning. Fractals are mathematical objects that display great detail and complexity despite having simple descriptions. It has been suggested that fractals model many natural and other real-world structures better than the shapes of classical geometry \cite{mandelbrot1982fractal}.
 \end{abstract}
 
-\section*{Definitions}
+\begin{figure}[b]
+  \centering
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=\textwidth]{../img/sierpinski.pdf}
+    \caption{}
+    \label{fig:sierpinski}
+  \end{subfigure}  
+  \hspace{0.03\textwidth}
+  \begin{subfigure}[b]{0.3\textwidth}
+   \includegraphics[width=\textwidth]{../img/sierpinski-evo.pdf}
+    \caption{}
+  \end{subfigure}
+  \hspace{0.03\textwidth}
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=0.45\textwidth]{../img/sierpinski-off.png}
+    \includegraphics[width=0.45\textwidth]{../img/random013.png} \\
+    \includegraphics[width=0.45\textwidth]{../img/random010.png}
+    \includegraphics[width=0.45\textwidth]{../img/mvn1k.png}
+    \caption{}
+    \label{fig:measures}
+    
+  \end{subfigure}
+  \caption{\small (a) The Sierpinski triangle, a simple example fractal. (b) Constructing \textit{(a)} from an arbitrary initial image. (c) Examples of IFS probability distributions.}
+  \label{fig:examples}
+\end{figure}
 
-We will briefly review the established definitions and basic properties of Iterated Function Systems and their random variant. As the properties are well established, we will forego their proofs. For a more extensive introduction, including proofs and detailed references, we recommend \cite{hutchinson2000deterministic}. 
+Fractals are mathematical objects with certain remarkable properties. What constitutes a fractal is not precisely defined\footnotemark, but the following properties are common:
 
-\begin{dfn}[Iterated Function System (Set)]
-An iterated function system $S$ is a set of $k$ contractive functions $S_i:{\mathbb R}^d \rightarrow {\mathbb R}^d$. The individual functions $S_i$ are called the IFS's \emph{components}.
-\end{dfn}
+\begin{description}
+  \item[Self similarity] A part is a scaled down copy of the whole. See for instance the Sierpinski triangle (fig. \ref{fig:sierpinski}). It consists of three triangular shapes which are scaled down copies of itself.
+  \item[Infinitely small detail] 'Zooming in' reveals ever finer detail. In the case of the Sierpinski triangle we will see the same shape recurring again and again, but fractals like the Mandelbrot set reveal a great variety of shapes.
+  \item[Non-integer dimension] The Sierpinski triangle, for example, has a dimension of $1.58$. This is a counter-intuitive notion, that is not simple to explain. We refer the reader to \cite{schroeder2009fractals} for an intuitive explanation.
+\end{description}
 
-\begin{thm}
-Given an iterated function system $S = \{S_i\}$, there exists a unique set $Q_S$ such that the following holds:
-\[
-Q_S = \bigcup_i S_i(Q_S)
-\]
-\end{thm}
+The earliest examples of fractals were described around the beginning of the twentieth century as counterexamples to conjectures in planar geometry and analysis and mostly considered pathological. It was not until the 1970s that they began to be seen as a single and useful family of mathematical objects that could accurately describe many physical phenomena. Mandelbrot put it as follows in the \emph{The Fractal Geometry of Nature} \cite{mandelbrot1982fractal}:
 
-$Q_S$ is called the \emph{limit set} of $S$. 
+\begin{quotation}
+\small
+\noindent Clouds are not spheres, mountains are not cones, coastlines are not circles, and bark is not smooth, nor does lightning travel in a straight line.
+\end{quotation}
 
-\begin{thm}
-Given an iterated function system $S = \{S_i\}$, the function $f_S:{\mathbb R}^d \rightarrow {\mathbb R^d}$, defined as 
-\[
-f_S(X) = \bigcup_i S_i(X)
-\]
-and iterated as
-\[
-f_S^{n+1}(X) = f_S(f_S^n(X)), \; f_S^{1}(X) = f_S(X)
-\]
-will converge to $Q_S$ with $n$ for any nonempty, compact $X \subset {\mathbb R}^d$. That is
-\[
-\lim_{n \rightarrow \infty} f_S^{n}(X) = Q_S
-\]
-\end{thm}
+Fractal geometry has been used in many fields, including physics \cite{mandelbrot1984fractals}, geology \cite{cheng1997multifractal}, biology \cite{goldberger1992fractal} and economics \cite{turiel2003multifractal}. The first connection between fractals and the natural world was in the form of tangible objects such as coast lines, trees or bronchia, but the more hidden aspects of reality were soon shown to have fractal properties as well. The path traced out by the Brownian motion of a particle, the price chart for a commodity or the level of floods in a river delta have all been studied as fractals to great effect.
 
-Since, in statistics, probability measures are of greater value than point sets, we can adapt our definition and their results to that domain. First, we must define what it means to apply a transformation to a (probability) measure. Let $p$ be a probability measure on ${\mathbb R}^d$ and $f$ a function $f:{\mathbb R}^d \rightarrow {\mathbb R}^d$. We then define $f(p)$ as 
-\[
-	\left (f(p) \right ) (x) = p(f^{-1}(x))
-\]
+The main problem with fractal analysis has always been the difficulty of finding a fractal model for a given set of data. The assumption that data contains fractal properties by itself already allows us to calculate certain statistics (such as its dimension), but the various families of fractals that have been proposed are difficult to fit to data. This is called the \emph{inverse problem}. Instead of generating an image or dataset from a given mathematical description of a fractal, we are asked to consider an image or dataset and find a good fractal model for it.
 
-That is, the density of $x$ under the transformed measure is equal to the density of the inversely transformed $x$ under the original measure. We will call the space of all probability distributions on ${\mathbb R}^d$ with non-empty, compact support ${\mathbb P}^d$
+This problem was investigated thoroughly in the context of image compression (see for instance \cite{hart1996fractal}), but has received relatively little attention in the area of statistics. In particular the case of data in arbitrary dimensions has been left largely uninvestigated.
 
-The transition to measures also allows us to give each component a different weight. This makes the IFS measure a \emph{multi-fractal} [@! cite] and creates a variety of densities.
+\footnotetext{Mandelbrot originally defined it as a set whose topological dimension differs from its Hausdorff dimension, but retracted this definition, stating that he preferred the word to be not precisely defined.}
 
-\begin{dfn}[Iterated Function System (Measure)]
-An IFS measure consists of $k$ contractive functions $S_i:{\mathbb R}^d \rightarrow {\mathbb R}^d$, and $k$ associated nonnegative \emph{priors} (or \emph{weights}) $w_i \in {\mathbb R}$ such that $\sum_i w_i = 1$.
-\end{dfn}
+\subsection*{Previous research}
 
-\begin{thm}
-Given an IFS measure $S = \{(S_i, w_i)\}$, there exists a unique measure $q_S$ such that the following holds:
-\[
-q_S(x) = \sum_i w_i \left(S_i(q_S)\right)(x)
-\]
-\end{thm}
+The most fruitful algorithms for the induction of fractal models so far have been partitioned iterated function systems and evolutionary algorithms. 
 
-$q_S$ is called the \emph{limit measure} of $S$. 
+Partitioned iterated function systems \cite{hart1996fractal} are a subset of iterated function systems (described in the next section) designed for fast image compression by fractal models. The compression algorithm segments an image in to two tilings of different size, and then attempts to map the larger tiles to the smaller tiles. The resulting set of contraction mappings can be iterated to approximate the original image. The approach works well for two dimensional data stored in binned form, but does not translate well to higher dimensions.
 
-\begin{thm}
-Given an IFS measure $S = \{(S_i, w_i)\}$, the function $f_S:{\mathbb R}^d \rightarrow {\mathbb R^d}$, defined as 
-\[
-f_S(p) = \sum_i w_i S_i(p)
-\]
+Another approach is to represent a fractal model as a point in some space (eg. a vector or a bitstring) and to search the space for a model which approximates the data by some target function using generic search algorithms. Fractal models tend to be difficult to optimize for and only specific methods show promising results. For instance, the use of evolutionary strategies combined with Hausdorff distance as a target function has been shown to be able to reconstruct fractals from data, and to fit models to common datasets. These approaches can be found in \cite{bloem2010fractal,nettleton1994evolutionary} and many others.
 
-will converge to $q_S$ with $n$ for $p \in {\mathbb P}^d$. That is
-\[
-\lim_{n \rightarrow \infty} f_S^{n}(p)(x) = q_S(x)
-\]
-\end{thm}
+The generic nature of these search methods means that they do not exploit any knowledge of the fractal models. We expect that the induction of fractal models can be sped up and made more accurate if we tailor the search algorithm to the model.
 
-As shown in the examples section, the family of IFS measures is rich and diverse, and contains some surprisingly organic forms. However, the structures in nature that have traditionally been considered fractals (eg. coast lines, trees and lightning strikes) also display a great degree of randomness, not captured by these discrete IFSs. To model them succesfully, we require the framework of Random Iterated Function Systems (RIFSs). 
+The investigation of iterated function systems has yielded some results that are promising, but have not resulted in an algorithm for the induction of fractal models in arbitrary dimensions. Examples include the method of moments \cite{rinaldo1994inverse}, similarity hashing \cite{hart1997similarity} and wavelet analysis \cite{struzik1996coastline}.
 
-The key thing to keep in, when dealing with RIFS models is that they do not describe a singular set, or measure on ${\mathbb R}^d$, but a probability distribution of such sets. For the sake of brevity we will skip the RIFS sets and move directly to RIFS measures. 
-
-To define RIFS models we will need to consider the set of all possible deterministic IFS measures $S = {(S_i, w_i)}$. We will call this set ${\mathbb S}$
-
-\begin{dfn}[Random Iterated Function System (Measure)]
-A RIFS measure ${\cal S}$consists of a probability distribution over ${\mathbb S}$
-\end{dfn}
-
-This is a broad definition. The simplest version, and the subset that we will be focusing on is the Discrete RIFS, which consists of a finite set of $h$ deterministic IFS, each with a nonnegative prior $\rho_i$ such that $\sum_i \rho_i = 1$ for each.
-
-There is are analog of the limit set theorems for RIFSs, but we will not go into them here. 
-
-\begin{dfn}[The inverse problem for IFSs]
-Given a finite set of points $X \subset {\mathbb R}^d$, find an IFS measure $S$, such that $S$ `fits the data' by some criterion. 
-\end{dfn}
-
-The obvious criterion for fitting the data in this case would be maximum likelihood (although others exist). Unfortunately, as explained below, Likelihood poses some problems for IFS fitting (specifically for models near the maximum). Since our algorithm is only an approximation to the maximum likelihood fit, we will leave the specifics of the criterion open for now.
-
-\begin{dfn}[The inverse problem for RIFSs]
-Given a set ${\cal X}$ of sets of points (both finite), find a discrete RIFS measure ${\cal S}$ such that each $X \in {\cal X}$ can be said to fit a (probable) instance of ${\cal S}$.
-\end{dfn}
-
-While we believe this to be a very relevant problem in the field of fractal modeling, the task of fitting a model to sets of sets of points is not a common one in statistics. Again, we will only show emprically that the algorithm has the possibility to converge to the correct model in some cases, and we will not give any results on which criterion (if any) is optimized, either locally or globally.
-
-\subsection*{Examples}
-
-\section*{Methods for deterministic IFS models}
+\section*{Methods}
 
 In this paper we focus on numerical data in an arbitrary number of dimensions. Each instance in our dataset is represented by a fixed number of numerical features. Call our dataset $X$, our instance $x \in X$ and $x \in {\mathbb R}^d$. We will assume that our dataset represents iid samples from a probability distribution over ${\mathbb R}^d$ which we will attempt to model.
 
-For the random case, our data ${\cal X}$ consists of $m$ distinct datasets ${X_i}$ where each $X_i$ is defined as in the previous paragraph.
+\subsection*{Iterated Function Systems}
+
+If we are to fit fractal models to data then we require a family of fractals which is easy to parametrize, and likely to encompass a large number of organic and useful patterns. We will use the formalism of \emph{Iterated Function Systems} (IFSs) for this purpose. 
+
+Since the aim of this paper is to present our induction algorithm and to introduce IFS models to a machine learning context, we will provide only an informal treatment of the properties of IFSs that are already well established. For a more rigorous treatment, we recommend \cite{hutchinson2000deterministic} and the references therein.
+
+Iterated Function Systems are a simple generalization of many classic fractals. Consider the Sierpinski Gasket (fig. \ref{fig:sierpinski}). As noted before, it consists of three scaled down versions of itself. In mathematical terms, if we view the Sierpinski gasket as a set in ${\mathbb R}^2$ and take the union of three specific transformations applied to it, we will get the Sierpinski gasket again. The key result in the theory of iterated function systems is that for these three transformations there is only one set that has this property. The three transformations together form a scaling law, and we say the Sierpinski gasket satisfies the scaling law.
+
+We will use the following notation. Let $S_1$, $S_2$, \ldots, $S_k$ be a set of contractive transformations on ${\mathbb R}^d$. (We will later limit the family of allowable functions, but from a mathematical point of view we only require them to be contractive). There exists a single set $Q$ that satisfies the following property:
+\begin{align}
+Q = S_1(Q) \cup S_2(Q) \cup \ldots \cup S_k(Q) \label{scaling law}
+\end{align}
+
+We call $\{S_i\}$ a \textit{scaling law}, and we say that $Q$ satisfies it.
+ 
+If we apply the transformations $S_i$ to a set $X$ that doesn't satisfy the scaling law (and take the union of the results), we get a different set $X'$. Call this function $S$: $S(X) = \bigcup S_i(X)$. Another important result about IFSs is that when we iterate $S$ as $S^{n+1}(X) = S(S^n(X))$ we get 
+\[
+\lim_{n \rightarrow \infty} S^n(X_0) = Q
+\]
+with $X_0$ any non-empty set and $Q$ the unique set that satisfies the scaling law $\{S_i\}$.
+
+Of course, in statistics, we are interested in finding probability distributions rather than sets. The IFS formalism can be extended to measures in a natural way. First, we must extend the concept of a map to measures. Let $p$ be some probability measure over ${\mathbb R}^d$ and $F:{\mathbb R}^d \rightarrow {\mathbb R}^d$ be some map on ${\mathbb R}^d$. Then we define the mapping of $p$ by $F$ as:
+\[
+(F(p))(X) = v(F^{-1}(X))
+\]
+So if $p$ is a probability measure, then $F(p)$ is also a probability measure and $F(p)$ assigns $X$ the same probability as $p$ would assign to $F^{-1}(X)$, where $F^{-1}$ is the inverse of $F$.
+
+Our IFS over probability measures consists, as before, of $k$ transformations, but here we also introduce $k$ weights $w_i$ with the constraint that they sum to one. Let $q$ be a probability distribution and $S = \{(S_i, w_i)\}$ be a scaling law. We say that $q$ satifies $S$ iff:
+\[
+q(X) = \sum_{i\in[1, k]} w_i S_i(q)(X)
+\] 
+
+As before q is uniquely defined by $S$. If we apply the transformations and weights to a different probability distribution iteratively, we get a sequence which converges to $q$:
+\begin{align*}
+p_{n+1} &= \sum w_i S_i(p_n) \\
+\lim_{n \rightarrow \infty} p_n &= q 
+\end{align*}
+
+This is the type of IFS model we will attempt to learn from data. See figure \ref{fig:measures} for some examples IFS measures.
 
 \subsection*{Representing IFSs}
 
 As discussed, an IFS is completely determined by its component transformations and their weights. The definition does not specify any kind of transformation, so to make fitting IFSs to data feasible we must fix a family of transformations which we can search. For the purposes of this paper we will use \emph{similarities} (also known as \emph{similitudes}): maps on ${\mathbb R}^d$ consisting of a translation, a rotation and a uniform scaling.
 
-This means, of course that our method is not suited to learn all IFSs, but only those based on similitudes. However the skeleton of the algorithm does not depend strongly on the choice of map type. Any type of map for which there exists a method to fit a map to an existing set of point pairs $\{(x_i, y_i)\}$ can potentially be used with this algorithm. We chose the $similitudes$ as a family, because there is an efficient, optimal method for solving this sub-problem.
+The method described below can easily be extended to other families of transformations such as affine transformations or neural networks. The only requirement is that we must have some way of finding a transformation $F$ within this family given two ordered point sets $\{x_i\}, \{y_i\} \subseteq {\mathbb R}^d$ so that the error is minimized. For similarities there is a direct and optimal method. \cite{umeyama1991least}
 
 \subsection*{Drawing points from an IFS distribution}
 
@@ -364,42 +369,11 @@ The choice of initial model is crucial for achieving good performance. The follo
 \end{description}
 
 Tests on our datasets show that \textbf{spread} and \textbf{sphere} tend to perform best. Since \textbf{sphere} is the simplest to implement  we use that in all reported results.
-
-\section*{Methods for Random IFS models}
-
-\subsection*{Choice trees}
-
-In the case of fitting deterministic fractals, our main problem turned out to be the existence of a complex hidden variable, in the form of a code for each data point.
-
-In the random case, we are faced with further unobservable information. Assuming that a single dataset is drawn from a given instance of a random fractal ${\cal S}$, we must know how this instance is built up from ${\cal S}$'s deterministic components. To simplify the problem, we will assume that ${\cal S}$'s components all have the same number $k$ of component maps, and that ${\cal S}$ has $m$ components.
-
-The full representation of a single dataset generated from ${\cal S}$ then consists of the generated points (the obeervables), the code tree (with the points at its leaves and a nuber representing the IFS) and at each node of the code tree a number from $\{1, \ldots, m\}$ to denote the choice of component IFS at that level.
  
-[@! Picture]
-
-Analogous to the soft responsibilities of the classical EM algorithm, we will use choice trees that hold at their nodes not a single choice of component IFS, but a probability distribution over all components. We'll call these stochastic choice trees.
-
-We now have three elements that together generate a dataset: a discrete RIFS model, codes for each point in each dataset, a choice tree per dataset). Each of these three can be found in a straightforward manner, if the other two are known. Our algorithm consists of an iteration of all three steps.
-
-When we speak of coding, we must now distinguis between the \emph{map coding} of a point, which consists of a string of integers from $(1,k)$ denoting the choice of map of the component IFS at each level and the \emph{complete coding} of a point, which consists of a string of pairs of two integers the frist from $(1, m)$ and the second from $(1,k)$. This code give both the choice IFS component and its map at each level.
-
-[@! algorithm]
-
-
-
-\subsection*{Finding codes given a model and a set of choice trees}
-
-\subsection*{Finding a choice tree given a model and a coding}
-
-As we know the coding we can, for each node in the code tree, find the points $X_\sigma$ that have the code prefix $\sigma$. We can also, for every code $\tau$ that extends $\sigma$ by a single symbols, fond the points with that code.
-
-\subsection*{Finding a model given a coding}
-
-Given a complete code for each point, we can repeat the principle used for the 
+\subsection*{Convergence}
 
 \section*{Results}
 
-\subsection*{Discrete}
 We perform a number of experiments to give an impression of the behavior of IFSs as statistical models, and the EM algorithm as a learning method. 
 
 First, we show a selection of results on 2D datasets to give a visual impression of the behavior of the algorithm. These images represent the value of the EM algorithm over earlier approaches, as methods based on evolutionary algorithms commonly fail to induce fractals from a fractal dataset with this speed or accuracy.
@@ -560,13 +534,19 @@ mnist   & & & & & & & 0.09 & & 0.05 & & 0.20 & \\
 
 An informal analysis of the algorithm shows that the expectation step costs $O(k^dn)$, with the maximization step taking roughly $O(n^2)$. This falsely suggests that the expectation step, being linear in the number of data points, is negligable compared to the maximization step, which is quadratic. Of course, when viewed in terms of the parameters the expectation step is exponential and this is what causes the expectation step to become the bottleneck for anything but very low values of $k$ and $d$. 
 
-\subsection*{Rnadom}
-
 \section*{Conclusions}
 
-We have presented a framework for a fractal approach to the statistics of point patterns. We introduced an EM-style algorithm for fitting fractal models to data. Compared to search algorithms for other types of models the algorithm is relatively expensive, but compared to other approaches for fractal modeling the algorithm represents a significant improvement [@!]. 
+We have presented a framework for a fractal approach to the statistics of point patterns. We introduced an EM-style algorithm for fitting fractal models to data. Compared to search algorithms for other types of models the algorithm is relatively expensive, but compared to other approaches for fractal modeling the algorithm represents a significant improvement @!. 
 
-with these tools in place, we believe the door is opened to new opportunities for statistical modeling with fractals. Rather than simply proving that fractal structure exists in a dataset (for instance by measuring its fractal dimension), these algorithms will help researchers to expose that structure. Which datasets and modeling problems are susceptible to fractal analysis of this kind is a question for future research.
+Further, we have given some indication of how the study of fractal modeling can open up interesting new prospects in machine learning. We expect that these methods will allow many avenues of future research. One option would be to investigate the use of more expressive maps. The similitudes used here could be replaced by neural networks, for instance. The EM search algorithm is fairly simple, and could be extended to try various branches and backtrack if it deviates too far from a good model.
+
+\subsubsection*{Other fractals}
+
+It is important to note that there are many other families of fractals besides iterated function systems. They are not covered by our method, and cannot be properly represented by Iterated Function Systems. Examples include Julia sets and dynamical systems.
+
+There is one family of fractals in particular that would be very interesting to explore in light of this research, and that is the family of random fractals. When we think of natural phenomena that seem to resemble iterated function systems---coast lines, trees, the veins of a leaf---there is always a combination of fractal scaling and some random component. The framework most likely to capture these phenomena is that of random Iterated Function Systems, as described in \cite{hutchinson2000deterministic}.
+
+The random IFS model is an extension of the Iterated Function System which produces not one single set but a distribution over all sets. The dataset for which to learn a random fractal would not consist of one list of vectors, but of a list of lists of vectors. For instance, a collection of timeseries preceding a critical event, or a collection of images of snowflakes. In \cite{bloem2010fractal} we showed a proof-of-concept, indicating that such models can be learned by evolutionary algorithm in principle, but we did not advance beyond the simplest conceivable model. If the EM algorithm described here could be extended to random fractals, it would open up a new type of machine learning task, where instances ae represented by point patterns, and the model to be learned is a distribution over distributions.  
 
 \bibliographystyle{siam}
 \bibliography{fractal}
