@@ -1,0 +1,14 @@
+\begin{thebibliography}{}
+
+\bibitem[Kearns, 1989][Kearns][1989]{kearns89}
+Kearns, M.~J. (1989).
+\newblock {\em Computational complexity of machine learning}.
+\newblock Doctoral dissertation, Department of Computer Science, Harvard
+  University.
+
+\bibitem[Schapire, 1990][Schapire][1990]{schapire90}
+Schapire, R.~E. (1990).
+\newblock The strength of weak learnability.
+\newblock {\em Machine Learning}, {\em 5}, 197--227.
+
+\end{thebibliography}

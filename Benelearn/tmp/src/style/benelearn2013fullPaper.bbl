@@ -1,0 +1,27 @@
+\begin{thebibliography}{}
+
+\bibitem[Kearns, 1989][Kearns][1989]{kearns89}
+Kearns, M.~J. (1989).
+\newblock {\em Computational complexity of machine learning}.
+\newblock Doctoral dissertation, Department of Computer Science, Harvard
+  University.
+
+\bibitem[Neal, 1993][Neal][1993]{neal93}
+Neal, R. (1993).
+\newblock {\em Probabilistic inference using {M}arkov {C}hain {M}onte {C}arlo
+  methods} (Technical Report CRG-TR-93-1).
+\newblock Dept. of Computer Science, University of Toronto.
+
+\bibitem[Schapire, 1990][Schapire][1990]{schapire90}
+Schapire, R.~E. (1990).
+\newblock The strength of weak learnability.
+\newblock {\em Machine Learning}, {\em 5}, 197--227.
+
+\bibitem[Zinkevich, 2003][Zinkevich][2003]{zinkevich03}
+Zinkevich, M. (2003).
+\newblock Online convex programming and generalized infinitesimal gradient
+  ascent.
+\newblock {\em Proceedings of the International Conference on Machine
+  Learning}.
+
+\end{thebibliography}
