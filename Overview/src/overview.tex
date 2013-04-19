@@ -1,0 +1,191 @@
+\documentclass[10pt,a4paper,oneside]{article}
+
+\usepackage{charter}
+\usepackage{eulervm}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\theoremstyle{definition}
+\newtheorem*{thm}{Theorem}
+\newtheorem{lma}{Lemma}
+\newtheorem*{dfn}{Definition}
+\newtheorem*{exm}{Example}
+
+\usepackage{color}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{argmax}
+
+\title{The question of interesting information}
+\date{\today}
+
+% non-indented, spaced paragraphs
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.1in}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\noindent Ever since the introduction of absolute measures of information content---such as Information Entropy and Kolmogorov Complexity---there have been  criticisms of the idea that these measures capture the informal notion of  information. The argument is that the signals which, under these measures, contain the highest amount of information are by definition completely unpredictable, and therefore cannot contain any interesting information. There is an informal notion of information content, which is not captured by these absolutes, a kind of useful or meaningful information content. We review the literature available on this topic and provide a distillation of common themes and possible connections.
+\end{abstract}
+
+\section*{Introduction}
+
+Consider the following, illustrative example. An old-fashioned, black-and-white television set is turned off. The screen is black. This signal represents a complete lack of information. It is highly predictable. At every point we can predict exactly the next state of the signal. Describing this signal would be very simple.
+
+We turn the television on, and are faced with white noise. This represents the other extreme, of a signal as rich in information as possible. for each point on the screen at each point in time, we have no wa of prediction its next value. To describe this signal, we have no other option than to describe every value of every point of the screen for every point in time.
+
+Finally, we tune the television to a news cast. This signal lies somewhere in between the two extremes. Most of the signal is precictable in some way. It contains many patterns. We aid prediction by modeling the average of each grayscale value. We can model common elements in the signal like faces, or the news channel's logo. We can segment the signal and model sections of the news anchor speaking to camera separately from reports on location. All these options showthat we have an almost infite variety of patterns to exploit, but also that there are many sudden shifts in how well each strategy will work, and that some part of the signal will still be unpredictable.
+
+For the first two situations in this example, we have solid, well understood mathematical formalizations. If the signal consists of single elements which are transmitted one after the other from an iid source, we can use Information Entropy \cite{}@!, which will tell us the exact number of bits we will need for each element transmitted. If a finite sequence of elements is viewed as a whole, with all dependencies between transmitted elements considered, we use Kolmogorov Complexity \cite{} @!. In both cases, the predictability of the signal gives us a spectrum, with the blank screen on one end, and white noise on the other. 
+
+The third example has no formalization that is well-understood and broadly agreed on. There is a strong intuition pervading the literature that signals or data in between the two extremes maximize some mixture of predicatbility and unpredictability. That both the presence of useful patterns and the sudden disappearance of these patterns indicate that the data is in some way interesting. There are many open questions. Can this intuitive notion be effectively formalized? Is there a single, objective function that is maximized by the most interesting data. Is there a single measure that can  be convincingly argued to supercede or encompass all competing notions? What reasons do we have to suggest that `interestingness' can be captured in an objective manner?
+
+\begin{quotation}
+A fundamentalproblem for statistical mechanics is to explain why dissipative systems (those in which entropy is continually being produced and removed to the surroundings) tend to undergo ``self-organisation,'' a spontaneous increase of structural complexity, of which the most extreme example is the origin and evolution of life. The converse principle, namely that nothing very interesting is likely to happen in a system in thermal equilibrium, is reflected in the term ``heat death.'' In the modern world view, thermodynamic driving forces, such as the temperature difference between the hot sun and the cold night sky, have taken over one of the functions of God: they make matter transcend its clod-like nature andbehave instead in dramatic and unforeseen ways, for example molding itself into thunderstorms, people, and umbrellas.
+\end{quotation}
+
+\subsection*{A note on terminology}
+
+Complexity, order, etc.
+\section*{Preliminaries}
+  
+\subsection*{Information Entropy}
+
+\subsection*{Kolmogorov Complexity}
+
+\subsection*{Two-part coding}
+
+\subsection*{Dynamical systems}
+
+\section*{Questions to ask}
+
+\begin{itemize}
+  \item Level of formalization
+  \item The objectivity of interestingness
+  \item Broadness. What types of data are covered, and what models and patterns are covered? 
+  \item Context-dependence. Context plays an undeniable part in any notion of beauty or interestingness. Are contextual considerations acknowledged and given a place in the framework?
+\end{itemize}
+
+\section*{Measures of interesting information}
+
+\subsection*{The Kolmogorov structure functions}
+[!@ Chronological order. Each presented in an intuitive manner first, followed by the formalization.]
+
+\subsection*{Aesthetic measures}
+
+Some of the earliest ideas that relate to the question of interesting information have come from the field of generative art. This should not be surprising: if we can reverse a measure for interestingness, we get an algorithm for generating interesting data. Formalizing the aspects that make art interesting, can help us achieve both a measure of interestingness and a generative algorithm for producing interesting things.
+
+The formal study of aesthetics is a sprawling field, a complete review of which is out of scope for this paper. While aethetics is related to the notion of interesting information, they do not mean the exact same thing. Specifically, aesthetics is primarly concerned with a formalization of human cognition, whereas one of the assumptions underlying the question of interesting information seems to be that the notion of aesthetic beauty emerges from a more general objective princpiple of interestingness. We mention aesthetics here mainly to provide historical context, and to show some of the recurring themes appearing in early work.
+
+One interesting line of research started with G.D. Birkhoffs suggestion of an aesthetic measure. He proposed the following pseudoformula to express the level of aesthetic quality of an object:
+\[
+M\; \mbox{aesthetic measure}= \frac{O\; \mbox{order}}{C\; \mbox{complexity}}
+\]
+The specific methods used to measure each value differ per domain. Birkhoff himself gave the example of regular and irregular polygons as an example. In this case the polygons with low complexity were those with a low number of sides and high order was measured by a high number of symmetries. Using these principles Birkhoff calculated that the square was the polygon with the greatest aesthetic measure. 
+
+
+Attempts to verify this hypothesis have revealed some interesting results. \cite{mcwhinnie1968review} provides a review of such studies, showing, among other things, that 
+
+law of Prägnanz
+
+\cite{bense1969einfuhrung, birkhoff1950collected, mcwhinnie1968review}
+
+\subsection*{Incomplete sequence}
+
+1977 Levin \& V'jugin
+
+\subsection*{Hitting time}
+
+1984 Levin 
+
+\subsection*{Generalized Kolmogorov Complexity and Algorithmic information}
+
+1983 Hartmanis 
+
+\subsection*{Self-generated complexity and computation at the onset of chaos}
+
+One of the earliest suggestions of a balance between highly structured and highly unstructured signals appears in literature from the field of dynamical systems. In \cite{}, Crutchfield characterizes the two extremes as \emph{the clock} and \emph{the coin}, with a clock providing a highly regular and structured signal and a coinflip being the classic example of a fully random process.
+
+1986 Peter Grassberger
+
+1990 Crutchfield \& Young
+
+\cite{crutchfield1989inferring, crutchfield1990computation, feldman1998measures, crutchfield1983symbolic}
+
+A review by Cructhfield: \cite{crutchfield2011between}
+
+\cite{grassberger1986toward}
+
+\subsection*{Sophistication}
+
+1987 \cite{kopel1987complexity}
+
+
+\subsection*{Logical depth}
+
+1995 Bennett
+
+\cite{bennett1995logical}
+
+\subsection*{Effective Complexity}
+
+2003 Gell-Man \& Lloyd
+
+\cite{gell1996information}
+
+\subsection*{Meaningful information}
+
+2006 Vitanyi
+
+\cite{vitanyi2006meaningful}
+
+\subsection*{Computational depth}
+
+2006 Antunes \& Fortnow
+
+\cite{antunes2006computational, antunes2003sophistication}
+
+\subsection*{Self-dissimilarity}
+
+2007 Wolpert \& Macready 
+\cite{wolpert2000self, wolpert2007using}
+
+\subsection*{Facticity}
+
+2011
+\cite{adriaans2012facticity}
+
+\subsection*{Algorithmic rate distortion}
+
+2012 de Rooij \& Vitanyi 
+
+\cite{de2012approximating}
+
+\section*{Common themes and connections}
+
+Effective complexity and its relation to logical depth \cite{ay2010effective}
+
+\subsection*{Common themes}
+\subsection*{The connection between model size and depth}
+
+\section*{Future directions}
+
+\subsection*{Applications}
+
+@! `philosophical' implications
+@! Statistics
+@! practical applications, ranking, search target. Data with `interesting' ad-hoc codes.
+
+
+\nocite{*}
+
+\bibliographystyle{siam}
+\bibliography{overview}
+
+\end{document}
