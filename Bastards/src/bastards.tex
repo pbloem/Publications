@@ -1,19 +1,213 @@
-%%This is a very basic article template.
-%%There is just one section and two subsections.
-\documentclass{article}
+\documentclass[10pt,a4paper,oneside]{article}
+
+\usepackage{charter}
+\usepackage{eulervm}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+
+%\theoremstyle{definition}
+\newtheorem{thm}{Theorem}
+\newtheorem{lma}{Lemma}
+\newtheorem{dfn}{Definition}
+\newtheorem{exm}{Example}
+
+\usepackage{color}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{argmax}
+
+\title{Bounds on the approximation of Kolmogorov complexity}
+\date{\today}
+
+% non-indented, spaced paragraphs
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.1in}
 
 \begin{document}
 
+\maketitle
 
-\section{Title}
+\section*{preliminaries}
+Let $\mathbb B$ be the set of all finite binary strings $\{0,1\}^*$.
 
-\subsection{Subtitle}
+Let {\cal T} be the set of all finite turing machines.
 
-Plain text.
+\subsection*{probability distributions}
 
-\subsection{Another subtitle}
+We concern ourselves with probability distributions on the set of finite strings. All measure discussed are discrete and have $\mathbb B$ or a subset as support.
 
-More plain text.
+\begin{dfn}
+A \emph{semimeasure} is a function $p : {\mathbb B} \rightarrow {\mathbb R}$ with $\sum_{x \in \mathbb B} x \leq 1$. If this sum is equal to $1$, $p$ is a \emph{measure}, which we will refer to a a probability distribution.
+\end{dfn}
 
+\begin{dfn}
+Semicomputability. A function $f : {\mathbb B} \rightarrow {\mathbb R}$ is \emph{lower semicomputable} iff there exists a computable two-argument function $f': {\mathbb B} \times {\mathbb N} \rightarrow \mathbb Q$ such that  
+\[
+\lim_{i \rightarrow \infty} f'(x, i) = f(x)
+\] and $f'(x, i + 1) \geq f'(x, i)$, ie. $f'$ never decreases with $i$. If the first condition is the same, but $f'$ never increases with $i$, the function is \emph{upper semicomputable}.
+\end{dfn}
+
+Put simply, we can approximate the semicomputable $f(\cdot)$ to any precision by computing $f'$ with high enough $i$. Any function that is both upper- and lower semicomputable is computable.
+
+Since probability distributions are functions from $\mathbb B$ into $\mathBB R$, we talk about (semi)computable probability distributions and (semi)computable semimeasures.
+
+\subsection*{Kolmogorov Complexity}
+
+
+We define $q^*$ as the shortest program implementing this function \footnote{Note that $|q^*|$ is different from $C(q)$. For instance, a program may encode the collected works of Shakespeare in padding. $C(q)$ must reflect this, whereas to $q^*$ this is non-functional code which can be removed.} and $\tilde{q} = |q| - |q^*|$ as the penalty we face for not using the optimal program. 
+
+\section*{sampling computable distributions}
+
+\begin{dfn}
+A \emph{probabilistic Turing machine} (PTM) is defined as a regular Turing machine with the addition of a tape filled with random bits. This tape can only be read, and the tape head can only read in one direction.
+\end{dfn}
+
+A given PTM thus produces a random output for no input. In this sense we can see it as a machine for sampling from some distribution $p_q$. 
+
+However, the constraint that the head moves only in one direction also allows us to see the random tape as an input tape. After each bit read from the random tape, the machine either continues to another bit, or halts. This means that the inputs for which the machine halts form a set of prefix codes, making every PTM a prefix Turing machine.
+
+We say that under the prefix-machine perspective, the Turing machine does not halt if it is presented with fewer bits input than it requires. If it is presented with more bits than required, the remaining bits are not counted as part of the input.
+
+\begin{lma}
+Every PTM samples from a lower semicomputable measure or semimeasure.
+\end{lma}
+\begin{proof}
+Let $q$ be any PTM. We will define a program $p_q'(y, i)$ to approximate the distribution $p_q(y)$ from which $q$ samples. 
+
+Dovetail the computation of $q$ on all inputs $x \in \mathbb B$ for $i$ cycles. Calculate $\sum_{x : q(x) \downharpoonright^i y}2^{-|x|}$. Ie. the sum of the probabilities for all inputs that have halted so far on output $y$. Return this sum.
+
+Clearly this value can never decrease with $i$. To show that this function reaches $p_q(y)$ in the limit, we note that $p_q(y)$ is the sum of the probabilities of all inputs that produce $y$,
+\[
+p_q(y) = \sum_{x : q(x) = y} 2^{-|x|}
+\] 
+
+whereas $p_q(y, i)$ is the sum of all probabilities of all inputs that produce $y$ within $i$ cycles of a dovetailing computation.
+\[
+p_q'(y, i) = \sum_{x : q(x) \downharpoonright^i y} 2^{-|x|}
+\]
+
+For each $i$ we can expand $p_q(x) - p_q'(x, i)$ into its sums and cross out terms where the $x$s match. Let $\epsilon$ be some positive value. If we order all inputs by length, and sum the probabilities of the first $j$, we know that every next code will add as much as or less than the last one. The total sum, we know, converges to a finite value $t_q$. \ldots
+ 
+\end{proof}
+
+
+\begin{lma}
+Every lower semicomputable measure or semimeasure can be sampled by a PTM.
+\end{lma}
+\begin{proof}
+We will construct a program to sample from a semicomputable distribution $p_q$. 
+
+Let $p_q'(y, i)$ be the function that approximates $p_q(y)$. We construct a binary tree $B$, where we will assign nodes $x$ to output values $y$. If $x$ is assigned to $y$, we say $B(x) = $. We want the tree to converge to a prefix tree, so once a node is assigned, all nodes below it become unavailable. 
+
+We dovetail the computation of $p_q'(y, i)$. After each step we calculate the value $A(y) = \sum_{x \in B} B(x)$ for all $y$. If $A(y)$ is less than the last value of $p_q(y, i)$ calculated, we calculate the difference $\rho_y$ and find the first available  node $x$ in $B$ with depth $|x|$ such that $2^{-|x|} < \rho_y$.
+
+In the limit, this process generates a many-to-one prefix coding that maps the distribution $p(x) = 2^{-|x|}$ to $p_q(y)$.
+
+Since the assignments made are never reversed, we can run the process until an assigned node matches the prefix code on our input tape, and return the assigned $y$.
+  
+[@! If we want to prove correctness also, we'll need to clean this up. I think there was a section in Cover \& Thomas about simulating any distribution with a coinflip. May save some time to refer to that.]
+\end{proof}
+
+@! With high likelihood, the sampled string will have low randomness deficiency for $q$ as a model
+
+\begin{dfn}
+The randomness-deficiency of a finite set $A$ is 
+\[
+\delta(x|A) = \log |A| - C(x|A)
+\]
+\end{dfn}
+
+\begin{lma}[{\cite{li1993introduction}[p 120]}]
+For any finite set $A$, the proportion of strings with randomness deficieny above $k$ is less than $2^-k$. 
+\end{lma}
+
+\begin{proof}
+\begin{align*}
+\log |A| - C(x|A) &< k \\
+C(x|A) &> \log |A| - k 
+\end{align*}
+
+Since there are only $2^m-1$ descriptions of length below $m$, There can be no more than $2^m-1$ strings x with $C(x|\cdot) < m$. This means that the number of strings $N_k$ with randomness-deficiency below $k$ is
+
+\begin{align*}
+N_k &< 2^{\log |A| - k}-1 \\
+&= \frac{|A|}{2^k} - 1
+\end{align*}
+
+Finally, we bound the proportion:
+\begin{align*}
+\frac{N_k}{|A|} < \frac{|A|/2^k}{|A|} =  2^{-k}
+\end{align*}
+\end{proof}
+
+As a sanity check, we note that all strings have randomness deficiency at least $0$. The exponential decay with $k$ tells us that if we sample a string at random from $A$, we will likely end up with a string with low $k$. In other words, sampling from $A$ will likely give us a string that is typical for $A$.
+
+\begin{dfn}[{\cite{antunes2009depth}}]
+The randomness-deficiency of a string $x$ given a probability distribution $p_q$ is 
+\begin{align*}
+\delta(x|p_q) &= \log \frac{p_u(x)}{p_q(x)}
+\end{align*} 
+Where $p_u$ is the universal distribution.
+
+We can rewrite this to 
+\begin{align*}
+\delta(x|p_q) &= - \log(p_q(x)) - C(x) 
+\end{align*}
+
+(Note that unlike the finite set case, here we do not make the complexity term conditional on the model)
+
+\end{dfn}
+
+We would like to show the same property we proved for the randomness deficiency of finite sets. That sampling from $p_q$ will likely produce a string that is typical for $p_q$, ie. has low randomness deficiency.
+
+\begin{lma}
+The probability of all strings with randomness deficiency above $k$ is less than $2^-k$
+\end{lma}
+
+\begin{proof}
+Let 
+\begin{align*}
+X_k^q &= \left\{x : \delta(x|q) > k \right\}
+\end{align*}
+ie. the set of all strings with randomness deficiency larger than $k$. We have 
+\begin{align*}
+p_q(X_k^q) &= \sum_{x:\delta(x|q)>k}p_q(x)\\
+    &= \sum_{x: -\log p_q(x) - K(x) > k}p_q(x)\\
+    &= \sum_{x:  p_q(x) < 2^{-k}2^{-K(x)}} p_q(x)\\
+    &< \sum_{x:\delta(x|q) > k} 2^{-k} 2^{-K(x)}\\
+    &= 2^{-k}\sum_{x:\delta(x|q) > k} 2^{-K(x)}
+\end{align*}
+
+Since the sum in the last line is less than or equal to $1$ (as the same sum over all $x$ sums to 1), we obtain
+
+\begin{align*}
+p_q(X_k^q) &< 2^{-k}
+\end{align*}
+\end{proof}
+
+\begin{exm}
+What is the probability that we sample a string $x$ with a randomness deficiency of at least half its length? In other words, if we use the optimal description, we gain $|x|/2$ over describing it in terms of $p_q$.
+\end{exm} 
+
+\subsection*{the universal distribution}
+
+\section*{resource bounded probability distributions}
+
+We define the complexity class of a PTM as normal, as a function of the input length. In the prefix-machine perspective, this suggests that the computational power represented by a probability distribution is a function of the number of `bits of randomness' it uses.
+
+Let $\cal C$ be the set of all Turing machines. Let ${\cal C}^t$ be the set of all Turing machines whose running time is bounded by $t(n)$ where $n$ is the length of the input.
+
+
+
+\subsection*{}
+
+\section*{Inference from bounded distributions}
+\nocite{*}
+\bibliographystyle{siam}
+\bibliography{bastards}
 
 \end{document}
+

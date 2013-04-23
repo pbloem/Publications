@@ -1,4 +1,4 @@
-\documentclass[10pt,a4paper,oneside]{article}
+\documentclass{article}
 
 \usepackage{style/benelearn2013}
 \usepackage{charter}
@@ -6,18 +6,21 @@
 % \usepackage{graphicx}
 \usepackage{amsmath, amsthm, amssymb}
 \usepackage{caption}
+\DeclareCaptionType{copyrightbox}
 \usepackage{subcaption}
 \usepackage{float}
+\usepackage{style/mlapa}
+\usepackage{style/benelearn2013}
 
 
 \usepackage{color}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{url}
 
 % \DeclareMathOperator*{\argmin}{arg\,min}
 % \DeclareMathOperator*{\argmax}{argmax}
 
-\title{Compression-based inference on graph data}
-\date{\today}
+%\date{\today}
 
 % non-indented, spaced paragraphs
 % \setlength{\parindent}{0.0in}
@@ -26,25 +29,39 @@
 \newfloat{pseudo}{h}{lop}
 \floatname{pseudo}{Algorithm}
 
+\benelearntitlerunning{Compression-based inference on graph data}
+
 \begin{document}
 
-\maketitle
+\twocolumn[
+  \benelearntitle{Compression-based inference on graph data}
+
+  \benelearnauthor{Peter Bloem}{p@peterbloem.nl}
+  \benelearnaddress{System and Network Engineering Group, University of Amsterdam,
+   Science Park 904, 1098 XH Amsterdam, The Netherlands}
+
+  \benelearnaddress{{\bf Keywords}: 
+	compression, machine learning, graphs, Kolmogorov complexity, minimum description length, normalized compression distance, subdue}
+\vskip 0.3in
+]
 
 \begin{abstract}
+
 We investigate the use of compression-based learning on graph data. Our hypothesis is that the sequential representation of data on which general purpose compressors operate, hampers compression-based learning, as a graph can be represented sequentially in many different, equivalent ways. Using Normalized Compression Distance (NCD), we test various compressors that operate directly on the graph representation against compressors that operate on a bitstring representation. We use both synthetic, randomly generated graphs and real-life datasets. 
+
 \end{abstract}
 
 \emph{Compression equals learning} is the mantra of the field of compression-based learning. If we can compress data, we must have found some structure, we must have learned something. Conversely, if we have learned something about data, we should be able to use that knowledge to represent our data more succinctly.
 
-The idea of compression-based learning is expressed in two related fields: \emph{Minimum Description Length} and \emph{Kolmogorov Complexity}. Minimum Description Length \cite{grunwald2007minimum} builds a statistical framework on the principle that a good model is one that can be used to describe the data in as few bits as possible. Kolmogorov Complexity \cite{li1997introduction} is concerned with the mathematical expression of the \emph{information content} of  data. If we can find some short description of a dataset (ie. compress it) then the total information content must be below the length of that description.
+The idea of compression-based learning is expressed in two related subjects: \emph{Minimum Description Length} and \emph{Kolmogorov Complexity}. Minimum Description Length \cite{grunwald2007minimum} builds a statistical framework on the principle that a good model is one that can be used to describe the data in as few bits as possible. Kolmogorov Complexity \cite{li1997introduction} is concerned with the mathematical expression of the \emph{information content} of  data. It states that if we can find some short description of a dataset (ie. compress it) then the total information content must be below the length of that description.
 
-In this paper we investigate the use of these compression-based methods on graph data. Examples of such data are social graphs, transportation graphs, trade networks or semantic graphs. The graph is a powerful and versatile representation. Most applications of compression-based learning choose sequential models, such as deterministic finite automata, or general purpose compressors, which operate on bitstrings. If we have data in the form of a graph, we can translate it to a bitstring, of course, but in this transformation we complicate our problem. For a different ordering of nodes, the graph is the same but the bitstring changes radically. To a simple compressor, the two bitstrings may not share very much structure, even though they represent the same graph.
+In this paper we investigate the use of these compression-based methods on graph data. Examples of such data are social graphs, transportation graphs, trade networks or semantic graphs. The graph is a powerful and versatile representation. Most applications of compression-based learning choose sequential models, such as deterministic finite automata or block-sorting compressors, which operate on bitstrings. If we have data in the form of a graph, we can translate it to a bitstring, but in this transformation we complicate our problem. For a different ordering of nodes, the graph is the same, but the bitstring changes radically. To a simple compressor, the two bitstrings may not share very much structure, even though they represent the same graph.
 
-If this problem holds, we should investigate compressors that operate on the level of the graph representation, for instance by finding frequent subgraphs or clustering the graph. The methods do not suffer the problem of isomorphism, but as a result, they are more expensive than their sequential cousings. In this paper we hope to provide a first indication of how far the sequential approach will go, and whether the native approach will let us continue on from there.
+If this problem holds, we should investigate compressors that operate on the level of the graph representation, for instance by finding frequent subgraphs or clustering the graph. The methods do not suffer this problem of isomorphism, but as a result, they are more expensive than their sequential cousins. In this paper we hope to provide a first indication of how far the sequential approach will go, and whether the native approach will let us continue on from there.
 
 \section*{Normalized Compression Distance}
 
-From the many methods born from Kolmogorov Complexity and Minimum Description Length, we choose \emph{Normalized Compression Distance} (NCD) as a representative method of compression-based learning. The choice is a practical one: NCD is a simple method which requires nothing more than a general purpose compressor. Any domain-specific knowledge we wish to use about our data (eg. it represents a graph) can be placed in the compressor. We proceed under the assumption that conclusions reached about the performance of NCD on graph data will translate to MDL and other frameworks.
+From the many methods born from Kolmogorov Complexity and Minimum Description Length, we choose \emph{Normalized Compression Distance} (NCD) as a representative method of compression-based learning. The choice is a practical one: NCD is a simple method which requires nothing more than a general purpose compressor. Any domain-specific knowledge we wish to use about our data (eg. it represents a graph) can be added to the compressor. We proceed under the assumption that conclusions reached about the performance of NCD on graph data will translate to MDL and other frameworks.
 
 We will provide a brief, intuitive explanation of the principles involved, sufficient to understand the ideas presented in this paper. For a more in-depth and rigorous treatment we refer the reader to \cite{li2004similarity} and \cite{cilibrasi2005clustering}. For a general introduction to Kolmogorov complexity, see \cite{li1997introduction}.
 
@@ -58,31 +75,40 @@ We choose the Turing machine as a canonical method of description, and we fix so
 \[
 U(\langle i, p\rangle) \simeq T_i(p)
 \] 
-That is, if $U$'s input consists two bitstring arguments $i$ and $p$, combined with some computable pairing function $\langle \cdot, \cdot\rangle$, then $U$ computes the same function as $T_i$ on input $p$ if $T_i(p)$ halts, or fails to halt if $T_i$ fails to halt. $U$ provides our formalization of 'description'. If our data is $x$, and for some $y = \langle i, p\rangle$, $U(y) = x$, we say that $y$ is a description of $x$ on our reference universal Turing machine.  
+That is, if $U$'s input consists of two bitstring arguments $i$ and $p$, combined with some computable pairing function $\langle \cdot, \cdot\rangle$, then $U$ computes the same function as $T_i$ on input $p$ if $T_i(p)$ halts, or fails to halt if $T_i$ fails to halt. $U$ provides our true formalization of `description'. If our data is $x$, and for some $y = \langle i, p\rangle$, $U(y) = x$, we say that $y$ is a description of $x$ on our reference universal Turing machine.  
 
 We can now say, that with respect to $U$, there must be a minimal description for any given data:
 \[
 K_U(x) = \min\left \{|y| : U(y) = x\right\} 
 \]
 
+The result that makes Kolmogorov Complexity a useful measure of information content is that $K_U(\cdot)$ is only marginally dependent on the choice of $U$. If we suppose that there is another universal description method, $V$, we might ask what the expected difference is between $K_U(x)$ and $K_U(v)$. Let $k_V(x)$ be the shortest program for $x$ on $V$. Since, $U$ is universal, we know that is can compute $k_v$ by simulating $V$. This simulation is a program for $x$ on $U$ which is a bound for the shortest program on $U$:
+\begin{align*}
+K_U(x) 	&\leq |\langle T_v, k_v(x)\rangle|\\ 
+		&=  |k_v(x)| + |v| + p(v) \\
+		&=  K_V(x) + O(1)
+\end{align*}
+
+Where $p(v)$ is the penalty (ie. the additional bits) that the pairing function reuires to store its two arguments in a separable way. We require that this is only dependent on $v$. The final line shows that $K_U(\cdot)$ and $K_V(\cdot)$ differ only by a constant term, which is independent of $x$. To summarize: we may differ in opinion on how much information our data contains, but only by a constant amount.
+  
 In some contexts, it is desirable to distinguish between the classical Kolmogorov complexity and the prefix-free Kolmogorov complexity. In the context of Normalized Compression Distance the distinction does not matter.
 
 A complete treatment of Kolmogorov Complexity is outside the scope of this paper, but the following properties are important to understand.
 
 \begin{description}
-\item[$K(\cdot)$ is uncomputable.] There can be no algorithm which computes the Kolmogorov Complexity of $x$ for all $x$. It can however be bounded from above, and for every algorithm which bounds it, there is an algorithm which provides a better bound. 
+\item[$K(\cdot)$ is uncomputable.] There can be no algorithm which computes the Kolmogorov Complexity of $x$ for all $x$. It can, however, be bounded from above, and for every algorithm which bounds it, there is an algorithm which provides a better bound. 
 \item[$K(\cdot)$ is approximated by all computable compressors.] If we have some compressor for our data $x$ (say GZIP) we can find the decompression algorithm somewhere in $\{T_i\}$, say as $T_g$. We can have a description on $U$ as $U(\langle g, z\rangle) = x$ so that $K_U(x)\leq |z| + O(1)$. In this way, any computational structure in $x$ is taken into account in $K(x)$, and $K(\cdot)$ can be approximated by any computable compressor.
 \end{description}
 
 This gives us the basic philosophy behind all translations of Kolmogorov complexity to the realm of practical applications: we approximate Kolmogorov complexity by some learning algorithm or compressor. 
 
-Finally, we define conditional Kolmogorov Complexity $K(x| y)$. Where regular Kolmogorov Complexity is defined as the shortest program which produces $x$, the conditional variant is defined as the shortest program which produces $x$ when provided with $y$. A complete treatment is available in \cite{}.
+Finally, we define conditional Kolmogorov Complexity $K(x| y)$. Where regular Kolmogorov Complexity is defined as the shortest program which produces $x$, the conditional variant is defined as the shortest program which produces $x$ when provided with $y$. A complete treatment is available in \cite{li1997introduction}.
 
 \subsection*{Normalized Information Distance (NID)}
 
 The length of the shortest program to get from $y$ to $x$ intuitively suggests that $K(\cdot\mid \cdot)$ can be seen as a similarity measure. Clearly, very little is required to transform a string into itself, or a very similar string, whereas for two random strings, only a program that stores the second in its entirety can make the transformation.
 
-This intuition prompted Li and Vit{\'a}nyi \cite{li2004similarity} to investigate the use of Kolmogorov Complexity as a metric. The first issue is that $K(\cdot\mid \cdot)$ is not symmetric: it takes a small program to blank out the collected works of Shakespeare, but the reverse is a more complex operation. The first step is thus to define the (symmetric) Information Distance:
+This intuition prompted Li and Vit{\'a}nyi \cite{li2004similarity} to investigate the use of Kolmogorov Complexity as a metric of computational similarity. To acquire a true metric, some problems have to be solved. The first is that $K(\cdot\mid \cdot)$ is not symmetric: it takes a small program to blank out the collected works of Shakespeare, but the reverse is a more complex operation. The first step, then, is to define the (symmetric) Information Distance:
 \[
 ID(x, y) = \max \left [K(x\mid y),K(y\mid x) \right ] 
 \]  
@@ -93,7 +119,7 @@ The second issue is one of scale. If two strings of a million bits differ by 100
 NID(x, y) = \frac{\max \left [K(x \mid y),K(y \mid x) \right ] }{\max \left [K(x), K(y) \right ]}
 \] 
 
-We would like to approximate this by replacing each occurence of the Kolmogorov complexity with an approximation by a compressor, which we will call $C$. As most compressors do work on a conditional basis (expressing data given some existing data), we want to rewrite the condition $K$'s as nonconditional ones. In doing this, we make first accept beyond the constant term inaccuracy that is innate to Kolmogorov Complexity, a further logarithmic inaccuracy so that we can rewrite as
+We would like to approximate this by replacing each occurence of the Kolmogorov complexity with an approximation by a compressor, which we will call $C$. As most compressors do not work on a conditional basis (expressing data given some existing data), we want to rewrite the conditional $K$'s as nonconditional ones. To achieve this, we accept beyond the constant term uncertainty that is innate to Kolmogorov Complexity, a further logarithmic inaccuracy. This allows us to rewrite as
 
 \begin{align*}
 NID(x, y)	 &= \frac{\max \left [K(x, y) - K(x),K(y, x) - K(y)\right ] }{\max \left [K(x), K(y) \right ]} \\ 
@@ -112,70 +138,57 @@ Where the last step follows from the assumption that our compressor is roughly s
 
 When our data is represented as a graph, rather than a string, we replace the notion of concatenation strings by concatenation of graphs. That is, we combine the graphs $x$ and $y$ into a single (disconnected) graph.
 
-\section*{Method}
+\section*{Methods}
 
-Our aim is to test a selection of compressors on a variety of graph data. To ascertain the performance of the compressors, we generate graphs from different sources, calculate their distances and see whether a clustering algorithm can reconstruct the original sources as clusters. Source code for these experiments is available \footnote{@!@!}
+Our aim is to test a sequential and graph-based compressor on a variety of graph data. To ascertain the performance of the compressors, we generate graphs from different sources, calculate their distances and see whether a clustering algorithm can reconstruct the original sources as clusters. Datasets and source code for these experiments are available. \footnote{\url{http://www.peterbloem.nl/benelearn2013}}
 
 \subsection*{Experiment 1: Synthetic data}
 
 We generate graphs from two models. The first is the classic Erd\H{o}s-R\'enyi (ER) model, where a uniform random choice is made from all graphs with $n$ nodes and $m$ links. The second is the Barab\'asi-Albert (BA) model \cite{albert2002statistical}, which grows a graph from a set of $n_0$ unconnected nodes, one node at a time, connecting each new node to $k$ distinct existing nodes where the probability that a given existing node is chosen for a connection is its degree, divided by the sum of the degrees of all nodes. Thus, under the BA model the more links a node has, the higher the probability that it will accrue even more. This effect causes the degree distribution of a BA network to form a scale free distribution.
 
-Since we want there to be some challenge in separating the two classes of network, we ensure that they have the same number of nodes and links. To achieve this, we first generate the BA networks, count their nodes and links and use these as parameters for the ER model. 
+Since we want there to be some challenge in separating the two classes of network, we ensure that they have the same number of nodes and links. To achieve this, we first generate the BA networks, count their nodes and links and use these as parameters for the ER model.
+ 
+We also include graphs from the fractal graph generation algorithm from \cite{song2006origins}. We set the hub-parameter which determines the level of fractality (as a trade-off with the level of small worldness) to $0.0$ (for a small world network) and to $1.0$ (for a fractal network).
 
-Once we have this dataset, calculate the NCD with a given compressor for every pair of graphs in the dataset, giving us a symmetric matrix. We use the k-medoids algorithm to cluster this set into two clusters, and we check whether graphs from a given source tend to end up in a specific cluster. 
-
-For second experiment with larger graphs, we can include the fractal graph generation algorithm from \cite{song2006origins}. We set the hub-parameter which determines the level of fractality (as a trade-off with the level of small worldness) to $0.1$ (for a small world network) and to $0.9$ (for a mostly fractal network).
-
-\subsubsection*{Parameter settings}
-
-@!
-
-For all graphs we shuffle the node order before adding them to the dataset.
+Once we have this dataset, consisting of four gold clusters, we calculate the NCD with a given compressor for every pair of graphs in the dataset, giving us a symmetric matrix. We use the k-medoids algorithm to cluster this set into two clusters, and we check whether graphs from a given source tend to end up in a specific cluster. As a random baseline, we generate a random distance matrix with every distance a uniform random value in $[0, 1)$, and run the clustering algorithm on that.
 
 \subsection*{Experiment 2: Real-life data} 
 
-In this experiment we sample subgraphs from large, existing graphs. Again, to make the problem challenging enough to be meaningful, we want the subgraphs to have identical size in both nodes and links. To accomplish this, we proceed as follows.
+In this experiment we sample subgraphs from large, existing graphs. We sample by choosing a uniform random node, and performing a random walk of length $n$. We then extract a subgraph containing the nodes encountered and any links connecting two encountered nodes. We replace all node  and link labels with a single canonical symbol.
 
-\begin{itemize}
-  \item Choose a random subgraph by choosing a random node uniformly, and including all nodes within distance $d$. Generate $N$ such graphs for each source.
-  \item Find the subgraph with the smallest number of nodes $n_{\mbox{min}}$ over all subgraphs and, for every other subgraph, remove randomly chosen nodes until its number of nodes matches $n_{\mbox{min}}$
-  \item Find the subgraph with the smallest number of links $l_{\mbox{min}}$ and, for every other subgraph, remove randomly chosen links until the number of links matches $l_{\mbox{min}}$ 
-\end{itemize} 
-
-With this dataset of subsets, we proceed as before, calculating the distances between the subgraphs and clustering them into as many clusters as we have sources, to see whether the resulting clusters match the sources.
+With this dataset of subgraphs, we proceed as before, calculating the distances between the subgraphs and clustering them into as many clusters as we have sources, to see whether the resulting clusters match the sources.
 
 We use the following datasets:
 \begin{description}
-	\item[web] A graph snapshot of a section of the world wide web. All nodes and edges have the same label. (This is roughly the same as not having labels, in terms of compression. To make the compressor as general as possible we choose some canonical string as the label for all nodes and links).
-	\item[metabolic] A metabolic network. @!
-	\item[semantic A] A semantic description of researchers at the @! institute \ldots 
-	\item[semantic B]
+	\item[cellular] The cellular network of the E. Coli bacterium. \cite{jeong2000large} Acquired from \url{http://www.nd.edu/~networks/resources/metabolic/index.html}
+	\item[neural] The neural network of the C. Elegans nematode worm (ignoring link directions). \cite{achacoso1991ay, watts1998small} Acquired from \url{http://toreopsahl.com/datasets/#celegans}
+	\item[co-purchase] A graph of items commonly purchased together on internet retailer Amazon.com. \cite{leskovec2007dynamics} Acquired from \url{http://snap.stanford.edu/data/amazon0302.html}
 \end{description}
 
-Some basic properties of these graphs are given in table \ref{table:properties}.
+% Some basic properties of these graphs are given in table \ref{table:properties}.
 
-\begin{table}
-\label{table:properties}
-\begin{tabular}{ l | r r r r r}
-\hline
-    & nodes & links & C & $alpha$ & $p_\alpha$ \\
-\hline
-  web & & & & & \\
-  metabolic & & & & & \\
-  semantic A & & & & & \\
-  semantic B & & & & & \\
-  
-\hline
-\end{tabular}
-\caption{The basic properties of our natural datasets. We report the number of nodes, the number of links, the number of nodes in the largest component (C), the estimates power law exponent ($\alpha$), and the significance for the power law model ($p_\alpha$, significant for values \emph{above} 0.01).}
+%\begin{table}
+%\label{table:properties}
+%\begin{tabular}{ l | r r r r r}
+%\hline
+%    & nodes & links & C & $alpha$ & $p_\alpha$ \\
+%\hline
+%  web & & & & & \\
+%  metabolic & & & & & \\
+%  semantic A & & & & & \\
+%  semantic B & & & & & \\
+%  
+%\hline
+%\end{tabular}
+%\caption{The basic properties of our natural datasets. We report the number of nodes, the number of links, the number of nodes in the largest component (C), the estimates power law exponent ($\alpha$), and the significance for the power law model ($p_\alpha$, significant for values \emph{above} 0.01).}
 
-\end{table}
+%\end{table}
 
 \subsection*{Compressors}
 
 \subsubsection*{GZIP}
 
-We use GZIP as our general purpose compressor. Specifically, in our experiments, we use the implementation of GZIP that is part of the standard Java SDK. To store a graph with GZIP, we flatten the lower half of its adjacency matrix into a bitstring and store this together with a list of the node and link labels. We use Java object serialization to take care of delimiting the data and translating it to bits.   
+We use GZIP as our general purpose compressor. Specifically, in our experiments, we use the implementation of GZIP that is part of the standard Java SDK. To store a graph with GZIP, we flatten the lower half of its adjacency matrix into a bitstring and store this together with a list of the node and link labels. We use Java object serialization to take care of delimiting the label data and translating it to bits. (Since all graphs in our experiments have a single label, this is unlikely to affect the outcome).
 
 \subsubsection*{Subdue}
 
@@ -199,7 +212,7 @@ The following is a rough description of the algorithm:
 	\hspace*{5mm}\textit{sort $S$ by score($s', G$)} for $s' \in S$\\
 	\hspace*{5mm}\textit{remove all but the first $b$ elements of $S$} \\
 	\\
-	\textbf{function } $(s', G)$\\
+	\textbf{function score} $(s', G)$\\
 	\hspace*{5mm} \textit{replace occurrences of $s'$ in $G$ with node $N$}\\
 	\hspace*{5mm} \textit{annotate links to $N$ with the nodes in $s'$}\\
 	\hspace*{5mm} \textbf{return} \textit{number of bits to store the edited $G$ and $s'$ }\\
@@ -207,126 +220,137 @@ The following is a rough description of the algorithm:
 	\caption{Pseudocode for the Subdue algorithm}
 \end{pseudo}
 
+The graph matching search (the first line of the \textbf{score} function) allows for inexact matches of the subgraph. In these cases, use a rough estimate of the number of bits required to transform the stored subgraph into the subgraph that is actually present in the data.
+
+To make the calculation of a distance matrix feasible, we must find a way to reduce the computational costs of the Subdue algorithm. Our solution is to replace the exhaustive graph matching search by a non-exhaustive beam search. With this change, we cannot be sure that the score assigned to the given subgraph describes the optimal way to compress the data with that subgraph, but it does provide an upper bound. 
+
+\subsubsection*{Parameter settings and specifics}
+
+All graphs generated contain $100$ nodes. In the BA-model, we attach one node each step, giving $100$ links also. Note that this makes the BA graphs UAGs. For $k = 2$ the clustering problem would be more difficult. The fractal graphs we generate to depth $2$ by adding $4$ ancestors at each side of each link and $1$ extra link between the groups of ancestors. This results in networks of $90$ nodes and $100$ links.
+
+For each source, we generate $3$ graphs.
+
+The Subdue algorithm has a lot of parameters. Wuring the search we return only one best subgraph. Our beamwidth at the top level is set to $5$. The beam width in the graph matching routine is set to $10$.  
+
+We let the k-medoids algorithm run for $20$ iterations. This is more than enough for convergence in all experiments. 
+
 \section*{Results}
 
-\subsection*{Synthetic data}
-
-\subsubsection*{Small graphs}
+Table \ref{table:synthetic-large} shows the results on randomly generated graphs. Table \ref{table:real-life} shows the results for subgraphs sample from real-life datasets.  
 
 \begin{table}[h]
-\label{table:synthetic-small}
 
-\begin{subfigure}[b]{0.5\columnwidth}
-	\label{table:gzip-small}
-	\centering
-	\begin{tabular}{l | r | r r}
-	\hline
-	  ER & @!/@! & @! & @! \\
-	  BA & @!/@! & @! & @! \\
-	\hline
-	\end{tabular}
-	\caption{GZIP: error @!}
-\end{subfigure}\begin{subfigure}[b]{0.5\columnwidth}
-	\label{table:subdue-small}
-	\centering
-	\begin{tabular}{l| r | r r}
-	\hline
-	  ER & @!/@! & @! & @! \\
-	  BA & @!/@! & @! & @! \\
-	\hline
-	\end{tabular}
-	\caption{Subdue: error @!}
+\begin{subfigure}[b]{1\columnwidth}
+\begin{tabular}{l |  r r r r}
+\hline
+  ER                    &  0.083 & 0    & 0.17  & 0 \\
+  BA                    &  0.16  & 0    & 0.083 & 0 \\
+  fractal (pure)        &  0     & 0    & 0.083 & 0.17 \\
+  fractal (small world) &  0     & 0.25 & 0     & 0 \\
+\hline
+\end{tabular}
+\caption{Random baseline: error 0.46 (0.11)}
 \end{subfigure}
+\vspace{3mm}
 
-\caption{Confusion matrices for the synthetic data. Results for synthetic graphs of exactly @! nodes and @! links generated by the ER and the BA algorithms. For each source we generated @! such graphs and clustered the results with different compressors. The error is computed by assuming an optimal labeling and computing the symmetric error as in classification.}
-\end{table}
+\begin{subfigure}[b]{1\columnwidth}
+\begin{tabular}{l |  r r r r}
+\hline
+  ER                    &  0    & 0.25 & 0 & 0 \\
+  BA                    &  0    & 0.25 & 0 & 0 \\
+  fractal (pure)        &  0    & 0    & 0 & 0.25 \\
+  fractal (small world) &  0.25 & 0    & 0 & 0 \\
+\hline
+\end{tabular}
+\caption{GZIP: error 0.27 (0.12)}
+\end{subfigure}
+\vspace{3mm}
 
-\subsubsection*{Large graphs}
+\begin{subfigure}[b]{1\columnwidth}
+\begin{tabular}{l |  r r r r}
+\hline
+  ER                    &  0    & 0.25 & 0    & 0    \\
+  BA                    &  0    & 0    & 0.25 & 0    \\
+  fractal (pure)        &  0    & 0    & 0    & 0.25 \\
+  fractal (small world) &  0.25 & 0    & 0    & 0    \\
+\hline
+\end{tabular}
+\caption{Subdue: error 0.14 (0.14)}
+\end{subfigure}
+\caption{Confusion matrices for vearious compressors. If we label the resulting clusters with so that the error is minimized (ie. reorder the columns of the confusion matrix to maximize the sum of the diagonal) we get an indication of the performance of the compressor captured in a single number. We report the mean over 10 experiments (and the standard deviation in brackets) below each confusion matrix. The confusion matrix is always for the first experiment.}
 
-For larger graphs, the problem becomes easier (as there is more structure), but we can add the fractal generator. This generator can only produce larger graphs, and with its inclusion we can no longer ensure that all graphs have equal size. 
-\begin{table}[h]
 \label{table:synthetic-large}
-\begin{subfigure}[b]{1\columnwidth}
-\begin{tabular}{l | r | r r r r}
-\hline
-  ER      & @!/@!  & @! & @! & @! & @! \\
-  BA      & @!/@!  & @! & @! & @! & @!\\
-  fractal (pure) & @!/@!  & @! & @! & @! & @!\\
-  fractal (small world) & @!/@!  & @! & @! & @! & @!\\
-\hline
-\end{tabular}
-\caption{GZIP: error @!}
-\end{subfigure}
-\vspace{3mm}
 
-\begin{subfigure}[b]{1\columnwidth}
-\begin{tabular}{l | r | r r r r}
-\hline
-  ER      & @!/@!  & @! & @! & @! & @! \\
-  BA      & @!/@!  & @! & @! & @! & @!\\
-  fractal (pure) & @!/@!  & @! & @! & @! & @!\\
-  fractal (small world)& @!/@! & @! & @! & @! & @!\\
-\hline
-\end{tabular}
-\caption{Subdue: error @!}
-\end{subfigure}
-\caption{\ldots}
 \end{table}
-
-\subsection*{Real-life data}
 
 \begin{table}[h]
-\label{table:real-life}
+
 \begin{subfigure}[b]{1\columnwidth}
 \centering
-\begin{tabular}{l | r | r r r r}
+\begin{tabular}{l |  r r r}
 \hline
-  Web      & @!/@!  & @! & @! & @! & @! \\
-  Metabolic     & @!/@!  & @! & @! & @! & @!\\
-  Semantic A & @!/@!  & @! & @! & @! & @!\\
-  Semantic B & @!/@!  & @! & @! & @! & @!\\
+  cellular      &  0.11 & 0.11 & 0.11 \\
+  neural        &  0.11 & 0.11 & 0.11 \\
+  co-purchase   &  0.22 & 0    & 0.11 \\
 \hline
 \end{tabular}
-\caption{GZIP: error @! (@!)}
+\caption{Random baseline: error 0.43 (0.11)}
 \end{subfigure}
 \vspace{3mm}
 
 \begin{subfigure}[b]{1\columnwidth}
 \centering
-\begin{tabular}{l | r | r r r r}
+\begin{tabular}{l |  r r r}
 \hline
-  Web      & @!/@!  & @! & @! & @! & @! \\
-  Metabolic     & @!/@!  & @! & @! & @! & @!\\
-  Semantic A & @!/@!  & @! & @! & @! & @!\\
-  Semantic B & @!/@! & @! & @! & @! & @!\\
+  cellular      &  0 & 0.33 & 0 \\
+  neural        &  0.11 & 0.22 & 0 \\
+  co-purchase   &  0.22 & 0 & 0.11 \\
 \hline
 \end{tabular}
-\caption{Subdue: error @! (@!)}
+\caption{GZIP: error 0.28 (0.17)}
 \end{subfigure}
-\caption{\ldots}
+\vspace{3mm}
+
+\begin{subfigure}[b]{1\columnwidth}
+\centering
+\begin{tabular}{l | r r r}
+\hline
+  cellular      &  0    & 0.33 & 0 \\
+  neural        &  0.33 & 0    & 0 \\
+  co-purchase   &  0    & 0.33 & 0 \\
+\hline
+\end{tabular}
+\caption{Subdue: error 0.34 (0.17) }
+\end{subfigure}
+\caption{Results for the experiment on natural datasets.}
+
+\label{table:real-life}
+
 \end{table}
 
-\subsection*{The models}
+% \subsection*{The models}
 
-One advantage of the model-based compressors over the general purpose ones is that we use the model as an indication of the structure in the data. In the case of graph data in particular, we can expect compressors that operate directly on the graph to produce models that are easier to relate to the semantics of the original data than those of the sequential compressors. 
+% One advantage of the model-based compressors over the general purpose ones is that we use the model as an indication of the structure in the data. In the case of graph data in particular, we can expect compressors that operate directly on the graph to produce models that are easier to relate to the semantics of the original data than those of the sequential compressors. 
 
-To evaluate this we concatenate all graphs from a single source and report the model (ie. the frequent subgraph) found by Subdue.
+% To evaluate this we concatenate all graphs from a single source and report the model (ie. the frequent subgraph) found by Subdue.
 
 \section*{Conclusions and future work}
 
-Our experiments show that sequential general purpose compressors are far better at performing graph inference than expected. Despite the random ordering of the nodes, the bitstring contains enough shallow patterns that a compressor like GZIP can tell a random graph, a scale free one and a two fractal graphs apart. Even for graphs with the same number of nodes and links. This result is particularly interesting considering the high resource reuirements put on most algorithms for graph inference. 
+Our experiments show that sequential, general purpose compressors are better at performing graph inference than expected. Despite the random ordering of the nodes, the bitstring contains enough shallow patterns that a compressor like GZIP can tell the two types of fractal graphs apart, and only struggles with the difference between the random and BA graphs. This is particularly interesting considering the high resource requirements of most algorithms for graph inference, and the low resource use of general purpose compressors. 
 
-This result suggests that inference on graphs can be performed by sequential algorithms on a sequential representation in linear time, with decent results, depending on the complexity of the task. 
+This result suggests that inference on graphs can be performed by sequential algorithms on a sequential representation in linear time, with decent results.
 
-As for the graph-compressors, we see a small improvement relative to the sequential compressors for a string trade-off in computational resources. Subdue as used in this paper is a relatively simple compressor, which isolates only a single subgraph for compression and we tested it only at modest parameters. The publications surreounding subdue offer much more complex solutions (such as the induction of graph grammars) and there may be some promise in parallelizing the algorithm.
+As for the graph-compressors, we see a small improvement relative to the sequential compressors for a strong increase in computational resources. Subdue as used in this paper is a relatively simple compressor, which isolates only a single subgraph for compression and we tested it only at modest parameters. The publications surrounding Subdue offer much more complex solutions (such as the induction of graph grammars \cite{jonyer2004mdl}). To investigate the promise of these models as compressors further, it will be necessary to investigate both parallelized versions of these algorithms and a relaxation of the exhaustive nature of their components. 
 
 The notion of compression is a good framework within which to combine many approaches to inference from the most general to the most domain specific. The Minimum Description Length principle and its associated techniques, which have not been investigated yet for reasons of scope, offer the promise of an even broader field of approaches to the analysis of graph data.
-  
+
+\pagebreak
+
 \section*{Acknowledgements}
 
 This publication was supported by the Dutch national program COMMIT. The author would like to thank Leen Torenvliet, Eugenio Bargiacchi and Eugenio di Leo for comments and preliminary research.
 
-\bibliographystyle{plain} @!
+\bibliographystyle{style/mlapa} 
 \bibliography{benelearn}
 
 \end{document}
