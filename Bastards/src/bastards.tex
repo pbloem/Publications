@@ -56,8 +56,21 @@ Since probability distributions are functions from $\mathbb B$ into $\mathBB R$,
 
 \subsection*{Kolmogorov Complexity}
 
+We define $q^*$ as the shortest program implementing this function \footnote{Note that $|q^*|$ is different from $C(q)$. For instance, a program may encode the collected works of Shakespeare in padding. $C(q)$ must reflect this, whereas to $q^*$ this is non-functional code which can be removed.} and $\tilde{q} = |q| - |q^*|$ as the penalty we face for not using the optimal program.
 
-We define $q^*$ as the shortest program implementing this function \footnote{Note that $|q^*|$ is different from $C(q)$. For instance, a program may encode the collected works of Shakespeare in padding. $C(q)$ must reflect this, whereas to $q^*$ this is non-functional code which can be removed.} and $\tilde{q} = |q| - |q^*|$ as the penalty we face for not using the optimal program. 
+\begin{dfn}
+The \emph{resource bounded Kolmogoroc complexity} of a string $x$ is defined as
+\begin{align*}
+K_U^t(x) = \min{|p| : U^t(p) = x}
+\end{align*}
+Where $t$ is a time-constructible fuction $t(n)$ and $U^t$ is a prefix Turing machine that only halts within $t(|x|)$ timesteps.
+\end{dfn}
+
+It is important to note that the invariance of the kolmogorov complexity under resource bounds is weaker than the unbounded version. Specifically, if we have some prefix turing machine $q$ which computes $x$ within bounds for an input of length $K^t_q(x)$, then we can simulate that Turing machine for a constant cost as normal, but only with a multiplicative constant penalty and an additive logarithmic one:
+\[
+K^{c \cdot t + \log t} \leq K^t_q(x)
+\] 
+For the following, we assume that our resource classes are sufficiently crude that this distinction doesnt matter.\footnote{For a more complete treatment of this issue, see \cite{li1993introduction}[pages 532--536]. The form of the penalty may change, depending on the computational metaphor.}
 
 \section*{sampling computable distributions}
 
@@ -122,6 +135,8 @@ The randomness-deficiency of a finite set $A$ is
 
 \begin{lma}[{\cite{li1993introduction}[p 120]}]
 For any finite set $A$, the proportion of strings with randomness deficieny above $k$ is less than $2^-k$. 
+
+\label{lma:rd-finitesets}
 \end{lma}
 
 \begin{proof}
@@ -157,14 +172,15 @@ We can rewrite this to
 \delta(x|p_q) &= - \log(p_q(x)) - C(x) 
 \end{align*}
 
-(Note that unlike the finite set case, here we do not make the complexity term conditional on the model)
+(Note that unlike the finite set case, here we do not make the complexity term conditional on the model) [@! does this matter?]
 
 \end{dfn}
 
 We would like to show the same property we proved for the randomness deficiency of finite sets. That sampling from $p_q$ will likely produce a string that is typical for $p_q$, ie. has low randomness deficiency.
 
 \begin{lma}
-The probability of all strings with randomness deficiency above $k$ is less than $2^-k$
+The probability of all strings with randomness deficiency above $k$ is less than $2^{-k}$
+\label{lma:rd-distributions}
 \end{lma}
 
 \begin{proof}
@@ -188,11 +204,31 @@ p_q(X_k^q) &< 2^{-k}
 \end{align*}
 \end{proof}
 
-\begin{exm}
-What is the probability that we sample a string $x$ with a randomness deficiency of at least half its length? In other words, if we use the optimal description, we gain $|x|/2$ over describing it in terms of $p_q$.
-\end{exm} 
+Note that if we see a finite set as a uniform distribution over its elements, this proof provides a more general version of lemma \ref{lma:rd-finitesets}
 
 \subsection*{the universal distribution}
+
+\begin{dfn}
+Let $u$ be the prefix-free universal Turing machine. $p_u(x)$ is a \emph{universal distribution}. It dominates every computable distribution $q$ up to a multiplicative constant (dependent on $q$ but not $x$):
+\[
+p_q(x) \leq c_q p_u(x)
+\]
+\label{dfn:universal-distribution}
+\end{dfn}
+
+If we bound the resources of the universal Turing machine, we get a resource bounded universal distribution:
+
+
+\begin{dfn}
+Let $u^t$ be the prefix-free universal Turing machine bounded by $t$. $p_{u^t}(x)$ is a \emph{resource-bounded universal distribution}. It dominates every computable distribution $q$ up to a multiplicative constant (dependent on $q$ but not $x$):
+\[
+p_q(x) \leq c_q p_{u^t}(x)
+\]
+
+\label{dfn:resource-bounded-universal-distribution}
+\end{dfn}
+
+Note again, that this only holds for a certain level of courseness in our resource-classes.
 
 \section*{resource bounded probability distributions}
 
@@ -201,10 +237,47 @@ We define the complexity class of a PTM as normal, as a function of the input le
 Let $\cal C$ be the set of all Turing machines. Let ${\cal C}^t$ be the set of all Turing machines whose running time is bounded by $t(n)$ where $n$ is the length of the input.
 
 
-
-\subsection*{}
-
 \section*{Inference from bounded distributions}
+
+\subsection*{Bastards}
+
+We call a string a \emph{bastard} if resource-bounded Kolmogorov complexity shows it to be random, but under relaxation of these bounds, the string turns out to be compressible. This way, the probability of a bastard tells us the probability that we will make a mistake about the level of randomness in our data if we use a resource-bounded version of Kolmogorov complexity rather than the incomputable version.
+  
+
+\begin{dfn}
+A \emph{$(t, k)$-bastard} is a string for which $K^t(x) - K(x) > k$
+\end{dfn}
+
+\begin{thm}
+Let $q \in {\cal C}^t$. The probability of sampling a $(t, k)$-bastard from $q$ is negligable for large $k$.
+\end{thm}
+\begin{proof}
+
+Let $B^t_k$ be the set of $(t, k)$-bastards. By definition \ref{dfn:resource-bounded-universal-distribution}, we have $p_q(B^t_k) \leq c_q p_{u^t}(B^t_k)$.
+
+\begin{align*}
+B^t_k &= \{x : K^t(x) - K(x) > k\} \\ 
+	&\subseteq \{x : - \log p_{u^t}(x) - K(x) > k\} \\
+	&= \{x : \delta(x | u^t) > k\}
+\end{align*}
+
+So the set of strings with randomness deficiency larger than $k$ for $u^t$ is a superset of the set of bastards. Since we sample string with such randomness deficiency with probability below $2^{-k}$, we have
+\begin{align*}
+p_{u^t}(B^t_k) < 2^{-k} 
+\end{align*}
+and 
+\begin{align*}
+p_q(B^t_k) < c_q \cdot 2^{-k} 
+\end{align*}
+\end{proof}
+
+\begin{thm}
+Let $q \in {\cal C}^u$ and $t < u$. The probability of sampling a $(t, k)$-bastard from $q$ is not negligable.
+\end{thm}
+\begin{proof}
+\ldots
+\end{proof}
+
 \nocite{*}
 \bibliographystyle{siam}
 \bibliography{bastards}
