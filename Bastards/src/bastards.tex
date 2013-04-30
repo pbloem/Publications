@@ -38,14 +38,14 @@ It is well know that Kolmogorov complexity, though perhaps the most conceptually
 
 We show that if we use a resource bounded (and thus computable) version of Kolmogorov complexity, and if we ensure that the resources match or exceed those of the source of our data, the probability of concluding that our data is random while it is actually nonrandom is negligable.
 
-We also show that if our source has strictly more computational power than our resource bounded Kolmogorov complexity, there is always a non-zero probability of seeing a compressible string and colncluding that it is incompressible. 
+We also show that if our source has strictly more computational power than our resource bounded Kolmogorov complexity, there is always a non-zero probability of seeing a compressible string and concluding that it is incompressible. 
 
 \section*{Preliminaries}
 Let $\mathbb B$ be the set of all finite binary strings $\{0,1\}^*$.
 
 Let {\cal T} be the set of all finite turing machines.
 
-All logartihms are base $2$.
+All logarithms are base $2$.
 
 \subsection*{Probability distributions}
 
@@ -251,7 +251,7 @@ Another definition of the universal distribution is as $2^{-K^t(x)}$. In the non
 2^{-K^t(x)} &\leq \sum_{p\;:\;u^t(p) = x} 2^{-|p|}  \\
 2^{-K^t(x)} &\leq m^t(x) \\
 -K^t(x) &\leq \log m^t(x) \\ 
-K^t(x) &\geq \log m^t(x)
+K^t(x) &\geq -\log m^t(x)
 \end{align*}
 
 Where the first line follows from the fact that the left side of the inequality is a term in the sum on the right (and all terms are positive). 
