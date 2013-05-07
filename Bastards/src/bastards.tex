@@ -19,7 +19,7 @@
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{argmax}
 
-\title{Bounds on the probability of erroneous inference with resource-bounded Kolmogorov complexity}
+\title{Bounds for non-approximable quantities in Kolmogorov complexity}
 \date{\today}
 
 % non-indented, spaced paragraphs
@@ -36,14 +36,14 @@
 
 It is well know that Kolmogorov complexity, though perhaps the most conceptually sound notion of information content, is incomputable. We can approximate it from above, which tells us that any model we find which compresses a given dataset provides an upper bound for the amount of data it contains, but we cannot approximate it from below. If we find no compression after a finite amount of learning we have no guarantee that the next cycle of learning won't suddenly prove our data to be highly compressible. 
 
-We show that if we use a resource bounded (and thus computable) version of Kolmogorov complexity, and if we ensure that the resources match or exceed those of the source of our data, the probability of concluding that our data is random while it is actually nonrandom is negligable.
+We show that if we use a resource bounded (and thus computable) version of Kolmogorov complexity, and if we ensure that the resources match or exceed those of the source of our data, the probability of concluding that our data is random while it is actually nonrandom is negligible.
 
 We also show that if our source has strictly more computational power than our resource bounded Kolmogorov complexity, there is always a non-zero probability of seeing a compressible string and concluding that it is incompressible. 
 
 \section*{Preliminaries}
 Let $\mathbb B$ be the set of all finite binary strings $\{0,1\}^*$.
 
-Let {\cal T} be the set of all finite turing machines.
+Let {\cal C} be the set of all finite Turing machines.
 
 All logarithms are base $2$.
 
@@ -75,16 +75,15 @@ The \emph{resource-bounded Kolmogoroc complexity} of a string $x$ is defined as
 \begin{align*}
 K_U^t(x) = \min{|p| : U^t(p) = x}
 \end{align*}
-Where $t$ is a time-constructible fuction $t(n)$ and $U^t$ is a prefix Turing machine that only halts within $t(|x|)$ timesteps.
+Where $t$ is a time-constructible fuction $t(n)$ and $U^t$ is a prefix Turing machine that only halts within $t(|x|)$ steps.
 \end{dfn}
 
 It is important to note that the invariance of the Kolmogorov complexity under resource bounds is weaker than the unbounded version. Specifically, if we have some prefix Turing machine $q$ which computes $x$ within bounds for an input of length $K^t_q(x)$, then we can simulate that Turing machine for a constant cost as normal, but only with a multiplicative logarithmic penalty:
 \[
 K^{c \cdot t + \log t}(x) \leq K^t_q(x) + O(1)
 \] 
-For the following, we assume that our resource classes are sufficiently crude that this distinction doesn't matter and we can say that $u^t \in {\cal C}^t$ \footnote{For a more complete treatment of this issue, see \cite{li1993introduction}[pages 532--536]. The form of the penalty may change, depending on the computational metaphor.} [@! This is a little handwavy\ldots]
-
-\section*{Sampling computable distributions}
+For the following, we assume that our resource classes are sufficiently crude that this distinction doesn't matter and we can say that $u^t \in {\cal C}^t$ \footnote{For a more complete treatment of this issue, see \cite{li1993introduction}[pages 532--536]. The form of the penalty may change, depending on the computational metaphor.} 
+\subsection*{Sampling computable distributions}
 
 \begin{dfn}
 A \emph{probabilistic Turing machine} (PTM) is defined as a regular Turing machine with the addition of a tape filled with random bits. This tape can only be read, and the tape head can only read in one direction.
@@ -106,17 +105,17 @@ Let $q$ be any PTM. We will define a program $p_q'(y, i)$ to approximate the dis
 
 Dovetail the computation of $q$ on all inputs $x \in \mathbb B$ for $i$ cycles. Calculate $\sum_{x : q(x) \downharpoonright^i y}2^{-|x|}$. Ie. the sum of the probabilities for all inputs that have halted so far on output $y$. Return this sum.
 
-Clearly this value can never decrease with $i$. To show that this function reaches $p_q(y)$ in the limit, we note that $p_q(y)$ is the sum of the probabilities of all inputs that produce $y$,
-\[
-p_q(y) = \sum_{x : q(x) = y} 2^{-|x|}
-\] 
+%Clearly this value can never decrease with $i$. To show that this function reaches $p_q(y)$ in the limit, we note that $p_q(y)$ is the sum of the probabilities of all inputs that produce $y$,
+%\[
+%p_q(y) = \sum_{x : q(x) = y} 2^{-|x|}
+%\] 
 
-whereas $p_q(y, i)$ is the sum of all probabilities of all inputs that produce $y$ within $i$ cycles of a dovetailing computation.
-\[
-p_q'(y, i) = \sum_{x : q(x) \downharpoonright^i y} 2^{-|x|}
-\]
+%Whereas $p_q(y, i)$ is the sum of all probabilities of all inputs that produce $y$ within $i$ cycles of a dovetailing computation.
+%\[
+%p_q'(y, i) = \sum_{x : q(x) \downharpoonright^i y} 2^{-|x|}
+%\]
 
-For each $i$ we can expand $p_q(x) - p_q'(x, i)$ into its sums and cross out terms where the $x$s match. Let $\epsilon$ be some positive value. If we order all inputs by length, and sum the probabilities of the first $j$, we know that every next code will add as much as or less than the last one. The total sum, we know, converges to a finite value $t_q$. \ldots
+%For each $i$ we can expand $p_q(x) - p_q'(x, i)$ into its sums and cross out terms where the $x$s match. Let $\epsilon$ be some positive value. If we order all inputs by length, and sum the probabilities of the first $j$, we know that every next code will add as much as or less than the last one. The total sum, we know, converges to a finite value $t_q$. \ldots
  
 \end{proof}
 
@@ -135,7 +134,7 @@ In the limit, this process generates a many-to-one prefix coding that maps the d
 
 Since the assignments made are never reversed, we can run the process until an assigned node matches the prefix code on our input tape, and return the assigned $y$.
   
-[@! If we want to prove correctness also, we'll need to clean this up. I think there was a section in Cover \& Thomas about simulating any distribution with a coinflip. May save some time to refer to that.]
+%[@! If we want to prove correctness also, we'll need to clean this up. I think there was a section in Cover \& Thomas about simulating any distribution with a coinflip. May save some time to refer to that.]
 \end{proof}
 
 \subsection*{Randomness deficiency}
@@ -148,7 +147,7 @@ The randomness-deficiency of a finite set $A$ is
 \end{dfn}
 
 \begin{lma}[{\cite{li1993introduction}[p 120]}]
-For any finite set $A$, the proportion of strings with randomness deficieny above $k$ is less than $2^{-k}$. 
+For any finite set $A$, the proportion of strings with randomness deficiency above $k$ is less than $2^{-k}$. 
 
 \label{lma:rd-finitesets}
 \end{lma}
@@ -178,18 +177,16 @@ As a sanity check, we note that all strings have randomness deficiency at least 
 \begin{dfn}[{\cite{antunes2009depth}}]
 The randomness-deficiency of a string $x$ given a probability distribution $p_q$ is 
 \begin{align*}
-\delta(x|p_q) &= \log \frac{m(x)}{p_q(x)}
+\delta(x|p_q) &= \log \frac{2^{-K(x|q)}}{p_q(x)}
 \end{align*} 
-Where $m(x)$ is the universal distribution.
 
 We can rewrite this to 
 \begin{align*}
-\delta(x|p_q) &= - \log p_q(x) - K(x) 
+\delta(x|p_q) &= - \log p_q(x) - K(x|q) 
 \end{align*}
-
-(Note that unlike the finite set case, here we do not make the complexity term conditional on the model) [@! does this matter?]
-
 \end{dfn}
+
+Note that sometimes the randomness deficiency for measures is defined without the conditional on $q$ in the last term. For the sake of consistency with the set-based version, we include the conditional here.
 
 We would like to show the same property we proved for the randomness deficiency of finite sets: that sampling from $p_q$ will likely produce a string that is typical for $p_q$, ie. a string that has low randomness deficiency.
 
@@ -243,10 +240,9 @@ p_q(x) \leq c_q m^t(x)
 \label{dfn:resource-bounded-universal-distribution}
 \end{dfn}
 
-Note again, that this only holds for a certain level of courseness in our resource classes.
+Note again, that this only holds for a certain level of coarseness in our resource classes.
 
-
-Another definition of the universal distribution is as $2^{-K^t(x)}$. In the non-bounded case the two definitions are equal up to a mulitplicative constant. In the recource bounded variant, we can only be certain of the following inequality:
+Another definition of the universal distribution is as $2^{-K^t(x)}$. In the non-bounded case the two definitions are equal up to a multiplicative constant. In the resource bounded variant, we can only be certain of the following inequality:
 \begin{align*}
 2^{-K^t(x)} &\leq \sum_{p\;:\;u^t(p) = x} 2^{-|p|}  \\
 2^{-K^t(x)} &\leq m^t(x) \\
@@ -256,7 +252,7 @@ K^t(x) &\geq -\log m^t(x)
 
 Where the first line follows from the fact that the left side of the inequality is a term in the sum on the right (and all terms are positive). 
 
-\section*{Resource-bounded probability distributions}
+\subsection*{Resource-bounded probability distributions}
 
 We define the complexity class of a PTM as normal, as a function of the input length. In the prefix-machine perspective, this suggests that the computational power represented by a probability distribution is a function of the number of `bits of randomness' it uses.
 
@@ -276,58 +272,18 @@ A Turing machine $q$ dominates ${\cal C}^t$ iff:
 
 We don't know whether all Turing machines outside ${\cal C}^t$ dominate, but we do know that some do (including any $K^u$ with $u > t$) and that no Turing machine in ${\cal C}^t$ dominates it. 
 
-%%\begin{dfn}
-%%We say that a probability distribution $q$ is outside a class ${\cal C}^t$ iff there is no $q' \in {\cal C}^t with \forall x : p_q(x) = p_{q'}(x)$
-%%\label{dfn:outside}
-%%\end{dfn}
-
-%%\begin{dfn}
-%%We say that a probability distribution $q$ is weakly outside ${\cal C}^t$ iff it is outside ${\cal C}^t$ and there exists at least one $x$ for which there is no $q' \in {\cal C}^t$ and $p$ such that $-\log p_{q'}(x) \leq -\log p_q(x)$. 
-%%\label{dfn:weakly-outside}
-%%\end{dfn}
-
-%%\begin{dfn}
-%We say that a probability distribution $q$ is strongly outside ${\cal C}^t$ iff it is outside ${\cal C}^t$ and for all $q' \in {\cal C}^t$ there exist an infinite number of $x$  such that $-\log p_{q}(x) \leq -\log p_{q'}(x)$. 
-%\label{dfn:strongly-outside}
-%\end{dfn}
-
-%The distinction is important for the following reason. If $q$ is weakly but not strongly outside ${\cal C}^t$, there will be a finite set $X$ for which $-\log p_q(x) \leq -\log p_{q'}(x)$ for any $q' \in {\cal C}^t$. For all other $x$, $K^t$ will minorize $q'$. We can define a Turing machine which `hardcodes' $X$ for the inputs that they have in $q$. This machine will run in linear time. If this machine is in ${\cal C}^t$, $q$ must be in ${\cal C}^t$ as well, and any machine that is outside ${\cal C}^t$ must be strongly outside ${\cal C}^t$. 
-
-%Whether we can truly eliminate distributions that are weakly outside a resource class depends on the specifics of the function that defines it and the details of the computational metaphor (in our case Turing machines). To allow our results to be independent of both, we will retain the distinction between weak and strong `outsideness'.
-
-%\begin{lma}
-%If $q$ is strongly outside ${\cal C}^t$ we have:
-%\begin{align*}
-%\forall {c \exists x : K^t(x) \geq - \log p_q(x) + c}
-%\end{align*}
-%\label{lma:strongly-outside}
-%\end{lma}
-%\begin{proof}
-%Assume for a contradiction
-%\begin{align*}
-%\exists c \forall x : K^t(x) < -\log p_q(x) + c
-%\end{align*}
-%Since $u^t \in {\cal C}^t$, we have infinitely many $x$, such that 
-%\begin{align*}
-%-\log p_q(x) &\leq - \log m^t(x) \\
-%-\log p_q(x) &\leq K^t(x) \\
-%-\log p_q(x) &\leq K^t(x) < -\log p_q(x) +c
-%\end{align*}
-%\end{proof}
-
-\section*{Inference from bounded distributions}
+\section*{Approximating randomness}
 
 \subsection*{Bastards}
 
 We call a string a \emph{bastard} if resource-bounded Kolmogorov complexity shows it to be random, but under relaxation of these bounds, the string turns out to be compressible. This way, the probability of a bastard tells us the probability that we will make a mistake about the level of randomness in our data if we use a resource-bounded version of Kolmogorov complexity to approximate the incomputable version.
-  
 
 \begin{dfn}
 A \emph{$(t, k)$-bastard} is a string for which $K^t(x) - K(x) > k$
 \end{dfn}
 
 \begin{thm}
-Let $q \in {\cal C}^t$. The probability of sampling a $(t, k)$-bastard from $q$ is negligable for large $k$.
+Let $q \in {\cal C}^t$. The probability of sampling a $(t, k)$-bastard from $q$ is negligible for large $k$.
 \end{thm}
 \begin{proof}
 
@@ -349,40 +305,37 @@ p_q\left(B^t_k\right) < c_q \cdot 2^{-k}
 \end{align*}
 \end{proof}
 
+Considering this result, we may ask whether there exist distributions for which bastards are non-negligible. We show the following:
+
 \begin{thm}
-Let $q$ dominate ${\cal C}^t$. The probability of sampling a $(t, k)$-bastard from $q$ is bounded below by a constant value, independent of $k$ (and therefore, not negligable).
+There exists a probability distribution $q$ outside ${\cal C}^t$, such that the probability of sampling a $(t, k)$-bastard from $q$ is at least the inverse of a polynomial over $k$.
 \end{thm}
-
 \begin{proof}
-By definition \ref{dfn:domination}, we have 
-\begin{align}
-\forall {c \exists x : K^t(x) \geq - \log p_q(x) + c} \label{line:non-invariance}
-\end{align}
+Consider the following algorithm.
+given $n \in {\mathbb N}$:
+\begin{itemize}
+  \item Calculate $K^t(x)$ for all $x$ of length $n$ 
+  \item Assign the first $x$ such that $K^t(x) = |x|$ the probability $c \cdot n^{-2}$
+  \item Assign all other $x$ probability zero.
+\end{itemize}
+If we set $c$ to $6 / \pi^2$, the probabilities converge to $1$. For each string produced with nonzero probability, we have $K^t(x) = |x|$:
 
-This rewrites to
+So
 \begin{align*}
-\forall c \exists x : \frac{2^{-K^t(x)}}{p_q(x)} \leq 2^{-c}
+p_q(B^t_k) &= \sum_{n : n - 2\log n + O(1) \geq k} cn^{-2}\\
+p_q(B^t_k) &> cn^{-2} \quad\text{with}\quad n -2\log n + O(1) = k\\
 \end{align*}
-
-Since we know that $2^{-K^u(x)} \geq p_q(x) c_q$ we get
-\begin{align}
-\forall c \exists x : \frac{2^{-K^t(x)}}{2^{-K^u(x)}} \leq \frac{2^{-K^t(x)}}{p_q(x)c_q} \leq 2^{-c}\frac{1}{c_q}
-\label{line:prelim}
-\end{align}
-
-The statement to be proved asks for the probability of seeing a $(t, k)$-bastard. We get
+Taking a rough bound $n/2 < k$
 \begin{align*}
-p_q\left(B^t_k\right) &\geq p_q\left (\left\{x: K^t(x) - K(x) > k\right\}\right) \\
-	&\geq p_q\left(\left\{x: K^t(x) - K^u(x) > k\right\}\right) \\
-	&= p_q\left(\left\{x : \frac{2^{-K^t(x)}}{2^{-K^u(x)}} < 2^{-k}\right\}\right) \\
+p_q(B^t_k) &> cn^{-2} > c4 \;k^{-2} = c' k^{-2}\\
 \end{align*}
-
-From (\ref{line:prelim}), we know that there is at least one element in the set in the last line, whatever $k$. Call this element $x'$, we have:
-\begin{align*}
-p_q\left(B^t_k\right) \geq p_q\left(x'\right)
-\end{align*}
-We know that $p_q\left(x'\right)$ cannot be zero, because, then by (\ref{line:non-invariance}), its code length under $K^t$ would be infinite. Thus, there is always a lower bound, independent of $k$ on the probability of seeing a $(k, t)$-bastard.
 \end{proof}
+
+Not that we can compute this $q$ in $2^n+1\cdot t(n)$. Thus if the computational power of our source is large enough, the probability of bastards becomes non-negligible.
+
+\section*{Approximating model size}
+
+\section*{Approximating Normalized information distance}
 
 \section*{Discussion}
 
