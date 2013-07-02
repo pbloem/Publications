@@ -6,6 +6,7 @@
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{enumerate}
 
 %\theoremstyle{definition}
 \newtheorem{thm}{Theorem}
@@ -258,21 +259,37 @@ We define the complexity class of a PTM as normal, as a function of the input le
 
 Let $\cal C$ be the set of all Turing machines. Let ${\cal C}^t$ be the set of all Turing machines whose running time for input $x$is bounded by $t(|x|)$.
 
-We must take some care in defining what it means for a Turing machine to be outside ${\cal C}^t$. If, for instance, a Turing machine $q$ has no equal in ${\cal C}^t$ but only has a finite number of inputs for which it runs longer than $t(|x|)$, we can `hardcode' these inputs at a linear penatly, which would give the Turing machine an equivalent in ${\cal C}^t$, so long as the linear penalty keeps it there. 
+\section*{Generalizing bounded Kolmogorov complexity}
 
-To have a strong definition of Turing machines outside ${\cal C}^t$, we take a defining property of ${\cal C}^t$, the fact that $K^t$ minorizes it, and invert it.
- 
+We note that in many applications of resource-bounded Kolmogorov complexity, the only properties of the resource bounds that are used, are the fact that Kolmogorov complexity is reduced as the resources are increased, and the fact that there exist universal Turing machines that simulate all Turing machines in a given resource class. This leads us to generalize beyond the resource bounds to a general bounded Kolmogorov complexity.
+
 \begin{dfn}
-A Turing machine $q$ dominates ${\cal C}^t$ iff:
-\begin{align*}
-\forall c \exists x : K^t(x) \geq -\log p_q(x) + c
-\end{align*}
-\label{dfn:domination}
+A \emph{model class} $\{T_i\} \subseteq \cal C$ is a computably enumerable set of Turing machines. A \emph{universal model} for $C$ is a Turing machine such that $U^C(\langle i, p\rangle) = T_i(p)$. If a model class includes a universal model for itself, we call it \emph{inclusive}. If all models in a model class are total, we call the model class \emph{total}.
 \end{dfn}
 
-We don't know whether all Turing machines outside ${\cal C}^t$ dominate, but we do know that some do (including any $K^u$ with $u > t$) and that no Turing machine in ${\cal C}^t$ dominates it. 
+\begin{dfn}
+The model-bounded Kolmogorov complexity $K^C(x)$ for the model class $C$ with universal model $U^C$ is defined as
+\[
+K^C(x) = \min \{|p| \mid U^C(p) = x\}
+\]  
+\end{dfn}
+
 
 \section*{Approximating randomness}
+
+\begin{lma}
+We have the following properties
+\begin{enumerate}[(a)]
+  \item For any $T_m \in C$ we have $K^C(x) \leq c_m + K_m(x)$
+  \item For model classed $C_0$ and $C_1$, with $C_0 \subseteq C_1$, we have $K^{C_1}(x) \leq K^{C_0}(x)$
+  \item $K^C(x)$ is computable for any total model class.
+\end{enumerate}
+\end{lma}
+
+The Turing machines bounded by $t$ form a total, inclusive model class. Another example is the model class of read-only Turing machines (or DFAs), which is total, but not inclusive.  
+
+We define $\text{depth}^C$ and $m^C$ analogous to the time-bounded versions.
+
 
 \subsection*{Bastards}
 
@@ -305,6 +322,8 @@ p_q\left(B^t_k\right) < c_q \cdot 2^{-k}
 \end{align*}
 \end{proof}
 
+This result generalizes to model any model class without change.
+
 Considering this result, we may ask whether there exist distributions for which bastards are non-negligible. We show the following:
 
 \begin{thm}
@@ -331,11 +350,46 @@ p_q(B^t_k) &> cn^{-2} > c4 \;k^{-2} = c' k^{-2}\\
 \end{align*}
 \end{proof}
 
-Not that we can compute this $q$ in $2^n+1\cdot t(n)$. Thus if the computational power of our source is large enough, the probability of bastards becomes non-negligible.
+Note that we can compute this $q$ in $2^{|p|+1}\cdot t(|p|)$, with $p = 2 \log(|x|) + O(1)$. Thus if the computational power of our source is large enough, the probability of bastards becomes non-negligible.
 
-\section*{Approximating model size}
+The result generalizes to any total model class $C$. For non-total model classes (such as $\cal C$), the first line of the algorithm may not be computable. 
 
-\section*{Approximating Normalized information distance}
+
+\section*{Approximating Model Size}
+
+There are various measures of information that equate the size of an optimal model in two-part coding with the level `interestingness' or meaningful information in a string. The include the Kolmogorov structure functions, coarse sophistication and facticity.
+
+\begin{dfn}{\cite{}}
+The \emph{coarse sophistication} of a string $x$ is 
+\[
+	\text{soph}_c(x) = \min \left \{ K(f) : K(f) + K_f(x) \leq c \right \}
+\]
+\end{dfn}
+
+\begin{dfn}{\cite{}}
+The \emph{sophistication} of a string $x$ is 
+\[
+	\text{soph}(x) = \min \left \{ K(f) : K(f) + K_f(x) \overset{\underset{+}{}}{=} K(x) \right \}
+\]
+\end{dfn}
+
+\begin{dfn}{\cite{}}
+The \emph{facticity}  of a string $x$ is 
+\[
+\text{fact}(x) = \min \left\{ |\bar{\imath}| : \exists p \;\text{st.}\; |\bar{\imath}p| = K_2(x) \;\&\; U(\bar{\imath}p) = x\right\}
+\] with $U$ a universal Turing machine with a prefix-based pairing function, and $K_2 = \min \{|\bar{\imath}p| : U|\bar{\imath}p| = x\}$
+\end{dfn}
+
+\section*{Approximating Normalized Information Distance}
+
+\begin{dfn}
+The normalized information distance between two string $x$ ad $y$ is 
+\[
+NID(x, y) = \frac{\max \left [ K(x\mid y), K(y\mid x)\right]}{\left[ K(x), K(y)\right]} 
+\]
+\end{dfn}
+
+As shown in \cite{}, this function is neither lower nor upper semicomputable. An approximation nevertheless exists in the form of the Normalized Compression Distance \cite{}. This function (which replaces the $K$'s with general purpose compressors) has been used to great effect with good experimental results without a sound theoretical reason for why it should work.
 
 \section*{Discussion}
 
