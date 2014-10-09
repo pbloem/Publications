@@ -1,0 +1,113 @@
+\documentclass{style/llncs}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumerate}
+\usepackage{cancel}
+\usepackage{hyperref}
+\usepackage{footmisc}
+\usepackage{mathrsfs}
+\usepackage{color}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+\title{Ideal model selection is impossible}
+
+% Steven's comments
+\newcommand{\sdr}[1]{\textcolor{blue}{\small #1\textsuperscript{[sdr]} }}
+% Peter's comments 
+\newcommand{\pb}[1]{\textcolor{OliveGreen}{\small #1 \textsuperscript{[pb]} }}
+% Pieter's comments 
+\newcommand{\pa}[1]{\textcolor{Red}{\small #1 \textsuperscript{[pa]} }}
+
+\newcommand{\p}{\mbox{\,.}}
+\newcommand{\fl}[1]{\left \lfloor #1 \right \rfloor}
+\newcommand{\g}[1]{\color{gray} #1 \color{black}}
+\newcommand{\B}{{\mathbb B}}
+\newcommand{\Rbb}{{\mathbb R}}
+\newcommand{\N}{{\mathbb N}}
+\newcommand{\C}{{\mathscr C}}
+\newcommand{\Co}{{\overline{\mathscr C}}}
+\newcommand{\R}{{\mathscr R}}
+\newcommand{\m}{{\overline{m}}}
+\newcommand{\ok}{{\overline{\kappa}}}
+\newcommand{\s}[1]{{\overline{#1}}}
+\newcommand{\mmid}{\;\middle|\;}
+
+\begin{document}
+
+\maketitle
+
+\abstract{The idea behind Sophistication is that a dataset can be expressed in a single, canonical two-part coding: a model, and a code given that model. When the best compressing model is chosen over all computable models, the result is a representation that can be seen as an inherent property of the data. The data belongs to a single model. This can be seen as a kind of MDL model selection in the limit. We show that there are serious issues with this notion, and that a single sample from a probabilistic data source is not enough to distinguish between a set of models ranging in size from a small constant number of bits, to nearly the size of the data. Only if repeated samples are available can we pin down an intrinsic model for the data. One consequence of these results is that if we use MDL with increasingly general model classes, our ability to perform accurate model selection will diminish.}
+
+\section{Introduction}
+
+* Definitie consistent two-part model selection (protocol) \\
+* Eisen aan two-part coding \\
+** Invariante modelrepresentatie
+**\\ 
+* De boundary is het beste dat je kunt identificeren, als je definities goed zijn, dwz voor elk model kunnen we meten hoeveel counterevidence de data geeft, en die meting is niet heel anders met een andere UTM. Modellen met kleine counterevidence zijn de ``boundary" en die zijn dus interessant als beste verklaring voor de data.\\
+** Bij de definitie van Koppel (inefficiente modelbeschrijving) gaat het ernstig fout omdat modellen in de boundary van een goede methode een super inefficiente index kunnen hebben bij Koppel (en Adriaans): er is geen invariantie voor de modelcodelengte. Verwarring van de twee geneste toepassingen van two-part coding?\\
+* Koppel faalt harder dan Vitanyi, hoewel het allebei ``sophistication'' heet
+
+
+\section{\ldots}
+
+
+\section{Sandbox}
+
+\begin{definition}
+Let $M_r: \C \rightarrow \N$ be defined as follows $M_r(\phi) = \min\left \{|i| : r(i) \simeq \phi\right \}$. That is, it returns the length of the shortest function (under $r$) computing $f$.
+\end{definition}
+
+Another tack. Complexity of a function:
+
+\begin{definition}
+Let $f \in \C$, ie. the abstract object representing a computable function. We define its complexity in bits as
+\[
+	K^\phi(f) = \min \left\{ |\s{i}p| : \forall_y \phi_i(p ; y) = f(y) \right\}
+\] where $\{\phi_i\}$ is an effective enumeration of the computable functions.  
+\end{definition}
+
+\pb{This definition guards against inefficient indices, by using a kind of hidden three-part coding. If the basic indexing is inefficient, we can find a Turing machine with an efficient index and use $p$ on that to encode any string efficiently.}
+
+\begin{theorem}
+$K^\phi(f)$ is invariant to the choice of enumeration $\phi$, up to an additive constant. Let $\{\phi_i\}$ and $\{\psi_i\}$ represent two effective enumerations of the computable functions.
+\end{theorem} 
+\begin{proof}
+Let $\psi_u(\s{\imath}p; y) = \phi_i(y)$. Since both enumerations are effective, this function must exist in $\{\psi_i\}$.
+\begin{align*}
+K^\psi(f) &= \min_{\s{j}p}\left\{|\s{j}p| : \forall \psi_j(p ; y) = f(y)\right\} \\
+&\leq  \min_{p}\left\{|\s{u}p| : \forall \psi_u(p ; y) = f(y)\right\} & \text{taking $j = u$}\\
+&= \min_{p}\left\{|p| : \forall \psi_u(p ; y) = f(y)\right\} + |\s{u}| \\
+&= \min_{\s{i}q}\left\{|\s{i}q| : \forall \phi_i(q ; y) = f(y)\right\} + |\s{u}| \\
+&= K^\phi(f) + O(1)
+\end{align*}
+We can reverse the proof to find the bound in the other direction.
+\end{proof}
+
+
+\begin{definition}
+For index functions $r$ and $q$, we say that $r$ logaritheoremically dominates $q$ if $\forall f \in \C: M_r(f) \leq M_q(f) + O(\log(|x|))$.
+\end{definition}
+
+It is important to note that for some $f \in H$ computing $\phi$, $K(f)$ can differ by arbitrary amounts from $M(\phi)$. $K(f)$ works in the structure function, because it considers all $f$ in a given model class, but as a function on its own, it is an awkward representation of the complexity of a function.
+
+\begin{theorem}
+There exists a function in $\R$ which log-dominates every other element in $r$. 
+\end{theorem}
+
+\begin{theorem}
+$M$ and $K$ are in the second level of the Turing hierarchy of incomputability. 
+\end{theorem}
+
+\begin{theorem}
+\cite{DBLP:journals/cj/Shen99}
+
+\end{theorem}
+
+\bibliography{facticity}
+
+\end{document}
