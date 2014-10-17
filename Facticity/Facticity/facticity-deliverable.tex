@@ -1,0 +1,316 @@
+\documentclass{style/llncs}
+
+\usepackage{eulervm}
+\usepackage{charter}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumerate}
+\usepackage{cancel}
+\usepackage{hyperref}
+\usepackage{footmisc}
+\usepackage{mathrsfs}
+\usepackage{color}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+\title{Ideal model selection is impossible}
+
+\author{Peter Bloem and Steven de Rooij}
+
+% Steven's comments
+\newcommand{\sdr}[1]{\textcolor{blue}{\small #1\textsuperscript{[sdr]} }}
+% Peter's comments 
+\newcommand{\pb}[1]{\textcolor{OliveGreen}{\small #1 \textsuperscript{[pb]} }}
+% Pieter's comments 
+\newcommand{\pa}[1]{\textcolor{Red}{\small #1 \textsuperscript{[pa]} }}
+
+\newcommand{\p}{\mbox{\,.}}
+\newcommand{\fl}[1]{\left \lfloor #1 \right \rfloor}
+\newcommand{\g}[1]{\color{gray} #1 \color{black}}
+\newcommand{\B}{{\mathbb B}}
+\newcommand{\Rbb}{{\mathbb R}}
+\newcommand{\N}{{\mathbb N}}
+\newcommand{\C}{{\mathscr C}}
+\newcommand{\Co}{{\overline{\mathscr C}}}
+\newcommand{\R}{{\mathscr R}}
+\newcommand{\m}{{\overline{m}}}
+\newcommand{\ok}{{\overline{\kappa}}}
+\newcommand{\s}[1]{{\overline{#1}}}
+\newcommand{\mmid}{\;\middle|\;}
+\newcommand{\hide}[1]{}
+
+\begin{document}
+
+\maketitle
+
+\abstract{The basic idea behind sophistication is this: firstly, a dataset has an implicit model, which is objectively superior to any other model. Secondly, the complexity of this model expresses how interesting the model is. There are many formalizations of this idea, mostly based on computability theory, forumlated in the hope that this quantity can be expressed with robustness similar to that of Kolmogorov Complexity. We review existing definitions, and place them in a general and precise framework. We then show that these approaches are doomed to fail, due to what we call a 'collapse' induced by the including of universal models. This effect has been mentioned before, but it has always been ascribed to the power of the model class, and most definition attempt to circumvent it by reducing the power of the model class to something less than Turing completeness. We show that the existence of models dominating other models is sufficient for the sophistication functions, and thus model selection in general, to be ill defined.}
+
+\section{Introduction}
+
+Consider the following example: a television which can be in three states. Switched off, its screen shows nothing, it's tuned to a television broadcast, or it shows white noise. Kolmogorov complexity allows us to make precise statements about their information content, which increases with each example. One fundamental criticism of the idea that Kolmogorov complexity represents an amount of information has always been that the objects with the greatest amount of information (ie. the white noise) are meaningless and uninteresting. `Real' information, in the informal sense of the word, seems to be maximized more by the television broadcast than by the noise.
+
+This idea has led to a long search for a notion of what is variously called sophistication\cite{koppelSoph1988}, facticity\cite{adriaans2012facticity} or meaningful information. \footnotemark While there are important differences, the principle behind them is always the same. We have some two-part coding of a given data set. Any such coding which is less efficient than the Kolmogorov complexity can be discarded. We choose one of the remaining set of two part descriptions (for instance the one with the smallest model) and take the complexity of the model part. This value should represent the amount of `interestingness' in the data. 
+
+\footnotetext{There are also other approaches such as logical depth\cite{bennett1998information}, which we will not consider here.} 
+
+Intuitively, this seems to hold water. For both the random noise and the simple blank signal, there are only small, and simple models. But to compress the broadcast, with it's human faces, three-dimensional spaces, outdoor locations and scene changes, we can benefit from many highly complex models to represent such information efficiently.
+
+Unfortunately, any such approach must fulfill two desiderata:
+\begin{itemize}
+  \item The length of the complete description of the data must be the same (up to a constant) as the Kolmogorov complexity. If this is not the case, we cannot see the description an optimal explanation of the data.
+  \item The result must be invariant to ad-hoc choices in the construction of the function. If this is not the case, the value returned cannot be seen as an inherent property of the data, as equivalent functions return different answers.
+\end{itemize}
+
+Our results show that following this basic principle cannot satisfy these desiderata. As a corollary, we note that model selection, using the model class of all partial computable functions is not viable. Any such method will always have to choose between a range of equally plausible models, with no means of making a distinction.
+
+\section{Review}
+In this section, we review some of the common approaches to defining sophistication, and 
+the ways in which they succeed and fail.
+
+\subsection{Two perspectives}
+
+The suggestions for defining sophistication can be divided in two approaches.
+
+\begin{description}
+\item[The UTM view] In this view, we use that fact that the Kolmogoirov complexity is defined with a two-part coding. The aim is to simply take the program that $K$ `selects' for $x$, and measure the size of its model. This view places certain constraints on the construction of the UTM, so that not any definition of Kolmogorov complexity will work. This is the approach taken by Koppel \cite{koppelSoph1988} and by Adriaans \cite{adriaans2012facticity}. 
+\item[The black box view] In this view, we see the UTM as a black box, and do not attempt to `open it up'. Instead, we define a separate two part coding, and merely require that it is as efficient a description of the data as the most efficient description of the data (that is, its Kolmogorov complexity). In this view, taken for instance by Vitanyi\cite{vitanyi2006meaningful} we require that the the representation of the model is as small as the smallest effective representation of that function.
+\end{description}
+
+\subsubsection{Compact indices}
+In the UTM view, we require that the index used for the model is compact:
+
+\begin{definition}
+For a given index of the computable functions $\{\phi_i\}$ we define $i^*_\phi = \min\left\{\phi_j : \phi_j \simeq \phi_i\right\}$. That is, the minimal index of a function that is equivalent to $\phi_i$. The subscript may be dropped when it is clear from context.
+\end{definition}
+
+\begin{definition}
+An index of the computable functions $\{\phi_i\}$ is called \textbf{compact} if for every 
+$\phi_i(\bar{x}y)$ we have a $\phi_j$ such that $\phi_i(\bar{x}y) \simeq \phi_j(y)$ and  $|j| - |i| \leq |\bar{x}| + O(1)$
+\end{definition}
+
+Note that this is a natural property of basic computational metaphors. We can always take part of the argument of one function and hardcode it into the program at the cost of its prefix-coded length, and some additional bits to add it to the argument before processing. 
+
+We can construct a non-compact enumeration by starting with a compact one, and inserting after function $i$ a series of $f(i)$ copies of $\phi_0$, where $f(i)$ is some fast growing function like $2^{i!}$.
+
+\begin{lemma}
+Let $\{\phi_i\}$ and $\{\psi_j\}$ be two compact, computable enumerations of the computable functions. For a given computable function $\phi_i \simeq \psi_j$,  we have $\mbox{abs}(|i^*| - |j^*|) \leq \max(|\overline{\imath^*}|, |\overline{\jmath^*}|) + O(1)$. That is, the difference between the sizes of the minimal models is in $O(\log(\max(i, j)))$
+\end{lemma}
+\begin{proof}
+Let $\phi_u$ be a universal function for $\psi$, such that $\phi_u(\bar{\imath}x) \simeq \psi_i(x)$. Since $\psi$ is computable this function exists in $\phi$. We have $\psi_{j^*}(x) \simeq \phi_u(\overline{\jmath^*}x)$. By the compactness of $\phi$, we have some $h$ with $|h| \leq |u| + |\overline{\jmath^*}| + O(1)$ such that $\phi_{h}(x) \simeq \phi_u(\overline{\jmath^*}x) \simeq \psi_{j^*}(x)$. 
+
+Thus $|i^*| \leq |h| = |u| + |\overline{\jmath^*}| + O(1)$. Reversing $\phi$ and $\psi$ gives us $|j^*| \leq |h'| = |u'| + |\overline{\imath^*}| + O(1)$. Combining these, we get the desired result.
+\end{proof}
+
+This lemma tells us that so long as we restrict our indices to compact and effective, we can never gain more than a logarithmic difference between model sizes. In the limit as $i \rightarrow \infty$, this term represents a vanishing proportion.
+
+\begin{theorem}
+$K^\phi(f)$ is invariant to the choice of enumeration $\phi$, up to an additive constant. Let $\{\phi_i\}$ and $\{\psi_i\}$ represent two effective enumerations of the computable functions.
+\end{theorem} 
+\begin{proof}
+Let $\psi_u(\s{\imath}p; y) = \phi_i(y)$. Since both enumerations are effective, this function must exist in $\{\psi_i\}$.
+\begin{align*}
+K^\psi(f) &= \min_{\s{j}p}\left\{|\s{j}p| : \forall \psi_j(p ; y) = f(y)\right\} \\
+&\leq  \min_{p}\left\{|\s{u}p| : \forall \psi_u(p ; y) = f(y)\right\} & \text{taking $j = u$}\\
+&= \min_{p}\left\{|p| : \forall \psi_u(p ; y) = f(y)\right\} + |\s{u}| \\
+&= \min_{\s{i}q}\left\{|\s{i}q| : \forall \phi_i(q ; y) = f(y)\right\} + |\s{u}| \\
+&= K^\phi(f) + O(1)
+\end{align*}
+We can reverse the proof to find the bound in the other direction.
+\end{proof}
+
+\begin{definition}
+For index functions $r$ and $q$, we say that $r$ logarithmically dominates $q$ if $\forall f \in \C: M_r(f) \leq M_q(f) + O(\log(|x|))$.
+\end{definition}
+
+\subsection{The complexity of computable functions}
+
+Whichever perspective we use, we must be sure that the representation of our models is efficient. If it is inefficient---ie. there is another effective representation, in some other `language' which expresses the same model more succinctly, then an efficient way to represent our data in with our inefficient index, would be to use a universal model for the efficient index, and select the relevant model in that representation. This means that our model would be a universal Turing machine for another language, rather than the model that describes the family to which our data belongs.
+
+The best approach is to define a function $K(f)$\footnotemark, which is analogous to the Kolmogorov complexity. We want this function to represent the minimum number of bits in which we can specify $f$ effectively, that is, if we specify $f$ and some input $x$, a second party can compute $f(x)$. We would like to show an invariance similar to that used with Kolmogorov complexity: that the arbitrary choices used to construct $K(f)$ can only lead to a constant difference in the values it produces. 
+
+\begin{definition}[{\cite[p13]{grunwald2004shannon}}]
+\[
+K(f) = \min_i \{ K(i) : T_i\,\text{computes}\,f\}
+\]
+where $T_i$ is the $i$th Turing machine in a canonical enumeration.
+\end{definition}
+
+\footnotetext{Note that $K$ is a function from the set of computable functions to $\N$. The argument is not a representation of $f$ but the function itself.}
+
+To show that this definition fits our expectations, we must show two things. That no effective way to express $f$ is significantly smaller than $K(f)$ and that $K(f)$ is invariant to the choices made.
+
+\section{Issues}
+
+The first issue is that many definitions in the UTM view, are not careful with their indices. Koppel for instance, in \cite{koppelSoph1988}, places no restrictions on the index used. In such cases, we can construct an index with a great deal of `air'. This means that if some model compresses a string best using an efficient index, the UTM can compress very efficiently by first switching to a UTM with an efficient index, and then using that to express the string (a kind of three-part coding). This means that the first part of the description (our model length) will always be constant for long enough data.
+
+This issue is solved in the black box perspective, where the model is always described as efficiently as possible. In the UTM view, this issue can be resolved by requiring that the UTM uses an efficient index.
+
+\subsection{Domination}
+
+A greater issue is that of models in our model class dominating others. If our model class contains models $a$ and $b$ and $a$ dominates $b$ (ie. $\exists c \forall x :K_a(x) \leq K_b(x) + c $), then data sampled from $b$ can always be compressed equally well (up to a constant) by $c$.
+
+If we view this from a statistical point of view, we see that if we have data sampled from $b$, we will always have models $a$ and $b$ as viable candidates, no matter how large our dataset (ie. any model selection method is inconsistent for this model class).
+
+This issue has been identified in the literature as a `collapse' that occurs when the universal Turing machine becomes part of the model class (since it dominates all other models). To remedy it, authors usually place a small restriction on the model class, such as requiring that all models are total, or that models are finite sets. The assumption seems to be that the collapse is caused by the model class being too powerful. As we have shown, it is not the power of the model class but its structure. We can define a very low-powered model class, but as soon as we insert a Bayesian mixture ove the class, there is a collapse: a constant model size is enough to compress the data as well as the Kolmogorov complexity.  
+
+Put simply, the size of the best model representing the data cannot be made invariant to the universal Turing machine. 
+
+\begin{definition}[Kolmogorov complexity]
+\[
+K^\psi(x) = \min\left\{|\bar\imath p| : \psi_i(p) = x\right\}
+\]
+\end{definition}
+
+\begin{definition}[Complexity of a function]
+\[
+K^{\phi\psi}(f) = \min\left\{|\bar\imath p| : \psi_i(p) = j, \forall_x\phi_j(x) = f(x)\right\}
+\]
+Where $\psi$ and $\psi$ represent acceptable numberings, and $f$ is some partial computable function.
+\end{definition}
+
+\begin{definition}[Specific Kolmogorov complexity]
+\[
+K^{\phi\psi}(x) = \min\left\{K^{\phi\psi}(f) + |p|: f(p) = x\right\}
+\]
+\end{definition}
+This quantity is the same as the Kolmogorov complexity up to a constant. It also provides the value which all minimal two-part descriptions in our framework `witness', ie. it is the length of the shortest description in our two-part coding framework.
+
+\begin{definition}[Sophistication]
+\[
+F^{\phi\psi}(x) = \min\left\{K^{\phi\psi}(f) : \exists_p f(p) = x, K^{\phi\psi}(f)+|p| \leq K^{\phi\psi}(x)\right\}
+\]
+where $\phi$ and $\psi$ represent acceptable numberings.
+\end{definition}
+
+\begin{lemma}
+There exist numberings $\phi$ and $\psi$ such that $F^{\phi\psi}(x) \leq c$ for all $x$ and some constant $c$ independent of $x$. \label{lemma:constant}
+\end{lemma}
+\begin{proof}
+Let $\psi$ be some acceptable numbering. We then define $\phi$ as
+\begin{align*}
+\phi_0(\bar\imath\jmath p) &= \psi_{\psi_i(j)}(p) \\
+\phi_{11r\bar\imath}(p) &= \psi_(p)
+\end{align*}
+with $r$ a random string. For any $\phi_i$ where $i$ does not fit either of these cases, we define $\phi_i(x) = \infty$. 
+
+Let $x$ be any binary string. Let $\psi_i$ be some function with minimal $i$ such that $\psi_i(p) = x$. This gives us two representations in $\phi$: $\phi_0(\bar\imath j p)$ and $\phi_{ri}(p)$. These have the following description lengths:
+
+\begin{description}
+\item[$\phi_0(\imath j p)$:] $K^{\phi\psi}(\phi_0) + |\overline{a}bp| = K^\psi(0) + K^\psi(i) + |p|$
+\item[$\phi_{ri}(p)$:] $K^{\phi\psi}(\phi_{ri}) + |p| = K^{\psi}(ri) + |p|$
+\end{description}
+
+The difference between the two is $K^{\psi}(11ri) - K^\psi(0) - K^\psi(i)$. For some $r$ large enough this will always be larger than $0$, which means that the two part coding using $\phi_0$ will always provide a smaller description. 
+This means that $F^{\psi\phi}(x)$ will be $K^{\phi\psi}(\phi_0)$ for any $x$.
+\end{proof}
+
+\begin{lemma}
+There exist a $\phi$ and $\psi$ such that for all $x$ with $K^\psi(x) > |x|$ (with $c$ some constant), we have $F^{\phi\psi}(x) > |x| - O(1)$. \label{lemma:unbounded}
+\end{lemma}
+\begin{proof}
+Let $\psi$ be some acceptable numbering. We then define $\phi$ as
+\begin{align*}
+\phi_0(\bar\imath\jmath p) &= \psi_{\psi_i(j)}(p) \\
+\phi_{11ri}(p) &= \psi_i(p)
+\end{align*}
+
+with $r$ a random string. For any $\phi_i$ where $i$ does not fit either of these cases, we define $\phi_i(x) = \infty$. 
+
+Let $x$ be a string with $K^\psi(x) > |x|$ as in the statement of the lemma. Let $\psi_i(p)$ be a smallest description under $\psi$. We have two descriptions in $\phi$:
+
+\begin{description}
+\item[$\phi_{0\bar\imath p}(\epsilon)$:] $K^{\phi\psi}(\phi_{0\bar\imath p}) K^{\phi}(0\bar\imath p) \leq |0\bar\imath p| + c$
+\item[$\phi_{11ri}(p)$] $K^{\phi\psi}(11ri) + |p| = $  
+\end{description}
+
+Again, if $r$ is large enough, the first description will be shorter. Since $K^\psi(x) > |x|$, so isthe length of the model: $|0\bar\imath p | > |x|$, which means that the sophistication $F^{\psi\phi}$ grows linearly with $|x|$.
+
+\end{proof}
+\begin{theorem}
+There exist pairs of acceptable numbers $\phi$, $\psi$ and $\eta$, $\mu$ such that for any constant $c$ there exist $x$ for which $\left|F^{\psi\phi}(x) -F^{\phi\psi}(x)\right| > c$ 
+\end{theorem}
+\begin{proof}
+This follows directly from Lemmas~\ref{lemma:constant} and \ref{lemma:unbounded}.
+\end{proof}
+
+\section{Solutions}
+
+\subsection{Multiple samples}
+
+Model selection becomes possible again, as soon as we are allowed to take multiple, independent samples from the same source. If the course is, for instance, the universal Turing machine, we will see a variety of datasets, whereas a specific model, will produce multiple sets with the same structure.
+
+\subsection{The boundary}
+
+Another solution is to look at what structure we \emph{can} define that \emph{is} invariant to the choice of UTM. Each UTM provides a partial ordering on two part codings, in terms of the total efficiency of the description. The minimal elements of this semilattice are the candidates for the minimal sufficient statistic. We have shown that this set itself is not invariant, but it is likely that, for instance, a measure on the space of two part codings can be defined which is invariant.
+
+If such an object can be found, we may be able to determine a funcion on it (to determine its variance, perhaps) which will suit our desiderata for the sophistication function.
+
+\section{Conclusion}
+
+We have shown that given a dataset, no matter how large, we cannot perform model selection in the limit. That is, if we consider all computable models as potential sources of the data, we will always end up with a set of models that the data does not allow us to distinguish between. There may be small differences in total compression, but these are not invariant to our choice of universal Turing machine. If make small changes to arbitrary choices in our construction, the outcome of our model selection algorithm can change radically (from a small  constant model, to a model which is the same size as the data).
+
+The property that creates this ambiguity is the presence of models that dominate others in the model class. While we have phrased our results in terms of model selection in the limit, even simple model classes encounter this problem. For instance, taking a typical MDL model class like finite order Markov chains, and adding to it a Bayesian mixture over all these models, with some suitable prior, creates a model class where one model dominates all others. This means that we can never distinguish between the Bayesian mixture or an individual markov chain. Which of the two provides the more efficient explanation is an artifact of arbitrary choices in our framework of represenation (ie. our choice of universal Turing machine).
+
+In the limit of all computable models, this effect becomes so strong that for any given integer $s$ between 0 and the length of the data, we can find a model whose size is a constant from $s$ and whose compression beats all other models in the $c$-boundary for a given choice of $U$.
+
+With this type of reasoning it is of course not impossible that a work-around can be established in some unforeseen way, but it seems unlikely.
+
+While the idea of a measure of Sophistication based on model selection seems to be impossible, there is still the intuition that there should be an objective means to distinguish between simple data (the blank screen), random data (the white noise) and interesting data (the television broadcast). We have shown that looking at the complexity of the inherent model of the data is a fruitless approach, since such a model does not exist. However the boundary \emph{can} be taken as an inherent property of the data, and an investigation of the properties of this boundary may allow us to define more robust notions of data ``interestingness''.
+
+In broad terms, one may not be able to say definitively whether something is a painting rather than an object, or an impressionist painitng rather than a painting, or a Monet rather than an impressionist painting, but this chain of increasingly specific models \emph{does} tell us something about the data, and that may be enough to distinguish our random noise from a television broadcast. 
+
+\subsubsection{Acknowledgements} This publication was supported by the Dutch national program COMMIT.
+ 
+\hide{
+\section{Sandbox}
+
+* Definitie consistent two-part model selection (protocol) \\
+* Eisen aan two-part coding \\
+** Invariante modelrepresentatie
+**\\ 
+* De boundary is het beste dat je kunt identificeren, als je definities goed zijn, dwz voor elk model kunnen we meten hoeveel counterevidence de data geeft, en die meting is niet heel anders met een andere UTM. Modellen met kleine counterevidence zijn de ``boundary" en die zijn dus interessant als beste verklaring voor de data.\\
+** Bij de definitie van Koppel (inefficiente modelbeschrijving) gaat het ernstig fout omdat modellen in de boundary van een goede methode een super inefficiente index kunnen hebben bij Koppel (en Adriaans): er is geen invariantie voor de modelcodelengte. Verwarring van de twee geneste toepassingen van two-part coding?\\
+* Koppel faalt harder dan Vitanyi, hoewel het allebei ``sophistication'' heet
+
+\pb{Losse dingen, probeersels, oude dingen alles wat weg moest maar niet per se helemaal weg.}
+
+\begin{definition}
+Let $M_r: \C \rightarrow \N$ be defined as follows $M_r(\phi) = \min\left \{|i| : r(i) \simeq \phi\right \}$. That is, it returns the length of the shortest function (under $r$) computing $f$.
+\end{definition}
+
+Another tack. Complexity of a function:
+
+\begin{definition}
+Let $f \in \C$, ie. the abstract object representing a computable function. We define its complexity in bits as
+\[
+	K^\phi(f) = \min \left\{ |\s{i}p| : \forall_y \phi_i(p ; y) = f(y) \right\}
+\] where $\{\phi_i\}$ is an effective enumeration of the computable functions.  
+\end{definition}
+
+\pb{This definition guards against inefficient indices, by using a kind of hidden three-part coding. If the basic indexing is inefficient, we can find a Turing machine with an efficient index and use $p$ on that to encode any string efficiently.}
+
+
+
+It is important to note that for some $f \in H$ computing $\phi$, $K(f)$ can differ by arbitrary amounts from $M(\phi)$. $K(f)$ works in the structure function, because it considers all $f$ in a given model class, but as a function on its own, it is an awkward representation of the complexity of a function.
+
+\begin{theorem}
+There exists a function in $\R$ which log-dominates every other element in $r$. 
+\end{theorem}
+
+\begin{theorem}
+$M$ and $K$ are in the second level of the Turing hierarchy of incomputability. 
+\end{theorem}
+
+\begin{theorem}
+\cite{DBLP:journals/cj/Shen99}
+
+\end{theorem}
+}
+
+\bibliographystyle{style/splncs}
+\bibliography{facticity}
+
+\end{document}
