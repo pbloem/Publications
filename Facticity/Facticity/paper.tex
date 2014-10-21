@@ -5,6 +5,7 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
 \newtheorem{definition}{Definition}
 
 \newcommand{\M}{\mathcal M}
@@ -17,6 +18,8 @@
 \newcommand{\pair}[1]{\left\langle{#1}\right\rangle}
 \newcommand{\concat}{\oplus}
 \newcommand{\symb}[1]{\texttt{#1}}
+
+\newcommand{\argmin}{\mathop{\arg\min}}
 
 \title{Ideal model selection is impossible}
 \author{Peter Bloem and Steven de Rooij}
@@ -240,16 +243,58 @@ The function $v=\phi_v$ as defined above is partial recursive.
 Let $r$ be the input of $v$. Simulate $\psi_u$ using a TM with a one-way read-only input tape. If the TM does not halt, then enter an infinite loop. Otherwise, let $r=ap$ where $a$ is the part of the input tape that has been read when the TM halts, and let $i$ be the output of the TM. Now simulate $\phi_i$ on input $p$.
 \end{proof}
 
+\[
+b(i_0)=\min_{i\ge i_0}(L(i)-K(i))
+\]
+
 \begin{lemma}
-  Facticity is bounded.
+  If $\min\{i\ge i_0:|\bar\imath|-K(i)\}$ is an unbounded function of $i_0$, then facticity is bounded.
 \end{lemma}
 \begin{proof}
 Let $\bar\imath p$ be any two-part representation for the data $x$, i.e. $\phi_i(p)=x$. Then construct an alternative two-part representation $\bar vi^* p$, where $i^*$ is the shortest $\psi_u$-program for $i$ such that $\phi_v(i^* p)=\phi_{\psi_u(i^*)}(p) = \phi_i(p)=x$. We compare the lengths of these two representations. Note that $|i^*|=K^\psi(i)$. Therefore,
 \[
 |\bar\imath p|-|\bar v i^* p| = |\bar\imath|-|\bar v| - |i^*| = |\bar\imath|-|\bar v|-K(i).
 \]
-Since $|\bar\imath|$ is a computable codelength function, there must be an $i_0$ such that $|\bar\imath|-K(i)>|v|$ for all $i>i_0$ (see~\cite[Theorem~2.3.1]{li1993introduction}). From this $i$ onwards, the second representation (using $v$) will have a shorter code length, so any two-part representation $\bar ip$ cannot achieve the minimum in the definition of the facticity if $i>i_0$. Consequently, the facticity is bounded by $F^\phi(x)<|\overline{\imath_0}|$ for all $x$.
+By assumption there must be an $i_0$ such that the above expression is positive for all $i>i_0$. From this $i$ onwards, the second representation (using $v$) will have a shorter code length, so $\bar\imath p$ cannot achieve the minimum in the definition of the facticity. Consequently, the facticity is bounded by $F^\phi(x)<|\overline{\imath_0}|$ for all $x$. 
 \end{proof}
+Note that the condition for this lemma applies to all known partial recursive prefix functions:
+
+\begin{conjecture}
+For any partial recursive prefix code length function $L$, the function
+\[
+\min\{L(i)-K(i):i\ge i_0\}
+\]
+is unbounded in $i_0$.
+\end{conjecture}
+
+\begin{definition}[Model complexity]
+Given a model class $\M$, the model complexity of a data sequence $x$ is given by
+\[G(x)=K(f^*)\qquad\tn{where}\qquad (f^*,p^*)=\argmin_{f,p:f\in\M, f(p)=x}(K(f)+|p|),
+\]
+where ties are broken by picking a model $f^*$ of minimal complexity.
+\end{definition}
+
+\begin{theorem}
+There are enumerations $\phi_1,\phi_2,\ldots$ and $\psi_1,\psi_2,\ldots$ of the partial recursive (prefix) functions such that for every constant $c$ there is a binary sequence $x$ with
+\[
+|G^\phi(x)-G^\psi(x)|>c
+\]
+\end{theorem}
+
+\begin{lemma}
+There is an enumeration $\phi_1,\phi_2,\ldots$ of the partial recursive (prefix) functions, and a constant $c$ such that for all $n$ we have $G^\phi(x)<c$ for more than half of all strings $x$ of length $n$.
+\end{lemma}
+
+\begin{lemma}
+There is an enumeration $\phi_1,\phi_2,\ldots$ of the partial recursive (prefix) functions such that for every constant $c$ there is an $n_0$ such that for all $n>n_0$ we have $G^\phi(x)>c$ for more than half of all strings $x$ of length $n$.
+\end{lemma}
+
+\begin{theorem}
+There are enumerations $\phi_1,\phi_2,\ldots$ and $\psi_1,\psi_2,\ldots$ of the partial recursive (prefix) functions such that for every constant $c$ there is a binary sequence $x$ with
+\[
+|G^\phi(x)-G^\psi(x)|>c
+\]
+\end{theorem}
 
 % idea 0: show collapse of structure function
 
