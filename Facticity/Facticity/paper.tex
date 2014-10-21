@@ -219,6 +219,38 @@ Conjectures:
 \item Als er een unbounded penalty zit op modelcomplexiteit dan is de facticity bounded door een constante.
 \end{itemize}
 
+\begin{definition}[Facticity]
+  Let $\phi_1,\phi_2,\ldots$ be any effective enumeration of the partial recursive functions. Then
+  \[F^\phi(x)=|\bar\imath|\qquad\tn{where}\qquad \bar\imath p=\min\{\bar\jmath q:\phi_j(q)=x\}.
+  \]
+  Here the minimum is taken with respect to the standard ordering of binary sequences.
+\end{definition}
+
+\begin{definition}
+Given an enumeration $\phi_1,\phi_2,\ldots$ of the partial recursive functions, and an enumeration $\psi_1,\psi_2,\ldots$ of the partial recursive prefix functions. Let $\psi_u$ be a universal element with property $\psi_u(\bar\imath p)=\psi_i(p)$. Then define $v$ by
+\[
+v(a p)=\begin{cases}\phi_{\psi_u(a)}(p)&\tn{if $a$ is in the domain of $\psi_u$,}\\
+\infty&\tn{otherwise}.\end{cases}
+\]
+\end{definition}
+\begin{lemma}
+The function $v=\phi_v$ as defined above is partial recursive.
+\end{lemma}
+\begin{proof}
+Let $r$ be the input of $v$. Simulate $\psi_u$ using a TM with a one-way read-only input tape. If the TM does not halt, then enter an infinite loop. Otherwise, let $r=ap$ where $a$ is the part of the input tape that has been read when the TM halts, and let $i$ be the output of the TM. Now simulate $\phi_i$ on input $p$.
+\end{proof}
+
+\begin{lemma}
+  Facticity is bounded.
+\end{lemma}
+\begin{proof}
+Let $\bar\imath p$ be any two-part representation for the data $x$, i.e. $\phi_i(p)=x$. Then construct an alternative two-part representation $\bar vi^* p$, where $i^*$ is the shortest $\psi_u$-program for $i$ such that $\phi_v(i^* p)=\phi_{\psi_u(i^*)}(p) = \phi_i(p)=x$. We compare the lengths of these two representations. Note that $|i^*|=K^\psi(i)$. Therefore,
+\[
+|\bar\imath p|-|\bar v i^* p| = |\bar\imath|-|\bar v| - |i^*| = |\bar\imath|-|\bar v|-K(i).
+\]
+Since $|\bar\imath|$ is a computable codelength function, there must be an $i_0$ such that $|\bar\imath|-K(i)>|v|$ for all $i>i_0$ (see~\cite[Theorem~2.3.1]{li1993introduction}). From this $i$ onwards, the second representation (using $v$) will have a shorter code length, so any two-part representation $\bar ip$ cannot achieve the minimum in the definition of the facticity if $i>i_0$. Consequently, the facticity is bounded by $F^\phi(x)<|\overline{\imath_0}|$ for all $x$.
+\end{proof}
+
 % idea 0: show collapse of structure function
 
 % idea 1: ideal model selection is impossible
@@ -246,6 +278,7 @@ Conjectures:
 % in model complexity is about K(theta), which can be made arbitrarily large.
 % problem: what about in-between models that approximate theta?
 
-
+\bibliographystyle{plain}
+\bibliography{facticity}
 
 \end{document}
