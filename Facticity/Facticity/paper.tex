@@ -1,0 +1,251 @@
+\documentclass{article}
+\usepackage{amsmath,amsfonts,amsthm,fullpage}
+
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}{Definition}
+
+\newcommand{\M}{\mathcal M}
+\newcommand{\K}{\mathcal K}
+\newcommand{\X}{\mathcal X}
+\newcommand{\C}{\mathcal C}
+\newcommand{\D}{\Delta}
+\newcommand{\N}{\mathbb N}
+\newcommand{\tn}[1]{\textnormal{#1}}
+\newcommand{\pair}[1]{\left\langle{#1}\right\rangle}
+\newcommand{\concat}{\oplus}
+\newcommand{\symb}[1]{\texttt{#1}}
+
+\title{Ideal model selection is impossible}
+\author{Peter Bloem and Steven de Rooij}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Kolmogorov complexity provides an objective quantification of the amount of information in an individual binary string, i.e. the number of bits required to effectively describe it, without making any assumptions about the source of that string. However, not all information is created equal -- over the years, there have been many attempts that use two-part codes in order to separate the amount of ``meaningful information'', ``sophistication'' or ``facticity'' of the data, from information representing its random properties. How wonderful would it be if we could quantify not just the syntactic information content of the data  not only syntactically, but the meaningful information as well!
+
+In this paper we show this to be an impossible dream: in general, additional assumptions are required if one wishes to find the true model, or its complexity. This is true regardless of the length or Kolmogorov complexity of the input data. In effect, this means that ideal model selection based on a single data object with no further knowledge is impossible. We unify and contrast the several existing approaches and describe what they can and cannot do. 
+\end{abstract}
+
+\section{Notes}
+
+Do we have the citation ``Paul M. B. Vit\'anyi: Meaningful Information. IEEE Transactions on Information Theory 52(10): 4617-4626 (2006)''?
+
+(From Koppel, Complexity, Depth and Sophistication:)
+
+``Sophistication is a generalization of the "H-function" or "minimal sufficient statistic" of Cover and Kolmogoroff, using the motonic complexity of Levin: is Cover the original source for the idea of a ``minimal sufficient statistic''? Also Koppel does indeed use monotonic complexity as in Levin. We need to know at least a little about the difference between monotonic and regular KC: is it less than a logarithmic additive term? If so, we can conveniently sweep it under the rug.
+
+
+\section{Case against index length as model complexity}
+All definitions of meaningful information are based on a two-part description of the data: the first part describes a \emph{model} for the data, and the second part describes an input to the model that makes it reconstruct $x$ exactly. However there is a fundamental dichotomy in way the various authors work out this idea technically.
+
+The aproach taken in the works of Kolmogorov, Vit\'anyi, (Cover? Shen? etc) is sound (apart from the issues discussed elsewhere in this paper), but the other approach, adopted by Koppel, Adriaans, (others), while very intuitive, has a fundamental problem that seems to originate in a misunderstanding of the role Kolmorov complexity has to play in the two part code.
+
+The misunderstanding, which appears to be shared by authors on both sides of the dichotomy, is that the two components of the Kolmogorov complexity (the index of a Turing machine and its input) \emph{are} the two-part code used to separate the meaningful information from the noise. This idea certainly seems reasonable, as it is expressed not only by Koppel, who writes
+
+[insert quote here: In his 1988 chapter ``Structure'', Koppel has a very good quote about how it is such a pity that program and data are not considered separately anymore.]
+
+Perhaps surprisingly, it is also reinforced by Vit\'anyi, when he writes : (From Vereshchagin and Vit\'anyi, ``Kolmogorov’s Structure Functions and Model Selection'':)
+\begin{quotation}
+  This expression emphasizes the two-part code nature of Kolmogorov complexity. In the example
+\[x=10101010101010101010101010\]
+we can encode $x$ by a small Turing machine printing a specified number of copies of the pattern `10' which computes $x$ from the program `13'.” This way, $K(x)$ is viewed as the shortest length of a two-part code for $x$, one part describing a Turing machine, or model, for the regular aspects of $x$, and the second part describing the irregular aspects of $x$ in the form of a program to be interpreted by $T$. The regular, or “valuable,” information in  is constituted by the bits in the “model” while the random or ``useless'' information of $x$ constitutes the remainder.
+\end{quotation}
+
+The problem of this two-part code lies with the first part: the index of the Turing machine depends on the used universal Turing machine, and the same Turing machine may well have, say, an exponentially higher index on one UTM than on another. (This is sometimes referred to as the ``nickname problem'', \cite{TODO}.) As such the index is \emph{not} a good measure of the model complexity. 
+
+To illustrate what can go wrong, consider all TM's $\{T_{i_1}, \ldots, T_{i_k}\}$  that are $c$-sufficient statistics for $x$, i.e. they have $\overline{i_j}+\min\{|y|:T_{i_j}(y)=x\}\le K(x)+c$. If we were to switch to a different universal Turing machine that uses a different index function, any or all of these Turing machines may suddenly yield a two-part codelength that is much larger than the Kolmogorov complexity -- and the potential difference in two-part codelength is not bounded by a constant.
+
+Adriaans takes this problem seriously and attempts to address it by imposing additional restrictions on the ordering of TMs implied by the used UTM \cite{TODO}. We are skeptical that such measures can effectively eliminate this problem without resorting to orderings of the TMs that are not admissible [TODO ref].
+
+But there is already a simple way to avoid this pitfall, which uses Kolmogorov complexity as a \emph{building block} of the two-part code: the first part of the code identifies a model, using its shortest possible description, whose length is measured by Kolmogorov complexity. The second part of the code provides an input to the model for which it outputs $x$.
+
+The model may be a Turing machine, but can also be used with other model classes; for example in Kolmogorov's original formulation the model is a finite set of objects that contains $x$. Since the models are not usually represented as binary strings, the definition of Kolmogorov complexity has to be suitably extended to the considered model classes, but this is not a fundamental problem, [refer to appropriate definitions].
+
+
+
+
+
+
+\section{Thoughts and questions}
+
+\begin{itemize}
+
+
+\item Kolmogorov complexity measures the shortest effective description of a binary sequence $x$. As such it is an \emph{objective} property of $x$ in the sense that changing around the enumeration of Turing machines in its definition only changes the Kolmogorov complexity by a constant independent of $x$.
+
+The same should hold for all definitions:
+\begin{itemize}
+\item The complexity of any model should not change by more than a constant when the ordering of TMs is changed.
+\item The same holds for the measure of meaningful information/sophistication
+\end{itemize}
+
+\item Iets uitgebreidere versie van bovenstaande, uit mijn mailtje: definitie 1: twee frameworks met complexiteitsmaten $K_1$ en $K_2$ en modelklassen $\M_1$ en $\M_2$ zijn equivalent als voor alle representaties $r$ in $\M_1$ er een $s$ in $\M_2$ is zodanig dat 
+\begin{itemize}
+\item $K_1(r)-K_2(s) = O(\log(K_1(r)+K_2(s)))$
+\item $K_1(r)+L_r(x) - (K_2(s)+L_s(x)) = O(1)$
+\end{itemize}
+
+\item We waren bezig met operationaliseren wanneer een methode nu eigenlijk de juiste hypothese identificeert, met protocollen en asymptotisch gedrag enzo. Maar kunnen we het niet veel eenvoudiger houden? Ik ben er erg voor om het technisch zo simpel mogelijk te houden! Elke redelijke two-part code voor modelselectie moet onder wijziging van de enumeratie van TMs aan de volgende eigenschap voldoen:
+(a) de twee versies moeten equivalent zijn onder definitie 1, want anders is de maat namelijk arbitrair. Dit geldt voor zover ik begrijp niet voor de Koppel/Adriaans/Antunez versie van sophistication, maar wel voor die van Paul. Hiermee kunnen we dus leuk het eerste probleem aanduiden. 
+Deze eigenschap zegt iets over de two part codelengtes voor de hele model class. Maar als we bovendien willen aannemen dat de lengte van het geselecteerde model iets zegt over de data,
+(b) dan moet definitie 1 bovendien gelden voor de specifieke r en s die worden geselecteerd! Hiervan kunnen we bewijzen dat het onmogelijk is.
+
+\item What is an ``acceptable enumeration'', is it really required in the standard definition of KC or is there a difference of opinion? Does this mean that it is impossible to do facticity in the standard definition of KC? That would be a nice claim to make!
+
+\item Is it possible to require that the enumeration of TM's is such that any TM can also efficiently store input data to the TM? That is, is there an acceptable numbering such that for all $i$, all $p$, there is a $j$ with $|j|\le|i|+|p|$ such that $T_j(\epsilon)=T_i(p)$. This enumeration is potentially still very simple, the programming language just has a provision for storing data inside the program. If there are acceptable enumerations with this property, and I suspect there are, then perhaps it could be reasonable to require this, and use it as a motivation to forget about the distinction between the index of a program and its input. Perhaps some authors silently assume the enumeration to have this property? This would make it valid to do what some authors, like Paul, are doing: to identify the two-part code \emph{within} the definition of KC, with the two-part code used to define meaningful information. Or am I now giving these authors too much credit?
+
+\item Why the ``up to log-terms''? Is it because of algorithmic mutual information holds up to log terms? Can we find references motivating the decision to work up to log terms? Is it possible to define a two part code where the length of both parts varies by only a constant as the ordering of Turing machines is changed? Why (not)?
+
+\item Paul argues that the randomness deficiency of a model is a measure of the amount of structure left in the noise part. I feel that it is also a measure of the amount of counterevidence against a model in the statistical sense, as follows: the randomness deficiency of $x$ given model $M$ is $\delta(x|M)=L_M(x)-K(x|M)$. Suppose that model $M$ is true. We can then use the no hypercompression inequality to rewrite:
+%
+\[
+P_{x\sim M}(\delta(x|M)\ge c) = P_{x\sim M}(L_M(x) - K(x|M) \ge c)\le 2^{-c}
+\]
+Thus, if $M$ is true the probability of a large randomness deficiency is exponentially small! This amount of evidence is robust in the sense that changing the UTM around will change the amount of evidence by at most a constant. If the structure function is going to give us a \emph{cloud} of candidate models instead of just a single one, I think this is a really nice interpretation of the meaning of that cloud: we simply measure the available evidence against all individual models.  
+
+\item Shen explains the collapse of the structure function if you use enumerating complexity rather than listing complexity. How can we most cleanly explain that this collapse does not vanish for weaker model classes?
+
+\item Properties of representations on $K(M)$ vs $L_M(x)$ graph: diagonals identify representations with the same two-part codelength. The randomness deficiency is the distance to the minimum, which is the $K(x)$ diagonal:
+\[L(x;M)=K(M)+L_M(x) =K(M)+K(x|M)+L_M(x)-K(x|M)  = K(x)+\delta(x|M).\]
+ Models move horizontally by a constant when the ordering of TMs is changed. Thus the randomness deficiency and two part code are also changed by at most a constant. In contrast the \emph{minimum} can now be achieved by a very different representation.
+
+\item Discuss worries about overfitting in the literature, explain that actually the collapse problem is a case of severe \emph{underfitting} and that both can occur. Any attempts to penalize the model complexity in the two part code will exacerbate the underfitting problem.
+
+\item Ik denk dat we in ons eigen paper minder hoog van de toren moeten blazen dan in het stukje dat ik je laatst stuurde, misschien meer zoiets zeggen als "er is een verschil tussen het kortste programma dat een string produceert, die mogelijk veel langer is dan de string zelf als data niet efficient kan worden gerepresenteerd in de gebruikte programmeertaal, en de korste beschrijving van de string, die mag bestaan uit een programma plus de input voor dat programma. Dit verschil is cruciaal voor een juist begrip van de verschillende aanpakken voor meaningful information, maar in veel publicaties over het onderwerp wordt dit onderscheid niet expliciet gemaakt en is het dus niet duidelijk of de besproken complexiteitsmaten nu wel of niet afhangen van de gekozen universele Turingmachine."
+
+\item Paul-Pieter: model $M$ is eindige set, data $D$ is een subset ervan, dus meerdere binaire strings. Two part code is $K(M|d)+\log\binom{m}{d}$, met $d=|D|$ en $m=|M|$. Vraag, waarom zit $d$ in de conditional? Heeft dit te maken met andere keuzes over waar je de hoeveelheid noise stopt?
+
+\item ``Power and peril of MDL'': bespreken ook de ``collapse of the structure function'' als de model class te sterk is, dwz sets worden te efficient gecodeerd (wsch equivalent met Shen's enumerating complexity).
+
+\item Conjecture: to define valid two-part code inside KC, need efficient numbering: data can be inserted into TM index efficiently. In general, KC with admissible numbering will not work.
+
+\item Idea: two distinct models are impossible to separate if the probability they give to the data remains within a constant. This can happen even if they do not dominate each other for other data sequences. Sufficient condition: one dominates the other.
+\end{itemize}
+
+\begin{definition} An enumeration $\phi_1,\phi_2,\ldots$ of the partial recursive functions is called \emph{$\gamma$-compact} if for all $i,y$ there is a $j$ such that $|j|\le|i y|+\gamma(|y|)$ and $\phi_i(y z)=\phi_j(z)$ for all $z$.
+\end{definition}
+
+\begin{lemma}
+There is a $0$-compact acceptable numbering.
+\end{lemma}
+\begin{proof}
+  Let $\phi_1,\phi_2,\ldots$ be any acceptable numbering. Let $\psi_1,\psi_2,\ldots$ be a new acceptable numbering defined by $\psi_j(x)=\phi_i(y x)$ if $j$ is a pair satisfying $j=\bar\imath y$, and $\psi_j(x)=\infty$ otherwise.  We will show that $\psi$ is both $0$-compact and acceptable. 
+
+To show compactness, pick any index $i$ and binary string $y$. First assume $i$ is a valid pair $i=\bar a b$. Then  $\psi_i(y x) = \psi_{\bar a b}(y x)=\phi_a(b y x)$, but also $\psi_{\bar a b y}(x)=\phi_a(b y x)$, so $\psi_i(y x) = \psi_j(x)$ for $j=\bar a b y$; so $|j|=|iy|+0$. On the other hand, if $i$ is not a valid pair, we can simply use $j=i$ so that $\psi_i(y x)=\psi_j(x)=\infty$ for all $x$.
+
+To show that $\psi_1,\psi_2,\ldots$ is acceptable, we define total computable functions $f$ and $g$ such that $\psi_i(x)=\phi_{f(i)}(x)$ and $\phi_j(x)=\psi_{g(j)}(x)$. The easy direction is $g(j)=\bar\jmath\epsilon$. The definition of the mapping in the other direction $f(i)$ depends on whether $i$ is a valid pair. If it is not, then $f(i)=h$ for some $h$ such that $\phi_h(x)=\infty$ for all $x$. On the other hand if $i=\bar\jmath y$, then $f(i)$ is the index of a partial recursive function $\phi_{f(i)}(x)$ defined by a Turing machine that simulates the machine for $\phi_j$ but with $yx$ on the input tape.
+\end{proof}
+
+\begin{lemma}[Framework equivalence]
+Let $\phi_1,\phi_2,\ldots$ be a $\gamma$-compact effective enumeration. There is a constant $c$ such that for any index $i$ there is another index $j$ with $\phi_j(x)=\phi_i(x)$ for all $x$, and
+\[|j|\le K(i)+2\log(K(i))+\gamma(K(i)+2\log K(i)).\]
+\end{lemma}
+\begin{proof}
+First, let $v$ be the index of the partial recursive function given by $\phi_v(\bar k\bar p x)=\phi_{\phi_k(p)}(x)$. Let $\bar k p$ be a shortest program for $i$, that is $|\bar k p| = K(i)$ and $\phi_k(p)=i$. Then $\phi_i(x)=\phi_v(\bar k \bar p x)$. We now use $\gamma$-compactness to find an index $j$ with $\phi_v(\bar k \bar p x)=\phi_j(x)$ and length
+\[\begin{split}
+|j|&\le |v\bar k\bar p|+\gamma(\bar k\bar p)\\
+&\le|v|+|\bar k p|+2\log|\bar k p|+\gamma(|\bar k p|+2\log|\bar k p|)\\
+&=K(i)+|v|+2\log K(i)+\gamma(K(i)+2\log K(i)),
+\end{split}\]
+as required.
+\end{proof}
+\begin{corollary}
+If $\gamma(x)=O(\log x)$, then $|j|=K(i)+O(\log K(i))$.
+\end{corollary}
+
+We need a definition of $K(f)$. We adopt the definition given in \cite{TODO}:
+
+\begin{definition}
+  The Kolmogorov complexity of a partial recursive function is defined as
+  \[
+  K(f) = \min\{K(i):\forall_x \phi_i(x)=f(x).\}
+  \]
+\end{definition}
+
+It is not immediately clear that this is a reasonable definition of the shortest effective description of a function, but fortunately this is indeed the case:
+
+\begin{lemma}
+Let $\psi_1,\psi_2,\ldots$ be any acceptable numbering. There is a constant $c$ such that for any $i$ with $\psi_i(x)=f(x)$ for all $x$, the description length satisfies $K(f)\le |i|+c$.
+\end{lemma}
+\begin{proof}
+The numbering is acceptable, so there is a total computable function $\phi_r$ that maps indices in the $\psi$-enumeration to indices in the $\phi$-enumeration. Let $j=\phi_r(i)$. Then $\bar r i$ is a program for $j$, so $K(j)\le |\bar r i| = |i|+c$. Now,
+\[
+K(f)=\min\{K(k):\forall_x\phi_k(x)=f(x)\}\le K(j)\le|i|+c
+\]
+as required.
+\end{proof}
+
+\begin{lemma}
+There is an acceptable numbering $\psi_1,\psi_2,\ldots$ such that $F^\psi(x)=|\bar 1|$ for all $x$.
+\end{lemma}
+\begin{proof}
+Let $\phi_1,\phi_2,\ldots$ be another acceptable numbering given by
+\[
+\phi_i(x)=\begin{cases}
+u&\tn{if $i=1$}\\
+\infty&\tn{if $1<i<r$}\\
+\psi_{i-r+1}(x)&\tn{if $i\ge r$}.
+\end{cases}\]
+Here $u\ge r$ is the index of the universal element satisfying $\phi_u(\bar\jmath p)=\psi_j(p)$.
+Now the two-part codelength of $x$ using representation $\phi_u$ is
+\[\begin{split}
+K(\phi_u)+\min\{|y|:\phi_u(y)=x\}&=\min\{K(i):\forall_x\phi_i(x)=\phi_u(x)\}+\min\{|y|:\phi_u(y)=x\}\\
+&=|\bar 1|+\min\{|\bar\jmath p|:\phi_u(\bar\jmath p)=x\}\\
+&=|\bar 1|+\min\{|\bar\jmath p|:\psi_j(p)=x\}\\
+&=|\bar 1|+K^\psi(x).
+\end{split}\]
+On the other hand, the two-part codelength of $x$ using a representation $s\ne u$ is
+\[\begin{split}
+K(\phi_s)+\min\{|y|:\phi_s(y)=x\}&=\min\{K(i):\forall_x\phi_i(x)=\phi_s(x)\}+\min\{|y|:\phi_s(y)=x\}\\
+&=c+\min\{|y|:\psi_{s-r+1}(y)=x\}\\
+\end{split}\]
+
+
+
+
+\end{proof}
+
+
+\begin{theorem}
+  There are acceptable numberings $\phi_1,\phi_2,\ldots$ and $\psi_1,\psi_2,\ldots$ such that for every constant $c$ there is a [are lots of] string $x$ with $|F^\phi(x)-F^\psi(x)|>c$ [regardless of penalties and possibly generalized to more model classes].
+\end{theorem}
+
+Conjectures:
+\begin{itemize}
+\item Als er een unbounded penalty zit op modelcomplexiteit dan is de facticity bounded door een constante.
+\end{itemize}
+
+% idea 0: show collapse of structure function
+
+% idea 1: ideal model selection is impossible
+% procedure selects model m1
+% there is another model m2 that dominates m1
+% there is a numbering such that L(m1)+L_m1(data) > L(m2)+L_m2(data), 
+% in the other numbering m2 is preferred
+% limitation of this approach: you have no control over the difference in model complexity,
+% it may not be very large.
+
+% idea 2: model complexity is not invariant
+% there are numberings \phi,\psi such that for all c there is an x such that |C_1(x)-C_2(x)|>=c
+% prove this for total recursive functions?
+% to make the result stronger:
+% - show that it does not go away with penalties on model complexity
+% - show that it holds for *all* numberings that are sufficiently distinct in some sense
+% - show that it holds for more model classes
+% - show that it occurs for most strings
+%
+% proof idea: truth is bernoulli with a complicated but computable parameter value, K(theta) is large
+% for small x, the print function will outperform the true model.
+% for large x, the true model gives best overall code length.
+% somewhere in between, the model complexity jumps from the one to the other. But that will not happen
+% at the same time for the two numberings. When one has switched and the other has not, the difference
+% in model complexity is about K(theta), which can be made arbitrarily large.
+% problem: what about in-between models that approximate theta?
+
+
+
+\end{document}
