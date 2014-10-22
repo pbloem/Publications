@@ -315,12 +315,43 @@ we have $G^\phi(x)=1$.
 \end{lemma}
 
 
-\begin{lemma}[Building block]
-Given $\phi_1,\phi_2,\ldots$ for all $c$ there is $\psi_1,\psi_2,\ldots$ such that for all $f$ we have
+\begin{lemma}[I think this is it]
+Let $\psi_1,\psi_2,\ldots$ be any acceptable numbering.
+For every $c$ there is another acceptable numbering $\phi_1,\phi_2,\ldots$ such that for all partial recursive functions $f$ we have
 \[
+<<<<<<< HEAD
 K^\psi(f) - K^\phi(f) \le c
+=======
+K^\phi(f)-K^\psi(f) \ge c.
+>>>>>>> branch 'master' of git+ssh://git@github.com/pbloem/Publications.git
 \]
 \end{lemma}
+\begin{proof}
+Define $\tau$ by $\psi_\tau(\bar k p) = j$ where $j$ is given by $1^r 0 j = \psi_k(p)$. In other words, it is a universal element for $\psi$ that subsequently strips the prefix $1^r 0 $ from the output; this operation is clearly still partial recursive. Also note that this function has a fixed index -- it does not have to know $r$. For completeness define $\psi_\tau$ to infinity if the output is not in the correct format.
+
+Now define a new acceptable numbering $\phi_1,\phi_2,\ldots$ as follows:
+\[
+\phi_{1^r0 j}(p)=\psi_j(p)
+\]
+For any given partial recursive function $f$, we now compare $K^\phi(f)$ and $K^\psi(f)$.
+For $\phi$ it is:
+\[
+K^\phi(f) = \min\{K^\phi(i):\phi_i = f\}.
+\]
+Let $i^-$ be the index that achieves the minimum, and let $i^*$ be the shortest $\phi$-program that computes it, that is, $i^*=\bar a b$ such that $\phi_a(b)=i^-$.
+Then the codelength is $K^\phi(f)=K^\phi(i^-)=|i^*|$. Moreover, we must have $a=1^r0 k$ where $k$ is the index of the corresponding function in the $\psi$-enumeration: $\psi_k(b)=i^-$.
+
+To find an index of $f$ in the $\psi$-enumeration, note that $f=\phi_{i^-}=\phi_{1^r 0 j^-} = \psi_{j^-}$. We have $K^\psi(f) \le K^\psi(j^-)$; we proceed to provide a small $\psi$-program for $j^-$. This can be done because we have set things up so that $\psi_\tau(\bar k b)=j^-$. Thus, the $\psi$-program is $j^*=\bar\tau\bar k b$. The difference in length is
+%
+\[
+|i^*|-|j^*| = |\bar a b|-|\bar\tau\bar k b| = |\overline{1^r 0 k}| - |\bar\tau| - |\bar k| \approx r-|\bar\tau|.
+\]
+%
+(Here the $\approx$ is used because the prefix function has a slightly different effect on the two terms; however this is an unimportant detail that can be ironed out later).
+
+Thus, by choosing $r>|\bar\tau|+c$ we can guarantee that $K^\phi$ sucks by at least $c$ bits. Yay!
+\end{proof}
+
 \begin{proof}
 We first note that $K(x) \leq K(yx) + K(|y|) + c$ for some constant $c$, since we can combine the shortest program to produce $yx$ and the shortest program for the length of $y$ to create a program which produces $yx$ and removes the first $|y|$ bits.
 
@@ -338,8 +369,8 @@ K^\phi(f) &= \min\left\{ K^\phi(i) : \phi_i(x) = f(x) \right\} \\
        &= K^\psi(f) + K^\phi(|1r|) + c + |r|\\
 \end{split}\]
 Which gives us $K^\phi(f) - K^\psi(f) \leq c$ with some constant $d$
-\end{proof}
 
+\end{proof}
 
 
 \bibliographystyle{plain}

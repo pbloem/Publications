@@ -13,8 +13,7 @@
 \newtheorem*{exm}{Example}
 
 \title{The Nickname Problem}
-\date{\today}
-
+\date{\ldots}
 % non-indented, spaced paragraphs
 \setlength{\parindent}{0.0in}
 \setlength{\parskip}{0.1in}
@@ -39,19 +38,19 @@ An index of the computable functions $\{\phi_i\}$ is called \textbf{compact} if 
 $\phi_i(\bar{x}y)$ we have a $\phi_j$ such that $\phi_i(\bar{x}y) \simeq \phi_j(y)$ and  $|j| - |i| \leq |\bar{x}| + O(1)$
 \end{dfn}
 
-Note that this is a natural property of basic computational metaphors. We can always take part of the argument of one function and hardcode it into the program at the cost of its length, and some additional bits to add it to the argument before processing. 
+Note that this is a natural property of basic computational metaphors. We can always take part of the argument of one function and hardcode it into the program at the cost of its prefix-coded length, and some additional bits to add it to the argument before processing. 
 
 We can construct a non-compact enumeration by starting with a compact one, and inserting after function $i$ a series of $f(i)$ copies of $\phi_0$, where $f(i)$ is some fast growing function like $2^{i!}$.
 
 \begin{lma}
-Let $\{\phi_i\}$ and $\{\psi_j\}$ be two compact, computable enumerations of the computable functions. For a given computable function $\phi_i \simeq \psi_j$,  we have $\mbox{abs}(|i^*| - |j^*|) \leq c(\max(i^*, j^*)) + O(1)$. Where $c(x) \leq 2 \log(|x|) + 1$ is the overhead of prefix encoding $x$
+Let $\{\phi_i\}$ and $\{\psi_j\}$ be two compact, computable enumerations of the computable functions. For a given computable function $\phi_i \simeq \psi_j$,  we have $\mbox{abs}(|i^*| - |j^*|) \leq \max(|\overline{\imath^*}|, |\overline{\jmath^*}|) + O(1)$. That is, the difference between the sizes of the minimal models is in $O(\log(\max(i, j)))$
 \end{lma}
 \begin{proof}
 Let $\phi_u$ be a universal function for $\psi$, such that $\phi_u(\bar{\imath}x) \simeq \psi_i(x)$. Since $\psi$ is computable this function exists in $\phi$. We have $\psi_{j^*}(x) \simeq \phi_u(\overline{\jmath^*}x)$. By the compactness of $\phi$, we have some $h$ with $|h| \leq |u| + |\overline{\jmath^*}| + O(1)$ such that $\phi_{h}(x) \simeq \phi_u(\overline{\jmath^*}x) \simeq \psi_{j^*}(x)$. 
 
-Thus $|i^*| \leq |h| = |u| + |\overline{\jmath^*}| + O(1) = |j*| + c(\jmath^*) + O(1)$. Reversing $\phi$ and $\psi$ gives us $|j^*| \leq |i^*| + c(i^*) + O(1)$. Combining these, we get the desired result.
+Thus $|i^*| \leq |h| = |u| + |\overline{\jmath^*}| + O(1)$. Reversing $\phi$ and $\psi$ gives us $|j^*| \leq |h'| = |u'| + |\overline{\imath^*}| + O(1)$. Combining these, we get the desired result.
 \end{proof}
 
-This lemma tells us that so long as we restrict our numberings to be compact and computable, we can never gain more than a logarithmic difference between model sizes. In the limit as $i \rightarrow \infty$, this term represents a vanishing proportion.
+This lemma tells us that so long as we restrict our indices to compact and effective, we can never gain more than a logarithmic difference between model sizes. In the limit as $i \rightarrow \infty$, this term represents a vanishing proportion.
 
 \end{document}

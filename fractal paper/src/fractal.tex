@@ -31,14 +31,14 @@
 \maketitle
 
 \begin{abstract}
-\noindent We present an algorithm for solving the \emph{inverse problem}, the task of finding an fractal model for a given data set. The algorithm is inspired by the famous Expectation Maximization algorithm for fitting models with hidden variables. We build on a connection between Mixture-of-Gaussian models and Iterated function Systems (IFSs) to design an EM-style algorithm for IFS models. We also extend our algorithm to fit Random Iterated Function Systems (RIFSs) to data.
+\noindent We present an algorithm for solving the \emph{inverse problem}, the task of finding a fractal model for a given data set. The algorithm is inspired by the famous Expectation Maximization algorithm for fitting models with hidden variables. We build on a connection between Mixture-of-Gaussian models and Iterated function Systems (IFSs) to design an EM-style algorithm for IFS models. We also extend our algorithm to fit Random Iterated Function Systems (RIFSs) to data.
 \end{abstract}
 
 \section*{Definitions}
 
 We will briefly review the established definitions and basic properties of Iterated Function Systems and their random variant. As the properties are well established, we will forego their proofs. For a more extensive introduction, including proofs and detailed references, we recommend \cite{hutchinson2000deterministic}. 
 
-\begin{dfn}[Iterated Function System (Set)]
+\begin{dfn}{Iterated Function System (Set)}
 An iterated function system $S$ is a set of $k$ contractive functions $S_i:{\mathbb R}^d \rightarrow {\mathbb R}^d$. The individual functions $S_i$ are called the IFS's \emph{components}.
 \end{dfn}
 

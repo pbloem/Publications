@@ -34,7 +34,6 @@
 \DeclareMathOperator*{\nid}{NID}
 \DeclareMathOperator*{\id}{ID}
 
-
 \newcommand{\sdr}[1]{\textcolor{blue}{\small #1\textsuperscript{[sdr]} }}
 \newcommand{\pb}[1]{\textcolor{OliveGreen}{\small #1 \textsuperscript{[pb]} }}
 
@@ -59,57 +58,78 @@
 
 \begin{document}
 
+\maketitle
+
+\tableofcontents
+
 \chapter{Introduction}
+\pb{General explanation of graphs, RDF, Kolmogorov complexity and two-part coding that my mother can understand.}
 
 % Start with a story
 % Mention RDF: the future of data storage 
 
-\section{The complex graph}
+\section{Complex graphs}
 
-% Complex graphs are not just funny things to look at, the are the fundamental unit of science in the 21st century. 
+\pb{Complex graphs are not just funny things to look at, they are one of the most robust ways of storing data and communicating concepts. They should/will take a central role in science in the future. Moreso than tabular data.} 
 
 \section{Computer programs as statistical models}
 
+
+
 \chapter{Statistical analyses of complex graphs}
 
-\begin{summary}We review the literature on complex graphs, and the approaches that have been used so far to provide statistical analyses on them.
+\begin{summary} We review the literature on complex graphs, and the approaches that have been used so far to provide statistical analyses on them. We highlight some commond pitfalls in reasoning, and we contrast the status quo with statistical practice on more conventional data.
 \end{summary}
 
-% Algorithmic statistics is how you stud graphs. Nothing else makes sense.
+\pb{Review paper on complex graph analysis. The current approach to statistics on complex graphs is to propose a an algorithm which generates random graphs, and to show that these graphs have some property in common with the graphs of interest (cf. the Barabasi algorithm and scale freeness). We can do better.}
 
-\chapter{Algorithmic Statistics: Bridging the gap between Kolmogorov complexity and MDL}
+\chapter{Algorithmic Statistics: Kolmogorov complexity and MDL}
 
-\begin{summary}MDL and Kolmogorov complexity are two offshoots of the same basic idea: that good compression makes good statistics. MDL takes this as an axiom and builds on it, while Kolmogorov complexity makes only the assumption that the data is produced by a computational process. The two methods are not incompatible, but they have produced very different results and techniques. In order to have access to the best of both worlds, we start with the rigorous theoretical foundations of Kolmogorov complexity and build a platform that will allow us to fold in the techniques of MDL. We will revisit the principle of two-part coding, considered to be a usable, but cumbersome technique in MDL and show that when combined with Kolmogorov complexity it has some deep advantages over other methods.
+\begin{summary}Minimum Description Length (MDL) and Kolmogorov complexity are two offshoots of the same idea: good compression makes for good statistics. MDL takes this as an axiom and builds on it, while Kolmogorov complexity makes only the assumption that the data is produced by a computational process. The two methods are not incompatible, but they have produced very different results and techniques. In order to have access to the best of both worlds, we start with the rigorous theoretical foundations of Kolmogorov complexity and build a platform that will allow us to fold in the techniques of MDL. We will revisit the principle of two-part coding, considered to be a usable, but often crude, technique in MDL and show that when combined with Kolmogorov complexity it has some deep advantages over other methods.
 \end{summary}
+
+\pb{ICALP paper and possible continuation. The end result of this section is that (a) we can use techniques and results from Kolmogorov complexity or MDL in the same context (b) we can use computable approximations and (under resonable assumptions) assume that we are approximating the platonic ideals of Kolmogorov Complexity.}
+
+\section{Algorithmic statistics for graphs}
+
+\pb{Interprets the common practices of analysing complex graphs in terms of algorithmic statistics on a theoretical level. Running example: the Barabasi algorithm and the property of scale freeness.} 
 
 \chapter{What makes data interesting: two-part coding in action}
 
-\begin{summary}The question of what makes data complex is has been decisively answered. First for IID data in, as maximal Entropy, and then for any data as maximal Kolmogorov Complexity. But there's some dissonance in calling this data information-rich. We are not very interested in watching TV broadcasts of static, or recordings of white noise. This may contain maximal information to a computer, but to us, it's not very interesting. In fact the most interesting data seems to be somewhere in between the zero complexity signal (s tv which is turned off) and the maximum complexity one (analog noise). The question of whether we can capture this notion of `interestingness' in a metric analogous to information entropy and Kolmogorov complexity has occupied research for over half a century, and has produced some surprisingly deep results. This chapter provides a review.
+\begin{summary}The question of what makes data complex is has been decisively answered. First for IID data---being the datasets with maximal Shannon Entropy---and then for any data as maximal Kolmogorov Complexity. But there's some dissonance in calling this data information-rich. We are not very interested in watching TV broadcasts of static, or recordings of white noise. This may contain maximal information to a computer, but to us, it's not very interesting. In fact the most interesting data seems to be somewhere in between the zero complexity signal (s tv which is turned off) and the maximum complexity one (analog noise). The question of whether we can capture this notion of `interestingness' in a metric analogous to information entropy and Kolmogorov complexity has occupied research for over half a century, and has produced some surprisingly deep results. This chapter provides a review.
 \end{summary}
 
 \section{The question of interestingness}
 
+\pb{Review paper on facticity.}
+
+\section{A well-founded, universal approach}
+
+\pb{Our take on facticity.}
+
 \chapter{Graph modeling: extracting motifs}
 
-\begin{summary}Modeling complex objects starts with finding out what the components are. If we know the letters, we can find the words. If we know the words, we can find the sentences. Graphs give us nodes and links for free. How do they combine into functional, recurring units? How can we build up to the global structure?
+\begin{summary} Modeling complex objects starts with finding out what the components are. If we know the letters, we can find the words. If we know the words, we can find the sentences. Graphs give us nodes and links for free. How do they combine into functional, recurring units? How can we build up to the global structure?
 \end{summary}
 
 \chapter{Graph modeling with rewrite grammars}
 
-\begin{summary}In last chapter we induced motifs for various types of complex networks. We ended by applying the procedure recursively, collapsing upwards across several levels to compress the whole structure.
+\begin{summary} In the last chapter, we induced motifs for various types of complex networks. We ended by applying the procedure recursively, collapsing upwards across several levels to compress the whole structure into rewrite rules. From this, we can induce recursive rules, and with a rewrite grammar for a given graph.
 \end{summary}
 
 \chapter{Graph modeling with deep neural networks}
 
-\begin{summary}To model graphs in an algorithmic setting we can use any family of computational structures that can turn randomness into graph structures. One recently popular model that has been shown to be effective at producing random examples of any given model is the Deep Belief Network. We investigate their potential to model graph structure, and fit them in to the framework of algorithmic statistics.
+\begin{summary}mTo model graphs in an algorithmic setting we can use any family of computational structures that can turn randomness into graphs. One recently popular model that has been shown to be effective at generating random examples is the Deep Belief Network. We investigate their potential to model graph structure, and fit them in to the framework of algorithmic statistics.
 \end{summary}
 
 \chapter{Machine learning on graphs}
 
 % This does not fit the line too well, refocus?
 
-\begin{summary}The classic view of offline machine learning starts with a list of instances from which to learn. These instances can then be represented in some way---preferably a vector of numeric features---and analyzed statistically. In the past decade a situation has emerged and re-emerged that is an ill fit to this paradigm. We are faced with information in a graph: a social network, a web graph, an RDF dataset. We may know our instances, if they correspond to specific nodes in the graph, but the things we know about them are spread throughout the graph. We investigate the problem and provide a bridge to traditional machine learning.
+\begin{summary}The classic view of offline machine learning starts with a list of instances from which to learn. These instances can then be represented in some way---preferably a vector of numeric features---and analyzed statistically. In the past decade a situation has emerged and re-emerged that makes for an ill fit to this paradigm. We are faced with information in a graph; perhaps a social network, a web graph or an RDF dataset. We may know our instances, if they correspond to specific nodes in the graph, but the things we know about them are spread throughout the graph. There is no hard line between which parts of our data correspond to which instance. Als data belongs to all instances to verying degrees. We investigate the problem and provide a bridge to traditional machine learning.
 \end{summary}
+
+\pb{ESWC paper, of het vervolg daar op. Past niet helemaal in de lijn.}
 
 \section{A pipeline}
 \subsection{Instance extraction}
@@ -121,7 +141,7 @@
 
 \chapter{Citation networks, a use case}
 
-\begin{summary}Throughout the previous chapters, we have performed many quick tests on small datasets, to illustrate and validate our points. In this chapter we take one use case and investigate more thoroughly, in order to show the full potential of our methods. We choose the domain of citation networks, and investigate various questions.
+\begin{summary} Throughout the previous chapters, we have performed many quick tests on small datasets, to illustrate and validate our points. In this chapter we take one use case and investigate more thoroughly, in order to show the full potential of our methods. We choose the domain of citation networks, and investigate various practical questions.
 \end{summary}
 
 \begin{itemize}
@@ -136,13 +156,27 @@
 \begin{summary}\ldots
 \end{summary}
 
-Conclusatory chapter.
+\pb{Conclusatory chapter. Tells the whole story again, but in terms of the concepts we've introduced. Shows that we did what we set out to do.}
 
 \appendix
 \chapter{Tutorials}
-\section{Kolmogorov Complexity}
-\section{Minimum Description Length}
-\section{Graphs and RDF}
+\begin{summary}
+This appendix provides brief introductions to the subjects that are required to understand this thesis. They illustrate the use of our notation and provide a basis for readers who are well-versed in mathematics and computer science, but lack knowledge of these specific subjects. 
+\end{summary}
+
+\section{Kolmogorov complexity}
+\section{Minimum description length}
+\section{Graphs and RDF-data}
+\section{Recommended literature}
+
+\chapter{Symbols and Terms}
+
+\begin{description}
+ \item[$K()$]
+ \item[$k()$]
+ \item[Shannon Entropy]
+\end{description}
+
 \chapter{Algorithms and techniques}
 \chapter{Proofs}
 

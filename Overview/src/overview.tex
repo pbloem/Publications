@@ -19,7 +19,7 @@
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{argmax}
 
-\title{The question of interesting information}
+\title{The question of interestingness}
 \date{\today}
 
 % non-indented, spaced paragraphs
@@ -31,12 +31,12 @@
 \maketitle
 
 \begin{abstract}
-\noindent Ever since the introduction of absolute measures of information content---such as Information Entropy and Kolmogorov Complexity---there have been  criticisms of the idea that these measures capture the informal notion of  information. The argument is that the signals which, under these measures, contain the highest amount of information are by definition completely unpredictable, and therefore cannot contain any interesting information. There is an informal notion of information content, which is not captured by these absolutes, a kind of useful or meaningful information content. We review the literature available on this topic and provide a distillation of common themes and possible connections.
+\noindent Ever since the introduction of absolute measures of information content---such as Information Entropy and Kolmogorov Complexity---there have been  criticisms of the idea that these measures capture the informal notion of  information. The argument is that the signals which, under these measures, contain the highest amount of information are of absolutely no use or interest to any observer. There is an informal notion of information content, which is not captured by these absolutes, a kind of useful or meaningful information content. We review the literature available on this topic and provide a distillation of common themes and possible connections.
 \end{abstract}
 
 \section*{Introduction}
 
-Consider the following, illustrative example. An old-fashioned, black-and-white television set is turned off. The screen is black. This signal represents a complete lack of information. It is highly predictable. At every point we can predict exactly the next state of the signal. Describing this signal would be very simple.
+Consider the following example. An old-fashioned, black-and-white television set is turned off. The screen is black. This signal represents a complete lack of information. It is highly predictable. Describing this signal would be very simple.
 
 We turn the television on, and are faced with white noise. This represents the other extreme, of a signal as rich in information as possible. for each point on the screen at each point in time, we have no wa of prediction its next value. To describe this signal, we have no other option than to describe every value of every point of the screen for every point in time.
 
@@ -47,29 +47,41 @@ For the first two situations in this example, we have solid, well understood mat
 The third example has no formalization that is well-understood and broadly agreed on. There is a strong intuition pervading the literature that signals or data in between the two extremes maximize some mixture of predicatbility and unpredictability. That both the presence of useful patterns and the sudden disappearance of these patterns indicate that the data is in some way interesting. There are many open questions. Can this intuitive notion be effectively formalized? Is there a single, objective function that is maximized by the most interesting data. Is there a single measure that can  be convincingly argued to supercede or encompass all competing notions? What reasons do we have to suggest that `interestingness' can be captured in an objective manner?
 
 \begin{quotation}
-A fundamentalproblem for statistical mechanics is to explain why dissipative systems (those in which entropy is continually being produced and removed to the surroundings) tend to undergo ``self-organisation,'' a spontaneous increase of structural complexity, of which the most extreme example is the origin and evolution of life. The converse principle, namely that nothing very interesting is likely to happen in a system in thermal equilibrium, is reflected in the term ``heat death.'' In the modern world view, thermodynamic driving forces, such as the temperature difference between the hot sun and the cold night sky, have taken over one of the functions of God: they make matter transcend its clod-like nature andbehave instead in dramatic and unforeseen ways, for example molding itself into thunderstorms, people, and umbrellas.
+A fundamental problem for statistical mechanics is to explain why dissipative systems (those in which entropy is continually being produced and removed to the surroundings) tend to undergo ``self-organisation,'' a spontaneous increase of structural complexity, of which the most extreme example is the origin and evolution of life. The converse principle, namely that nothing very interesting is likely to happen in a system in thermal equilibrium, is reflected in the term ``heat death.'' In the modern world view, thermodynamic driving forces, such as the temperature difference between the hot sun and the cold night sky, have taken over one of the functions of God: they make matter transcend its clod-like nature andbehave instead in dramatic and unforeseen ways, for example molding itself into thunderstorms, people, and umbrellas.
 \end{quotation}
+
+\section{Preliminaries: The question of complexity}
+
+This section discusses the matter of what makes data complex. Most approaches to what makes data interesting build on these concepts. We review them here briefly, to briefly discuss our preliminaries and to define a uniform notation for the rest of the paper. 
+
+\subsection{Entropy}
+
+In physical systems; in probability and coding. 
+
+\subsection{Kolmogorov Complexity}
+
+Conditional complexity, Resource-bounded, MDL, two-part coding.
+
+\section{Approaches to Interestingness}
 
 \subsection*{A note on terminology}
 
 Complexity, order, etc.
-\section*{Preliminaries}
-  
-\subsection*{Information Entropy}
-
-\subsection*{Kolmogorov Complexity}
-
-\subsection*{Two-part coding}
-
-\subsection*{Dynamical systems}
 
 \section*{Questions to ask}
 
+What questions should we ask of a proposed measure?
 \begin{itemize}
   \item Level of formalization
   \item The objectivity of interestingness
   \item Broadness. What types of data are covered, and what models and patterns are covered? 
   \item Context-dependence. Context plays an undeniable part in any notion of beauty or interestingness. Are contextual considerations acknowledged and given a place in the framework?
+\end{itemize}
+
+checklist per paper:
+\begin{itemize}
+  \item Check google scholar for citations to the paper.
+  \item Walk through the citations in the paper.
 \end{itemize}
 
 \section*{Measures of interesting information}
