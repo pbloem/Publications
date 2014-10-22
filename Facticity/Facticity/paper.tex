@@ -318,9 +318,27 @@ we have $G^\phi(x)=1$.
 \begin{lemma}[Building block]
 Given $\phi_1,\phi_2,\ldots$ for all $c$ there is $\psi_1,\psi_2,\ldots$ such that for all $f$ we have
 \[
-K^\phi(f) +c \le K^\psi(f)
+K^\psi(f) - K^\phi(f) \le c
 \]
 \end{lemma}
+\begin{proof}
+We first note that $K(x) \leq K(yx) + K(|y|) + c$ for some constant $c$, since we can combine the shortest program to produce $yx$ and the shortest program for the length of $y$ to create a program which produces $yx$ and removes the first $|y|$ bits.
+
+Let $r$ be a random string, and define psi as $\psi_{ri}(x) = \phi_{i}(x)$, with $\psi_{j}(x) = \infty$ if $j$ cannot be read as $ri$. Note that this gives us $K^\psi(x) = K^\phi(x) + |r|$ for all $x$.
+
+We can now state the following:
+\[\begin{split}
+K^\phi(f) &= \min\left\{ K^\phi(i) : \phi_i(x) = f(x) \right\} \\
+       &= \min\left\{ K^\phi(i) : \psi_{ri}(x) = f(x) \right\} \\
+       &\leq \min\left\{ K^\phi(ri) + K^\phi(|r|) + c : \psi_{ri}(x) = f(x) \right\} \\
+       &= \min\left\{ K^\phi(ri) : \psi_{ri}(x) = f(x) \right\} + K^phi(|r|) + c \\
+       &= \min\left\{ K^\phi(j) : \psi_{j}(x) = f(x) \right\} + K^phi(|r|) + c \\
+       &= \min\left\{ K^\psi(j) + c' : \psi_{j}(x) = f(x) \right\} + K^phi(|r|) + c \\
+       &= \min\left\{ K^\psi(j) : \psi_{j}(x) = f(x) \right\} + K^phi(|r|) + c + |1r|\\
+       &= K^\psi(f) + K^\phi(|1r|) + c + |r|\\
+\end{split}\]
+Which gives us $K^\phi(f) - K^\psi(f) \leq c$ with some constant $d$
+\end{proof}
 
 
 
