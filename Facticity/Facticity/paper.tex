@@ -282,46 +282,47 @@ There are enumerations $\phi_1,\phi_2,\ldots$ and $\psi_1,\psi_2,\ldots$ of the 
 \end{theorem}
 
 \begin{lemma}
-There is an enumeration $\phi_1,\phi_2,\ldots$ of the partial recursive (prefix) functions, and a constant $c$ such that for all $n$ we have $G^\phi(x)<c$ for more than half of all strings $x$ of length $n$.
+There is an acceptable numbering $\phi_1,\phi_2,\ldots$ of all partial recursive prefix functions, and a constant $c$ such that for all $n$ we have $G^\phi(x)<c$ for more than half of all strings $x$ of length $n$ with respect to the model class of all partial recursive prefix functions.
 \end{lemma}
 
 \begin{lemma}
-There is an enumeration $\phi_1,\phi_2,\ldots$ of the partial recursive (prefix) functions such that for every constant $c$ there is an $n_0$ such that for all $n>n_0$ we have $G^\phi(x)>c$ for more than half of all strings $x$ of length $n$.
+There is an enumeration $\phi_1,\phi_2,\ldots$ of the partial recursive prefix functions such that for every constant $c$ there is an $n_0$ such that for all $n>n_0$ we have $G^\phi(x)>c$ for more than half of all strings $x$ of length $n$ provided the model class contains programs for every singleton $x$.
 \end{lemma}
 
 \begin{theorem}
-There are enumerations $\phi_1,\phi_2,\ldots$ and $\psi_1,\psi_2,\ldots$ of the partial recursive (prefix) functions such that for every constant $c$ there is a binary sequence $x$ with
+There are enumerations $\phi_1,\phi_2,\ldots$ and $\psi_1,\psi_2,\ldots$ of the partial recursive prefix functions such that for every constant $c$ there is a binary sequence $x$ with
 \[
 |G^\phi(x)-G^\psi(x)|>c
 \]
+with respect to the model class of all partial recursive prefix functions.
 \end{theorem}
 
-% idea 0: show collapse of structure function
 
-% idea 1: ideal model selection is impossible
-% procedure selects model m1
-% there is another model m2 that dominates m1
-% there is a numbering such that L(m1)+L_m1(data) > L(m2)+L_m2(data), 
-% in the other numbering m2 is preferred
-% limitation of this approach: you have no control over the difference in model complexity,
-% it may not be very large.
+\begin{definition}
+Let $\psi_1,\psi_2,\ldots$ be an arbitrary acceptable numbering of the partial recursive functions. Define
+\[
+B^n = \{ x : |x|=n~\tn{and}~n-c \le K^\psi(x) \le n+c \}
+\]
+\end{definition}
 
-% idea 2: model complexity is not invariant
-% there are numberings \phi,\psi such that for all c there is an x such that |C_1(x)-C_2(x)|>=c
-% prove this for total recursive functions?
-% to make the result stronger:
-% - show that it does not go away with penalties on model complexity
-% - show that it holds for *all* numberings that are sufficiently distinct in some sense
-% - show that it holds for more model classes
-% - show that it occurs for most strings
-%
-% proof idea: truth is bernoulli with a complicated but computable parameter value, K(theta) is large
-% for small x, the print function will outperform the true model.
-% for large x, the true model gives best overall code length.
-% somewhere in between, the model complexity jumps from the one to the other. But that will not happen
-% at the same time for the two numberings. When one has switched and the other has not, the difference
-% in model complexity is about K(theta), which can be made arbitrarily large.
-% problem: what about in-between models that approximate theta?
+\begin{lemma}
+  For sufficiently large $c$ the set $B^n$ is nonempty for all $n$.
+\end{lemma}
+
+\begin{lemma}[Print function]
+  Let $\M$ be any model class that contains the identity function. There is an acceptable numbering $\phi_1,\phi_2,\ldots$ of the partial recursive functions such that for every $n$, all $x\in B^n$, 
+we have $G^\phi(x)=1$.
+\end{lemma}
+
+
+\begin{lemma}[Building block]
+Given $\phi_1,\phi_2,\ldots$ for all $c$ there is $\psi_1,\psi_2,\ldots$ such that for all $f$ we have
+\[
+K^\phi(f) +c \le K^\psi(f)
+\]
+\end{lemma}
+
+
 
 \bibliographystyle{plain}
 \bibliography{facticity}
