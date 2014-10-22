@@ -319,11 +319,7 @@ we have $G^\phi(x)=1$.
 Let $\psi_1,\psi_2,\ldots$ be any acceptable numbering.
 For every $c$ there is another acceptable numbering $\phi_1,\phi_2,\ldots$ such that for all partial recursive functions $f$ we have
 \[
-<<<<<<< HEAD
-K^\psi(f) - K^\phi(f) \le c
-=======
 K^\phi(f)-K^\psi(f) \ge c.
->>>>>>> branch 'master' of git+ssh://git@github.com/pbloem/Publications.git
 \]
 \end{lemma}
 \begin{proof}
@@ -353,22 +349,36 @@ Thus, by choosing $r>|\bar\tau|+c$ we can guarantee that $K^\phi$ sucks by at le
 \end{proof}
 
 \begin{proof}
-We first note that $K(x) \leq K(yx) + K(|y|) + c$ for some constant $c$, since we can combine the shortest program to produce $yx$ and the shortest program for the length of $y$ to create a program which produces $yx$ and removes the first $|y|$ bits.
+We first note that 
+\begin{equation}
+	K(yx) + K(|y|) + c' \geq K(x) \label{line:prelim1}
+\end{equation}
+for some constant $c$, since we can combine the shortest program to produce $yx$ and the shortest program for the length of $y$ to create a program which produces $yx$ and removes the first $|y|$ bits. 
 
-Let $r$ be a random string, and define psi as $\psi_{ri}(x) = \phi_{i}(x)$, with $\psi_{j}(x) = \infty$ if $j$ cannot be read as $ri$. Note that this gives us $K^\psi(x) = K^\phi(x) + |r|$ for all $x$.
+Let $r$ be some string such that 
+\begin{equation}
+|r| - K^\phi(|r|) - c' > c \quad \text{,} \label{line:prelim2}\\
+\end{equation}
+
+with $c$ as given in the statement of the lemma. Define psi as $\psi_{ri}(x) = \phi_{i}(x)$, with $\psi_{j}(x) = \infty$ if $j$ cannot be read as $ri$. Note that this gives us 
+\begin{equation}
+K^\psi(x) \geq K^\phi(x) + |r| \label{line:prelim3}
+\end{equation} 
+for all $x$.
 
 We can now state the following:
-\[\begin{split}
-K^\phi(f) &= \min\left\{ K^\phi(i) : \phi_i(x) = f(x) \right\} \\
-       &= \min\left\{ K^\phi(i) : \psi_{ri}(x) = f(x) \right\} \\
-       &\leq \min\left\{ K^\phi(ri) + K^\phi(|r|) + c : \psi_{ri}(x) = f(x) \right\} \\
-       &= \min\left\{ K^\phi(ri) : \psi_{ri}(x) = f(x) \right\} + K^phi(|r|) + c \\
-       &= \min\left\{ K^\phi(j) : \psi_{j}(x) = f(x) \right\} + K^phi(|r|) + c \\
-       &= \min\left\{ K^\psi(j) + c' : \psi_{j}(x) = f(x) \right\} + K^phi(|r|) + c \\
-       &= \min\left\{ K^\psi(j) : \psi_{j}(x) = f(x) \right\} + K^phi(|r|) + c + |1r|\\
-       &= K^\psi(f) + K^\phi(|1r|) + c + |r|\\
-\end{split}\]
-Which gives us $K^\phi(f) - K^\psi(f) \leq c$ with some constant $d$
+\begin{align*}
+K^\psi(f) &= \min\left\{ K^\psi(j) : \psi_j = f \right\}& \\
+       &= \min\left\{ K^\psi(ri) : \psi_{ri} = f \right\}& \\
+       &\geq \min\left\{ K^\phi(ri) + |r| : \psi_{ri} = f \right\}& \text{by \ref{line:prelim3}}\\
+       &= \min\left\{ K^\phi(ri) : \phi_{i} = f \right\} + |r| & \\
+       &\geq \min\left\{ K^\phi(i) - K^\phi(|r|) - c': \phi_{i} = f \right\} + |r| & \text{by \ref{line:prelim1}}\\
+       &= \min\left\{ K^\phi(i) : \phi_{i} = f \right\} + |r| - K^\phi(|r|) - c' &\\
+       &= \min\left\{ K^\phi(i) : \phi_{i} = f \right\} + |r| - K^\phi(|r|) - c' &\\
+       &= K^\phi(f) + |r| - K^\phi(|r|) - c' &  \\
+       &\geq K^\phi(f) + c & \text{by \ref{line:prelim2}} \\
+\end{align*}
+
 
 \end{proof}
 
