@@ -1,6 +1,8 @@
 \documentclass{article}
-\usepackage{amsmath,amsfonts,amsthm,fullpage}
 
+\usepackage{amsmath,amsfonts,amsthm,fullpage}
+\usepackage{color}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
@@ -12,12 +14,19 @@
 \newcommand{\K}{\mathcal K}
 \newcommand{\X}{\mathcal X}
 \newcommand{\C}{\mathcal C}
+\newcommand{\B}{\mathbb B}
 \newcommand{\D}{\Delta}
 \newcommand{\N}{\mathbb N}
 \newcommand{\tn}[1]{\textnormal{#1}}
 \newcommand{\pair}[1]{\left\langle{#1}\right\rangle}
 \newcommand{\concat}{\oplus}
 \newcommand{\symb}[1]{\texttt{#1}}
+\newcommand{\p}{\quad\text{.}}
+
+
+
+\newcommand{\sdr}[1]{\textcolor{blue}{\small #1\textsuperscript{[sdr]} }}
+\newcommand{\pb}[1]{\textcolor{OliveGreen}{\small #1 \textsuperscript{[pb]} }}
 
 \newcommand{\argmin}{\mathop{\arg\min}}
 
@@ -308,14 +317,14 @@ B^n = \{ x : |x|=n~\tn{and}~n-c \le K^\psi(x) \le n+c \}
 
 \begin{lemma}[Print function]
   Let $\M$ be any model class that contains the identity function. There is an acceptable numbering $\phi_1,\phi_2,\ldots$ of the partial recursive functions such that for every $n$, all $x\in B^n$, 
-we have $G^\phi(x)=1$.
+we have $G^\phi_M(x)=1$.
 \end{lemma}
 
 \begin{lemma}
 Assume the prefix function $\bar\cdot$ used in the definition of complexity is such that $\bar x-x$ is monotonically increasing. Let $\psi_1,\psi_2,\ldots$ be any acceptable numbering. Then for every $c$ there is another acceptable numbering $\phi_1,\phi_2,\ldots$ such that for all partial recursive functions $f$ we have
 \[
 K^\phi(f)-K^\psi(f) \ge c.
-\]
+\] \label{lemma:building-block}
 \end{lemma}
 \begin{proof}
 First note that there is a $c'$ such that 
@@ -343,6 +352,28 @@ K^\phi(f) &= \min\left\{ K^\phi(j) : \phi_j = f \right\}& \\
 \end{align*}
 The proof is completed by choosing $r=c+c'-1$.
 \end{proof}
+
+\begin{lemma}
+Given $n_0$ and $c_0$, there exist $y \in \B$ and $h \in \N$ such that 
+\begin{itemize}
+  \item $|0^hy| \geq n$,
+  \item $|0^hy| - c \leq K(0^hy) \leq |0^hy| + c$,
+  \item and $C(0^hy) + c' \geq K(h) + C(y)$ for some constant $c'$.
+  \item $K(h) \geq c'' log(|0^hy|)$ for some positive $c''$
+\end{itemize}
+\end{lemma}
+
+\noindent \pb{Ik denk dat we dit kunnen bewijzen, maar het leidt uiteindelijk maar tot een logterm variantie tussen verschillende versies van G. Dat betekent dat ze asymptotisch niet echt verschillen. Wat we nodig hebben is een groot model $f$ waarvan we weten dat er een $x$ in $B^n$ zit, die met $f$ $C(x)$ to op een constant benaderd. Een familie van modellen $f$ kan ook. Het probleem is dat het bij zulke lage compressie moeilijk is om een compressiemethode met een groot model te bedenken\ldots}
+
+\begin{lemma}
+There exists an acceptable numbering $\phi1, \phi2, \ldots$ such that for all $n_0$, $c_0$, there exist $x, n,c$ with $c > c_0$, $n> n_0$ and $x \in B^n_c$ so that $G^\phi(x) > c'\log(|x|)$ for some positive $c'$.
+\end{lemma}
+
+
+\begin{theorem}
+The exist acceptable numberings $\phi_1, \phi_2, \ldots$ and $\psi_1, \psi_2, \ldots$ such that for any given constant $c$ there exist $x$ such that $|G_M^\phi(x) - G_M^\psi(x)| > c$
+\end{theorem}
+
 
 
 \bibliographystyle{plain}
