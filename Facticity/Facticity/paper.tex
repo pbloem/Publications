@@ -348,38 +348,31 @@ To find an index of $f$ in the $\psi$-enumeration, note that $f=\phi_{i^-}=\phi_
 Thus, by choosing $r>|\bar\tau|+c$ we can guarantee that $K^\phi$ sucks by at least $c$ bits. Yay!
 \end{proof}
 
-\begin{proof}
-We first note that 
+\begin{proof}[Proof (combined)]
+First note that there is a $c'$ such that 
 \begin{equation}
-	K(yx) + K(|y|) + c' \geq K(x) \label{line:prelim1}
+	K(1^r 0  x) + c' \geq K(x) \label{eq:prelim1}
 \end{equation}
-for some constant $c$, since we can combine the shortest program to produce $yx$ and the shortest program for the length of $y$ to create a program which produces $yx$ and removes the first $|y|$ bits. 
+for all $x$, since we can create a program that first runs the shortest program for $1^r 0 x$ and then strips the prefix $1^r 0$ from the result.
 
-Let $r$ be some string such that 
-\begin{equation}
-|r| - K^\phi(|r|) - c' > c \quad \text{,} \label{line:prelim2}\\
-\end{equation}
+Define $\phi_{1^r0i}(x) = \psi_{i}(x)$, with $\phi_{j}(x) = \infty$ if $j$ does not contain a zero. Intuitively, any $\phi$-program is $r+1$ bits longer than the corresponding $\psi$-program. However, the used prefix function complicates this slightly. [TODO assume the prefix function to be convex.] But all we need is the bound
+\begin{equation}\label{eq:prelim2}\begin{split}
+K^\phi(x) &= \min \{ |\overline{1^r 0 \imath}| y : \phi_{1^r 0 i}(y) = x \}\\
+&  \ge \min\{|1^r0\bar\imath y| : \phi_{1^r 0 i}(y) = x \}\qquad\tn{(using convexity of $\bar\cdot$)}\\
+& = r+1 +\min\{|\bar\imath y| : \psi_i(y) = x \}\\
+& = r+1+K^\psi(x).
+\end{split}\end{equation}
 
-with $c$ as given in the statement of the lemma. Define psi as $\psi_{ri}(x) = \phi_{i}(x)$, with $\psi_{j}(x) = \infty$ if $j$ cannot be read as $ri$. Note that this gives us 
-\begin{equation}
-K^\psi(x) \geq K^\phi(x) + |r| \label{line:prelim3}
-\end{equation} 
-for all $x$.
-
-We can now state the following:
+We can now relate the complexity of $f$ under the two enumerations as follows:
 \begin{align*}
-K^\psi(f) &= \min\left\{ K^\psi(j) : \psi_j = f \right\}& \\
-       &= \min\left\{ K^\psi(ri) : \psi_{ri} = f \right\}& \\
-       &\geq \min\left\{ K^\phi(ri) + |r| : \psi_{ri} = f \right\}& \text{by \ref{line:prelim3}}\\
-       &= \min\left\{ K^\phi(ri) : \phi_{i} = f \right\} + |r| & \\
-       &\geq \min\left\{ K^\phi(i) - K^\phi(|r|) - c': \phi_{i} = f \right\} + |r| & \text{by \ref{line:prelim1}}\\
-       &= \min\left\{ K^\phi(i) : \phi_{i} = f \right\} + |r| - K^\phi(|r|) - c' &\\
-       &= \min\left\{ K^\phi(i) : \phi_{i} = f \right\} + |r| - K^\phi(|r|) - c' &\\
-       &= K^\phi(f) + |r| - K^\phi(|r|) - c' &  \\
-       &\geq K^\phi(f) + c & \text{by \ref{line:prelim2}} \\
+K^\phi(f) &= \min\left\{ K^\phi(j) : \phi_j = f \right\}& \\
+       &= \min\left\{ K^\phi(1^r0i) : \phi_{ri} = f \right\}& \\
+       &\ge  \min\left\{ K^\phi(i) : \phi_{ri} = f \right\}-c'&\text{by~\eqref{eq:prelim1}}\\
+       &\geq \min\left\{ K^\psi(i)  : \phi_{ri} = f \right\}+r+1-c'& \text{by \eqref{eq:prelim2}}\\
+       &= \min\left\{ K^\psi(i) : \psi_{i} = f \right\} + r+1 -c'& \\
+       &= K^\psi(f) + r + 1 - c'.
 \end{align*}
-
-
+The proof is completed by choosing $r=c+c'-1$.
 \end{proof}
 
 
