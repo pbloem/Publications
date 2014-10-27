@@ -353,6 +353,46 @@ K^\phi(f) &= \min\left\{ K^\phi(j) : \phi_j = f \right\}& \\
 The proof is completed by choosing $r=c+c'-1$.
 \end{proof}
 
+\section{Unbounded and top-heavy sophistications}
+
+\begin{definition}
+We call a version of Sophistication $F^\phi$ \emph{bounded} if its ad-hoc choices (the enumeration $\phi$) can be chosen so that
+\[
+	\exists c \forall x: F^\phi(x) \leq c \p
+\]
+Similarly, we call $F^\phi(x)$ \emph{top-heavy} if there exists a $\phi_1, \phi_2, \ldots$ such that
+\[
+	\exists c \forall x: F^\phi(x) \geq K^F(x) - c 
+\]
+Where $K^F$ is the two-part coding minimized within $F$.
+\end{definition}
+
+If some $F$ is either top-heavy, or unbounded we can show that it must either lack invariance, or be useless as a measure of model complexity. If the property proved holds for all enumerations $\phi$, and not just a single one, the sophistication is either bounded, or the same as the Kolmogorov complexity. If the measure is not bounded or top-heavy for other enumerations, the difference between the two is unbounded, and $F$ is not invariant. 
+
+One of the earliest proposals to separate structure and content was the Kolmogorov structure function \cite{TODO}. The following is the version of sophistication it leads to. 
+\begin{definition}
+\[
+	S^\phi(x) = K(S^*) \,\tn{where }\, (S, i) = \argmin_{(S, i)\,:\,\text{$S$ is a finite set},\,S_i = x} K(S) + |i|
+\]
+\end{definition}
+
+\begin{theorem}
+There exist acceptable numberings $\phi_1, \phi_2, \ldots$ for which $S^\phi$ is top-heavy.
+\end{theorem}
+\begin{proof}
+Let $\psi_1, \psi_2, \ldots$ be some acceptable numbering. Define $\psi$ as 
+\begin{align*}
+\phi_{0\bar\imath p}(\epsilon) &= \{\psi_i(p)\} \\
+\phi_{1ri}(p) &= \psi_i(p)\\ 
+\phi_j(x) = \infty \,\text{if $j$ cannot be decoded as above}
+\end{align*}
+For any $x$ with $\psi$-description $(i, p)$, that is is $\psi_i(p) = x$, we have two representations in $\phi$. Firstly, we have $\{x\}, 1$ with description length $K^\psi(x) + 2$. Secondly, we have a representation in $K^\psi{x} + r$. By choosing $r$ sufficiently large, the first representation will always win.
+\end{proof}
+
+
+
+\section{Vitanyi's Sophistication}
+ 
 \begin{lemma}
 Given $n_0$ and $c_0$, there exist $y \in \B$ and $h \in \N$ such that 
 \begin{itemize}
