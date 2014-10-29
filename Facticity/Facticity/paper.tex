@@ -356,6 +356,93 @@ The proof is completed by choosing $r=c+c'-1$.
 \section{Unbounded and top-heavy sophistications}
 
 \begin{definition}
+  Given a model $f$ and model class $\M$, define model-based complexities by
+  \begin{align*}
+  C^f(x) &= \min\{|y|:f(y)=x\}\\
+  L^f(x) &= K(f)+C^f(x)\\
+  L^{\M}(x) &= \min\{L^f(x)\mid f\in\M\}
+  \end{align*}
+\end{definition}
+
+\hrule
+
+\begin{lemma}
+  Let $\M$ be any model class and let $\M'\subseteq \M$ be a sub-model with the following properties:
+\begin{enumerate}
+  \item The function $g(x):=\argmin_{f\in\M'}L^f(x)$ is computable and uniquely defined for all $x$
+  \item $L^{\M'}(x)-L^{\M}(x)\le c$ for some constant $c$, all $x$.
+\end{enumerate}
+Then there is an enumeration $\phi_1,\phi_2,\ldots$ such that $F^{\M,\phi}(x)=K^\phi(g(x))+1$ for all $x$.
+\end{lemma}
+\begin{proof}
+
+Construct $\phi_1,\phi_2,\ldots$ such that
+\begin{enumerate}
+\item For all $f\in\M'$ have $K^\phi(f) = K^\psi(f)+1$ (zelf bewijzen)
+\item For all $f\not\in\M'$ have $K^\phi(f)>K^\psi(f)+c$.
+\end{enumerate}
+
+
+
+
+
+
+Let $\psi_1,\psi_2,\ldots$ be an acceptable numbering of the partial recursive functions, and let $g'(x)=i$ such that $\psi_i=g(x)$. Now define a new ordering $\phi_1,\phi_2,\ldots$ by
+\[
+\begin{cases}
+\phi_{0i}(y)&=\psi_i(y),\qquad\tn{if $i=g'(x)$ for some $x$, and $\infty$ otherwise}\\
+\phi_{1^r0i}(y)&=\psi_i(y)\\
+\phi_{\tn{all-ones}}(y)&=\infty
+\end{cases}
+\]
+
+
+
+
+Voor alle $x$ kiezen we een makkelijk te vinden, en goedkope representatie met input $y$. Die maken we extra goedkoop in de nieuwe enumeratie. Dan wordt ie altijd gekozen.
+\end{proof}
+\hrule
+\begin{lemma}
+  Let $\M$ be a model class with the property that there is a constant $c$ and a computable function $g$ such that for all $x$ we have $\gamma(x\mid g(x))\le c$.
+  For such model classes, there are acceptable enumerations $\phi_1,\phi_2,\ldots$ of the partial recursive functions for which $K^{\M,\phi}(x)-F^{\M,\phi}(x)$ is bounded.
+\end{lemma}
+\begin{proof}
+  
+\end{proof}
+
+\begin{lemma}
+  Let $\M$ be a model class with the property that there is a constant $c$ and a model $f$ such that for all $x$ the counterevidence satisfies $\gamma(x\mid f)\le c$.
+  For such model classes, there are acceptable enumerations $\phi_1,\phi_2,\ldots$ of the partial recursive functions for which $F^{\M,\phi}(x)$ is bounded.
+\end{lemma}
+
+
+
+
+
+
+
+\begin{definition}
+  Given a model class $\M$, a representation $(f,y)$ with $f\in\M$ is said to be \emph{$c$-optimal} if
+\[
+K(f)+|y|\le \min_{f',y':f'(y')=f(y)}\left(K(f')+|y'|\right)+c.
+\]
+\end{definition}
+
+\begin{lemma}
+  Let $\M$ be a model class with the property that there are $c,y$ such that for all $x$ there is an $f$ such that $f(y)=x$ and $(f,y)$ is $c$-optimal.
+  For such model classes, there are acceptable enumerations $\phi_1,\phi_2,\ldots$ of the partial recursive functions for which $K^{\M,\phi}(x)-F^{\M,\phi}(x)$ is bounded.
+\end{lemma}
+
+\begin{lemma}
+  Let $\M$ be a model class with the property that there are $c,f$ such that for all $x$ there is an $y$ such that $f(y)=x$ and $(f,y)$ is $c$-optimal.
+For such model classes, there are acceptable enumerations $\phi_1,\phi_2,\ldots$ of the partial recursive functions for which $F^{\M,\phi}(x)$ is bounded.
+\end{lemma}
+
+
+
+
+
+\begin{definition}
 We call a version of Sophistication $F^\phi$ \emph{bounded} if its ad-hoc choices (the enumeration $\phi$) can be chosen so that
 \[
 	\exists c \forall x: F^\phi(x) \leq c \p
@@ -388,31 +475,6 @@ Let $\psi_1, \psi_2, \ldots$ be some acceptable numbering. Define $\psi$ as
 \end{align*}
 For any $x$ with $\psi$-description $(i, p)$, that is is $\psi_i(p) = x$, we have two representations in $\phi$. Firstly, we have $\{x\}, 1$ with description length $K^\psi(x) + 2$. Secondly, we have a representation in $K^\psi{x} + r$. By choosing $r$ sufficiently large, the first representation will always win.
 \end{proof}
-
-
-
-\section{Vitanyi's Sophistication}
- 
-\begin{lemma}
-Given $n_0$ and $c_0$, there exist $y \in \B$ and $h \in \N$ such that 
-\begin{itemize}
-  \item $|0^hy| \geq n$,
-  \item $|0^hy| - c \leq K(0^hy) \leq |0^hy| + c$,
-  \item and $C(0^hy) + c' \geq K(h) + C(y)$ for some constant $c'$.
-  \item $K(h) \geq c'' log(|0^hy|)$ for some positive $c''$
-\end{itemize}
-\end{lemma}
-
-\noindent \pb{Ik denk dat we dit kunnen bewijzen, maar het leidt uiteindelijk maar tot een logterm variantie tussen verschillende versies van G. Dat betekent dat ze asymptotisch niet echt verschillen. Wat we nodig hebben is een groot model $f$ waarvan we weten dat er een $x$ in $B^n$ zit, die met $f$ $C(x)$ to op een constante benaderd. Een familie van modellen $f$ kan ook. Het probleem is dat het bij zulke lage compressie moeilijk is om een compressiemethode met een groot model te bedenken\ldots}
-
-\begin{lemma}
-There exists an acceptable numbering $\phi1, \phi2, \ldots$ such that for all $n_0$, $c_0$, there exist $x, n,c$ with $c > c_0$, $n> n_0$ and $x \in B^n_c$ so that $G^\phi(x) > c'\log(|x|)$ for some positive $c'$.
-\end{lemma}
-
-
-\begin{theorem}
-The exist acceptable numberings $\phi_1, \phi_2, \ldots$ and $\psi_1, \psi_2, \ldots$ such that for any given constant $c$ there exist $x$ such that $|G_M^\phi(x) - G_M^\psi(x)| > c$
-\end{theorem}
 
 
 \bibliographystyle{plain}
