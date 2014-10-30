@@ -21,7 +21,9 @@
 \newcommand{\pair}[1]{\left\langle{#1}\right\rangle}
 \newcommand{\concat}{\oplus}
 \newcommand{\symb}[1]{\texttt{#1}}
+
 \newcommand{\p}{\quad\text{.}}
+
 \newcommand{\tuple}[1]{\left\langle{#1}\right\rangle}
 
 
@@ -76,11 +78,6 @@ Adriaans takes this problem seriously and attempts to address it by imposing add
 But there is already a simple way to avoid this pitfall, which uses Kolmogorov complexity as a \emph{building block} of the two-part code: the first part of the code identifies a model, using its shortest possible description, whose length is measured by Kolmogorov complexity. The second part of the code provides an input to the model for which it outputs $x$.
 
 The model may be a Turing machine, but can also be used with other model classes; for example in Kolmogorov's original formulation the model is a finite set of objects that contains $x$. Since the models are not usually represented as binary strings, the definition of Kolmogorov complexity has to be suitably extended to the considered model classes, but this is not a fundamental problem, [refer to appropriate definitions].
-
-
-
-
-
 
 \section{Thoughts and questions}
 
@@ -189,6 +186,21 @@ The numbering is acceptable, so there is a total computable function $\phi_r$ th
 K(f)=\min\{K(k):\forall_x\phi_k(x)=f(x)\}\le K(j)\le|i|+c
 \]
 as required.
+\end{proof}
+
+\begin{lemma}[Invariance]
+Let $\phi_1, \phi_2, \ldots$ and $\psi_1, \psi_2,\ldots$ be two acceptable numberings. There exists a constant $c$ such that $\left| K^\phi(f) - K^\psi(f)\right | \leq c$ for all $f$. \label{lemma:invariance}
+\end{lemma}
+\begin{proof}
+Let $g(i)$ be the function which which translates from $\psi$ to $\phi$.
+\begin{align*}
+K^\phi(f) &= \min\left\{ K^\phi(i) : \phi_i= f\right\} \\
+&\geq \min\left\{ K^\psi(i) : \phi_i= f\right\} - c\\
+&= \min\left\{ K^\psi(i) : \psi_{g(i)}= f\right\} - c\\
+&\geq \min\left\{ K^\psi(i) : \psi_i= f\right\} - c\\
+= K^\psi(f)
+\end{align*}
+We can reverse $\phi$ and $\psi$ without loss of generality to achieve the same inequality the other way around, completing the proof.
 \end{proof}
 
 \begin{lemma}
@@ -356,51 +368,82 @@ The proof is completed by choosing $r=c+c'-1$.
 \section{Unbounded and top-heavy sophistications}
 
 \begin{definition}
-  Given a model $f$ and model class $\M$, define model-based complexities by
-  \begin{align*}
-  C^f(x) &= \min\{|y|:f(y)=x\}\\
-  L^f(x) &= K(f)+C^f(x)\\
-  L^{\M}(x) &= \min\{L^f(x)\mid f\in\M\}
-  \end{align*}
+We call $\phi_1, \phi_2, \ldots$ a \emph{partial computable numbering} of some subset of the partial computable functions, if there exists a partial computable function $u: \N \times \B \to \B \cup \infty$ such that $u(i, p) = \phi_i(p)$. We call $u$ the universal model for the numbering. We call a numbering \emph{optimal} if there is a constant $c$ such that for all $i$, we have $|i| \leq K(\phi_i) + c$.
 \end{definition}
 
-\hrule
+\begin{lemma}
+There exists an acceptable, optimal partial computable numbering of the partial computable functions.
+\label{lemma:optimal-numbering}
+\end{lemma}
+\begin{proof}
+Let $\psi_1, \psi_2, \ldots$ be some acceptable numbering, with some $\psi_{\text{div}}$ with is undefined for all its arguments. Let 
+\begin{align*}
+	\phi_{\bar\imath p} &= \psi_{\psi_i(p)} \qquad\text{if $\psi_i(p)$ is defined}\\
+	\phi_{\bar\imath p} &= \psi_{\text{div}} \qquad\text{otherwise}\\
+	\phi_{j} &= \psi_{\text{div}} \qquad\text{if $j$ can not be read as $\bar\imath p$}
+\end{align*}
+
+\noindent To show that this numbering is acceptable. We must provide two computable function to translate t and from a given acceptable numbering. We use $\psi$ for this purpose. To find a $\phi_j$ which corresponds to a given $\psi_i$, we can simply use the identity function $\psi_d(x) = x$. For a given $\psi_i$, the function $\phi_{\overline{d}i}$ computes the same function.
+
+To translate from $\phi_j$ to $\phi_i$, we are faced with a problem. If we are given $j = \bar\imath p$, we cannot decide algorithmically whether $\psi_i(p)$ is defined. However, we can construct the function $\psi_r(\bar\imath p, q)$ such that it computes $\psi_r{\psi_i(p)}(q)$ if $\psi_i(p)$ is defined and is undefined otherwise, or if the first argument cannot be read as $\bar\imath p$. For a given $j$ we can also find an $r'$ such that $\psi_{r'}(q) = \psi_(j, q)$. Thus, given any $\phi_i$ we can construct and return this function.
+
+Finally, we'll show that the minimum length of an index for function $f$ in $\{\phi_i\}$ is equal to $K(f)$ up to a constant:
+\begin{align*}
+K^{\psi}(f) &= \min\left\{K^{\psi}(j)\,:\,\psi_j = f \right\} \\
+&= \min_j\left\{\min_{i, p} \{|\bar\imath p| \,:\,\psi_i(p) = j\} \,:\,\psi_j = f\right\} \\
+&= \min_{i, p} \left\{|\bar\imath p| \,:\,\psi_i(p) = j, \psi_j = f\right\} \\
+&= \min_j \left\{|j|\,:\, \phi_j = f \right\}
+\end{align*}
+\end{proof}
+
+\begin{lemma}
+Let $M$ be the class of \emph{singleton functions}, that is, the functions which produce a single output for all arguments, including the function which is undefined for all its arguments. There exists an optimal partial computable numbering of $M$.
+\end{lemma}
+\begin{proof}
+Let $\psi_1, \psi_2, \ldots$ be some acceptable numbering. Let $\phi_{\bar\imath p}(\cdot) = \psi_i(p)$ \ldots. 
+\end{proof}
+
+\begin{definition}
+  Given a model $f$ and model class $\M$, define model-based complexities by
+  \begin{align*}
+  C^f(x) &= \min\{|y|:f(y)=x\} \text{,}\\
+  L^f(x) &= K(f)+C^f(x) \text{,}\\
+  L^{\M}(x) &= \min\{L^f(x)\mid f\in\M\}\text{.}
+  \end{align*}
+\end{definition}
 
 \begin{lemma}
   Let $\M$ be any model class and let $\M'\subseteq \M$ be a sub-model with the following properties:
 \begin{enumerate}
-  \item The function $g(x):=\argmin_{f\in\M'}L^f(x)$ is computable and uniquely defined for all $x$
+  \item There exists an optimal partial computable numbering $\eta_1, \eta_2, \ldots$ for $M'$,
   \item $L^{\M'}(x)-L^{\M}(x)\le c$ for some constant $c$, all $x$.
 \end{enumerate}
-Then there is an enumeration $\phi_1,\phi_2,\ldots$ such that $F^{\M,\phi}(x)=K^\phi(g(x))+1$ for all $x$.
+There is an enumeration $\phi_1,\phi_2,\ldots$ of $\M$, such that $S^\phi_{\M}(x) = S^\eta_{\M'}(x)+1$ for all $x$.
+\end{lemma}
+\begin{proof}
+Let $\psi_1, \psi_2, \ldots$ be some acceptable numbering. Let $u$ be the universal model for the numbering $\eta_1, \eta_2, \ldots$. We define the numbering $\phi$ as follows:
+\begin{align}
+\phi_{0}i(p) &= u(i, p) \\
+\phi1^r0i(p) &= \psi_i(p) \\
+\phi_j(\cdot) &= \infty \quad\text{if $j$ contains no zeroes.}
+\end{align}
+Note that with this definition, we have $K^\phi(f) \leq K^\eta(f) \leq K^\psi(f) + c$ if $f \in \M'$. If $f$ is not in $\M'$, we have $K^\phi(f) = K^\psi(f) + r + 1 - c'$, by the same argument as used in the proof of Lemma~\ref{lemma:building-block}.
+
+Let $x$ be some finite string, and let $(i, p)$ be the pair such that $\psi_i(p)$ witnesses $L^M_\psi(x)$. By assumption, $L^{\M'}_\psi \leq L^M(x) +c$. Thus, we have a pair $(j, q)$, with $\eta_j(q) = x$ and $K^\eta(j) + |q| \leq K^\phi(i) + |p| + c$. If we choose $r = c' + c+ 1$, we know that $\phi$ will have representations $(1^r0i, q)$ with code length $L^M_\psi(x) + c+ 1 $, and $(0j, q)$ with code length less than or equal too $L^{\M}_\psi(x) +c$. This ensures that the sophistication under $\phi$ will be $K^\phi(\eta_j) = K^\eta(\eta_j) + O(1) = F^{\M'}_\eta(j)$.
+\end{proof}
+
+\begin{lemma}
+  Let $\M$ be any model class and let $\M'\subseteq \M$ be a sub-model with the following properties:
+\begin{enumerate}
+  \item There exists a (non-optimal) computable numbering $\psi_1, \psi_2, \ldots$ for $M'$,
+  \item $L^{\M'}(x)-L^{\M}(x)\le c$ for some constant $c$, all $x$.
+\end{enumerate}
+Then there is an enumeration $\phi_1,\phi_2,\ldots$ such that $|F^{\psi}_{\M'} - \leq F^{\phi}_{\M}| \leq c$ for infinitely many $x$.
 \end{lemma}
 \begin{proof}
 
-Construct $\phi_1,\phi_2,\ldots$ such that
-\begin{enumerate}
-\item For all $f\in\M'$ have $K^\phi(f) = K^\psi(f)+1$ (zelf bewijzen)
-\item For all $f\not\in\M'$ have $K^\phi(f)>K^\psi(f)+c$.
-\end{enumerate}
-
-
-
-
-
-
-Let $\psi_1,\psi_2,\ldots$ be an acceptable numbering of the partial recursive functions, and let $g'(x)=i$ such that $\psi_i=g(x)$. Now define a new ordering $\phi_1,\phi_2,\ldots$ by
-\[
-\begin{cases}
-\phi_{0i}(y)&=\psi_i(y),\qquad\tn{if $i=g'(x)$ for some $x$, and $\infty$ otherwise}\\
-\phi_{1^r0i}(y)&=\psi_i(y)\\
-\phi_{\tn{all-ones}}(y)&=\infty
-\end{cases}
-\]
-
-
-
-
-Voor alle $x$ kiezen we een makkelijk te vinden, en goedkope representatie met input $y$. Die maken we extra goedkoop in de nieuwe enumeratie. Dan wordt ie altijd gekozen.
 \end{proof}
+
 \hrule
 \begin{lemma}
   Let $\M$ be a model class with the property that there is a constant $c$ and a computable function $g$ such that for all $x$ we have $\gamma(x\mid g(x))\le c$.
