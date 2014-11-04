@@ -73,7 +73,7 @@ The problem of this two-part code lies with the first part: the index of the Tur
 
 To illustrate what can go wrong, consider all TM's $\{T_{i_1}, \ldots, T_{i_k}\}$  that are $c$-sufficient statistics for $x$, i.e. they have $\overline{i_j}+\min\{|y|:T_{i_j}(y)=x\}\le K(x)+c$. If we were to switch to a different universal Turing machine that uses a different index function, any or all of these Turing machines may suddenly yield a two-part codelength that is much larger than the Kolmogorov complexity -- and the potential difference in two-part codelength is not bounded by a constant.
 
-Adriaans takes this problem seriously and attempts to address it by imposing additional restrictions on the ordering of TMs implied by the used UTM \cite{TODO}. We are skeptical that such measures can effectively eliminate this problem without resorting to orderings of the TMs that are not admissible [TODO ref].
+Adriaans takes this problem seriously and attempts to address it by imposing additional restrictions on the ordering of TMs implied by the used UTM \cite{adriaans2012facticity}. We are skeptical that such measures can effectively eliminate this problem without resorting to orderings of the TMs that are not admissible [TODO ref].
 
 But there is already a simple way to avoid this pitfall, which uses Kolmogorov complexity as a \emph{building block} of the two-part code: the first part of the code identifies a model, using its shortest possible description, whose length is measured by Kolmogorov complexity. The second part of the code provides an input to the model for which it outputs $x$.
 
