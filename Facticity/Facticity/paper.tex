@@ -11,9 +11,12 @@
 \newtheorem{definition}{Definition}
 
 \newcommand{\M}{\mathcal M}
+\newcommand{\C}{\mathcal C}
+\newcommand{\T}{\mathcal T}
+\newcommand{\F}{\mathcal F}
+\renewcommand{\P}{\mathcal P}
 \newcommand{\K}{\mathcal K}
 \newcommand{\X}{\mathcal X}
-\newcommand{\C}{\mathcal C}
 \newcommand{\B}{\mathbb B}
 \newcommand{\D}{\Delta}
 \newcommand{\N}{\mathbb N}
@@ -43,6 +46,131 @@ Kolmogorov complexity provides an objective quantification of the amount of info
 
 In this paper we show this to be an impossible dream: in general, additional assumptions are required if one wishes to find the true model, or its complexity. This is true regardless of the length or Kolmogorov complexity of the input data. In effect, this means that ideal model selection based on a single data object with no further knowledge is impossible. We unify and contrast the several existing approaches and describe what they can and cannot do. 
 \end{abstract}
+
+\section{Definitions}
+
+\begin{definition}[Models and model classes]
+  A \emph{model} is a function $f:\{0,1\}^*\to\{0,1\}^*$. A
+  \emph{model class} is a set of models. We distinguish four important
+  model classes:
+  \begin{itemize}
+  \item $\C$ is the set of all partial recursive functions,
+  \item $\K\subset\C$ is the set of all partial recursive prefix
+    functions,
+  \item $\T\subset\C$ is the set of all total recursive functions,
+  \item $\P\subset\K$ is the set of all prefix functions such that for
+    every infinite binary string the function is defined for a
+    prefix. This is the natural analogue of totality in the prefix
+  \item $\F\subset\P$ contains, for each finite set $S$, a computable
+    surjective function maping the binary sequences of length
+    $\lceil\log S\rceil$ onto $S$.
+  \end{itemize}
+\end{definition}
+
+\begin{definition}[Enumerations]
+  Let $\phi_1,\phi_2,\ldots$ be a fixed acceptable enumeration of all partial
+  recursive functions, e.g. the enumeration described in \cite{TODO}.  
+\end{definition}
+
+\begin{definition}[Representations]
+  A pair $(m,y)$ is a \emph{representation} for $x$ if $m$ is a model
+  and $m(y)=x$. Given a model class $\M$, define the set of all
+  representations for $x$:
+  \[
+  R^\M(x):=\{(m,y):m\in\M, m(y)=x\}.
+  \]
+\end{definition}
+
+\begin{definition}[Code length functions]
+Define the following code length functions for the representations:
+\begin{itemize}
+\item $L(m)$ is the length of a self-delimiting description of
+  the model $m$, i.e. it is the length function of  a prefix code,
+\item $L^m(x)=L(m)+\min\{|y|:m(y)=x\}$ measures the number of bits required to describe both the model $m$ and
+  the data $x$ using the model,
+\item $L^\M(x)=\min\{L^m(x):m\in\M\}$ measures the number of bits
+  required to describe $x$ using the best model in the model class.
+\end{itemize}
+\end{definition}
+  
+\begin{definition}[Candidate set]
+  The \emph{candidate models} for $x$ from model class $\M$ are
+  \[
+  C^\M_c(x):=\{m\in\M:L^m(x)\le L^\M(x)+c\}.
+  \]
+\end{definition}
+
+\begin{definition}[Sophistication]
+  The model complexity, sophistication, or facticity, of a string $x$
+  given a model class $\M$ and a constant $c$ is defined by
+  \[
+  S^\M_c(x):=\min\{L(m):m\in C^\M_c(x)\}.
+  \]
+\end{definition}
+
+\begin{definition}[Prefix encoding function]
+  A prefix encoding function $f:\{0,1\}^*\to\{0,1\}^*$ is an injective
+  function that maps the binary strings to a prefix-free set. There
+  are prefix encoding functions $g$ with the property that
+  $|g(x)|\le|x|+2\log(|x|+2)|$ \cite{TODO}. We fix such a function and
+  denote it by $\bar x=g(x)$.
+\end{definition}
+
+\paragraph{Kolmogorov's Structure Function}
+
+\begin{itemize}
+\item Model class is $\F$
+\item Description method for models $L(m)=K(S)$ where $S$ is the range
+  of $m$. There is some ambiguity as to the definition of prefix
+  complexity for finite sets; discuss and refer to Shen \cite{TODO}.
+\end{itemize}
+
+\paragraph{Koppel Sophistication}
+
+\begin{itemize}
+\item Model class is $\T$
+\item Description method for models is required to be prefix-free, but
+  can otherwise be chosen arbitrarily.
+\item Koppel uses monotone complexity and discusses infinite strings,
+  TODO figure out if and how this affects our results
+\end{itemize}
+
+\paragraph{Vit\'anyi's Sophistication / Meaningful Information}
+
+\begin{itemize}
+\item Model class is $\T$
+\item Description method for models is $L(m)=K(m)$
+\item Candidate set is defined differently: $C_c=\{m\in\T:|L^m(x)-K(x)|\le
+  c\}$. There appears to be a problem with this definition, because
+  the two-part descriptions of $x$ may be shorter than $K(x)$ by
+  exploiting the fact that the models do not need to be prefix functions.
+\end{itemize}
+
+\paragraph{Antunes's Coarse Sophistication}
+
+\begin{itemize}
+\item Model class is $\T$
+\item Description method for models is unclear, but appears to be
+  taken from Koppel, i.e. arbitrary but self-delimiting.
+\item Candidate set is defined differently:
+  $C^\T(x)=\{m^*\}$ where $m^*=\argmin_m L(m)+L^m(x)-C(x)$. Thus, there is no slack
+  variable and $C^\T$ contains only a single model.
+\end{itemize}
+
+\paragraph{Adriaans' Facticity}
+
+
+\begin{itemize}
+\item Model class is $\C$
+\item Description method for models is $L(m)=|\bar\imath|$ where
+  $\phi_i=m$. The index function is assumed to be \emph{faithful},
+  i.e. there is a constant $c$ such that $|i|-C(i)\le c|$ for all $i$.
+\item Candidate set is $C^\C_0$.
+\item Facticity is actually defined as index length without prefix
+  encoding:  $S^\C_0(x):=\min\{|i|:\phi_i\in C^\C_0(x)\}$. But this
+  difference is not important for the discussion.
+\end{itemize}
+
 
 \section{Notes}
 
@@ -235,10 +363,6 @@ The function $v=\phi_v$ as defined above is partial recursive.
 \begin{proof}
 Let $r$ be the input of $v$. Simulate $\psi_u$ using a TM with a one-way read-only input tape. If the TM does not halt, then enter an infinite loop. Otherwise, let $r=ap$ where $a$ is the part of the input tape that has been read when the TM halts, and let $i$ be the output of the TM. Now simulate $\phi_i$ on input $p$.
 \end{proof}
-
-\[
-b(i_0)=\min_{i\ge i_0}(L(i)-K(i))
-\]
 
 \begin{lemma}
   If $\min\{i\ge i_0:|\bar\imath|-K(i)\}$ is an unbounded function of $i_0$, then facticity is bounded.
