@@ -11,9 +11,12 @@
 \newtheorem{definition}{Definition}
 
 \newcommand{\M}{\mathcal M}
+\newcommand{\C}{\mathcal C}
+\newcommand{\T}{\mathcal T}
+\newcommand{\F}{\mathcal F}
+\renewcommand{\P}{\mathcal P}
 \newcommand{\K}{\mathcal K}
 \newcommand{\X}{\mathcal X}
-\newcommand{\C}{\mathcal C}
 \newcommand{\B}{\mathbb B}
 \newcommand{\D}{\Delta}
 \newcommand{\N}{\mathbb N}
@@ -44,6 +47,131 @@ Kolmogorov complexity provides an objective quantification of the amount of info
 In this paper we show this to be an impossible dream: in general, additional assumptions are required if one wishes to find the true model, or its complexity. This is true regardless of the length or Kolmogorov complexity of the input data. In effect, this means that ideal model selection based on a single data object with no further knowledge is impossible. We unify and contrast the several existing approaches and describe what they can and cannot do. 
 \end{abstract}
 
+\section{Definitions}
+
+\begin{definition}[Models and model classes]
+  A \emph{model} is a function $f:\{0,1\}^*\to\{0,1\}^*$. A
+  \emph{model class} is a set of models. We distinguish four important
+  model classes:
+  \begin{itemize}
+  \item $\C$ is the set of all partial recursive functions,
+  \item $\K\subset\C$ is the set of all partial recursive prefix
+    functions,
+  \item $\T\subset\C$ is the set of all total recursive functions,
+  \item $\P\subset\K$ is the set of all prefix functions such that for
+    every infinite binary string the function is defined for a
+    prefix. This is the natural analogue of totality in the prefix
+  \item $\F\subset\P$ contains, for each finite set $S$, a computable
+    surjective function maping the binary sequences of length
+    $\lceil\log S\rceil$ onto $S$.
+  \end{itemize}
+\end{definition}
+
+\begin{definition}[Enumerations]
+  Let $\phi_1,\phi_2,\ldots$ be a fixed acceptable enumeration of all partial
+  recursive functions, e.g. the enumeration described in \cite{TODO}.  
+\end{definition}
+
+\begin{definition}[Representations]
+  A pair $(m,y)$ is a \emph{representation} for $x$ if $m$ is a model
+  and $m(y)=x$. Given a model class $\M$, define the set of all
+  representations for $x$:
+  \[
+  R^\M(x):=\{(m,y):m\in\M, m(y)=x\}.
+  \]
+\end{definition}
+
+\begin{definition}[Code length functions]
+Define the following code length functions for the representations:
+\begin{itemize}
+\item $L(m)$ is the length of a self-delimiting description of
+  the model $m$, i.e. it is the length function of  a prefix code,
+\item $L^m(x)=L(m)+\min\{|y|:m(y)=x\}$ measures the number of bits required to describe both the model $m$ and
+  the data $x$ using the model,
+\item $L^\M(x)=\min\{L^m(x):m\in\M\}$ measures the number of bits
+  required to describe $x$ using the best model in the model class.
+\end{itemize}
+\end{definition}
+  
+\begin{definition}[Candidate set]
+  The \emph{candidate models} for $x$ from model class $\M$ are
+  \[
+  C^\M_c(x):=\{m\in\M:L^m(x)\le L^\M(x)+c\}.
+  \]
+\end{definition}
+
+\begin{definition}[Sophistication]
+  The model complexity, sophistication, or facticity, of a string $x$
+  given a model class $\M$ and a constant $c$ is defined by
+  \[
+  S^\M_c(x):=\min\{L(m):m\in C^\M_c(x)\}.
+  \]
+\end{definition}
+
+\begin{definition}[Prefix encoding function]
+  A prefix encoding function $f:\{0,1\}^*\to\{0,1\}^*$ is an injective
+  function that maps the binary strings to a prefix-free set. There
+  are prefix encoding functions $g$ with the property that
+  $|g(x)|\le|x|+2\log(|x|+2)|$ \cite{TODO}. We fix such a function and
+  denote it by $\bar x=g(x)$.
+\end{definition}
+
+\paragraph{Kolmogorov's Structure Function}
+
+\begin{itemize}
+\item Model class is $\F$
+\item Description method for models $L(m)=K(S)$ where $S$ is the range
+  of $m$. There is some ambiguity as to the definition of prefix
+  complexity for finite sets; discuss and refer to Shen \cite{TODO}.
+\end{itemize}
+
+\paragraph{Koppel Sophistication}
+
+\begin{itemize}
+\item Model class is $\T$
+\item Description method for models is required to be prefix-free, but
+  can otherwise be chosen arbitrarily.
+\item Koppel uses monotone complexity and discusses infinite strings,
+  TODO figure out if and how this affects our results
+\end{itemize}
+
+\paragraph{Vit\'anyi's Sophistication / Meaningful Information}
+
+\begin{itemize}
+\item Model class is $\T$
+\item Description method for models is $L(m)=K(m)$
+\item Candidate set is defined differently: $C_c=\{m\in\T:|L^m(x)-K(x)|\le
+  c\}$. There appears to be a problem with this definition, because
+  the two-part descriptions of $x$ may be shorter than $K(x)$ by
+  exploiting the fact that the models do not need to be prefix functions.
+\end{itemize}
+
+\paragraph{Antunes's Coarse Sophistication}
+
+\begin{itemize}
+\item Model class is $\T$
+\item Description method for models is unclear, but appears to be
+  taken from Koppel, i.e. arbitrary but self-delimiting.
+\item Candidate set is defined differently:
+  $C^\T(x)=\{m^*\}$ where $m^*=\argmin_m L(m)+L^m(x)-C(x)$. Thus, there is no slack
+  variable and $C^\T$ contains only a single model.
+\end{itemize}
+
+\paragraph{Adriaans' Facticity}
+
+
+\begin{itemize}
+\item Model class is $\C$
+\item Description method for models is $L(m)=|\bar\imath|$ where
+  $\phi_i=m$. The index function is assumed to be \emph{faithful},
+  i.e. there is a constant $c$ such that $|i|-C(i)\le c|$ for all $i$.
+\item Candidate set is $C^\C_0$.
+\item Facticity is actually defined as index length without prefix
+  encoding:  $S^\C_0(x):=\min\{|i|:\phi_i\in C^\C_0(x)\}$. But this
+  difference is not important for the discussion.
+\end{itemize}
+
+
 \section{Notes}
 
 Do we have the citation ``Paul M. B. Vit\'anyi: Meaningful Information. IEEE Transactions on Information Theory 52(10): 4617-4626 (2006)''?
@@ -52,15 +180,10 @@ Do we have the citation ``Paul M. B. Vit\'anyi: Meaningful Information. IEEE Tra
 
 ``Sophistication is a generalization of the "H-function" or "minimal sufficient statistic" of Cover and Kolmogoroff, using the motonic complexity of Levin: is Cover the original source for the idea of a ``minimal sufficient statistic''? Also Koppel does indeed use monotonic complexity as in Levin. We need to know at least a little about the difference between monotonic and regular KC: is it less than a logarithmic additive term? If so, we can conveniently sweep it under the rug.
 
+\section{Plan}
 
-\section{Case against index length as model complexity}
-All definitions of meaningful information are based on a two-part description of the data: the first part describes a \emph{model} for the data, and the second part describes an input to the model that makes it reconstruct $x$ exactly. However there is a fundamental dichotomy in way the various authors work out this idea technically.
+Idee van Sophistication: gebruik two-part coding om een scheiding te maken tussen structuur van de data (modelinformatie) en de ruis.
 
-The aproach taken in the works of Kolmogorov, Vit\'anyi, (Cover? Shen? etc) is sound (apart from the issues discussed elsewhere in this paper), but the other approach, adopted by Koppel, Adriaans, (others), while very intuitive, has a fundamental problem that seems to originate in a misunderstanding of the role Kolmorov complexity has to play in the two part code.
-
-The misunderstanding, which appears to be shared by authors on both sides of the dichotomy, is that the two components of the Kolmogorov complexity (the index of a Turing machine and its input) \emph{are} the two-part code used to separate the meaningful information from the noise. This idea certainly seems reasonable, as it is expressed not only by Koppel, who writes
-
-[insert quote here: In his 1988 chapter ``Structure'', Koppel has a very good quote about how it is such a pity that program and data are not considered separately anymore.]
 
 Perhaps surprisingly, it is also reinforced by Vit\'anyi, when he writes : (From Vereshchagin and Vit\'anyi, ``Kolmogorov’s Structure Functions and Model Selection'':)
 \begin{quotation}
@@ -69,46 +192,52 @@ Perhaps surprisingly, it is also reinforced by Vit\'anyi, when he writes : (From
 we can encode $x$ by a small Turing machine printing a specified number of copies of the pattern `10' which computes $x$ from the program `13'.” This way, $K(x)$ is viewed as the shortest length of a two-part code for $x$, one part describing a Turing machine, or model, for the regular aspects of $x$, and the second part describing the irregular aspects of $x$ in the form of a program to be interpreted by $T$. The regular, or “valuable,” information in  is constituted by the bits in the “model” while the random or ``useless'' information of $x$ constitutes the remainder.
 \end{quotation}
 
-The problem of this two-part code lies with the first part: the index of the Turing machine depends on the used universal Turing machine, and the same Turing machine may well have, say, an exponentially higher index on one UTM than on another. (This is sometimes referred to as the ``nickname problem'', \cite{TODO}.) As such the index is \emph{not} a good measure of the model complexity. 
 
-To illustrate what can go wrong, consider all TM's $\{T_{i_1}, \ldots, T_{i_k}\}$  that are $c$-sufficient statistics for $x$, i.e. they have $\overline{i_j}+\min\{|y|:T_{i_j}(y)=x\}\le K(x)+c$. If we were to switch to a different universal Turing machine that uses a different index function, any or all of these Turing machines may suddenly yield a two-part codelength that is much larger than the Kolmogorov complexity -- and the potential difference in two-part codelength is not bounded by a constant.
 
 Adriaans takes this problem seriously and attempts to address it by imposing additional restrictions on the ordering of TMs implied by the used UTM \cite{adriaans2012facticity}. We are skeptical that such measures can effectively eliminate this problem without resorting to orderings of the TMs that are not admissible [TODO ref].
 
-But there is already a simple way to avoid this pitfall, which uses Kolmogorov complexity as a \emph{building block} of the two-part code: the first part of the code identifies a model, using its shortest possible description, whose length is measured by Kolmogorov complexity. The second part of the code provides an input to the model for which it outputs $x$.
 
-The model may be a Turing machine, but can also be used with other model classes; for example in Kolmogorov's original formulation the model is a finite set of objects that contains $x$. Since the models are not usually represented as binary strings, the definition of Kolmogorov complexity has to be suitably extended to the considered model classes, but this is not a fundamental problem, [refer to appropriate definitions].
+
+Inherent property of the data: 
+\begin{itemize}
+\item Should be a two-part effective description of $x$
+\item Invariant: $\exists c:\forall x:|S^1(x)-S^2(x)|\le c$
+\item Both structure and noise are unbounded
+\end{itemize}
+
+Conjecture: er is geen functie van de data die aan bovenstaande eisen voldoet.
+
+
+
+\subsection{Review}
+Onderscheid op basis van drie properties:
+\begin{itemize}
+\item Model class: total / partial. Reden voor total: bij partial rec. is de UTM in het model, collapse, citaten. Nadeel: arbitraire beperking op de beschrijvingskracht, dus minder universeel
+\item Models are prefix functions / not prefix functions: viz $C$ vs $K$. Als wel prefix, dan gaat alles makkelijker kapot. Als niet prefix dan wordt de balans verstoord, het wordt moeilijk als de balans ook de andere kant op wordt verstoord door de modelklasse te beperken: die twee handicaps zijn moeilijk te vergelijken.
+\item Model length is prefix encoded index length / $K(f)$: compact numberings, bespiegeling over of het gat tussen $|\bar\imath|$ en $K(\phi_i)$ unbounded is. Wat is nu eigenlijk de two-part code precies, is dat $K$ als white box of is $K$ gebruikt voor het eerste deel? Ook beetje vreemd om in de eerste visie modelklassen te introduceren.
+\end{itemize}
+
+Bestaande aanpakken:
+\begin{itemize}
+
+\item Facticity: partial / niet prefix: bounded
+
+\item Paul's sophistication: Sufficient statistic: alles wat $K$-complexiteit haalt tot op slack $c$. Minimal sufficient statistic minimaliseert daarover de modelgrootte. Model bevat totale prefixfuncties. Noise is bounded.
+
+\item total / niet prefix, o.a. coarse sophistication. We geloven invariantie niet. Voor alle shallow strings bounded (nog niet bewezen, maar werkt door alles total te maken met vaste grote maar computable time bound)
+
+\end{itemize}
+
+\subsection{Conclusion}
+Stel onze conjecture is waar, is het dan helemaal nutteloos? Nee, want lengte van two-part representations is nog steeds een redelijke maat voor counterevidence against a model. No-hypercompression, $p$-values, randomness deficiency. Probleem zit in harde cutoffs zoals minimalisatie en een vaste constante waarboven representaties niet meer meedoen. Daar gaat invariantie van kapot.
+
+Onze mening: als onze conjecture waar is, dan moet je constraints weglaten: maak het makkelijk en doe prefix functies en alle partial recursive functions, en accepteer de collapse gewoon. Maar dat betekent weer dat je een hele wolk van two-part optimale representaties hebt waar je niet tussen moet willen kiezen.
+
+Er is een gat tussen $K(f)+|y|-K(x)$ en $\delta(x\mid f)$. De laatste is de juiste maat voor de counterevidence tegen $f$.
 
 \section{Thoughts and questions}
 
 \begin{itemize}
-
-
-\item Kolmogorov complexity measures the shortest effective description of a binary sequence $x$. As such it is an \emph{objective} property of $x$ in the sense that changing around the enumeration of Turing machines in its definition only changes the Kolmogorov complexity by a constant independent of $x$.
-
-The same should hold for all definitions:
-\begin{itemize}
-\item The complexity of any model should not change by more than a constant when the ordering of TMs is changed.
-\item The same holds for the measure of meaningful information/sophistication
-\end{itemize}
-
-\item Iets uitgebreidere versie van bovenstaande, uit mijn mailtje: definitie 1: twee frameworks met complexiteitsmaten $K_1$ en $K_2$ en modelklassen $\M_1$ en $\M_2$ zijn equivalent als voor alle representaties $r$ in $\M_1$ er een $s$ in $\M_2$ is zodanig dat 
-\begin{itemize}
-\item $K_1(r)-K_2(s) = O(\log(K_1(r)+K_2(s)))$
-\item $K_1(r)+L_r(x) - (K_2(s)+L_s(x)) = O(1)$
-\end{itemize}
-
-\item We waren bezig met operationaliseren wanneer een methode nu eigenlijk de juiste hypothese identificeert, met protocollen en asymptotisch gedrag enzo. Maar kunnen we het niet veel eenvoudiger houden? Ik ben er erg voor om het technisch zo simpel mogelijk te houden! Elke redelijke two-part code voor modelselectie moet onder wijziging van de enumeratie van TMs aan de volgende eigenschap voldoen:
-(a) de twee versies moeten equivalent zijn onder definitie 1, want anders is de maat namelijk arbitrair. Dit geldt voor zover ik begrijp niet voor de Koppel/Adriaans/Antunez versie van sophistication, maar wel voor die van Paul. Hiermee kunnen we dus leuk het eerste probleem aanduiden. 
-Deze eigenschap zegt iets over de two part codelengtes voor de hele model class. Maar als we bovendien willen aannemen dat de lengte van het geselecteerde model iets zegt over de data,
-(b) dan moet definitie 1 bovendien gelden voor de specifieke r en s die worden geselecteerd! Hiervan kunnen we bewijzen dat het onmogelijk is.
-
-\item What is an ``acceptable enumeration'', is it really required in the standard definition of KC or is there a difference of opinion? Does this mean that it is impossible to do facticity in the standard definition of KC? That would be a nice claim to make!
-
-\item Is it possible to require that the enumeration of TM's is such that any TM can also efficiently store input data to the TM? That is, is there an acceptable numbering such that for all $i$, all $p$, there is a $j$ with $|j|\le|i|+|p|$ such that $T_j(\epsilon)=T_i(p)$. This enumeration is potentially still very simple, the programming language just has a provision for storing data inside the program. If there are acceptable enumerations with this property, and I suspect there are, then perhaps it could be reasonable to require this, and use it as a motivation to forget about the distinction between the index of a program and its input. Perhaps some authors silently assume the enumeration to have this property? This would make it valid to do what some authors, like Paul, are doing: to identify the two-part code \emph{within} the definition of KC, with the two-part code used to define meaningful information. Or am I now giving these authors too much credit?
-
-\item Why the ``up to log-terms''? Is it because of algorithmic mutual information holds up to log terms? Can we find references motivating the decision to work up to log terms? Is it possible to define a two part code where the length of both parts varies by only a constant as the ordering of Turing machines is changed? Why (not)?
-
 \item Paul argues that the randomness deficiency of a model is a measure of the amount of structure left in the noise part. I feel that it is also a measure of the amount of counterevidence against a model in the statistical sense, as follows: the randomness deficiency of $x$ given model $M$ is $\delta(x|M)=L_M(x)-K(x|M)$. Suppose that model $M$ is true. We can then use the no hypercompression inequality to rewrite:
 %
 \[
@@ -122,24 +251,15 @@ Thus, if $M$ is true the probability of a large randomness deficiency is exponen
 \[L(x;M)=K(M)+L_M(x) =K(M)+K(x|M)+L_M(x)-K(x|M)  = K(x)+\delta(x|M).\]
  Models move horizontally by a constant when the ordering of TMs is changed. Thus the randomness deficiency and two part code are also changed by at most a constant. In contrast the \emph{minimum} can now be achieved by a very different representation.
 
-\item Discuss worries about overfitting in the literature, explain that actually the collapse problem is a case of severe \emph{underfitting} and that both can occur. Any attempts to penalize the model complexity in the two part code will exacerbate the underfitting problem.
-
-\item Ik denk dat we in ons eigen paper minder hoog van de toren moeten blazen dan in het stukje dat ik je laatst stuurde, misschien meer zoiets zeggen als "er is een verschil tussen het kortste programma dat een string produceert, die mogelijk veel langer is dan de string zelf als data niet efficient kan worden gerepresenteerd in de gebruikte programmeertaal, en de korste beschrijving van de string, die mag bestaan uit een programma plus de input voor dat programma. Dit verschil is cruciaal voor een juist begrip van de verschillende aanpakken voor meaningful information, maar in veel publicaties over het onderwerp wordt dit onderscheid niet expliciet gemaakt en is het dus niet duidelijk of de besproken complexiteitsmaten nu wel of niet afhangen van de gekozen universele Turingmachine."
-
-\item Paul-Pieter: model $M$ is eindige set, data $D$ is een subset ervan, dus meerdere binaire strings. Two part code is $K(M|d)+\log\binom{m}{d}$, met $d=|D|$ en $m=|M|$. Vraag, waarom zit $d$ in de conditional? Heeft dit te maken met andere keuzes over waar je de hoeveelheid noise stopt?
-
 \item ``Power and peril of MDL'': bespreken ook de ``collapse of the structure function'' als de model class te sterk is, dwz sets worden te efficient gecodeerd (wsch equivalent met Shen's enumerating complexity).
 
-\item Conjecture: to define valid two-part code inside KC, need efficient numbering: data can be inserted into TM index efficiently. In general, KC with admissible numbering will not work.
-
-\item Idea: two distinct models are impossible to separate if the probability they give to the data remains within a constant. This can happen even if they do not dominate each other for other data sequences. Sufficient condition: one dominates the other.
 \end{itemize}
 
-\begin{definition} An enumeration $\phi_1,\phi_2,\ldots$ of the partial recursive functions is called \emph{$\gamma$-compact} if for all $i,y$ there is a $j$ such that $|j|\le|i y|+\gamma(|y|)$ and $\phi_i(y z)=\phi_j(z)$ for all $z$.
+\begin{definition} An enumeration $\phi_1,\phi_2,\ldots$ of the partial recursive functions is called \emph{compact} if for all $i,y$ there is a $j$ such that $|j|\le|i y|$ and $\phi_i(y z)=\phi_j(z)$ for all $z$.
 \end{definition}
 
 \begin{lemma}
-There is a $0$-compact acceptable numbering.
+There is a compact acceptable numbering.
 \end{lemma}
 \begin{proof}
   Let $\phi_1,\phi_2,\ldots$ be any acceptable numbering. Let $\psi_1,\psi_2,\ldots$ be a new acceptable numbering defined by $\psi_j(x)=\phi_i(y x)$ if $j$ is a pair satisfying $j=\bar\imath y$, and $\psi_j(x)=\infty$ otherwise.  We will show that $\psi$ is both $0$-compact and acceptable. 
@@ -150,21 +270,14 @@ To show that $\psi_1,\psi_2,\ldots$ is acceptable, we define total computable fu
 \end{proof}
 
 \begin{lemma}[Framework equivalence]
-Let $\phi_1,\phi_2,\ldots$ be a $\gamma$-compact effective enumeration. There is a constant $c$ such that for any index $i$ there is another index $j$ with $\phi_j(x)=\phi_i(x)$ for all $x$, and
-\[|j|\le K(i)+2\log(K(i))+\gamma(K(i)+2\log K(i)).\]
+Let $\phi_1,\phi_2,\ldots$ be a compact effective enumeration. There is a constant $c$ such that for any index $i$ there is another index $j$ with $\phi_j(x)=\phi_i(x)$ for all $x$, and
+\[|j|\le K(i)+2\log(K(i))+c.\]
 \end{lemma}
 \begin{proof}
-First, let $v$ be the index of the partial recursive function given by $\phi_v(\bar k\bar p x)=\phi_{\phi_k(p)}(x)$. Let $\bar k p$ be a shortest program for $i$, that is $|\bar k p| = K(i)$ and $\phi_k(p)=i$. Then $\phi_i(x)=\phi_v(\bar k \bar p x)$. We now use $\gamma$-compactness to find an index $j$ with $\phi_v(\bar k \bar p x)=\phi_j(x)$ and length
-\[\begin{split}
-|j|&\le |v\bar k\bar p|+\gamma(\bar k\bar p)\\
-&\le|v|+|\bar k p|+2\log|\bar k p|+\gamma(|\bar k p|+2\log|\bar k p|)\\
-&=K(i)+|v|+2\log K(i)+\gamma(K(i)+2\log K(i)),
-\end{split}\]
+First, let $v$ be the index of the partial recursive function given by $\phi_v(\bar k\bar p x)=\phi_{\phi_k(p)}(x)$. Let $\bar k p$ be a shortest program for $i$, that is $|\bar k p| = K(i)$ and $\phi_k(p)=i$. Then $\phi_i(x)=\phi_v(\bar k \bar p x)$. We now use compactness to find an index $j$ with $\phi_v(\bar k \bar p x)=\phi_j(x)$ and length
+\[|j|\le |v\bar k\bar p|\le|v|+|\bar k p|+2\log|\bar k p|=K(i)+|v|+2\log K(i),\]
 as required.
 \end{proof}
-\begin{corollary}
-If $\gamma(x)=O(\log x)$, then $|j|=K(i)+O(\log K(i))$.
-\end{corollary}
 
 We need a definition of $K(f)$. We adopt the definition given in \cite{TODO}:
 
@@ -177,8 +290,8 @@ We need a definition of $K(f)$. We adopt the definition given in \cite{TODO}:
 
 It is not immediately clear that this is a reasonable definition of the shortest effective description of a function, but fortunately this is indeed the case:
 
-\begin{lemma}
-Let $\psi_1,\psi_2,\ldots$ be any acceptable numbering. There is a constant $c$ such that for any $i$ with $\psi_i(x)=f(x)$ for all $x$, the description length satisfies $K(f)\le |i|+c$.
+\begin{lemma}[TODO: $i$ moet prefix encoded zijn, anders klopt t niet. Ook beetje moeilijk te begrijpen]
+Let $\psi_1,\psi_2,\ldots$ be any acceptable numbering. There is a constant $c$ such that for any $i$ with $\psi_i(x)=f(x)$ for all $x$, the description length satisfies $K^\phi(f)\le |i|+c$.
 \end{lemma}
 \begin{proof}
 The numbering is acceptable, so there is a total computable function $\phi_r$ that maps indices in the $\psi$-enumeration to indices in the $\phi$-enumeration. Let $j=\phi_r(i)$. Then $\bar r i$ is a program for $j$, so $K(j)\le |\bar r i| = |i|+c$. Now,
@@ -203,7 +316,7 @@ K^\phi(f) &= \min\left\{ K^\phi(i) : \phi_i= f\right\} \\
 We can reverse $\phi$ and $\psi$ without loss of generality to achieve the same inequality the other way around, completing the proof.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}[TODO: is het niet leuker om te zeggen dat het altijd bounded is? Krijgen we dat kado van een later lemma?]
 There is an acceptable numbering $\psi_1,\psi_2,\ldots$ such that $F^\psi(x)=|\bar 1|$ for all $x$.
 \end{lemma}
 \begin{proof}
@@ -231,15 +344,6 @@ K(\phi_s)+\min\{|y|:\phi_s(y)=x\}&=\min\{K(i):\forall_x\phi_i(x)=\phi_s(x)\}+\mi
 \end{proof}
 
 
-\begin{theorem}
-  There are acceptable numberings $\phi_1,\phi_2,\ldots$ and $\psi_1,\psi_2,\ldots$ such that for every constant $c$ there is a [are lots of] string $x$ with $|F^\phi(x)-F^\psi(x)|>c$ [regardless of penalties and possibly generalized to more model classes].
-\end{theorem}
-
-Conjectures:
-\begin{itemize}
-\item Als er een unbounded penalty zit op modelcomplexiteit dan is de facticity bounded door een constante.
-\end{itemize}
-
 \begin{definition}[Facticity]
   Let $\phi_1,\phi_2,\ldots$ be any effective enumeration of the partial recursive functions. Then
   \[F^\phi(x)=|\bar\imath|\qquad\tn{where}\qquad \bar\imath p=\min\{\bar\jmath q:\phi_j(q)=x\}.
@@ -260,10 +364,6 @@ The function $v=\phi_v$ as defined above is partial recursive.
 \begin{proof}
 Let $r$ be the input of $v$. Simulate $\psi_u$ using a TM with a one-way read-only input tape. If the TM does not halt, then enter an infinite loop. Otherwise, let $r=ap$ where $a$ is the part of the input tape that has been read when the TM halts, and let $i$ be the output of the TM. Now simulate $\phi_i$ on input $p$.
 \end{proof}
-
-\[
-b(i_0)=\min_{i\ge i_0}(L(i)-K(i))
-\]
 
 \begin{lemma}
   If $\min\{i\ge i_0:|\bar\imath|-K(i)\}$ is an unbounded function of $i_0$, then facticity is bounded.
@@ -412,14 +512,14 @@ Let $\psi_1, \psi_2, \ldots$ be some acceptable numbering. Let $\phi_{\bar\imath
   \end{align*}
 \end{definition}
 
-\begin{lemma}
+\begin{lemma}\label{lem:thecoolone}
   Let $\psi_1,\psi_2,\ldots$ be any acceptable enumeration of the partial recursive functions.
-  Let $\M$ be any model class and let $D:\{0,1\}^*\to\N$ be a computable decoding function with a prefix-free domain that maps function descriptions to their indices in $\psi$, i.e. if $f=\psi_{D(p)}$ then $p$ is a $D$-description of $f$. Let $\M'=\{\psi_i:i\in\tn{range}(D)\}$. Further assume there is a constant $c$ such that
+  Let $\M$ be any model class, let $\X$ be any set of binary sequences and let $D:\{0,1\}^*\to\N$ be a computable decoding function with a prefix-free domain that maps function descriptions to their indices in $\psi$, i.e. if $f=\psi_{D(p)}$ then $p$ is a $D$-description of $f$. Let $\M'=\{\psi_i:i\in\tn{range}(D)\}$. Further assume there is a constant $c$ such that
 \begin{enumerate}
   \item $\forall_{f\in\M'}:\min\{|p|:\psi_{D(p)}=f\}\le K^\psi(f)+c$
-  \item $\forall_x:L^{\M'}(x)-L^{\M}(x)\le c$.
+  \item $\forall_{x\in\X}:L^{\M',\psi}(x)-L^{\M,\psi}(x)\le c$.
 \end{enumerate}
-Then is an enumeration $\phi_1,\phi_2,\ldots$ of the partial recursive functions such that $S^\phi_{\M}(x) = 1$ for all $x$.
+Then is an enumeration $\phi_1,\phi_2,\ldots$ of the partial recursive functions such that $S^\phi_{\M}(x) = |\bar 0|+S^\psi_{\M'}(x)$ for all $x\in\X$.
 \end{lemma}
 \begin{proof}
 We define the numbering $\phi$ as follows:
@@ -428,6 +528,8 @@ We define the numbering $\phi$ as follows:
 \phi_{1^r0i}(p) = \psi_i(p) \\
 \phi_j(\cdot) = \infty &\text{if $j$ contains no zeroes.}
 \end{cases}\]
+We will show that under the $\phi$-enumeration, the best representation for $x$ using a model $f\in\M'$ is always better than the best representation using some $f\not\in\M'$.
+
 First suppose $f\in\M'$. Then
 \[\begin{split}
 K^\phi(f)&=\min\{K^\phi(i):\phi_i=f\}\\
@@ -441,99 +543,59 @@ K^\phi(f)&=\min\{K^\phi(i):\phi_i=f\}\\
 \]
 where the last inequality uses the first assumption.
 
-\hrule
 
-Note that with this definition, we have $K^\phi(f) \leq K^\eta(f) \leq K^\psi(f) + c$ if $f \in \M'$. If $f$ is not in $\M'$, we have $K^\phi(f) = K^\psi(f) + r + 1 - c'$, by the same argument as used in the proof of Lemma~\ref{lemma:building-block}.
+Now assume that the best model $f$ for $x$ is not in $\M'$. 
+Let $i$ be the index of $f$ with the shortest description, i.e. it achieves the minimum in
+\[
+K^\phi(f)=\min\{K^\phi(i):\phi_i=f\}.
+\]
+There are two possibilities. Either $i=0$, in which case we have $K^\phi(f)\ge r$ because $\phi_0$ cannot output zero and all other $\phi$-programs are at least $r$ bits long.
 
-Let $x$ be some finite string, and let $(i, p)$ be the pair such that $\psi_i(p)$ witnesses $L^M_\psi(x)$. By assumption, $L^{\M'}_\psi \leq L^M(x) +c$. Thus, we have a pair $(j, q)$, with $\eta_j(q) = x$ and $K^\eta(j) + |q| \leq K^\phi(i) + |p| + c$. If we choose $r = c' + c+ 1$, we know that $\phi$ will have representations $(1^r0i, q)$ with code length $L^M_\psi(x) + c+ 1 $, and $(0j, q)$ with code length less than or equal too $L^{\M}_\psi(x) +c$. This ensures that the sophistication under $\phi$ will be $K^\phi(\eta_j) = K^\eta(\eta_j) + O(1) = F^{\M'}_\eta(j)$.
+Otherwise, we can bound
+\[\begin{split}
+K^\phi(f)&=K^\phi(i)=K^\phi(1^r0j)\\
+&\ge K^\phi(j)-c'\\
+&\ge K^\psi(j)+r+1-c'\\
+&\ge\min\{K^\psi(j):\phi_j=f\}+r+1-c'\\
+&=K^\psi(f)+r+1-c'.
+\end{split}
+\]
+Now choose $r=c''+\max\{K^\psi(\phi_0),c'-1\}$. Then substitution yields, for both cases, 
+$K^\phi(f)\ge c''+K^\psi(f)$.
+
+Combining the inequalities above, for any model $g\not\in\M'$, there is a model $f\in\M$ such that
+\[\begin{split}
+K^\phi(g)+C^g(x) &\ge K^\psi(g)+C^g(x)+c''\\
+&\ge K^\psi(f)+C^f(x)-c+c''\\
+&\ge K^\phi(f)+C^f(x) -2c+c'' -|\bar0|.
+\end{split}\]
+
+By choosing $c''$ sufficiently large, we can ensure that the best representation is in $\M'$ for all $x\in\X$, which completes the proof.
 \end{proof}
 
 \begin{lemma}
-  Let $\M$ be any model class and let $\M'\subseteq \M$ be a sub-model with the following properties:
+Let $\M$ be a prefix model class where for every $x\in\X$ there is a singleton model $f\in\M$ with $f(\epsilon)=x$. Then there is an enumeration $\phi_1,\phi_2,\ldots$ of the prefix partial recursive functions, and a constant $c$, such that
+\[
+K(x)-S^{\M,\phi}(x)\le c
+\]
+for all $x\in\X$.
+\end{lemma}
+\begin{proof}
+Let $\psi_1,\psi_2,\ldots$ be any default enumeration of the partial recursive prefix functions. Note that since $f$ is a prefix function, if $f$ is defined for input $\epsilon$ then it cannot be defined for any other input. Pick $f,x$ with $f(\epsilon)=x$. Note that $x$ can be computed from $f$ and a fixed program, so there is a $c$ such that $K(x)\le K(f)+c$. Vice versa, given any $x$ we can construct an index of $f$, since $\psi$ is an acceptable numbering. Therefore $|K(f)-K(x)|\le c$.
+
+We now define a computable function $D$ by $D(\bar\imath p)=j$ where $\psi_j(\epsilon) = \psi_i(p)$.  We will show that the two conditions of Lemma~\ref{lem:thecoolone} hold for the prefix function $D$.
+
 \begin{enumerate}
-  \item There exists a (non-optimal) computable numbering $\psi_1, \psi_2, \ldots$ for $M'$,
-  \item $L^{\M'}(x)-L^{\M}(x)\le c$ for some constant $c$, all $x$.
+\item Let $f$ be any function in the range of $D$, and $x$ its output. Then $\min\{|p|:\psi_{D(p)}=f\}=\min\{|\bar\imath q|:\psi_i(q)=x\}=K(x)\le K(f)+c$.
+\item On the one hand $L^{\M',\psi}(x)\le K(f)+|\epsilon|\le K(x)+c$. On the other hand, $L^{\M,\psi}(x)$ is an effective description of $x$, so $K(x)$ is at most a constant larger.
+Together, these inequalities establish the second condition.
 \end{enumerate}
-Then there is an enumeration $\phi_1,\phi_2,\ldots$ such that $|F^{\psi}_{\M'} - \leq F^{\phi}_{\M}| \leq c$ for infinitely many $x$.
-\end{lemma}
-\begin{proof}
 
+Then by Lemma~\ref{lem:thecoolone} there is an enumeration $\phi_1,\phi_2,\ldots$ such that $S^{\M,\phi}(x)=|\bar 0|+S^{\M',\psi}(x)$. We observed that $|K(f)-K(x)|\le c$ for any $f\in\M'$, so $S^{\M',\psi}(x)\ge K(x)+c$. This proves the lemma.
 \end{proof}
 
-\hrule
-\begin{lemma}
-  Let $\M$ be a model class with the property that there is a constant $c$ and a computable function $g$ such that for all $x$ we have $\gamma(x\mid g(x))\le c$.
-  For such model classes, there are acceptable enumerations $\phi_1,\phi_2,\ldots$ of the partial recursive functions for which $K^{\M,\phi}(x)-F^{\M,\phi}(x)$ is bounded.
-\end{lemma}
-\begin{proof}
-  
-\end{proof}
+Plan: een lemma voor total/niet prefix dat laat zien mbv pigeonhole dat facticity juist bounded of juist unbounded kan zijn. De ene kant op gaat dat met de print functie (klein model, grote data). De andere kant op is moeilijk
 
-\begin{lemma}
-  Let $\M$ be a model class with the property that there is a constant $c$ and a model $f$ such that for all $x$ the counterevidence satisfies $\gamma(x\mid f)\le c$.
-  For such model classes, there are acceptable enumerations $\phi_1,\phi_2,\ldots$ of the partial recursive functions for which $F^{\M,\phi}(x)$ is bounded.
-\end{lemma}
-
-
-
-
-
-
-
-\begin{definition}
-  Given a model class $\M$, a representation $(f,y)$ with $f\in\M$ is said to be \emph{$c$-optimal} if
-\[
-K(f)+|y|\le \min_{f',y':f'(y')=f(y)}\left(K(f')+|y'|\right)+c.
-\]
-\end{definition}
-
-\begin{lemma}
-  Let $\M$ be a model class with the property that there are $c,y$ such that for all $x$ there is an $f$ such that $f(y)=x$ and $(f,y)$ is $c$-optimal.
-  For such model classes, there are acceptable enumerations $\phi_1,\phi_2,\ldots$ of the partial recursive functions for which $K^{\M,\phi}(x)-F^{\M,\phi}(x)$ is bounded.
-\end{lemma}
-
-\begin{lemma}
-  Let $\M$ be a model class with the property that there are $c,f$ such that for all $x$ there is an $y$ such that $f(y)=x$ and $(f,y)$ is $c$-optimal.
-For such model classes, there are acceptable enumerations $\phi_1,\phi_2,\ldots$ of the partial recursive functions for which $F^{\M,\phi}(x)$ is bounded.
-\end{lemma}
-
-
-
-
-
-\begin{definition}
-We call a version of Sophistication $F^\phi$ \emph{bounded} if its ad-hoc choices (the enumeration $\phi$) can be chosen so that
-\[
-	\exists c \forall x: F^\phi(x) \leq c \p
-\]
-Similarly, we call $F^\phi(x)$ \emph{top-heavy} if there exists a $\phi_1, \phi_2, \ldots$ such that
-\[
-	\exists c \forall x: F^\phi(x) \geq K^F(x) - c 
-\]
-Where $K^F$ is the two-part coding minimized within $F$.
-\end{definition}
-
-If some $F$ is either top-heavy, or unbounded we can show that it must either lack invariance, or be useless as a measure of model complexity. If the property proved holds for all enumerations $\phi$, and not just a single one, the sophistication is either bounded, or the same as the Kolmogorov complexity. If the measure is not bounded or top-heavy for other enumerations, the difference between the two is unbounded, and $F$ is not invariant. 
-
-One of the earliest proposals to separate structure and content was the Kolmogorov structure function \cite{TODO}. The following is the version of sophistication it leads to. 
-\begin{definition}
-\[
-	S^\phi(x) = K(S^*) \,\tn{where }\, (S, i) = \argmin_{(S, i)\,:\,\text{$S$ is a finite set},\,S_i = x} K(S) + |i|
-\]
-\end{definition}
-
-\begin{theorem}
-There exist acceptable numberings $\phi_1, \phi_2, \ldots$ for which $S^\phi$ is top-heavy.
-\end{theorem}
-\begin{proof}
-Let $\psi_1, \psi_2, \ldots$ be some acceptable numbering. Define $\psi$ as 
-\begin{align*}
-\phi_{0\bar\imath p}(\epsilon) &= \{\psi_i(p)\} \\
-\phi_{1ri}(p) &= \psi_i(p)\\ 
-\phi_j(x) = \infty \,\text{if $j$ cannot be decoded as above}
-\end{align*}
-For any $x$ with $\psi$-description $(i, p)$, that is is $\psi_i(p) = x$, we have two representations in $\phi$. Firstly, we have $\{x\}, 1$ with description length $K^\psi(x) + 2$. Secondly, we have a representation in $K^\psi{x} + r$. By choosing $r$ sufficiently large, the first representation will always win.
-\end{proof}
 
 
 \bibliographystyle{plain}
