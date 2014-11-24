@@ -49,6 +49,9 @@ In this paper we show this to be an impossible dream: in general, additional ass
 
 \section{Definitions}
 
+
+All numberings should be acceptable!
+
 \begin{definition}[Models and model classes]
   A \emph{model} is a function $f:\{0,1\}^*\to\{0,1\}^*$. A
   \emph{model class} is a set of models. We distinguish four important
@@ -67,18 +70,32 @@ In this paper we show this to be an impossible dream: in general, additional ass
   \end{itemize}
 \end{definition}
 
-\begin{definition}[Enumerations]
-  Let $\phi_1,\phi_2,\ldots$ be a fixed acceptable enumeration of all partial
-  recursive functions, e.g. the enumeration described in \cite{TODO}.  
+\begin{definition}[Prefix encoding function]
+  A prefix encoding function $f:\{0,1\}^*\to\{0,1\}^*$ is an injective
+  function that maps the binary strings to a prefix-free set. There
+  are prefix encoding functions $g$ with the property that
+  $|g(x)|\le|x|+2\log(|x|+2)|$ \cite{TODO}. We fix such a function and
+  denote it by $\bar x=g(x)$.
 \end{definition}
+
+\begin{definition}[Complexity]
+  Let $\phi_1,\phi_2,\ldots$ be a fixed acceptable enumeration of all partial
+  recursive functions, e.g. the enumeration described in \cite{TODO}.
+  Let $\Pi$ be a computable subset of the natural numbers such that
+  $\{\phi_i:i\in\Pi\}$ contains all computable prefix functions. Now
+  define Kolmogorov complexity by
+\begin{align*}
+C(x)&=\min\{|\bar\imath| y:\phi_i(y)=x\},\\
+K(x)&=\min\{|\bar\imath| y:\phi_i(y)=x, i\in\Pi\}.\\
+\end{align*}
+\end{definition}
+This definition of $K$ is equivalent to the definition in the
+textbook~\cite{TODO}, but it is more convenient for defining the
+$K$-complexity of non-prefix functions:
 
 \begin{definition}[Representations]
   A pair $(m,y)$ is a \emph{representation} for $x$ if $m$ is a model
-  and $m(y)=x$. Given a model class $\M$, define the set of all
-  representations for $x$:
-  \[
-  R^\M(x):=\{(m,y):m\in\M, m(y)=x\}.
-  \]
+  and $m(y)=x$.
 \end{definition}
 
 \begin{definition}[Code length functions]
@@ -94,29 +111,260 @@ Define the following code length functions for the representations:
 \end{definition}
   
 \begin{definition}[Candidate set]
-  The \emph{candidate models} for $x$ from model class $\M$ are
+  The \emph{candidate models} for $x$ from model class $\M$ and
+  threshold function $\tau$ are
   \[
-  C^\M_c(x):=\{m\in\M:L^m(x)\le L^\M(x)+c\}.
+  C^\M_\tau(x):=\{m\in\M:L^m(x)\le \tau(x)\}.
   \]
 \end{definition}
 
 \begin{definition}[Sophistication]
   The model complexity, sophistication, or facticity, of a string $x$
-  given a model class $\M$ and a constant $c$ is defined by
+  given a model class $\M$ and threshold function $\tau$ is defined by
   \[
-  S^\M_c(x):=\min\{L(m):m\in C^\M_c(x)\}.
+  S^\M_\tau(x):=\min\{L(m):m\in C^\M_\tau(x)\}.
   \]
 \end{definition}
 
-\begin{definition}[Prefix encoding function]
-  A prefix encoding function $f:\{0,1\}^*\to\{0,1\}^*$ is an injective
-  function that maps the binary strings to a prefix-free set. There
-  are prefix encoding functions $g$ with the property that
-  $|g(x)|\le|x|+2\log(|x|+2)|$ \cite{TODO}. We fix such a function and
-  denote it by $\bar x=g(x)$.
+\section{Measures of meaningful information}
+
+\subsection{Koppel Sophistication}
+
+\begin{itemize}
+\item Model class is $\T$
+\item Threshold function $\tau(x)=L^\M(x)+c$
+\item Description method for models is required to be prefix-free, but
+  can otherwise be chosen arbitrarily.
+\item Koppel uses monotone complexity and discusses infinite strings,
+  TODO figure out if and how this affects our results
+\end{itemize}
+
+This does not work because of the nickname problem! To fix this:
+
+\begin{definition}
+  The complexity of a partial recursive function is defined by
+  \begin{align*}
+    C(f) &:= \min\{C(i):\phi_i=f\}\\
+    K(f) &:= \min\{K(i):\phi_i=f\}.
+  \end{align*}
 \end{definition}
 
-\paragraph{Kolmogorov's Structure Function}
+These definitions make sense because:
+
+\begin{lemma}[Invariance]
+Let $\phi_1, \phi_2, \ldots$ and $\psi_1, \psi_2,\ldots$ be two acceptable numberings. There exists a constant $c$ such that $\left| K^\phi(f) - K^\psi(f)\right | \leq c$ for all $f$. \label{lemma:invariance}
+\end{lemma}
+\begin{proof}
+Let $g(i)$ be the function which which translates from $\psi$ to $\phi$.
+\begin{align*}
+K^\phi(f) &= \min\left\{ K^\phi(i) : \phi_i= f\right\} \\
+&\geq \min\left\{ K^\psi(i) : \phi_i= f\right\} - c\\
+&= \min\left\{ K^\psi(i) : \psi_{g(i)}= f\right\} - c\\
+&\geq \min\left\{ K^\psi(i) : \psi_i= f\right\} - c\\
+&= K^\psi(f).
+\end{align*}
+We can reverse $\phi$ and $\psi$ without loss of generality to achieve the same inequality the other way around, completing the proof.
+\end{proof}
+
+Thus, the complexity of a function depends on the choice of
+enumeration by no more than a constant term. Note that this implies
+that for any enumeration $\psi_1,\psi_2,\ldots$, the complexity $K(\psi_i)$
+is less than the literal description length of the index
+$|\bar\imath|$ up to a constant. For some numberings, there is a gap
+between these two description methods; in those cases, the index is an
+inefficient representation of the corresponding function. However it
+is possible to construct numberings that are \emph{faithful} in the
+sense that no such gap exists:
+
+\begin{definition}[Faithful Numbering]\label{def:faithful}
+  A numbering $\psi_1,\psi_2,\ldots$ of the partial recursive
+  functions is \emph{faithful} if there is a constant $c$ such that
+  for all indices $i$ there is a $j$ such that $\psi_i=\psi_j$ and
+  $|j|\le C(\psi_j)+c$.
+\end{definition}
+
+\begin{lemma}
+  There is a faithful acceptable numbering.
+\end{lemma}
+\begin{proof}
+Let $i_\tn{div}(y)$ be an index such that $\phi_{i_\tn{div}}(y)=\infty$ for all $y$. Define
+  \[\psi_q=\begin{cases}
+    \phi_{\phi_i(p)}&\tn{if $q$ can be written as $\bar\imath p$ and $\phi_i(p)<\infty$,}\\
+    \phi_{i_\tn{div}}&\tn{otherwise.}\end{cases}
+  \]
+  To show that $\psi$ is faithful, pick any function $f$. Then
+\[\begin{split}
+C(f)&=\min\{C(i):\phi_i=f\}\\
+&=\min\{\min\{|\bar a b|:\phi_a(b)=i\}:\phi_i=f\}\\
+&=\min\{|\bar a b|:\phi_{\phi_a(b)}=f\}\\
+&=\min\{|\bar a b|:\psi_{\bar a b}=f\}.
+\end{split}\]
+This shows there is a sufficiently small $\psi$ index.
+
+To show that $\psi$ is acceptable, let $\phi_j$ denote the identity
+function. Then a $\phi$-index $i$ can be mapped to a $\psi$-index
+using the computable function $r(i)=\bar\jmath i$, so that
+$\psi_{r(i)}(y)=\psi_{\bar\jmath i}(y)=\phi_i(y)$. For the reverse,
+define $\phi_v(\bar\imath p, y)=\phi_{\phi_i(p)}(y)$. For fixed
+$\bar\imath p$, the 
+$s^n_m$-theorem (see~\cite{TODO}) states that we can compute the $h$
+such that $\phi_h(y)=\phi_v(\bar\imath p,y)$. Let $h(\bar\imath p)$
+denote this index as a function of the program; further define
+$h(q)=i_\tn{div}$ if $q$ cannot be expressed as $\bar\imath p$. By
+construction $h$ is total and computable. To check that the mapping
+returns the correct function, rewrite $\phi_{h(\bar\imath
+  p)}(y)=\phi_v(\bar\imath p,y)=\phi_{\phi_i(p)}(y)=\psi_{\bar\imath p}(y)$.
+\end{proof}
+
+\subsection{Antunes's Coarse Sophistication}
+
+\begin{itemize}
+\item Model class is $\T$
+\item Description method $L(m)$ for models is unclear, but appears to be
+  taken from Koppel, i.e. arbitrary but self-delimiting.
+\item Sophistication is defined slightly differently: $S^\T(x)=L(m^*)$ where $m^*=\argmin_m L(m)+L^m(x)-C(x)$. Thus, there is no slack.
+\end{itemize}
+
+
+\subsection{Adriaans' Facticity}
+
+\begin{itemize}
+\item Model class is $\C$
+\item Description method for models is $L(m)=|\bar\imath|$ where
+  $\phi_i=m$. The index function is assumed to be \emph{faithful}, see
+  Definition~\ref{def:faithful}
+\item Threshold function is $\tau(x)=L^m(x)$.
+\item Facticity is actually defined as index length without prefix
+  encoding:  $S^\C_0(x):=\min\{|i|:\phi_i\in C^\C_0(x)\}$. But this
+  difference is not important for the discussion.
+\end{itemize}
+
+
+\begin{lemma}
+  If $\min\{i\ge i_0:|\bar\imath|-K(i)\}$ is an unbounded function of $i_0$, then facticity is bounded.
+\end{lemma}
+\begin{proof}
+Let $\bar\imath p$ be any two-part representation for the data $x$, i.e. $\phi_i(p)=x$. Then construct an alternative two-part representation $\bar vi^* p$, where $i^*$ is the shortest $\psi_u$-program for $i$ such that $\phi_v(i^* p)=\phi_{\psi_u(i^*)}(p) = \phi_i(p)=x$. We compare the lengths of these two representations. Note that $|i^*|=K^\psi(i)$. Therefore,
+\[
+|\bar\imath p|-|\bar v i^* p| = |\bar\imath|-|\bar v| - |i^*| = |\bar\imath|-|\bar v|-K(i).
+\]
+By assumption there must be an $i_0$ such that the above expression is positive for all $i>i_0$. From this $i$ onwards, the second representation (using $v$) will have a shorter code length, so $\bar\imath p$ cannot achieve the minimum in the definition of the facticity. Consequently, the facticity is bounded by $F^\phi(x)<|\overline{\imath_0}|$ for all $x$. 
+\end{proof}
+Note that the condition for this lemma applies to all known partial recursive prefix functions:
+
+\begin{conjecture}
+For any partial recursive prefix code length function $L$, the function
+\[
+\min\{L(i)-K(i):i\ge i_0\}
+\]
+is unbounded in $i_0$.
+\end{conjecture}
+
+
+\subsection{Roll your own}
+
+
+\begin{itemize}
+\item Model class is either $\C$ or $\K$
+\item Description method for models is $L(m)=K(m)$.
+\item Threshold function is $\tau(x)=L^m(x)+c$, which matches $C(x)$
+  resp. $K(x)$ up to a constant.
+\end{itemize}
+
+
+\begin{lemma}\label{lem:thecoolone}
+  Let $\psi_1,\psi_2,\ldots$ be any acceptable enumeration of the partial recursive functions.
+  Let $\M$ be any model class, let $\X$ be any set of binary sequences and let $D:\{0,1\}^*\to\N$ be a computable decoding function with a prefix-free domain that maps function descriptions to their indices in $\psi$, i.e. if $f=\psi_{D(p)}$ then $p$ is a $D$-description of $f$. Let $\M'=\{\psi_i:i\in\tn{range}(D)\}$. Further assume there is a constant $c$ such that
+\begin{enumerate}
+  \item $\forall_{f\in\M'}:\min\{|p|:\psi_{D(p)}=f\}\le K^\psi(f)+c$
+  \item $\forall_{x\in\X}:L^{\M',\psi}(x)-L^{\M,\psi}(x)\le c$.
+\end{enumerate}
+Then is an enumeration $\phi_1,\phi_2,\ldots$ of the partial recursive functions such that $S^\phi_{\M}(x) = |\bar 0|+S^\psi_{\M'}(x)$ for all $x\in\X$.
+\end{lemma}
+\begin{proof}
+We define the numbering $\phi$ as follows:
+\[\begin{cases}
+\phi_0(p) = 1^r 0 D(p) \\
+\phi_{1^r0i}(p) = \psi_i(p) \\
+\phi_j(\cdot) = \infty &\text{if $j$ contains no zeroes.}
+\end{cases}\]
+We will show that under the $\phi$-enumeration, the best representation for $x$ using a model $f\in\M'$ is always better than the best representation using some $f\not\in\M'$.
+
+First suppose $f\in\M'$. Then
+\[\begin{split}
+K^\phi(f)&=\min\{K^\phi(i):\phi_i=f\}\\
+&=\min\{|\bar\jmath q|:\phi_j(q)=i, \phi_i=f\}\\
+&=\min\{|\bar\jmath q|:\phi_{\phi_j(q)}=f\}\\
+&\le\min\{|\bar0 q|:\phi_{\phi_0(q)}=f\}~\text{(using $j=0$)}\\
+&=\min\{|\bar0 q|:\phi_{1^r0 D(q)}=f\}\\
+&=|\bar 0|+\min\{|q|:\psi_{D(q)}=f\}\\
+&\le K^\psi(f)+c+|\bar 0|,
+\end{split}
+\]
+where the last inequality uses the first assumption.
+
+
+Now assume that the best model $f$ for $x$ is not in $\M'$. 
+Let $i$ be the index of $f$ with the shortest description, i.e. it achieves the minimum in
+\[
+K^\phi(f)=\min\{K^\phi(i):\phi_i=f\}.
+\]
+There are two possibilities. Either $i=0$, in which case we have $K^\phi(f)\ge r$ because $\phi_0$ cannot output zero and all other $\phi$-programs are at least $r$ bits long.
+
+Otherwise, we can bound
+\[\begin{split}
+K^\phi(f)&=K^\phi(i)=K^\phi(1^r0j)\\
+&\ge K^\phi(j)-c'\\
+&\ge K^\psi(j)+r+1-c'\\
+&\ge\min\{K^\psi(j):\phi_j=f\}+r+1-c'\\
+&=K^\psi(f)+r+1-c'.
+\end{split}
+\]
+Now choose $r=c''+\max\{K^\psi(\phi_0),c'-1\}$. Then substitution yields, for both cases, 
+$K^\phi(f)\ge c''+K^\psi(f)$.
+
+Combining the inequalities above, for any model $g\not\in\M'$, there is a model $f\in\M$ such that
+\[\begin{split}
+K^\phi(g)+C^g(x) &\ge K^\psi(g)+C^g(x)+c''\\
+&\ge K^\psi(f)+C^f(x)-c+c''\\
+&\ge K^\phi(f)+C^f(x) -2c+c'' -|\bar0|.
+\end{split}\]
+
+By choosing $c''$ sufficiently large, we can ensure that the best representation is in $\M'$ for all $x\in\X$, which completes the proof.
+\end{proof}
+
+\paragraph{TODO: instantiate for UTM}
+
+\begin{itemize}
+\item Model class is $\K$
+\item Description method for models is $L(m)=K(m)$.
+\item Threshold function is $\tau(x)=L^m(x)+c$, which matches $K(x)$
+  up to a constant.
+\end{itemize}
+
+
+\begin{lemma}
+Let $\M$ be a prefix model class where for every $x\in\X$ there is a singleton model $f\in\M$ with $f(\epsilon)=x$. Then there is an enumeration $\phi_1,\phi_2,\ldots$ of the prefix partial recursive functions, and a constant $c$, such that
+\[
+K(x)-S^{\M,\phi}(x)\le c
+\]
+for all $x\in\X$.
+\end{lemma}
+\begin{proof}
+Let $\psi_1,\psi_2,\ldots$ be any default enumeration of the partial recursive prefix functions. Note that since $f$ is a prefix function, if $f$ is defined for input $\epsilon$ then it cannot be defined for any other input. Pick $f,x$ with $f(\epsilon)=x$. Note that $x$ can be computed from $f$ and a fixed program, so there is a $c$ such that $K(x)\le K(f)+c$. Vice versa, given any $x$ we can construct an index of $f$, since $\psi$ is an acceptable numbering. Therefore $|K(f)-K(x)|\le c$.
+
+We now define a computable function $D$ by $D(\bar\imath p)=j$ where $\psi_j(\epsilon) = \psi_i(p)$.  We will show that the two conditions of Lemma~\ref{lem:thecoolone} hold for the prefix function $D$.
+
+\begin{enumerate}
+\item Let $f$ be any function in the range of $D$, and $x$ its output. Then $\min\{|p|:\psi_{D(p)}=f\}=\min\{|\bar\imath q|:\psi_i(q)=x\}=K(x)\le K(f)+c$.
+\item On the one hand $L^{\M',\psi}(x)\le K(f)+|\epsilon|\le K(x)+c$. On the other hand, $L^{\M,\psi}(x)$ is an effective description of $x$, so $K(x)$ is at most a constant larger.
+Together, these inequalities establish the second condition.
+\end{enumerate}
+
+Then by Lemma~\ref{lem:thecoolone} there is an enumeration $\phi_1,\phi_2,\ldots$ such that $S^{\M,\phi}(x)=|\bar 0|+S^{\M',\psi}(x)$. We observed that $|K(f)-K(x)|\le c$ for any $f\in\M'$, so $S^{\M',\psi}(x)\ge K(x)+c$. This proves the lemma.
+\end{proof}
+
+\subsection{Kolmogorov's Structure Function}
 
 \begin{itemize}
 \item Model class is $\F$
@@ -125,17 +373,7 @@ Define the following code length functions for the representations:
   complexity for finite sets; discuss and refer to Shen \cite{TODO}.
 \end{itemize}
 
-\paragraph{Koppel Sophistication}
-
-\begin{itemize}
-\item Model class is $\T$
-\item Description method for models is required to be prefix-free, but
-  can otherwise be chosen arbitrarily.
-\item Koppel uses monotone complexity and discusses infinite strings,
-  TODO figure out if and how this affects our results
-\end{itemize}
-
-\paragraph{Vit\'anyi's Sophistication / Meaningful Information}
+\subsection{Vit\'anyi's Sophistication / Meaningful Information}
 
 \begin{itemize}
 \item Model class is $\T$
@@ -146,30 +384,10 @@ Define the following code length functions for the representations:
   exploiting the fact that the models do not need to be prefix functions.
 \end{itemize}
 
-\paragraph{Antunes's Coarse Sophistication}
-
-\begin{itemize}
-\item Model class is $\T$
-\item Description method for models is unclear, but appears to be
-  taken from Koppel, i.e. arbitrary but self-delimiting.
-\item Candidate set is defined differently:
-  $C^\T(x)=\{m^*\}$ where $m^*=\argmin_m L(m)+L^m(x)-C(x)$. Thus, there is no slack
-  variable and $C^\T$ contains only a single model.
-\end{itemize}
-
-\paragraph{Adriaans' Facticity}
-
-
-\begin{itemize}
-\item Model class is $\C$
-\item Description method for models is $L(m)=|\bar\imath|$ where
-  $\phi_i=m$. The index function is assumed to be \emph{faithful},
-  i.e. there is a constant $c$ such that $|i|-C(i)\le c|$ for all $i$.
-\item Candidate set is $C^\C_0$.
-\item Facticity is actually defined as index length without prefix
-  encoding:  $S^\C_0(x):=\min\{|i|:\phi_i\in C^\C_0(x)\}$. But this
-  difference is not important for the discussion.
-\end{itemize}
+% stru fu: model class is all finite sets
+% code length L(m)+L_m(x)
+% acceptability criterion acc(m) = 2L(m)+L_m(x)-C(x)
+% 
 
 
 \section{Notes}
@@ -237,7 +455,7 @@ Er is een gat tussen $K(f)+|y|-K(x)$ en $\delta(x\mid f)$. De laatste is de juis
 \section{Thoughts and questions}
 
 \begin{itemize}
-\item Paul argues that the randomness deficiency of a model is a measure of the amount of structure left in the noise part. I feel that it is also a measure of the amount of counterevidence against a model in the statistical sense, as follows: the randomness deficiency of $x$ given model $M$ is $\delta(x|M)=L_M(x)-K(x|M)$. Suppose that model $M$ is true. We can then use the no hypercompression inequality to rewrite:
+\item Paul argues bleurg that the randomness deficiency of a model is a measure of the amount of structure left in the noise part. I feel that it is also a measure of the amount of counterevidence against a model in the statistical sense, as follows: the randomness deficiency of $x$ given model $M$ is $\delta(x|M)=L_M(x)-K(x|M)$. Suppose that model $M$ is true. We can then use the no hypercompression inequality to rewrite:
 %
 \[
 P_{x\sim M}(\delta(x|M)\ge c) = P_{x\sim M}(L_M(x) - K(x|M) \ge c)\le 2^{-c}
@@ -254,101 +472,8 @@ Thus, if $M$ is true the probability of a large randomness deficiency is exponen
 
 \end{itemize}
 
-\begin{definition} An enumeration $\phi_1,\phi_2,\ldots$ of the partial recursive functions is called \emph{compact} if for all $i,y$ there is a $j$ such that $|j|\le|i y|$ and $\phi_i(y z)=\phi_j(z)$ for all $z$.
-\end{definition}
-
-\begin{lemma}
-There is a compact acceptable numbering.
-\end{lemma}
-\begin{proof}
-  Let $\phi_1,\phi_2,\ldots$ be any acceptable numbering. Let $\psi_1,\psi_2,\ldots$ be a new acceptable numbering defined by $\psi_j(x)=\phi_i(y x)$ if $j$ is a pair satisfying $j=\bar\imath y$, and $\psi_j(x)=\infty$ otherwise.  We will show that $\psi$ is both $0$-compact and acceptable. 
-
-To show compactness, pick any index $i$ and binary string $y$. First assume $i$ is a valid pair $i=\bar a b$. Then  $\psi_i(y x) = \psi_{\bar a b}(y x)=\phi_a(b y x)$, but also $\psi_{\bar a b y}(x)=\phi_a(b y x)$, so $\psi_i(y x) = \psi_j(x)$ for $j=\bar a b y$; so $|j|=|iy|+0$. On the other hand, if $i$ is not a valid pair, we can simply use $j=i$ so that $\psi_i(y x)=\psi_j(x)=\infty$ for all $x$.
-
-To show that $\psi_1,\psi_2,\ldots$ is acceptable, we define total computable functions $f$ and $g$ such that $\psi_i(x)=\phi_{f(i)}(x)$ and $\phi_j(x)=\psi_{g(j)}(x)$. The easy direction is $g(j)=\bar\jmath\epsilon$. The definition of the mapping in the other direction $f(i)$ depends on whether $i$ is a valid pair. If it is not, then $f(i)=h$ for some $h$ such that $\phi_h(x)=\infty$ for all $x$. On the other hand if $i=\bar\jmath y$, then $f(i)$ is the index of a partial recursive function $\phi_{f(i)}(x)$ defined by a Turing machine that simulates the machine for $\phi_j$ but with $yx$ on the input tape.
-\end{proof}
-
-\begin{lemma}[Framework equivalence]
-Let $\phi_1,\phi_2,\ldots$ be a compact effective enumeration. There is a constant $c$ such that for any index $i$ there is another index $j$ with $\phi_j(x)=\phi_i(x)$ for all $x$, and
-\[|j|\le K(i)+2\log(K(i))+c.\]
-\end{lemma}
-\begin{proof}
-First, let $v$ be the index of the partial recursive function given by $\phi_v(\bar k\bar p x)=\phi_{\phi_k(p)}(x)$. Let $\bar k p$ be a shortest program for $i$, that is $|\bar k p| = K(i)$ and $\phi_k(p)=i$. Then $\phi_i(x)=\phi_v(\bar k \bar p x)$. We now use compactness to find an index $j$ with $\phi_v(\bar k \bar p x)=\phi_j(x)$ and length
-\[|j|\le |v\bar k\bar p|\le|v|+|\bar k p|+2\log|\bar k p|=K(i)+|v|+2\log K(i),\]
-as required.
-\end{proof}
-
-We need a definition of $K(f)$. We adopt the definition given in \cite{TODO}:
-
-\begin{definition}
-  The Kolmogorov complexity of a partial recursive function is defined as
-  \[
-  K(f) = \min\{K(i):\forall_x \phi_i(x)=f(x).\}
-  \]
-\end{definition}
-
-It is not immediately clear that this is a reasonable definition of the shortest effective description of a function, but fortunately this is indeed the case:
-
-\begin{lemma}[TODO: $i$ moet prefix encoded zijn, anders klopt t niet. Ook beetje moeilijk te begrijpen]
-Let $\psi_1,\psi_2,\ldots$ be any acceptable numbering. There is a constant $c$ such that for any $i$ with $\psi_i(x)=f(x)$ for all $x$, the description length satisfies $K^\phi(f)\le |i|+c$.
-\end{lemma}
-\begin{proof}
-The numbering is acceptable, so there is a total computable function $\phi_r$ that maps indices in the $\psi$-enumeration to indices in the $\phi$-enumeration. Let $j=\phi_r(i)$. Then $\bar r i$ is a program for $j$, so $K(j)\le |\bar r i| = |i|+c$. Now,
-\[
-K(f)=\min\{K(k):\forall_x\phi_k(x)=f(x)\}\le K(j)\le|i|+c
-\]
-as required.
-\end{proof}
-
-\begin{lemma}[Invariance]
-Let $\phi_1, \phi_2, \ldots$ and $\psi_1, \psi_2,\ldots$ be two acceptable numberings. There exists a constant $c$ such that $\left| K^\phi(f) - K^\psi(f)\right | \leq c$ for all $f$. \label{lemma:invariance}
-\end{lemma}
-\begin{proof}
-Let $g(i)$ be the function which which translates from $\psi$ to $\phi$.
-\begin{align*}
-K^\phi(f) &= \min\left\{ K^\phi(i) : \phi_i= f\right\} \\
-&\geq \min\left\{ K^\psi(i) : \phi_i= f\right\} - c\\
-&= \min\left\{ K^\psi(i) : \psi_{g(i)}= f\right\} - c\\
-&\geq \min\left\{ K^\psi(i) : \psi_i= f\right\} - c\\
-= K^\psi(f)
-\end{align*}
-We can reverse $\phi$ and $\psi$ without loss of generality to achieve the same inequality the other way around, completing the proof.
-\end{proof}
-
-\begin{lemma}[TODO: is het niet leuker om te zeggen dat het altijd bounded is? Krijgen we dat kado van een later lemma?]
-There is an acceptable numbering $\psi_1,\psi_2,\ldots$ such that $F^\psi(x)=|\bar 1|$ for all $x$.
-\end{lemma}
-\begin{proof}
-Let $\phi_1,\phi_2,\ldots$ be another acceptable numbering given by
-\[
-\phi_i(x)=\begin{cases}
-u&\tn{if $i=1$}\\
-\infty&\tn{if $1<i<r$}\\
-\psi_{i-r+1}(x)&\tn{if $i\ge r$}.
-\end{cases}\]
-Here $u\ge r$ is the index of the universal element satisfying $\phi_u(\bar\jmath p)=\psi_j(p)$.
-Now the two-part codelength of $x$ using representation $\phi_u$ is
-\[\begin{split}
-K(\phi_u)+\min\{|y|:\phi_u(y)=x\}&=\min\{K(i):\forall_x\phi_i(x)=\phi_u(x)\}+\min\{|y|:\phi_u(y)=x\}\\
-&=|\bar 1|+\min\{|\bar\jmath p|:\phi_u(\bar\jmath p)=x\}\\
-&=|\bar 1|+\min\{|\bar\jmath p|:\psi_j(p)=x\}\\
-&=|\bar 1|+K^\psi(x).
-\end{split}\]
-On the other hand, the two-part codelength of $x$ using a representation $s\ne u$ is
-\[\begin{split}
-K(\phi_s)+\min\{|y|:\phi_s(y)=x\}&=\min\{K(i):\forall_x\phi_i(x)=\phi_s(x)\}+\min\{|y|:\phi_s(y)=x\}\\
-&=c+\min\{|y|:\psi_{s-r+1}(y)=x\}\\
-\end{split}\]
-
-\end{proof}
-
-
-\begin{definition}[Facticity]
-  Let $\phi_1,\phi_2,\ldots$ be any effective enumeration of the partial recursive functions. Then
-  \[F^\phi(x)=|\bar\imath|\qquad\tn{where}\qquad \bar\imath p=\min\{\bar\jmath q:\phi_j(q)=x\}.
-  \]
-  Here the minimum is taken with respect to the standard ordering of binary sequences.
-\end{definition}
+\appendix
+\section{Dead darlings}
 
 \begin{definition}
 Given an enumeration $\phi_1,\phi_2,\ldots$ of the partial recursive functions, and an enumeration $\psi_1,\psi_2,\ldots$ of the partial recursive prefix functions. Let $\psi_u$ be a universal element with property $\psi_u(\bar\imath p)=\psi_i(p)$. Then define $v$ by
@@ -363,73 +488,6 @@ The function $v=\phi_v$ as defined above is partial recursive.
 \begin{proof}
 Let $r$ be the input of $v$. Simulate $\psi_u$ using a TM with a one-way read-only input tape. If the TM does not halt, then enter an infinite loop. Otherwise, let $r=ap$ where $a$ is the part of the input tape that has been read when the TM halts, and let $i$ be the output of the TM. Now simulate $\phi_i$ on input $p$.
 \end{proof}
-
-\begin{lemma}
-  If $\min\{i\ge i_0:|\bar\imath|-K(i)\}$ is an unbounded function of $i_0$, then facticity is bounded.
-\end{lemma}
-\begin{proof}
-Let $\bar\imath p$ be any two-part representation for the data $x$, i.e. $\phi_i(p)=x$. Then construct an alternative two-part representation $\bar vi^* p$, where $i^*$ is the shortest $\psi_u$-program for $i$ such that $\phi_v(i^* p)=\phi_{\psi_u(i^*)}(p) = \phi_i(p)=x$. We compare the lengths of these two representations. Note that $|i^*|=K^\psi(i)$. Therefore,
-\[
-|\bar\imath p|-|\bar v i^* p| = |\bar\imath|-|\bar v| - |i^*| = |\bar\imath|-|\bar v|-K(i).
-\]
-By assumption there must be an $i_0$ such that the above expression is positive for all $i>i_0$. From this $i$ onwards, the second representation (using $v$) will have a shorter code length, so $\bar\imath p$ cannot achieve the minimum in the definition of the facticity. Consequently, the facticity is bounded by $F^\phi(x)<|\overline{\imath_0}|$ for all $x$. 
-\end{proof}
-Note that the condition for this lemma applies to all known partial recursive prefix functions:
-
-\begin{conjecture}
-For any partial recursive prefix code length function $L$, the function
-\[
-\min\{L(i)-K(i):i\ge i_0\}
-\]
-is unbounded in $i_0$.
-\end{conjecture}
-
-\begin{definition}[Model complexity]
-Given a model class $\M$, the model complexity of a data sequence $x$ is given by
-\[G(x)=K(f^*)\qquad\tn{where}\qquad (f^*,p^*)=\argmin_{f,p:f\in\M, f(p)=x}(K(f)+|p|),
-\]
-where ties are broken by picking a model $f^*$ of minimal complexity.
-\end{definition}
-
-\begin{theorem}
-There are enumerations $\phi_1,\phi_2,\ldots$ and $\psi_1,\psi_2,\ldots$ of the partial recursive (prefix) functions such that for every constant $c$ there is a binary sequence $x$ with
-\[
-|G^\phi(x)-G^\psi(x)|>c
-\]
-\end{theorem}
-
-\begin{lemma}
-There is an acceptable numbering $\phi_1,\phi_2,\ldots$ of all partial recursive prefix functions, and a constant $c$ such that for all $n$ we have $G^\phi(x)<c$ for more than half of all strings $x$ of length $n$ with respect to the model class of all partial recursive prefix functions.
-\end{lemma}
-
-\begin{lemma}
-There is an enumeration $\phi_1,\phi_2,\ldots$ of the partial recursive prefix functions such that for every constant $c$ there is an $n_0$ such that for all $n>n_0$ we have $G^\phi(x)>c$ for more than half of all strings $x$ of length $n$ provided the model class contains programs for every singleton $x$.
-\end{lemma}
-
-\begin{theorem}
-There are enumerations $\phi_1,\phi_2,\ldots$ and $\psi_1,\psi_2,\ldots$ of the partial recursive prefix functions such that for every constant $c$ there is a binary sequence $x$ with
-\[
-|G^\phi(x)-G^\psi(x)|>c
-\]
-with respect to the model class of all partial recursive prefix functions.
-\end{theorem}
-
-
-\begin{definition}
-Let $\psi_1,\psi_2,\ldots$ be an arbitrary acceptable numbering of the partial recursive functions. Define
-\[
-B^n = \{ x : |x|=n~\tn{and}~n-c \le K^\psi(x) \le n+c \}
-\]
-\end{definition}
-
-\begin{lemma}
-  For sufficiently large $c$ the sets $B^n$ are nonempty for all $n$.
-\end{lemma}
-
-\begin{lemma}[Print function]
-  Let $\M$ be any model class that contains the identity function. There is an acceptable numbering $\phi_1,\phi_2,\ldots$ of the partial recursive functions such that for every $n$, all $x\in B^n$, 
-we have $G^\phi_M(x)=1$.
-\end{lemma}
 
 \begin{lemma}
 Assume the prefix function $\bar\cdot$ used in the definition of complexity is such that $\bar x-x$ is monotonically increasing. Let $\psi_1,\psi_2,\ldots$ be any acceptable numbering. Then for every $c$ there is another acceptable numbering $\phi_1,\phi_2,\ldots$ such that for all partial recursive functions $f$ we have
@@ -464,137 +522,37 @@ K^\phi(f) &= \min\left\{ K^\phi(j) : \phi_j = f \right\}& \\
 The proof is completed by choosing $r=c+c'-1$.
 \end{proof}
 
-\section{Unbounded and top-heavy sophistications}
-
 \begin{definition}
-We call a numbering $\eta_1,\eta_2,\ldots$ \emph{optimal} if there is a constant $c$ such that for all $i$, we have $\min\{|j|:\eta_i=\eta_j\} \leq K(\eta_i) + c$.
+  An enumeration $\phi_1,\phi_2,\ldots$ of the partial recursive
+  functions is called \emph{compact} if for all $i,y$ there is a $j$
+  such that $|j|\le|i y|$ and $\phi_i(y z)=\phi_j(z)$ for all $z$.
 \end{definition}
 
 \begin{lemma}
-There exists an acceptable, optimal numbering of the partial computable functions.
-\label{lemma:optimal-numbering}
+There is a compact acceptable numbering.
 \end{lemma}
 \begin{proof}
-Let $\psi_1, \psi_2, \ldots$ be some acceptable numbering, with some $\psi_{\text{div}}$ with is undefined for all its arguments. Let 
-\[\begin{cases}
-	\phi_{j} = \psi_{\text{div}} &\text{if $j$ can not be read as $\bar\imath p$}\\
-	\phi_{\bar\imath p} = \psi_{\psi_i(p)} &\text{if $\psi_i(p)$ is defined}\\
-	\phi_{\bar\imath p} = \psi_{\text{div}} & \text{otherwise}
-\end{cases}\]
+  Let $\phi_1,\phi_2,\ldots$ be any acceptable numbering. Let $\psi_1,\psi_2,\ldots$ be a new acceptable numbering defined by $\psi_j(x)=\phi_i(y x)$ if $j$ is a pair satisfying $j=\bar\imath y$, and $\psi_j(x)=\infty$ otherwise.  We will show that $\psi$ is both $0$-compact and acceptable. 
 
-\noindent To show that this numbering is acceptable, we must provide two computable functions to translate to and from a given acceptable numbering. We use $\psi$ for this purpose. To find a $\phi_j$ which corresponds to a given $\psi_i$, we can simply use the identity function $\psi_d(x) = x$. For a given $\psi_i$, the function $\phi_{\overline{d}i}$ computes the same function.
+To show compactness, pick any index $i$ and binary string $y$. First assume $i$ is a valid pair $i=\bar a b$. Then  $\psi_i(y x) = \psi_{\bar a b}(y x)=\phi_a(b y x)$, but also $\psi_{\bar a b y}(x)=\phi_a(b y x)$, so $\psi_i(y x) = \psi_j(x)$ for $j=\bar a b y$; so $|j|=|iy|+0$. On the other hand, if $i$ is not a valid pair, we can simply use $j=i$ so that $\psi_i(y x)=\psi_j(x)=\infty$ for all $x$.
 
-To translate from $\phi_j$ to $\phi_i$, we are faced with a problem. If we are given $j = \bar\imath p$, we cannot decide algorithmically whether $\psi_i(p)$ is defined. However, we can construct the function $\psi_r(\bar\imath p, q)$ such that it computes $\psi_r{\psi_i(p)}(q)$ if $\psi_i(p)$ is defined and is undefined otherwise, or if the first argument cannot be read as $\bar\imath p$. For a given $j$ we can also find an $r'$ such that $\psi_{r'}(q) = \psi_(j, q)$. Thus, given any $\phi_i$ we can construct and return this function.
-
-Finally, we'll show that the minimum length of an index for function $f$ in $\{\phi_i\}$ is equal to $K(f)$ up to a constant:
-\begin{align*}
-K^{\psi}(f) &= \min\left\{K^{\psi}(j)\,:\,\psi_j = f \right\} \\
-&= \min_j\left\{\min_{i, p} \{|\bar\imath p| \,:\,\psi_i(p) = j\} \,:\,\psi_j = f\right\} \\
-&= \min_{i, p} \left\{|\bar\imath p| \,:\,\psi_i(p) = j, \psi_j = f\right\} \\
-&= \min_j \left\{|j|\,:\, \phi_j = f \right\}
-\end{align*}
+To show that $\psi_1,\psi_2,\ldots$ is acceptable, we define total
+computable functions $f$ and $g$ such that $\psi_i(x)=\phi_{f(i)}(x)$
+and $\phi_j(x)=\psi_{g(j)}(x)$. The easy direction is
+$g(j)=\bar\jmath\epsilon$. The definition of the mapping in the other
+direction $f(i)$ depends on whether $i$ is a valid pair. If it is not,
+then $f(i)=h$ for some $h$ such that $\phi_h(x)=\infty$ for all $x$. On the other hand if $i=\bar\jmath y$, then $f(i)$ is the index of a partial recursive function $\phi_{f(i)}(x)$ defined by a Turing machine that simulates the machine for $\phi_j$ but with $yx$ on the input tape.
 \end{proof}
+
 
 \begin{lemma}
-Let $M$ be the class of \emph{singleton functions}, that is, the functions which produce a single output for all arguments, including the function which is undefined for all its arguments. There exists an optimal partial computable numbering of $M$.
+Compact numberings are sort of faithful.
 \end{lemma}
 \begin{proof}
-Let $\psi_1, \psi_2, \ldots$ be some acceptable numbering. Let $\phi_{\bar\imath p}(\cdot) = \psi_i(p)$ \ldots. 
+First, let $v$ be the index of the partial recursive function given by $\phi_v(\bar k p x)=\phi_{\phi_k(p)}(x)$. Let $\bar k p$ be a shortest program for $i$, that is $|\bar k p| = K(i)$ and $\phi_k(p)=i$. Then $\phi_i(x)=\phi_v(\bar k \bar p x)$. We now use compactness to find an index $j$ with $\phi_v(\bar k \bar p x)=\phi_j(x)$ and length
+\[|j|\le |v\bar k\bar p|\le|v|+|\bar k p|+2\log|\bar k p|=K(i)+|v|+2\log K(i),\]
+as required.
 \end{proof}
-
-\begin{definition}
-  Given a model $f$ and model class $\M$, define model-based complexities by
-  \begin{align*}
-  C^f(x) &= \min\{|y|:f(y)=x\} \text{,}\\
-  L^f(x) &= K(f)+C^f(x) \text{,}\\
-  L^{\M}(x) &= \min\{L^f(x)\mid f\in\M\}\text{.}
-  \end{align*}
-\end{definition}
-
-\begin{lemma}\label{lem:thecoolone}
-  Let $\psi_1,\psi_2,\ldots$ be any acceptable enumeration of the partial recursive functions.
-  Let $\M$ be any model class, let $\X$ be any set of binary sequences and let $D:\{0,1\}^*\to\N$ be a computable decoding function with a prefix-free domain that maps function descriptions to their indices in $\psi$, i.e. if $f=\psi_{D(p)}$ then $p$ is a $D$-description of $f$. Let $\M'=\{\psi_i:i\in\tn{range}(D)\}$. Further assume there is a constant $c$ such that
-\begin{enumerate}
-  \item $\forall_{f\in\M'}:\min\{|p|:\psi_{D(p)}=f\}\le K^\psi(f)+c$
-  \item $\forall_{x\in\X}:L^{\M',\psi}(x)-L^{\M,\psi}(x)\le c$.
-\end{enumerate}
-Then is an enumeration $\phi_1,\phi_2,\ldots$ of the partial recursive functions such that $S^\phi_{\M}(x) = |\bar 0|+S^\psi_{\M'}(x)$ for all $x\in\X$.
-\end{lemma}
-\begin{proof}
-We define the numbering $\phi$ as follows:
-\[\begin{cases}
-\phi_0(p) = 1^r 0 D(p) \\
-\phi_{1^r0i}(p) = \psi_i(p) \\
-\phi_j(\cdot) = \infty &\text{if $j$ contains no zeroes.}
-\end{cases}\]
-We will show that under the $\phi$-enumeration, the best representation for $x$ using a model $f\in\M'$ is always better than the best representation using some $f\not\in\M'$.
-
-First suppose $f\in\M'$. Then
-\[\begin{split}
-K^\phi(f)&=\min\{K^\phi(i):\phi_i=f\}\\
-&=\min\{|\bar\jmath q|:\phi_j(q)=i, \phi_i=f\}\\
-&=\min\{|\bar\jmath q|:\phi_{\phi_j(q)}=f\}\\
-&\le\min\{|\bar0 q|:\phi_{\phi_0(q)}=f\}~\text{(using $j=0$)}\\
-&=\min\{|\bar0 q|:\phi_{1^r0 D(q)}=f\}\\
-&=|\bar 0|+\min\{|q|:\psi_{D(q)}=f\}\\
-&\le K^\psi(f)+c+|\bar 0|,
-\end{split}
-\]
-where the last inequality uses the first assumption.
-
-
-Now assume that the best model $f$ for $x$ is not in $\M'$. 
-Let $i$ be the index of $f$ with the shortest description, i.e. it achieves the minimum in
-\[
-K^\phi(f)=\min\{K^\phi(i):\phi_i=f\}.
-\]
-There are two possibilities. Either $i=0$, in which case we have $K^\phi(f)\ge r$ because $\phi_0$ cannot output zero and all other $\phi$-programs are at least $r$ bits long.
-
-Otherwise, we can bound
-\[\begin{split}
-K^\phi(f)&=K^\phi(i)=K^\phi(1^r0j)\\
-&\ge K^\phi(j)-c'\\
-&\ge K^\psi(j)+r+1-c'\\
-&\ge\min\{K^\psi(j):\phi_j=f\}+r+1-c'\\
-&=K^\psi(f)+r+1-c'.
-\end{split}
-\]
-Now choose $r=c''+\max\{K^\psi(\phi_0),c'-1\}$. Then substitution yields, for both cases, 
-$K^\phi(f)\ge c''+K^\psi(f)$.
-
-Combining the inequalities above, for any model $g\not\in\M'$, there is a model $f\in\M$ such that
-\[\begin{split}
-K^\phi(g)+C^g(x) &\ge K^\psi(g)+C^g(x)+c''\\
-&\ge K^\psi(f)+C^f(x)-c+c''\\
-&\ge K^\phi(f)+C^f(x) -2c+c'' -|\bar0|.
-\end{split}\]
-
-By choosing $c''$ sufficiently large, we can ensure that the best representation is in $\M'$ for all $x\in\X$, which completes the proof.
-\end{proof}
-
-\begin{lemma}
-Let $\M$ be a prefix model class where for every $x\in\X$ there is a singleton model $f\in\M$ with $f(\epsilon)=x$. Then there is an enumeration $\phi_1,\phi_2,\ldots$ of the prefix partial recursive functions, and a constant $c$, such that
-\[
-K(x)-S^{\M,\phi}(x)\le c
-\]
-for all $x\in\X$.
-\end{lemma}
-\begin{proof}
-Let $\psi_1,\psi_2,\ldots$ be any default enumeration of the partial recursive prefix functions. Note that since $f$ is a prefix function, if $f$ is defined for input $\epsilon$ then it cannot be defined for any other input. Pick $f,x$ with $f(\epsilon)=x$. Note that $x$ can be computed from $f$ and a fixed program, so there is a $c$ such that $K(x)\le K(f)+c$. Vice versa, given any $x$ we can construct an index of $f$, since $\psi$ is an acceptable numbering. Therefore $|K(f)-K(x)|\le c$.
-
-We now define a computable function $D$ by $D(\bar\imath p)=j$ where $\psi_j(\epsilon) = \psi_i(p)$.  We will show that the two conditions of Lemma~\ref{lem:thecoolone} hold for the prefix function $D$.
-
-\begin{enumerate}
-\item Let $f$ be any function in the range of $D$, and $x$ its output. Then $\min\{|p|:\psi_{D(p)}=f\}=\min\{|\bar\imath q|:\psi_i(q)=x\}=K(x)\le K(f)+c$.
-\item On the one hand $L^{\M',\psi}(x)\le K(f)+|\epsilon|\le K(x)+c$. On the other hand, $L^{\M,\psi}(x)$ is an effective description of $x$, so $K(x)$ is at most a constant larger.
-Together, these inequalities establish the second condition.
-\end{enumerate}
-
-Then by Lemma~\ref{lem:thecoolone} there is an enumeration $\phi_1,\phi_2,\ldots$ such that $S^{\M,\phi}(x)=|\bar 0|+S^{\M',\psi}(x)$. We observed that $|K(f)-K(x)|\le c$ for any $f\in\M'$, so $S^{\M',\psi}(x)\ge K(x)+c$. This proves the lemma.
-\end{proof}
-
-Plan: een lemma voor total/niet prefix dat laat zien mbv pigeonhole dat facticity juist bounded of juist unbounded kan zijn. De ene kant op gaat dat met de print functie (klein model, grote data). De andere kant op is moeilijk
-
 
 
 \bibliographystyle{plain}
