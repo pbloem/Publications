@@ -72,7 +72,7 @@ The first suggestion that a representation of a string can be separated cleanly 
 
 Koppel \cite{} built on this notion, coining the phrase \emph{sophistication}. He changed the class of `models' from finite sets to total functions and used Levin's monotone complexity, instead of prefix-free Kolmogorov complexity. One interesting difference is that Koppel takes the description of the data under a variant of Kolmogorov complexity, which consists of a description of a model and that model's input, and takes the size of the model part as the sophistication. In contrast Kolmogorov's minimal sufficient statistic is built on a second, two-part, representation in addition to the Kolmogorov complexity's one-part representation. This difference in perspective is subtle but relevant to the discussion ahead.
 
-Separately, G\'acs, Tromp and Vit\'anyi \cite{}, built on the idea of the structure function to establish a framework of \emph{algorithmic statistics}, in the hope of founding a statistical theory not on probabilistic notions, but on combinatorical ones. This echoes Kolmogorv's own hope for the theory of information:
+Separately, G\'acs, Tromp and Vit\'anyi \cite{}, built on the idea of the structure function to establish a framework of \emph{algorithmic statistics}, in the hope of founding a statistical theory not on probabilistic notions, but on combinatorical ones. This echoes Kolmogorov's own hope for the theory of information:
 \begin{quotation}
 \noindent Information theory must precede probability theory and not be based on it. By the very essence of this discipline, the foundations of information theory must have a finite combinatorial character
 \end{quotation} 
@@ -299,6 +299,15 @@ For any partial recursive prefix code length function $L$, the function
 is unbounded in $i_0$.
 \end{conjecture}
 
+\subsection{Effective complexity}
+
+\begin{itemize}
+\item Model class is \emph{ensembles}. Equivalent to $\K$.
+\item Description method for models is $L(m) = K(m)$ (the minimization is not mentioned explicitly, but we'll give them the benefit of the doubt).
+\item The threshold function is equal to the minimum two-part code: $\tau(x)=L^m(x)$.
+\item Gell-mann and Lloyd acknowledge that representations exist with small and large models. The choice from the candidate set is made by applying a time-bound to the computation from the string to the model, but not to the decoding of the model itself. The idea is that this forces `deep' information into the model, and shallow information into the data. Presumably, the representation with the smallest model code under this constraint is chosen.   
+\end{itemize} 
+\pb{We can still manipulate the UTM so that all non-singleton representations are pushed out of the candidate set. Since the model side is allowed unbounded decoding time, this invalidates effective complexity.}
 
 \subsection{Roll your own}
 
