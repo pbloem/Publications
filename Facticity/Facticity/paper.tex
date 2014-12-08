@@ -1,14 +1,14 @@
-\documentclass{article}
+\documentclass{style/llncs}
 
-\usepackage{amsmath,amsfonts,amsthm,fullpage}
+\usepackage{amsmath,amsfonts,fullpage}
 \usepackage{color}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{conjecture}[theorem]{Conjecture}
-\newtheorem{definition}{Definition}
+%\newtheorem{theorem}{Theorem}
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{conjecture}[theorem]{Conjecture}
+%\newtheorem{definition}{Definition}
 
 \newcommand{\M}{\mathcal M}
 \newcommand{\C}{\mathcal C}
@@ -35,17 +35,56 @@
 
 \newcommand{\argmin}{\mathop{\arg\min}}
 
-\title{Ideal model selection is impossible}
+\title{A Critical Review of Sophistication and Model Selection in Algorithmic Statistics}
 \author{Peter Bloem and Steven de Rooij}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Kolmogorov complexity provides an objective quantification of the amount of information in an individual binary string, i.e. the number of bits required to effectively describe it, without making any assumptions about the source of that string. However, not all information is created equal -- over the years, there have been many attempts that use two-part codes in order to separate the amount of ``meaningful information'', ``sophistication'' or ``facticity'' of the data, from information representing its random properties. How wonderful would it be if we could quantify not just the syntactic information content of the data  not only syntactically, but the meaningful information as well!
-
-In this paper we show this to be an impossible dream: in general, additional assumptions are required if one wishes to find the true model, or its complexity. This is true regardless of the length or Kolmogorov complexity of the input data. In effect, this means that ideal model selection based on a single data object with no further knowledge is impossible. We unify and contrast the several existing approaches and describe what they can and cannot do. 
+\noindent Kolmogorov complexity is a sounds expression of the information of the information content of a binary string, but it leaves open the issue of \emph{meaningful information}. The strings with maximal information content are not the ones we would regard as interesting, or meaningful. 
+One attempt to formalize a notion of meaningful information is sophistication. It is a simple idea with many attempted formalizations: describe the string efficiently with a two-part coding approach, and take the complexity of the model as a measure of the amount of meaningful information.
+We review the variety of attempts to formalize this approach and highlight their shortcomings. We provide a critical perspective: we question whether any such formalization can truly be successful as an objective notion of meaningful information. A true property of the data, like Kolmogorov complexity. We show that no formalization currently proposed in the literature satisfies this demand. All sophistication functions are either bounded by a constant value, or are not invariant to the choice of universal Turing machine used in their construction.
 \end{abstract}
+\section{Introduction}
+
+\noindent Kolmogorov complexity provides an objective measurement of the information content of a string: it is a property of the data, which does not depend on ad-hoc choices in its definition. Unfortunateldoes not answer the question of meaningful or interesting data. The strings that have minimal and maximal Kolmogorov complexity are the least interesting in an intuitive sense. The strings that contain useful information are somewhere in between.
+
+Consider the following, illustrative example: an old-fashioned, analog television set which can be tuned to three frequencies. The first shows a blank screen, the second a regular program, and the third white noise. By the Kolmogorov complexity, these  broadcasts have increasing information content. The first is easiest to describe, the second contains a great deal of regularity, and the third cannot be compressed. However, in terms of meaningful information, information that we find interesting, the second signal is by far the richest. This notion has proved far harder to capture in formal terms than the simple notion of `raw' information content. One of the most frequently explored ideas is \emph{sophistication}.
+
+Sophistication select a model for the data by two-part coding, and to take the complexity of the model as a measure of the meaningful information. The assumption is that both simple and random data have small models, and the more interesting a dataset is, the more complex its model will be. A key assumption of the approach of sophistication is that we can perform objective model selection for a given string. That is: there is a function that, given a string, selects a single unique model that can be used to compress this string optimally. Moreover, any elements of this function that are chosen ad hoc can be changed without significantly affecting the outcome.
+
+In the case of the Kolmogorov complexity, this holds true; we can change the universal Turing machine used in its definition and the complexities returned will not change by more than a constant. This is known as \emph{invariance}. For this reason, we view the Kolmogorov complexity as an intrinsic property of the data, rather than simply a function computed on it. If a formalization of sophistication is ever to be held in the same regard as the Kolmogorov complexity, it must be subject to a similar principle of invariance. 
+
+The unifying principle over all the notions we discuss in this paper is simple. We start with an object expressed as a finite binary string. We represent this object, hoping to compress it, in two parts, the first is a model, and the second an `input' to this model. How the two parts are encoded, and what the class of models is are details that differ between variants. We know, however, that for succesful representations, those that capture all structure in the string, the length of the two-part code should approach the Kolmogorov complexity. We take the set of all \emph{sufficient statistics}---those representations that are `close enough' to the Kolmogorov complexity---and call the one with the lowest model complexity the \emph{minimal sufficient statistic}. The size of the minimal sufficient statistic is the sophistication.
+
+The intuition is that both very simple and very random data have small, simple programs: one with a small input and one with a large, random input. The strings with much structure and many interesting properties are those for which the best model is large. Two assumptions are crucial to this view:
+\begin{itemize}
+  \item This principle separates the structure and the noise into distinct parts. In the optimal representation the model contains only `structural information' and the noise contains only the `uninteresting' information.
+  \item This principle is invariant. If we change, for instance, the universal Turing machine used for our representations, the minimal sufficient statistic will not change significantly.
+\end{itemize} 
+
+\subsection{Sophistication, Minimal Sufficient Statistic, Effective Complexity and Facticity}
+
+We will first briefly discuss the different variants of sophistication in a historical context, to give the reader a simple overview, without discussing too much technical detail. In the main body of the paper, we will define each variant rigorously, and in non-chronological order.
+
+The first suggestion that a representation of a string can be separated cleanly into a structural part, containing a description of its properties, and a noise part, containing the residual information, came from Kolmogorov himself, in a talk given at a conference in Tallinn in 1973 (first committed to paper by Cover \cite{todo} and later more extensively discussed by Vitanyi \cite{todo}). Here, he proposed what has become known as the \emph{Kolmogorov structure function}. Briefly, this function operates on a space of two part representations for a given string $x$, consisting of some finite set $S$ (containing $x$) and the index of $x$ in $S$. The \emph{minimal sufficient statistic}, it was proposed, is the set with the lowest complexity for which the length of the two-part representation reaches the prefix-free Kolmogorov complexity. \pb{Did Komogorov already talk about the MSS?}
+
+Koppel \cite{} built on this notion, coining the phrase \emph{sophistication}. He changed the class of `models' from finite sets to total functions and used Levin's monotone complexity, instead of prefix-free Kolmogorov complexity. One interesting difference is that Koppel takes the description of the data under a variant of Kolmogorov complexity, which consists of a description of a model and that model's input, and takes the size of the model part as the sophistication. In contrast Kolmogorov's minimal sufficient statistic is built on a second, two-part, representation in addition to the Kolmogorov complexity's one-part representation. This difference in perspective is subtle but relevant to the discussion ahead.
+
+Separately, G\'acs, Tromp and Vit\'anyi \cite{}, built on the idea of the structure function to establish a framework of \emph{algorithmic statistics}, in the hope of founding a statistical theory not on probabilistic notions, but on combinatorical ones. This echoes Kolmogorov's own hope for the theory of information:
+\begin{quotation}
+\noindent Information theory must precede probability theory and not be based on it. By the very essence of this discipline, the foundations of information theory must have a finite combinatorial character
+\end{quotation} 
+
+
+
+
+
+
+
+\pb{emphasize the different aims}
+\pb{effective complexity}
 
 \section{Definitions}
 
@@ -260,6 +299,15 @@ For any partial recursive prefix code length function $L$, the function
 is unbounded in $i_0$.
 \end{conjecture}
 
+\subsection{Effective complexity}
+
+\begin{itemize}
+\item Model class is \emph{ensembles}. Equivalent to $\K$.
+\item Description method for models is $L(m) = K(m)$ (the minimization is not mentioned explicitly, but we'll give them the benefit of the doubt).
+\item The threshold function is equal to the minimum two-part code: $\tau(x)=L^m(x)$.
+\item Gell-mann and Lloyd acknowledge that representations exist with small and large models. The choice from the candidate set is made by applying a time-bound to the computation from the string to the model, but not to the decoding of the model itself. The idea is that this forces `deep' information into the model, and shallow information into the data. Presumably, the representation with the smallest model code under this constraint is chosen.   
+\end{itemize} 
+\pb{We can still manipulate the UTM so that all non-singleton representations are pushed out of the candidate set. Since the model side is allowed unbounded decoding time, this invalidates effective complexity.}
 
 \subsection{Roll your own}
 
