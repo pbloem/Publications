@@ -626,6 +626,23 @@ Proof sketch:
     \cite[Lemma~7.2]{vitanyi2004meaningful}. 
 \end{itemize}
 
+\begin{lemma}
+Let $f$ be a total, computable function, such that for some $d$, $f(d) = x$ and let $k = K(f) + |d|$. Then there exists a finite set $S$ containing $x$, such that we have $K(S) \leq K(f) + K(|d|)$ and $\log |S| \leq |d|$.\label{lemma:total-to-sets}
+\end{lemma}
+\begin{proof}
+Let $S = \{f(y) : |y| = |d|\}$. Since $f$ is total, this set can be explicity computed from a description of $f$ and a description of $|d|$, this tells us that there is a constant such that $K(S) \leq K(f) + K(|d|) + c$. 
+
+Note that the inputs $y$ used to construct all have length $|d|$, so that $S$ contains at most $2^{|d|}$ strings. Therefore, we have $\log |S| \leq |d|$.
+\end{proof}
+This lemma is an extension of \cite[Lemma~7.2]{vitanyi2004meaningful} and uses approximately the same proof.
+
+\begin{theorem}
+There are $x$, such that $S^\T(x) \geq \tfrac{1}{4}K(x)$.
+\end{theorem}
+\begin{proof}
+Let $x\geq n$ be ($\tfrac{1}{4n}$, $\tfrac{1}{4}$)-stochastic. This means that for any $S$ containing $x$ with $K(S) \leq \tfrac{1}{4}$ we have $K(S) + \log|S| \geq K(x) + \tfrac{3}{4}n$. \ldots
+\end{proof}
+
 \bibliographystyle{plain}
 \bibliography{facticity}
 
