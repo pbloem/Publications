@@ -609,11 +609,21 @@ as required.
 Proof sketch:
 
 \begin{itemize}
-  \item There is a $C$ such that for every $n$ there are strings $x$
-    with $K(S)+\log|S|\ge K(x)+(3/4)n+C$ for all $K(S)>1/4$.
-
-  \item For all $C$ there is an $n$ such that there are $x$ with
-    $K(S)+\log(S)<K(x)+C$ only if $K(S)>1/4$.
+  \item From \cite[Proposition~I.3 (b)]{gacs2001algorithmic} we know
+    that for sufficiently large $n$ there are strings of length less
+    than $n$ that are not $(n/4, n/4)$-stochastic.
+  \item By definition of $(\alpha,\beta)$-stochasticity, if a string
+    is not $(n/4,n/4)$-stochastic, then for every finite set $S$,
+    either (a) $\log|S|\ge K(x)+n/4$, so $S$ cannot be a candidate
+    representation for $x$, or (b) $K(S)>n/4$. For sufficiently large
+    $n$, we have $n/4>K(x)/5$, so we also know $K(S)>K(x)/5$.
+  \item Neem nonstochastic string zoals hierboven beschreven. Stel dat
+    die een total candidate heeft met klein model. Dan kun je de
+    reductie naar sets doen ter betaling van $\log(n)$ additieve term,
+    en dan heb je dus ook een kleine finite-set representatie, maar
+    dat is een tegenspraak. QED
+  \item De reductie van total naar finite sets staat (met typo's) in
+    \cite[Lemma~7.2]{vitanyi2004meaningful}. 
 \end{itemize}
 
 \bibliographystyle{plain}
