@@ -153,8 +153,9 @@ Define the following code length functions for the representations:
   The \emph{candidate models} for $x$ from model class $\M$ and
   threshold function $\tau$ are
   \[
-  C^\M_\tau(x):=\{m\in\M:L^m(x)\le \tau(x)\}.
+  C^\M_\tau(x):=\{m\in\M:L^m(x)\le \tau(x) + c\}
   \]
+  with $c$ a constant independent of $x$ which may be chosen arbitrarily. The default threshold function is $\tau^\circ(x)=L^\M(x)$.
 \end{definition}
 
 \begin{definition}[Sophistication]
@@ -272,7 +273,7 @@ returns the correct function, rewrite $\phi_{h(\bar\imath
 \item Description method for models is $L(m)=|\bar\imath|$ where
   $\phi_i=m$. The index function is assumed to be \emph{faithful}, see
   Definition~\ref{def:faithful}
-\item Threshold function is $\tau(x)=L^m(x)$.
+\item Threshold function is $\tau(x)=L^\M(x)$, the constant in the candidate set is $0$.
 \item Facticity is actually defined as index length without prefix
   encoding:  $S^\C_0(x):=\min\{|i|:\phi_i\in C^\C_0(x)\}$. But this
   difference is not important for the discussion.
@@ -437,6 +438,33 @@ Then by Lemma~\ref{lem:thecoolone} there is an enumeration $\phi_1,\phi_2,\ldots
 % acceptability criterion acc(m) = 2L(m)+L_m(x)-C(x)
 % 
 
+
+\section{Paul's sophistication (total, non-prefix) is \emph{not}  bounded}
+
+\begin{lemma}
+Let $f$ be a total, computable function, such that for some $d$, $f(d) = x$ and let $k = K(f) + |d|$. Then there exists a finite set $S$ containing $x$ and a constant $c$, such that $K(S) \leq K(f) + K(|d|) + c$ and $\log |S| \leq |d|$.\label{lemma:total-to-sets}
+\end{lemma}
+\begin{proof}
+Let $S = f\left(\{0,1\}^{|d|}\right)$. Since $f$ is total, this set can be explicity computed from a description of $f$ and a description of $|d|$, which tells us that there is a constant $c$ such that $K(S) \leq K(f) + K(|d|) + c$. 
+
+Since $S$ is the image of a set of size $2^{|d|}$ under $f$, we have $\log |S| \leq |d|$.
+\end{proof}
+This lemma is a variation on \cite[Lemma~7.2]{vitanyi2004meaningful}.
+
+\begin{theorem}
+There are infinitely many $x$ with 
+\begin{enumerate}
+  \item $S^\F_K(x) \geq K(x)/5$,\label{eq:item1}
+  \item $S^\T_K(x) \geq K(x)/6$, {and}\label{eq:poezenvoer}
+  \item $S^\T_{\tau^\circ}(x) \geq K(x)/6$. \label{eq:hondevoer}
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+From \cite[Proposition~I.3 (b)]{gacs2001algorithmic} we know that for sufficiently large $i$ there are strings of length less than $i$ that are not $(i/4, i/4)$-stochastic. For each $i$, let $x_i$ be the smallest binary string that is not $(i/4, i/4)$-stochastic. Since every string is $(\alpha,\alpha)$-stochastic for sufficiently large $\alpha$, this sequence contains infinitely many distinct binary strings. Now pick any $i$ that is large enough that (a) $|x_i|<i$ and (b) $K(x_i)/5 < i/4$. By definition of $(\alpha,\beta)$-stochasticity, if a string is not $(i/4,i/4)$-stochastic, then for every finite set $S$ containing $x$, either (a) $\log|S|\ge K(x_i)+i/4$, in which case $S$ cannot be a candidate representation for $x$ in $C^\F_K$, or (b) $K(S)>i/4>K(x_i)/5$. This proves Item~\ref{eq:item1}. 
+
+For Items~\ref{eq:poezenvoer} and~\ref{eq:hondevoer}, suppose towards contradiction that either $C^\T_K(x)$ or $C^T_{\tau^\circ}(x)$ contains a candidate $f$ with $K(f)\le i/5$. Then by Lemma~\ref{lemma:total-to-sets}, there is a set $S$ with $\log|S|\le|d|\le\le\tau^\circ(x)\le K(x)$, so (a) above cannot be the case, and $K(S)\le K(f)+K(|d|)+c\le i/5+K(|d|)+c$, which contradicts (b) for large enough $i$. Therefore such candidates $f$ cannot exist and all candidates must satisfy $K(f)>i/5>K(x_i)/6$.
+\end{proof}
+Note that we favoured simplicity of the proof over the strength of the bounds: the constants can be improved.
 
 \section{Notes}
 
@@ -603,45 +631,6 @@ First, let $v$ be the index of the partial recursive function given by $\phi_v(\
 as required.
 \end{proof}
 
-
-\section{Paul's sophistication (total, non-prefix) is \emph{not}  bounded}
-
-Proof sketch:
-
-\begin{itemize}
-  \item From \cite[Proposition~I.3 (b)]{gacs2001algorithmic} we know
-    that for sufficiently large $n$ there are strings of length less
-    than $n$ that are not $(n/4, n/4)$-stochastic.
-  \item By definition of $(\alpha,\beta)$-stochasticity, if a string
-    is not $(n/4,n/4)$-stochastic, then for every finite set $S$,
-    either (a) $\log|S|\ge K(x)+n/4$, so $S$ cannot be a candidate
-    representation for $x$, or (b) $K(S)>n/4$. For sufficiently large
-    $n$, we have $n/4>K(x)/5$, so we also know $K(S)>K(x)/5$.
-  \item Neem nonstochastic string zoals hierboven beschreven. Stel dat
-    die een total candidate heeft met klein model. Dan kun je de
-    reductie naar sets doen ter betaling van $\log(n)$ additieve term,
-    en dan heb je dus ook een kleine finite-set representatie, maar
-    dat is een tegenspraak. QED
-  \item De reductie van total naar finite sets staat (met typo's) in
-    \cite[Lemma~7.2]{vitanyi2004meaningful}. 
-\end{itemize}
-
-\begin{lemma}
-Let $f$ be a total, computable function, such that for some $d$, $f(d) = x$ and let $k = K(f) + |d|$. Then there exists a finite set $S$ containing $x$, such that we have $K(S) \leq K(f) + K(|d|)$ and $\log |S| \leq |d|$.\label{lemma:total-to-sets}
-\end{lemma}
-\begin{proof}
-Let $S = \{f(y) : |y| = |d|\}$. Since $f$ is total, this set can be explicity computed from a description of $f$ and a description of $|d|$, this tells us that there is a constant such that $K(S) \leq K(f) + K(|d|) + c$. 
-
-Note that the inputs $y$ used to construct all have length $|d|$, so that $S$ contains at most $2^{|d|}$ strings. Therefore, we have $\log |S| \leq |d|$.
-\end{proof}
-This lemma is an extension of \cite[Lemma~7.2]{vitanyi2004meaningful} and uses approximately the same proof.
-
-\begin{theorem}
-There are $x$, such that $S^\T(x) \geq \tfrac{1}{4}K(x)$.
-\end{theorem}
-\begin{proof}
-Let $x\geq n$ be ($\tfrac{1}{4n}$, $\tfrac{1}{4}$)-stochastic. This means that for any $S$ containing $x$ with $K(S) \leq \tfrac{1}{4}$ we have $K(S) + \log|S| \geq K(x) + \tfrac{3}{4}n$. \ldots
-\end{proof}
 
 \bibliographystyle{plain}
 \bibliography{facticity}
