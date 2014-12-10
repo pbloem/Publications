@@ -25,6 +25,9 @@
 \newcommand{\concat}{\oplus}
 \newcommand{\symb}[1]{\texttt{#1}}
 
+\let\doendproof\endproof
+\renewcommand\endproof{~\hfill\qed\doendproof}
+
 \newcommand{\p}{\quad\text{.}}
 
 \newcommand{\tuple}[1]{\left\langle{#1}\right\rangle}
@@ -422,6 +425,13 @@ Then by Lemma~\ref{lem:thecoolone} there is an enumeration $\phi_1,\phi_2,\ldots
   complexity for finite sets; discuss and refer to Shen \cite{TODO}.
 \end{itemize}
 
+\begin{theorem}
+There are infinitely many $x$ such that $S^\F_K(x) \geq K(x)/5$. \label{theorem:structure-function-is-not-bounded}
+\end{theorem}
+\begin{proof}
+From \cite[Proposition~I.3 (b)]{gacs2001algorithmic} we know that for sufficiently large $i$ there are strings of length less than $i$ that are not $(i/4, i/4)$-stochastic. For each $i$, let $x_i$ be the smallest binary string that is not $(i/4, i/4)$-stochastic. Since every string is $(\alpha,\alpha)$-stochastic for sufficiently large $\alpha$, this sequence contains infinitely many distinct binary strings. Now pick any $i$ that is large enough that (a) $|x_i|<i$ and (b) $K(x_i)/5 < i/4$. By definition of $(\alpha,\beta)$-stochasticity, if a string is not $(i/4,i/4)$-stochastic, then for every finite set $S$ containing $x$, either (a) $\log|S|\ge K(x_i)+i/4$, in which case $S$ cannot be a candidate representation for $x$ in $C^\F_K$, or (b) $K(S)>i/4>K(x_i)/5$. This proves the theorem.
+\end{proof}
+
 \subsection{Vit\'anyi's Sophistication / Meaningful Information}
 
 \begin{itemize}
@@ -438,9 +448,6 @@ Then by Lemma~\ref{lem:thecoolone} there is an enumeration $\phi_1,\phi_2,\ldots
 % acceptability criterion acc(m) = 2L(m)+L_m(x)-C(x)
 % 
 
-
-\section{Paul's sophistication (total, non-prefix) is \emph{not}  bounded}
-
 \begin{lemma}
 Let $f$ be a total, computable function, such that for some $d$, $f(d) = x$ and let $k = K(f) + |d|$. Then there exists a finite set $S$ containing $x$ and a constant $c$, such that $K(S) \leq K(f) + K(|d|) + c$ and $\log |S| \leq |d|$.\label{lemma:total-to-sets}
 \end{lemma}
@@ -451,19 +458,19 @@ Since $S$ is the image of a set of size $2^{|d|}$ under $f$, we have $\log |S| \
 \end{proof}
 This lemma is a variation on \cite[Lemma~7.2]{vitanyi2004meaningful}.
 
+We use this lemma to transport the result of Theorem~\ref{theorem:structure-function-is-not-bounded} to the model class of total functions:
+
 \begin{theorem}
 There are infinitely many $x$ with 
 \begin{enumerate}
-  \item $S^\F_K(x) \geq K(x)/5$,\label{eq:item1}
   \item $S^\T_K(x) \geq K(x)/6$, {and}\label{eq:poezenvoer}
   \item $S^\T_{\tau^\circ}(x) \geq K(x)/6$. \label{eq:hondevoer}
 \end{enumerate}
 \end{theorem}
 \begin{proof}
-From \cite[Proposition~I.3 (b)]{gacs2001algorithmic} we know that for sufficiently large $i$ there are strings of length less than $i$ that are not $(i/4, i/4)$-stochastic. For each $i$, let $x_i$ be the smallest binary string that is not $(i/4, i/4)$-stochastic. Since every string is $(\alpha,\alpha)$-stochastic for sufficiently large $\alpha$, this sequence contains infinitely many distinct binary strings. Now pick any $i$ that is large enough that (a) $|x_i|<i$ and (b) $K(x_i)/5 < i/4$. By definition of $(\alpha,\beta)$-stochasticity, if a string is not $(i/4,i/4)$-stochastic, then for every finite set $S$ containing $x$, either (a) $\log|S|\ge K(x_i)+i/4$, in which case $S$ cannot be a candidate representation for $x$ in $C^\F_K$, or (b) $K(S)>i/4>K(x_i)/5$. This proves Item~\ref{eq:item1}. 
-
-For Items~\ref{eq:poezenvoer} and~\ref{eq:hondevoer}, suppose towards contradiction that either $C^\T_K(x)$ or $C^T_{\tau^\circ}(x)$ contains a candidate $f$ with $K(f)\le i/5$. Then by Lemma~\ref{lemma:total-to-sets}, there is a set $S$ with $\log|S|\le|d|\le\le\tau^\circ(x)\le K(x)$, so (a) above cannot be the case, and $K(S)\le K(f)+K(|d|)+c\le i/5+K(|d|)+c$, which contradicts (b) for large enough $i$. Therefore such candidates $f$ cannot exist and all candidates must satisfy $K(f)>i/5>K(x_i)/6$.
+We continue from the proof of Theorem~\ref{theorem:structure-function-is-not-bounded}. Suppose towards contradiction that either $C^\T_K(x_i)$ or $C^T_{\tau^\circ}(x_i)$ contains a candidate $f$ with $K(f)\le i/5$. Then by Lemma~\ref{lemma:total-to-sets}, there is a set $S$ with $\log|S|\le|d|\le\tau^\circ(x)\le K(x)$, so (a) in the proof of Theorem~\ref{theorem:structure-function-is-not-bounded} above cannot be the case, and $K(S)\le K(f)+K(|d|)+c\le i/5+K(|d|)+c$, which contradicts (b) in the same proof for large enough $i$. Therefore such candidates $f$ cannot exist and all candidates must satisfy $K(f)>i/5>K(x_i)/6$.
 \end{proof}
+
 Note that we favoured simplicity of the proof over the strength of the bounds: the constants can be improved.
 
 \section{Notes}
