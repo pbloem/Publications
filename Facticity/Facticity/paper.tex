@@ -1,22 +1,17 @@
 \documentclass{style/llncs}
 
-\usepackage{amsmath,amsfonts,fullpage}
+\usepackage{amsmath,amsfonts}
 \usepackage{color}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[mathscr]{eucal}
 
-%\newtheorem{theorem}{Theorem}
-%\newtheorem{lemma}[theorem]{Lemma}
-%\newtheorem{corollary}[theorem]{Corollary}
-%\newtheorem{conjecture}[theorem]{Conjecture}
-%\newtheorem{definition}{Definition}
-
-\newcommand{\M}{\mathcal M}
-\newcommand{\C}{\mathcal C}
-\newcommand{\T}{\mathcal T}
-\newcommand{\F}{\mathcal F}
-\renewcommand{\P}{\mathcal P}
-\newcommand{\K}{\mathcal K}
-\newcommand{\X}{\mathcal X}
+\newcommand{\M}{\mathscr M}
+\newcommand{\C}{\mathscr C}
+\newcommand{\T}{\mathscr T}
+\newcommand{\F}{\mathscr F}
+\renewcommand{\P}{\mathscr P}
+\newcommand{\K}{\mathscr K}
+\newcommand{\X}{\mathscr X}
 \newcommand{\B}{\mathbb B}
 \newcommand{\D}{\Delta}
 \newcommand{\N}{\mathbb N}
@@ -24,150 +19,190 @@
 \newcommand{\pair}[1]{\left\langle{#1}\right\rangle}
 \newcommand{\concat}{\oplus}
 \newcommand{\symb}[1]{\texttt{#1}}
+\newcommand{\br}[1]{\overline{#1}}
+\newcommand{\s}{\tn{soph}}
+
+\newtheorem{conj}{Conjecture}
 
 \let\doendproof\endproof
 \renewcommand\endproof{~\hfill\qed\doendproof}
 
-\newcommand{\p}{\quad\text{.}}
+\newcommand{\p}{\,\text{.}}
 
 \newcommand{\tuple}[1]{\left\langle{#1}\right\rangle}
 
+\newcommand{\hide}[1]{}
 
 \newcommand{\sdr}[1]{\textcolor{blue}{\small #1\textsuperscript{[Steven]} }}
 \newcommand{\pb}[1]{\textcolor{OliveGreen}{\small #1 \textsuperscript{[Peter]} }}
 
 \newcommand{\argmin}{\mathop{\arg\min}}
 
-\title{A Critical Review of Sophistication and Model Selection in Algorithmic Statistics}
+\title{A Critical Review of Sophistication and Algorithmic Model Selection}
 \author{Peter Bloem and Steven de Rooij}
+
+\institute{
+  System and Network Engineering Group, \\University of Amsterdam, the Netherlands\\
+  \email{uva@peterbloem.nl, steven.de.rooij@gmail.com}
+}
+
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-\noindent Kolmogorov complexity is a sounds expression of the information of the information content of a binary string, but it leaves open the issue of \emph{meaningful information}. The strings with maximal information content are not the ones we would regard as interesting, or meaningful. 
-One attempt to formalize a notion of meaningful information is sophistication. It is a simple idea with many attempted formalizations: describe the string efficiently with a two-part coding approach, and take the complexity of the model as a measure of the amount of meaningful information.
-We review the variety of attempts to formalize this approach and highlight their shortcomings. We provide a critical perspective: we question whether any such formalization can truly be successful as an objective notion of meaningful information. A true property of the data, like Kolmogorov complexity. We show that no formalization currently proposed in the literature satisfies this demand. All sophistication functions are either bounded by a constant value, or are not invariant to the choice of universal Turing machine used in their construction.
+Kolmogorov complexity is a sound expression of the information content of a binary string, but it leaves open the issue of \emph{meaningful information}. The strings with maximal information content are not the ones we would regard as interesting, or meaningful. One attempt to capture the idea of meaningful information is \emph{sophistication}. It is a simple idea with many attempted formalizations: describe the string efficiently with a two-part coding approach, and take the complexity of the model as a measure of the amount of meaningful information. We describe three requirements that any formalization must meet in order to satisfy the expectations that come with the idea of sophistication: invariance, unboundedness and efficiency. We show that no currently published proposal meets these requirements \pb{TODO}, and conjecture that no formalization of the idea of sophistication can hope to do so. We conclude by reviewing the consequences of this conjecture.
 \end{abstract}
 \section{Introduction}
 
-\noindent Kolmogorov complexity provides an objective measurement of the information content of a string: it is a property of the data, which does not depend on ad-hoc choices in its definition. Unfortunateldoes not answer the question of meaningful or interesting data. The strings that have minimal and maximal Kolmogorov complexity are the least interesting in an intuitive sense. The strings that contain useful information are somewhere in between.
+\noindent Kolmogorov complexity provides an objective measurement of the information content of an object. Any arbitrary choices made in its construction can be changed, without significantly changing the outcome. This property is crucial for the measure's success: it allows us to see Kolmogorov complexity as a \emph{property of the data} rather than an arbitary function computed on it. This, in turn, allows us to define the intrinsic entropy, or randomness, inherent in a single object expressed as a binary string, without any assumptions on the process that produced it. Unfortunately, this idea of complexity does not fit one-on-one to our intuitive idea of which objects are complex.
 
-Consider the following, illustrative example: an old-fashioned, analog television set which can be tuned to three frequencies. The first shows a blank screen, the second a regular program, and the third white noise. By the Kolmogorov complexity, these  broadcasts have increasing information content. The first is easiest to describe, the second contains a great deal of regularity, and the third cannot be compressed. However, in terms of meaningful information, information that we find interesting, the second signal is by far the richest. This notion has proved far harder to capture in formal terms than the simple notion of `raw' information content. One of the most frequently explored ideas is \emph{sophistication}.
+Consider the following, illustrative example: an old-fashioned, analog television set which can be tuned to three frequencies. The first produces a blank screen, the second a regular program, and the third white noise. By the Kolmogorov complexity, these  broadcasts have increasing information content. The first is easiest to describe, the second contains a great deal of regularity, and the third cannot be compressed. However, in terms of meaningful information, information that we find interesting, the second signal is by far the richest. This notion has proved far harder to capture in formal terms than the simple notion of `raw' information content. 
 
-Sophistication select a model for the data by two-part coding, and to take the complexity of the model as a measure of the meaningful information. The assumption is that both simple and random data have small models, and the more interesting a dataset is, the more complex its model will be. A key assumption of the approach of sophistication is that we can perform objective model selection for a given string. That is: there is a function that, given a string, selects a single unique model that can be used to compress this string optimally. Moreover, any elements of this function that are chosen ad hoc can be changed without significantly affecting the outcome.
+One of the most frequently explored ideas for capturing the notion of meaningful information is \emph{sophistication}. The idea behind sophistication is to select a description for the data by two-part coding (describing a model first, and then the data in terms of the model), and to take the complexity of only the model part as a measure of the meaningful information. The assumption is that both simple and random data have small models; in the case of the simple data, a small model describes all regularity, and no further information is required, and in the case of the random data, the data itself is its shortest representation, and the model is a `print function' which simply reproduces its input. If the dataset is more interesting, however, containing both regularity and randomness, its best representation will have a more complex model. A key assumption of the idea of sophistication is that we can perform objective model selection for a given string. That is: there is a function that, given a string, selects a single unique model that can be used to compress this string optimally. Moreover, any elements of this function that are chosen ad hoc can be changed without significantly affecting the outcome.
 
-In the case of the Kolmogorov complexity, this holds true; we can change the universal Turing machine used in its definition and the complexities returned will not change by more than a constant. This is known as \emph{invariance}. For this reason, we view the Kolmogorov complexity as an intrinsic property of the data, rather than simply a function computed on it. If a formalization of sophistication is ever to be held in the same regard as the Kolmogorov complexity, it must be subject to a similar principle of invariance. 
+In the case of the Kolmogorov complexity, this holds true; we can change the universal Turing machine used in its definition and the complexities returned will not change by more than a constant. This is known as \emph{invariance}. Because Kolmogorov complexity is invariant, we can view it as an intrinsic property of the data, rather than simply an arbitrary function computed on it. If a formalization of sophistication is ever to be held in the same regard as the Kolmogorov complexity, it must be subject to a similar principle of invariance. 
 
-The unifying principle over all the notions we discuss in this paper is simple. We start with an object expressed as a finite binary string. We represent this object, hoping to compress it, in two parts, the first is a model, and the second an `input' to this model. How the two parts are encoded, and what the class of models is are details that differ between variants. We know, however, that for succesful representations, those that capture all structure in the string, the length of the two-part code should approach the Kolmogorov complexity. We take the set of all \emph{sufficient statistics}---those representations that are `close enough' to the Kolmogorov complexity---and call the one with the lowest model complexity the \emph{minimal sufficient statistic}. The size of the minimal sufficient statistic is the sophistication.
+The unifying principle over all the notions we review in this paper is simple. We start with an object expressed as a finite binary string. We represent this object, hoping to compress it, in two parts, the first is a model, and the second an `input' to this model. How the two parts are encoded, and what the class of models is are details that differ between variants. We know, however, that for successful representations, those that capture all structure in the string, the length of the two-part code should approach the Kolmogorov complexity. We take the set of all \emph{sufficient statistics}---the models of those representations that are `close enough' to the Kolmogorov complexity---and call the one with the lowest complexity the \emph{minimal sufficient statistic}. The complexity of the minimal sufficient statistic is the sophistication.
 
-The intuition is that both very simple and very random data have small, simple programs: one with a small input and one with a large, random input. The strings with much structure and many interesting properties are those for which the best model is large. Two assumptions are crucial to this view:
+The intuition is that both very simple and very random data have small, simple programs. The strings with much structure and many interesting properties are those for which the best model is large. Two assumptions are crucial to this view:
 \begin{itemize}
-  \item This principle separates the structure and the noise into distinct parts. In the optimal representation the model contains only `structural information' and the noise contains only the `uninteresting' information.
-  \item This principle is invariant. If we change, for instance, the universal Turing machine used for our representations, the minimal sufficient statistic will not change significantly.
-\end{itemize} 
+  \item The two-part coding efficiently separates the structure and the noise into distinct parts. In the optimal representation the model contains only `structural information' and the noise contains only the `uninteresting' information.
+  \item This principle is invariant. If we change, for instance, the universal Turing machine used to unpack our descriptions, the minimal sufficient statistic will not change significantly.
+\end{itemize}
 
-\subsection{Sophistication, Minimal Sufficient Statistic, Effective Complexity and Facticity}
+In addition to 
 
-We will first briefly discuss the different variants of sophistication in a historical context, to give the reader a simple overview, without discussing too much technical detail. In the main body of the paper, we will define each variant rigorously, and in non-chronological order.
+In this article we will show that most proposals do not achieve these goal. For one remaining case, we can offer no such proof, but there exists no proof to the contrary either. We offer several insights that suggest that the idea of an objective sophistication function is an unattainable ideal.   
 
-The first suggestion that a representation of a string can be separated cleanly into a structural part, containing a description of its properties, and a noise part, containing the residual information, came from Kolmogorov himself, in a talk given at a conference in Tallinn in 1973 (first committed to paper by Cover \cite{todo} and later more extensively discussed by Vitanyi \cite{todo}). Here, he proposed what has become known as the \emph{Kolmogorov structure function}. Briefly, this function operates on a space of two part representations for a given string $x$, consisting of some finite set $S$ (containing $x$) and the index of $x$ in $S$. The \emph{minimal sufficient statistic}, it was proposed, is the set with the lowest complexity for which the length of the two-part representation reaches the prefix-free Kolmogorov complexity. \pb{Did Komogorov already talk about the MSS?}
+\subsection{A brief historical overview}
 
-Koppel \cite{} built on this notion, coining the phrase \emph{sophistication}. He changed the class of `models' from finite sets to total functions and used Levin's monotone complexity, instead of prefix-free Kolmogorov complexity. One interesting difference is that Koppel takes the description of the data under a variant of Kolmogorov complexity, which consists of a description of a model and that model's input, and takes the size of the model part as the sophistication. In contrast Kolmogorov's minimal sufficient statistic is built on a second, two-part, representation in addition to the Kolmogorov complexity's one-part representation. This difference in perspective is subtle but relevant to the discussion ahead.
+We will first briefly discuss the different variants of sophistication in a historical context, to give the reader a simple, chronological overview, without discussing too much technical detail. In the main body of the paper, we will define each variant rigorously, and in non-chronological order.
 
-Separately, G\'acs, Tromp and Vit\'anyi \cite{}, built on the idea of the structure function to establish a framework of \emph{algorithmic statistics}, in the hope of founding a statistical theory not on probabilistic notions, but on combinatorical ones. This echoes Kolmogorov's own hope for the theory of information:
+The first suggestion that a representation of a string can be separated cleanly into a structural part, containing a description of its regularities, and a noise part, containing the residual information, came from Kolmogorov himself, in a talk given at a conference in Tallinn in 1973 (first committed to paper by Cover \cite{todo} and later more extensively discussed by Vitanyi \cite{todo}). Here, he proposed what has become known as the \emph{Kolmogorov structure function}. Briefly, this function operates on a space of two part representations for a given string $x$, consisting of some finite set $S$ (containing $x$) and the index of $x$ in $S$. The \emph{minimal sufficient statistic}, it was proposed, is the set with the lowest complexity for which the length of the two-part representation reaches the prefix-free Kolmogorov complexity. \pb{TODO: lowest randomness deficienty.}
+
+Koppel \cite{} built on this notion, coining the phrase \emph{sophistication}. He changed the class of `models' from finite sets to total functions and used Levin's monotone complexity, instead of prefix-free Kolmogorov complexity. One interesting difference is that Koppel takes the description of the data under a variant of Kolmogorov complexity, which consists of a description of a model and that model's input, and takes the size of the model part as the sophistication. In contrast, Kolmogorov's minimal sufficient statistic is built on a second, two-part, representation in addition to the Kolmogorov complexity's one-part representation. This difference in perspective is subtle but relevant to the discussion ahead.
+
+While Koppel expands the model class from finite sets to functions, he maintains a restriction that the functions be total. This is a recurring theme: if the model class is expanded to all total functions, the the universal Turing machine itself becomes a model, so that we always have a two-part description with a small model, to within a constant of the Kolmogorov complexity. In most treatment this `collapse' to the universal model is avoided by excluding from the model class, using some restriction. This acts as a kind of force, pushing information into the model part of the two-part code. As we shall see, defining sophistication quickly becomes a balancing act, trying to match two forces which by themselves push information one way or the other.  
+
+In 1996 Gell-Mann and Lloyd introduced `Effective complexity'\cite{todo}. Working from the perspective of statistical mechanics, they arrived at a notion remarkably similar to Sophistication. Effective complexity describes abinary string in terms of a probability distribution over finite strings (an `ensemble' in the terminology of Gell-Mann and Lloyd) and the (Shannon) entropy of the distribution. The reasoning is that, if the string is typical for the distribution, the entropy is sufficient to describe the string given the distribution, so that the length of the description of the distribution and the size of its entropy suffices as a two-part description. The two-part description which determines the effective complexity is chosen by placing a time bound (taken from the singleton description) on the computation of the string from the distribution. The hope is that this will move deep (ie. hard to compute) information to the model part, and shallow information to the data. In a later treatment\cite{}, Gell-Mann and Lloyd select the decisive two-part representation from those achieving minimal code-length based on ``the average quantities judged to be important'', which would seem to make the value highly subjective and context-dependant.
+
+G\'acs, Tromp and Vit\'anyi \cite{}, built on the idea of the structure function to establish a framework of \emph{algorithmic statistics}, in the hope of founding a statistical theory not on probabilistic notions, but on combinatorial ones. This echoes Kolmogorov's own hope for the theory of information:
 \begin{quotation}
 \noindent Information theory must precede probability theory and not be based on it. By the very essence of this discipline, the foundations of information theory must have a finite combinatorial character
-\end{quotation} 
+\end{quotation}
+Algorithmic statistics studies binary strings and their possible two-part representations. In a later paper\cite{gacs2001algorithmic}, Vit\'anyi specifically studies the role of the minimal sufficient statistic as an expression of the `meaningful' information of a string (taking the name sophistication from Koppel). Like Koppel, Vit\'anyi restricts the model class to total functions, eliminating the universal model. He balances this force, by allowing the total two-part description to be non-self delimiting, so that both the representation with all information in the model part, and the representation with everything in the residual part are less efficient than the best two-part coding.
 
+Antunes et al. \cite{} note that the constant cutoff used to separate candidate two-part descriptions from those deemed to be too inefficient, is a source of instability. Small changes to this constant could shift the result sophistication by arbitrary amounts. They introduce a more elaborate criterion for the cutoff, calling this variant \emph{coarse sophistication}. As we shall see, this version behaves very differently from regular sophistication, and is closer to computational depth.
+ 
+Adriaans' \emph{Facticity}, introduced in 2012\cite{adriaans2012facticity}, relaxes the model class to include all
+partial recursive functions. By constructing a very specific universal Turing machine, and taking constant terms into account, the facticity is expected to become robust against the collapse to a universal model.
 
+\pb{Criticisms of sophistication}
 
+\pb{Vereshchagin's strongly sufficient statistic} 
 
+\pb{Antunes' instability result}
 
+\pb{Diagrammetje}
 
+\section{Preliminaries, definitions and desiderata}
 
-\pb{emphasize the different aims}
-\pb{effective complexity}
+Before we start, we will define a framework into which we can fit all current variants of sophistication. The principle is always the same: we start with a class of models, we consider the space of two-part descriptions using these models, we select the set of representations with the shortest code-lengths and we select, by some method, the best model from this set. 
 
-\section{Definitions}
+Let $\B = {0,1}^*$. We deal with partial functions $\phi: \B \to \B$, which we will also call \emph{models}. Such functions are \emph{computable} if they can be computed by a Turing machine as described in \cite[Definition~1.7.1]{li1993introduction}. A function is prefix-free if its domain, $D_f = \{y : f(y) \neq \infty\}$ is a prefix set. A function $f$ is \emph{total} if $D_f = \B$. A prefix-free function is \emph{complete} if every infinite binary string has a member of $D_f$ as a prefix. \footnotemark 
 
-
-All numberings should be acceptable!
+\footnotetext{Completeness is analogous to totality, in that a prefix-free Turing machine that does not halt corresponds to a complete prefix-free function.}
 
 \begin{definition}[Models and model classes]
-  A \emph{model} is a function $f:\{0,1\}^*\to\{0,1\}^*$. A
+  A \emph{model} is a function $\phi:\B\to\B$. A
   \emph{model class} is a set of models. We distinguish four important
   model classes:
   \begin{itemize}
-  \item $\C$ is the set of all partial recursive functions,
-  \item $\K\subset\C$ is the set of all partial recursive prefix
+  \item $\C$ is the set of all partial computable functions,
+  \item $\K\subset\C$ is the set of all prefix-free
     functions,
-  \item $\T\subset\C$ is the set of all total recursive functions,
-  \item $\P\subset\K$ is the set of all prefix functions such that for
-    every infinite binary string the function is defined for a
-    prefix. This is the natural analogue of totality in the prefix
-  \item $\F\subset\P$ contains, for each finite set $S$, a computable
-    surjective function maping the binary sequences of length
-    $\lceil\log S\rceil$ onto $S$.
+  \item $\T\subset\C$ is the set of all total functions,
+  \item $\P\subset\K$ is the set of all complete, prefix-free functions,
+  \item $\F\subset\P$ contains, for every finite set $S$, a computable
+    surjective function mapping the binary sequences of length
+    $\lceil\log S\rceil$ onto $S$. In other words, this is the model class of finite sets, with uniform distributions.
   \end{itemize}
+\end{definition}
+\begin{definition}[Numberings]
+A numbering is an enumeration of $\C$, denoted as $\phi_1, \phi_2, \ldots$ or by a function $g: \N \to \C$. We fix one canonical numbering $g^\circ$, which works as an effective description, that is for any $i \in \N, y\in \B$, we can effectively compute $(g^\circ(i))(y)$. We call a numbering $g$ \emph{acceptable} if there exist total, computable functions $a, b: \N \to \N$ as that for all $i$ $g^\circ(a(i)) = h(i)$ and  $g^\circ(i) = h(b(i))$.
 \end{definition}
 
 \begin{definition}[Prefix encoding function]
-  A prefix encoding function $f:\{0,1\}^*\to\{0,1\}^*$ is an injective
+  A prefix encoding function $f:\B\to\B$ is an injective
   function that maps the binary strings to a prefix-free set. There
   are prefix encoding functions $g$ with the property that
-  $|g(x)|\le|x|+2\log(|x|+2)|$ \cite{TODO}. We fix such a function and
-  denote it by $\bar x=g(x)$.
+  $|g(x)|\le|x|+2\log(|x|+2)|$ \cite{li1993introduction}. We fix such a function and
+  denote it by $\br{x}=g(x)$.
 \end{definition}
 
 \begin{definition}[Complexity]
-  Let $\phi_1,\phi_2,\ldots$ be a fixed acceptable enumeration of all partial
-  recursive functions, e.g. the enumeration described in \cite{TODO}.
-  Let $\Pi$ be a computable subset of the natural numbers such that
-  $\{\phi_i:i\in\Pi\}$ contains all computable prefix functions. Now
-  define Kolmogorov complexity by
+Let $\phi_1,\phi_2,\ldots$ be the canonical acceptable enumeration of $\C$. Let $\Pi$ be a computable subset of the natural numbers such that  $\{\phi_i:i\in\Pi\} = \K$. Now define Kolmogorov complexity by
 \begin{align*}
 C(x)&=\min\{|\bar\imath| y:\phi_i(y)=x\},\\
 K(x)&=\min\{|\bar\imath| y:\phi_i(y)=x, i\in\Pi\}.\\
 \end{align*}
 \end{definition}
-This definition of $K$ is equivalent to the definition in the
-textbook~\cite{TODO}, but it is more convenient for defining the
-$K$-complexity of non-prefix functions:
+This definition of $K$ is uncommon. It is functionally equivalent to the standard definition as used in \cite{li1993introduction}, but this form is more convenient for defining the $K$-complexity of non-prefix functions (see Definition~\ref{definition:model-complexity} below).
 
-\begin{definition}[Representations]
-  A pair $(m,y)$ is a \emph{representation} for $x$ if $m$ is a model
-  and $m(y)=x$.
-\end{definition}
+We now have the basic tools with which we set up our generic sophistication function. We first define the space of two-part representations for a given $x$, and the code length that each represenrtation achieves:
 
-\begin{definition}[Code length functions]
-Define the following code length functions for the representations:
+\begin{definition}[Representations and code-lengths]
+A pair $(m,y)$ is a \emph{representation} for $x$ if $m$ is a model and $m(y)=x$. 
+
+Define the following code-length functions for the representations:
 \begin{itemize}
 \item $L(m)$ is the length of a self-delimiting description of
-  the model $m$, i.e. it is the length function of  a prefix code,
-\item $L^m(x)=L(m)+\min\{|y|:m(y)=x\}$ measures the number of bits required to describe both the model $m$ and
-  the data $x$ using the model,
+  the model $m$, i.e. it is the length function of a prefix code for models. Each variant of sophistication must supply such a function.
+\item $L^m(x)=L(m)+\min\{|y|:m(y)=x\}$ measures the number of bits required to describe both the model $m$ and the data $x$ using the model.
 \item $L^\M(x)=\min\{L^m(x):m\in\M\}$ measures the number of bits
   required to describe $x$ using the best model in the model class.
 \end{itemize}
 \end{definition}
-  
+We can now define which of these representations express the data most efficiently:
 \begin{definition}[Candidate set]
-  The \emph{candidate models} for $x$ from model class $\M$ and
-  threshold function $\tau$ are
-  \[
+The \emph{candidate models} for $x$ from model class $\M$ and threshold function $\tau$ are
+\[
   C^\M_\tau(x):=\{m\in\M:L^m(x)\le \tau(x) + c\}
-  \]
-  with $c$ a constant independent of $x$ which may be chosen arbitrarily. The default threshold function is $\tau^\circ(x)=L^\M(x)$.
+\]
+with $c$ a constant independent of $x$ which may be chosen arbitrarily. The default threshold function is $\tau^\circ(x)=L^\M(x)$.
 \end{definition}
 
 \begin{definition}[Sophistication]
-  The model complexity, sophistication, or facticity, of a string $x$
-  given a model class $\M$ and threshold function $\tau$ is defined by
+  The model complexity, meaningful information, effective complexity, facticity or \emph{sophistication},  of a string $x$ given a model class $\M$ and threshold function $\tau$ is
   \[
-  S^\M_\tau(x):=\min\{L(m):m\in C^\M_\tau(x)\}.
-  \]
+  \s_\tau^{\M}(x):=\min\{L(m):m\in C^\M_\tau(x)\}\p
+  \]\label{definition:sophistication}
 \end{definition}
+
+For a function like sophistication to be meaningful, it must satisfy certain properties. We will check all currently published variants against the following minimal requirements:
+
+\begin{description}
+  \item[Invariance] Like the Kolmogorov complexity, the construction of a sophistication function makes certain ad-hoc choices, which are captured in the choice of an arbitrary universal Turing machine $U$ or an arbitrary numbering of $\C$. If we change what choice we make, the Kolmogorov complexity remains invariant up to a constant. This is the sole reason we allow ourselves to interpret the Komogorov complexioty as a property of the data, rather than simply the result of some computation on it. A similar invariance must hold for any sophistication function.
+   \item[Unboundedness] Both the sophistication and the residual information (roughly the complexity minus the sophistication) must not be bounded by a constant. If the sophistication is bekow a constant for all strings it cannot have much meaning. Also, if it is always withing a constant of the Kolmogorov complexity, it cannot correspond to the notion we hope to capture with it.
+   \item[Efficiency] The two-part representation $(m, y)$ that witnesses the sophistication (that is the one that reaches the minimum described by $\s^\M_\tau$) must reach the Kolmogorov complexity (or at least the difference should be insignificant). If there is an effective one-part representation that is much more efficient than the two-part representation that witnesses the sophistication, we cannot, in all honesty, claim that $(m, y)$ captures all the information in $x$.
+\end{description}
+
+Given the philosophical underpinnings of sophistication, these three requirements are the very least that we could expect. We will show that no current proposal satisfies all three. In the is no proposal for which invariance has been proved to be satisfied. This leads us to the following conjecture:
+
+\begin{conj}
+Let $\s_g$ be a sophistication function constructed as in Definition~\ref{definition:sophistication}, built on some acceptable numbering $g$, and some fixed model class $\M$ and threshold function $\tau$ (left out of the sub/superscript for the sake of clarity). \pb{dit kan mooier}
+
+There is no combination of $\M$ and $\tau$ such that the following all hold: 
+\begin{enumerate}
+  \item $\forall x : \left|\s_g(x) - \s_h(x)\right| \leq c$ for some constant $c$. (invariance)
+  \item $\forall c \exists x : \s_g(x) \geq c$ and $\forall c \exists x : L^\M(x) \s_g(x) \geq c$. (unboundedness)
+  \item $forall x : L^\M(x) = K(x)$ if the representations in $\M$ are self-delimiting, or $\forall x : L^\M(x) = C(x)$ otherwise. (efficiency)
+\end{enumerate}
+\end{conj}
+In more informal terms, we conjecture that no approach following the basic principle of sophistication---that is, model selection followed by measuring of the model complexity---can satisfy all three requirements.  
+
+In the rest of this paper, we will analyse the existing variants one-by-one. We will conclude with the informal reasoning supporting this conjecture and consider its the consequences. What does this mean for the problem of meaningful information, what does it mean for algorithmic statistics and most importantly, what are the consequences for the idea of model selection in general?
 
 \section{Measures of meaningful information}
 
@@ -178,8 +213,8 @@ Define the following code length functions for the representations:
 \item Threshold function $\tau(x)=L^\M(x)+c$
 \item Description method for models is required to be prefix-free, but
   can otherwise be chosen arbitrarily.
-\item Koppel uses monotone complexity and discusses infinite strings,
-  TODO figure out if and how this affects our results
+\item Koppel uses monotone complexity, and monotone functions and discusses 
+  infinite strings, TODO figure out if and how this affects our results.
 \end{itemize}
 
 This does not work because of the nickname problem! To fix this:
@@ -189,7 +224,7 @@ This does not work because of the nickname problem! To fix this:
   \begin{align*}
     C(f) &:= \min\{C(i):\phi_i=f\}\\
     K(f) &:= \min\{K(i):\phi_i=f\}.
-  \end{align*}
+  \end{align*} \label{definition:model-complexity}
 \end{definition}
 
 These definitions make sense because:
@@ -470,21 +505,36 @@ There are infinitely many $x$ with
 \begin{proof}
 We continue from the proof of Theorem~\ref{theorem:structure-function-is-not-bounded}. Suppose towards contradiction that either $C^\T_K(x_i)$ or $C^T_{\tau^\circ}(x_i)$ contains a candidate $f$ with $K(f)\le i/5$. Then by Lemma~\ref{lemma:total-to-sets}, there is a set $S$ with $\log|S|\le|d|\le\tau^\circ(x)\le K(x)$, so (a) in the proof of Theorem~\ref{theorem:structure-function-is-not-bounded} above cannot be the case, and $K(S)\le K(f)+K(|d|)+c\le i/5+K(|d|)+c$, which contradicts (b) in the same proof for large enough $i$. Therefore such candidates $f$ cannot exist and all candidates must satisfy $K(f)>i/5>K(x_i)/6$.
 \end{proof}
+Note that we favoured simplicity of the proof over the strength of the bounds: the multiplicative constant $1/6$ can be improved with a more detailed treatment.
+\section{A world without sophistication}
 
-Note that we favoured simplicity of the proof over the strength of the bounds: the constants can be improved.
+We have conjectured that sophistication is a lost cause, and that the notion is impossible to formalize in a satisfying manner. 
 
-\section{Notes}
+\pb{Procedural view: we cannot between dominating models. This may not be the aim of algorithmic statistics, but it suggests that it's kind of unreasonable to ask for model selection without repeated samples, or assumptions on the model class.} 
+\pb{The problem with making a fixed choice.}
+\pb{The existence of balanced strings.}
+\pb{Total functions. They ruin efficiency and push sophistication into a land of unprovable claims.}
 
-Do we have the citation ``Paul M. B. Vit\'anyi: Meaningful Information. IEEE Transactions on Information Theory 52(10): 4617-4626 (2006)''?
+However, even if sophistication must be abandoned, that does not mean that the efforts surrounding it are lost. The are many elements of algorithmic statistics that do not rely 
+\pb{Non-stochastic strings are in some sense invariant}
+\pb{We can eliminate almost all models. Complexity is countevidence.No difficult business with total functions.}
 
-(From Koppel, Complexity, Depth and Sophistication:)
+Finally, the question remains how we can solve the matter of meaningful information without the ability to perform model selection. \pb{All candidates likely Take the finite set case. }
 
-``Sophistication is a generalization of the "H-function" or "minimal sufficient statistic" of Cover and Kolmogoroff, using the motonic complexity of Levin: is Cover the original source for the idea of a ``minimal sufficient statistic''? Also Koppel does indeed use monotonic complexity as in Levin. We need to know at least a little about the difference between monotonic and regular KC: is it less than a logarithmic additive term? If so, we can conveniently sweep it under the rug.
+\subsubsection*{\ackname}
 
-\section{Plan}
+This publication was supported by the Dutch national program COMMIT and by the the Netherlands eScience center.
 
-Idee van Sophistication: gebruik two-part coding om een scheiding te maken tussen structuur van de data (modelinformatie) en de ruis.
+\bibliographystyle{plain}
+\bibliography{facticity}
 
+\appendix
+
+\section{Stuff to move up or delete}
+
+\hide{
+
+\subsection{Plan}
 
 Perhaps surprisingly, it is also reinforced by Vit\'anyi, when he writes : (From Vereshchagin and Vit\'anyi, ``Kolmogorov’s Structure Functions and Model Selection'':)
 \begin{quotation}
@@ -493,50 +543,15 @@ Perhaps surprisingly, it is also reinforced by Vit\'anyi, when he writes : (From
 we can encode $x$ by a small Turing machine printing a specified number of copies of the pattern `10' which computes $x$ from the program `13'.” This way, $K(x)$ is viewed as the shortest length of a two-part code for $x$, one part describing a Turing machine, or model, for the regular aspects of $x$, and the second part describing the irregular aspects of $x$ in the form of a program to be interpreted by $T$. The regular, or “valuable,” information in  is constituted by the bits in the “model” while the random or ``useless'' information of $x$ constitutes the remainder.
 \end{quotation}
 
-
-
-Adriaans takes this problem seriously and attempts to address it by imposing additional restrictions on the ordering of TMs implied by the used UTM \cite{adriaans2012facticity}. We are skeptical that such measures can effectively eliminate this problem without resorting to orderings of the TMs that are not admissible [TODO ref].
-
-
-
-Inherent property of the data: 
-\begin{itemize}
-\item Should be a two-part effective description of $x$
-\item Invariant: $\exists c:\forall x:|S^1(x)-S^2(x)|\le c$
-\item Both structure and noise are unbounded
-\end{itemize}
-
-Conjecture: er is geen functie van de data die aan bovenstaande eisen voldoet.
-
-
-
-\subsection{Review}
-Onderscheid op basis van drie properties:
-\begin{itemize}
-\item Model class: total / partial. Reden voor total: bij partial rec. is de UTM in het model, collapse, citaten. Nadeel: arbitraire beperking op de beschrijvingskracht, dus minder universeel
-\item Models are prefix functions / not prefix functions: viz $C$ vs $K$. Als wel prefix, dan gaat alles makkelijker kapot. Als niet prefix dan wordt de balans verstoord, het wordt moeilijk als de balans ook de andere kant op wordt verstoord door de modelklasse te beperken: die twee handicaps zijn moeilijk te vergelijken.
-\item Model length is prefix encoded index length / $K(f)$: compact numberings, bespiegeling over of het gat tussen $|\bar\imath|$ en $K(\phi_i)$ unbounded is. Wat is nu eigenlijk de two-part code precies, is dat $K$ als white box of is $K$ gebruikt voor het eerste deel? Ook beetje vreemd om in de eerste visie modelklassen te introduceren.
-\end{itemize}
-
-Bestaande aanpakken:
-\begin{itemize}
-
-\item Facticity: partial / niet prefix: bounded
-
-\item Paul's sophistication: Sufficient statistic: alles wat $K$-complexiteit haalt tot op slack $c$. Minimal sufficient statistic minimaliseert daarover de modelgrootte. Model bevat totale prefixfuncties. Noise is bounded.
-
-\item total / niet prefix, o.a. coarse sophistication. We geloven invariantie niet. Voor alle shallow strings bounded (nog niet bewezen, maar werkt door alles total te maken met vaste grote maar computable time bound)
-
-\end{itemize}
-
 \subsection{Conclusion}
 Stel onze conjecture is waar, is het dan helemaal nutteloos? Nee, want lengte van two-part representations is nog steeds een redelijke maat voor counterevidence against a model. No-hypercompression, $p$-values, randomness deficiency. Probleem zit in harde cutoffs zoals minimalisatie en een vaste constante waarboven representaties niet meer meedoen. Daar gaat invariantie van kapot.
 
 Onze mening: als onze conjecture waar is, dan moet je constraints weglaten: maak het makkelijk en doe prefix functies en alle partial recursive functions, en accepteer de collapse gewoon. Maar dat betekent weer dat je een hele wolk van two-part optimale representaties hebt waar je niet tussen moet willen kiezen.
 
+
 Er is een gat tussen $K(f)+|y|-K(x)$ en $\delta(x\mid f)$. De laatste is de juiste maat voor de counterevidence tegen $f$.
 
-\section{Thoughts and questions}
+\subsection{Thoughts and questions}
 
 \begin{itemize}
 \item Paul argues bleurg that the randomness deficiency of a model is a measure of the amount of structure left in the noise part. I feel that it is also a measure of the amount of counterevidence against a model in the statistical sense, as follows: the randomness deficiency of $x$ given model $M$ is $\delta(x|M)=L_M(x)-K(x|M)$. Suppose that model $M$ is true. We can then use the no hypercompression inequality to rewrite:
@@ -556,8 +571,7 @@ Thus, if $M$ is true the probability of a large randomness deficiency is exponen
 
 \end{itemize}
 
-\appendix
-\section{Dead darlings}
+\subsection{Dead darlings}
 
 \begin{definition}
 Given an enumeration $\phi_1,\phi_2,\ldots$ of the partial recursive functions, and an enumeration $\psi_1,\psi_2,\ldots$ of the partial recursive prefix functions. Let $\psi_u$ be a universal element with property $\psi_u(\bar\imath p)=\psi_i(p)$. Then define $v$ by
@@ -637,9 +651,6 @@ First, let $v$ be the index of the partial recursive function given by $\phi_v(\
 \[|j|\le |v\bar k\bar p|\le|v|+|\bar k p|+2\log|\bar k p|=K(i)+|v|+2\log K(i),\]
 as required.
 \end{proof}
-
-
-\bibliographystyle{plain}
-\bibliography{facticity}
+}
 
 \end{document}
