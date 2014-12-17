@@ -313,6 +313,26 @@ is unbounded in $i_0$.
 \end{itemize} 
 \pb{We can still manipulate the UTM so that all non-singleton representations are pushed out of the candidate set. Since the model side is allowed unbounded decoding time, this invalidates effective complexity.}
 
+\begin{theorem}[Reduction of Effective Complexity to Structure
+  Function]
+  There is a constant $c$ such that, for every representation of $x$
+  consisting of an ensemble $E$ with $x\in E$ with entropy $H$,
+  yielding a total information of $K(E)+H$, there is a finite set $S$
+  with $x\in S$ such that $K(S)\le K(E)+c$ and $\log|S|\le H$.
+\end{theorem}
+\begin{proof}
+  First note that although the ensemble $E$ may itself be infinite, it
+  is ``typical'', and therefore a valid candidate representation, for
+  only a finite number of its elements, namely the set $S=\{y\in E:-\log
+  P(y)\le H\} = \{y:P(y)\ge 2^{-H}\}$. Since the sum of probabilities must
+  converge, this set cannot be infinite: since $1\ge\sum_{y\in S} P(y)\ge
+  \sum_{y\in S}2^{-H} = |S|2^{-H}$ so $|S|\le 2^H$.
+
+
+\end{proof}
+
+
+
 \subsection{Roll your own}
 
 
