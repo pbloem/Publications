@@ -11,6 +11,7 @@
 \usepackage{enumerate}
 \usepackage{cancel}
 \usepackage{hyperref}
+\usepackage{makeidx}
 
 %\theoremstyle{definition}
 \newtheorem{thm}{Theorem}
@@ -49,12 +50,14 @@
 
 \newcommand{\hide}[1]{}
 
-\title{Statistics for complex graphs: an algorithmic approach}
+\title{Single sample statistics}
 \date{\today}
 
 % non-indented, spaced paragraphs
 \setlength{\parindent}{0.0in}
 \setlength{\parskip}{0.1in}
+
+\makeindex
 
 \begin{document}
 
@@ -63,121 +66,90 @@
 \tableofcontents
 
 \chapter{Introduction}
-\pb{General explanation of graphs, RDF, Kolmogorov complexity and two-part coding that my mother can understand.}
 
-% Start with a story
-% Mention RDF: the future of data storage 
+Imagine a mysterious signal arriving from outer space: for a brief period, radio-astronomers receive a sequence of long and short pulses from a largely empty section of the sky. Then, the sky goes quiet again.
 
-\section{Complex graphs}
+This scenario represents the ultimate challenge to statistics. We have a finite amount of data, and nothing more. We cannot take another sample, and no assumptions are justified. We don't know the source distribution, we don't know whether the data can be cut into meaningful parts. All we have is one finite piece of data.
 
-\pb{Complex graphs are not just funny things to look at, they are one of the most robust ways of storing data and communicating concepts. They should/will take a central role in science in the future. Moreso than tabular data.} 
+Yet, even in this bleakest situation, we are not totally lost. If the signal is entirely without structure, we feel we can dismiss it as white noise. If the signal is highly regular, like a periodic pulse, some natural phenomenon might be responsible for it, perhaps a planet in close orbit of a star. If the signal contains many complex structures, and yet remains unpredictable, like a binary encoding of a novel, we would suspect an intelligent origin.
 
-\section{Computer programs as statistical models}
+This story describes the setting we will analyse in this dissertation. We, the experimenter, are presented with a single, finite sample of data, described in some discrete manner, perhaps as a string of bits. We are given no extra samples, and no basis for any further assumptions. The data may represent a sequence of iid. samples from some distribution, or it may describe a single, complex object. If we wish to see it as such, we must find our motivation for doing so within the data.   
+
+The thesis behind this dissertation is that this settings, which we'll call \emph{single sample statistics}, is the most generic view of statistical practice that still allows us to make useful inference. All other settings, repeated IID samples, time-series analysis, can be seen as  version of this setting with additional assumptions or constraints. If we want to establish a simple, comprehensive framework for statistical practice from first principles, this setting should be our foundation. A single, finite datum, with no further assumptions or restrictions.
+
+\textbf{We will show that statistical inference is feasible in the single sample setting setting}. We can determine the likelihood of the signal in a general sense, and we can compare different explanations for the data. However, there are also common, uncontroversial practices that are unlikely to be possible in the setting of single sample statistics without further assumptions and restrictions. Model selection, for instance, seems to be a lost cause. It's not just that we can't find the data's inherent model, we cannot define what it should be in an unambiguous, objective manner. Both are interesting results. By studying what works and what doesn't for single sample statistics we show both the value and the danger of additional constraints. Assuming that our data is sampled IID from a Bernoulli distribution will allow us to perform model selection, but if this assumption is unjustified 
 
 
+\chapter{Kolmogorov complexity: a universal probability}
 
-\chapter{Statistical analyses of complex graphs}
-
-\begin{summary} We review the literature on complex graphs, and the approaches that have been used so far to provide statistical analyses on them. We highlight some commond pitfalls in reasoning, and we contrast the status quo with statistical practice on more conventional data.
+\begin{summary}If we make no assumptions on the source of our data, we are, in essence taking the model class of all computable probability distributions: if our data is produced by a model outside of this class, we will never be able to discover that fact anyway. Following this line of reasoning, we end up naturally with Algorithmic complexity, and Algorithmic statistics. In this chapter we make this reasoning explicit. While Kolmogorov complexity is itself incomputable, the surrounding framework does allow us to perform practical statistical inference, even in the single sample setting. We also explore what further practical approaches are possible if we allow a model assumption.
 \end{summary}
 
-\pb{Review paper on complex graph analysis. The current approach to statistics on complex graphs is to propose a an algorithm which generates random graphs, and to show that these graphs have some property in common with the graphs of interest (cf. the Barabasi algorithm and scale freeness). We can do better.}
+\pb{A safe approximation for Kolmogorov Complexity}
 
-\chapter{Algorithmic Statistics: Kolmogorov complexity and MDL}
+\chapter{Model selection and sophistication}
 
-\begin{summary}Minimum Description Length (MDL) and Kolmogorov complexity are two offshoots of the same idea: good compression makes for good statistics. MDL takes this as an axiom and builds on it, while Kolmogorov complexity makes only the assumption that the data is produced by a computational process. The two methods are not incompatible, but they have produced very different results and techniques. In order to have access to the best of both worlds, we start with the rigorous theoretical foundations of Kolmogorov complexity and build a platform that will allow us to fold in the techniques of MDL. We will revisit the principle of two-part coding, considered to be a usable, but often crude, technique in MDL and show that when combined with Kolmogorov complexity it has some deep advantages over other methods.
+\begin{summary}In this chapter we investigate the limits of the single sample setting. We show that in a  straightforward approach to Algorithmic Statistics, model selection cannot be performed in an objective manner. This tells us that in the single sample setting, the data does not have an inherent model. It may have inherent patterns, as witnessed by the Kolmogorov complexity, but an objective separation into model and noise is not feasible. 
 \end{summary}
 
-\pb{ICALP paper and possible continuation. The end result of this section is that (a) we can use techniques and results from Kolmogorov complexity or MDL in the same context (b) we can use computable approximations and (under resonable assumptions) assume that we are approximating the platonic ideals of Kolmogorov Complexity.}
+\pb{A critical review of Algorithmic Model Selection and Sophistication}
 
-\section{Algorithmic statistics for graphs}
+\chapter{Graph modeling}
 
-\pb{Interprets the common practices of analysing complex graphs in terms of algorithmic statistics on a theoretical level. Running example: the Barabasi algorithm and the property of scale freeness.} 
-
-\chapter{What makes data interesting: two-part coding in action}
-
-\begin{summary}The question of what makes data complex is has been decisively answered. First for IID data---being the datasets with maximal Shannon Entropy---and then for any data as maximal Kolmogorov Complexity. But there's some dissonance in calling this data information-rich. We are not very interested in watching TV broadcasts of static, or recordings of white noise. This may contain maximal information to a computer, but to us, it's not very interesting. In fact the most interesting data seems to be somewhere in between the zero complexity signal (s tv which is turned off) and the maximum complexity one (analog noise). The question of whether we can capture this notion of `interestingness' in a metric analogous to information entropy and Kolmogorov complexity has occupied research for over half a century, and has produced some surprisingly deep results. This chapter provides a review.
+\begin{summary} Analysis of graphs is a perfect exemplar of the single sample setting. Take the world wide web, for instance. It is a single datum, and we cannot sample another. Yet it is large enough that it approaches the size of datasets that we imagine when talking about algorithmic statistics. It is certainly highly structures, and highly unpredictable. It cannot be partitioned into logical units, but it can be sub-sampled. 
 \end{summary}
 
-\section{The question of interestingness}
+\section{Complex graphs, an MDL perspective}
+\pb{MDL models for graphs}
 
-\pb{Review paper on facticity.}
 
-\section{A well-founded, universal approach}
+\subsection{Motif extraction}
 
-\pb{Our take on facticity.}
+\pb{Motifs}
 
-\chapter{Graph modeling: extracting motifs}
+\section{Inference on the nodes of a graph}
 
-\begin{summary} Modeling complex objects starts with finding out what the components are. If we know the letters, we can find the words. If we know the words, we can find the sentences. Graphs give us nodes and links for free. How do they combine into functional, recurring units? How can we build up to the global structure?
+\pb{Simplifying RDF data for graph-based machine learning, Machine Learning on Linked Data, a Position Paper}
+
+\chapter{Exploiting self-similarity}
+\begin{summary}
+In the single sample setting, the only thing we have to work with is the internal structure of the data. A particularly useful structure to exploit is that of self-similarity. In this chapter, we investigate the possibilities. 
 \end{summary}
 
-\chapter{Graph modeling with rewrite grammars}
+If all we have is the data, we must find compressible structure. The most common form of structure is symmetry: transforming the data in some way, leaves it in some way invariant. For example: if we take a text, and chuck it into words, we have a kind of translational symmetry. Shifting the data one chunk left or right exposes a different word, but from the same distribution. Of course, this assumes that the words are sampled IID, which is far from true, but this translational symmetry alone is enough to compress the data.
 
-\begin{summary} In the last chapter, we induced motifs for various types of complex networks. We ended by applying the procedure recursively, collapsing upwards across several levels to compress the whole structure into rewrite rules. From this, we can induce recursive rules, and with a rewrite grammar for a given graph.
-\end{summary}
+All such symmetries, are commonly exploited in many different statistical settings. Most practitioners are unlikely to take this perspective, of course: a machine learning with a table of instances is unlikely to think of his dataset as a single datum with internal translational symmetry, but from the single sample perspective, that is what is happening.\index{Symmetry}
 
-\chapter{Graph modeling with deep neural networks}
+While it may be awkward to think of classification from the single sample perspective (sometimes we must allow ourselves to forget our first principles), the notion does suggest a new kind of symmetry to analyse: self similarity.
 
-\begin{summary}mTo model graphs in an algorithmic setting we can use any family of computational structures that can turn randomness into graphs. One recently popular model that has been shown to be effective at generating random examples is the Deep Belief Network. We investigate their potential to model graph structure, and fit them in to the framework of algorithmic statistics.
-\end{summary}
+Self similarity if symmetry of scale: when the data is shrunk down, it remains the same. The most exact and literal form of self similarity can be found in fractal figures, like the Sierpinski gasket. In this chapter we investigate whether we can model self similarity: we will attempt to tackle what is known in fractal geometry as \emph{the inverse problem}. 
 
-\chapter{Machine learning on graphs}
+\pb{An Expectation Maximization Algorithm for the Fractal Inverse Problem}
 
-% This does not fit the line too well, refocus?
+\chapter{Single sample statistics}
 
-\begin{summary}The classic view of offline machine learning starts with a list of instances from which to learn. These instances can then be represented in some way---preferably a vector of numeric features---and analyzed statistically. In the past decade a situation has emerged and re-emerged that makes for an ill fit to this paradigm. We are faced with information in a graph; perhaps a social network, a web graph or an RDF dataset. We may know our instances, if they correspond to specific nodes in the graph, but the things we know about them are spread throughout the graph. There is no hard line between which parts of our data correspond to which instance. Als data belongs to all instances to verying degrees. We investigate the problem and provide a bridge to traditional machine learning.
-\end{summary}
-
-\pb{ESWC paper, of het vervolg daar op. Past niet helemaal in de lijn.}
-
-\section{A pipeline}
-\subsection{Instance extraction}
-\subsection{Feature extraction}
-\section{Methods}
-\subsection{Classification}
-\subsection{Clustering}
-\subsection{Regression}
-
-\chapter{Citation networks, a use case}
-
-\begin{summary} Throughout the previous chapters, we have performed many quick tests on small datasets, to illustrate and validate our points. In this chapter we take one use case and investigate more thoroughly, in order to show the full potential of our methods. We choose the domain of citation networks, and investigate various practical questions.
-\end{summary}
-
-\begin{itemize}
-  \item Who are the hubs?
-  \item H-index: can we do better?
-  \item Multi-resolution analysis
-  \item Visualization
-\end{itemize}
-
-\chapter{Statistics for complex graphs}
-
-\begin{summary}\ldots
-\end{summary}
-
-\pb{Conclusatory chapter. Tells the whole story again, but in terms of the concepts we've introduced. Shows that we did what we set out to do.}
+\pb{Review and Conclusion}
 
 \appendix
 \chapter{Tutorials}
 \begin{summary}
-This appendix provides brief introductions to the subjects that are required to understand this thesis. They illustrate the use of our notation and provide a basis for readers who are well-versed in mathematics and computer science, but lack knowledge of these specific subjects. 
+This appendix provides brief introductions to the subjects that are required to understand this thesis. They illustrate the use of our notation and provide a concise basis for readers who are well-versed in mathematics and computer science, but lack knowledge of these specific subjects. 
 \end{summary}
 
 \section{Kolmogorov complexity}
-\section{Minimum description length}
-\section{Graphs and RDF-data}
 \section{Recommended literature}
 
 \chapter{Symbols and Terms}
 
 \begin{description}
- \item[$K()$]
- \item[$k()$]
+ \item[$K(\cdot)$]
+ \item[$k(\cdot)$]
  \item[Shannon Entropy]
 \end{description}
 
 \chapter{Algorithms and techniques}
 \chapter{Proofs}
+\chapter{index}
+\printindex
 
 \end{document}
