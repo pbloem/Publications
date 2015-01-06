@@ -40,6 +40,7 @@
 \newcommand{\argmin}{\mathop{\arg\min}}
 
 \title{A Critical Review of Sophistication and Algorithmic Model Selection}
+
 \author{Peter Bloem and Steven de Rooij}
 
 \institute{
@@ -53,6 +54,20 @@
 \begin{abstract}
 Kolmogorov complexity is a sound expression of the information content of a binary string, but it clashes with our intuitive notions of information: the strings with maximal information content are not the ones we would regard as interesting, or meaningful. One attempt to capture this idea of `useful' information is \emph{sophistication}. It is a simple idea with many attempted formalizations: describe the string efficiently with a two-part coding approach, and take the complexity of the model as a measure of the amount of interesting information. Kolmogorov complexity is invariant to the ad-hoc choices in its construction: change them, and the result will not change more than a constant. We review the history of sophistication critically, asking whether invariance exists for the proposed sophistication functions as well. In most cases, we can show that it doesn't. We conjecture that no formalization of sophistication can be invariant, and we briefly review the consequences of this conjecture.
 \end{abstract}
+
+\section{Steven's playground}
+
+Potential alternative title: ``Four problems with all current attempts to define meaningful information''
+
+Requirements for sophistication:
+
+(1) Being an information measure, the value should count the number of bits required for an effective description of the meaningful properties of a binary object.
+
+(2) The Invariance Theorem for Kolmogorov complexity states that a change in reference UTM can only influence the complexity up to an additive constant term. Analogously, if sophistication is to be interpreted as an objective property of the data, then there should be strict limits on the degree to which a change in the UTM can affect the sophistication.
+
+(3) Sophistication should not be $\gamma$-equivalent to 0. While a valid information measure, the function 0 is clearly at odds with the intuition that there is no universal cap on the amount of meaningful information in the world.
+
+(4) Sophistication should not be $\gamma$-equivalent to the Kolmgorov complexity, because then there is no point in defining a new word for the same concept. Moreover, Kolmogorov complexity is at odds with the intuition that there is no meaningful information in a random string.
 
 \section{Introduction}
 
