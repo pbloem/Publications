@@ -39,7 +39,7 @@
 
 \newcommand{\argmin}{\mathop{\arg\min}}
 
-\title{A Critical Review of Sophistication and Algorithmic Model Selection}
+\title{Four Problems for Sophistication}
 
 \author{Peter Bloem and Steven de Rooij}
 
@@ -55,7 +55,7 @@
 Kolmogorov complexity is a sound expression of the information content of a binary string, but it clashes with our intuitive notions of information: the strings with maximal information content are not the ones we would regard as interesting, or meaningful. One attempt to capture this idea of `useful' information is \emph{sophistication}. It is a simple idea with many attempted formalizations: describe the string efficiently with a two-part coding approach, and take the complexity of the model as a measure of the amount of interesting information. Kolmogorov complexity is invariant to the ad-hoc choices in its construction: change them, and the result will not change more than a constant. We review the history of sophistication critically, asking whether invariance exists for the proposed sophistication functions as well. In most cases, we can show that it doesn't. We conjecture that no formalization of sophistication can be invariant, and we briefly review the consequences of this conjecture.
 \end{abstract}
 
-\section{Steven's playground}
+\section*{Steven's playground}
 
 Potential alternative title: ``Four problems with all current attempts to define meaningful information''
 
@@ -218,9 +218,8 @@ In the rest of this paper, we will analyse the existing variants one by one. We 
 
 We start from a simple intuition: the definition of Kolmogorov complexity already uses a description of the data in two parts; a computable function and and input. Can we assume that such a description, that is as efficient as the Kolmogorov complexity, creates a good separation into the structural part of the data and the noise?
 
-The first problem that arises, is that allowing any acceptable numbering can lead to inefficient model representations.
+The first problem that arises is that allowing any acceptable numbering can lead to inefficient model representations.
 
-\pb{Switch naar two-part perspective}
 \begin{lemma}
 Let $\phi$ be some acceptable numbering, and $\s_\phi(x)$ be any function which gives the length of some index $i$ such that $\phi_i(y) = x$ for some $y$.
 
@@ -361,33 +360,31 @@ For any partial computable prefix code length function $L$, the function
 is unbounded in $i_0$.
 \end{conjecture}
 
-This result shows that even if we have a faithful numbering, we can only use it in settings where we don't count the cost of delimiting the model from the input (eg. \cite{koppelSoph1988}). In the cases where the data representations are taken as a single code word, the model-part must represent the model as efficient as $K(f)$ does. Instead of a numbering, we require a self-delimiting code for functions rather than a numbering. 
+This result shows that even if we have a faithful numbering, we can only use it in settings where we don't count the cost of delimiting the model from the input (such as \cite{koppelSoph1988}). In the cases where the data representations are taken as a single code word, the model-part must represent the model as efficient as $K(f)$ does. Instead of a numbering, we require a self-delimiting code for functions rather than a numbering. 
 
 In the rest of this paper, we will take the second perspective: we will consider the representations as two-part descriptions $K(f)$, and $|y|$, such that $f(y)=x$. This description can be unpacked by a very specific universal Turing machine, but contrary to the construction of the Kolmogorov complexity, we are not free to choose any UTM.
 
-\section{Underfitting and overfitting}
 
-In the previous section, we saw a first example of underfitting: a UTM with a more efficient model representation became a model for all strings. Even if we chose our model-description carefully, to avoid the issues of the previous section, however, universal Turing machines are still candidate model for the data. These candidates represent the data efficiently (they reach the Kolmogorov complexity up to a constant), but they are extremely generic: taking a second sample from the model can produce a string that has nothing to do with the data. Nevertheless, these models perform well, in terms of compression, and there is no justification for excluding them from the candidate set.
+\section{Underfitting: the universal model}
 
-The opposite problem is overfitting. A model that can produce only $x$ can be described in as many bits as it takes to describe $x$, plus some constant amount. Again, such models perform as well as any other, but they are not very informative. We call this \emph{overfitting}.
+In the previous section, we saw a first example of \emph{underfitting}: a second UTM with a more efficient model representation became a model for all strings. Even if we chose our model-description carefully, to avoid the issues of the previous section, however, universal Turing machines are still candidate model for the data. These candidates represent the data efficiently (they reach the Kolmogorov complexity up to a constant), but they are extremely generic: taking a second sample from the model can produce a string that has nothing to do with the data. Nevertheless, these models perform well, in terms of compression, and there is no justification for excluding them from the candidate set.
 
-As we shall see, most variants of sophistication are constructed specifically to prevent over- and underfitting.
+The opposite problem is \emph{overfitting}. A model that can produce only $x$ can be described in as many bits as it takes to describe $x$, plus some constant amount. Again, such models perform optimally, but they are not very informative. We call this \emph{overfitting}.
 
-
-\subsection{Underfitting: the universal model}
+As we shall see, most variants of sophistication are constructed specifically to prevent the problems of over- and underfitting.
 
 Any sophistication function built on a model class that includes singletons, or universal models is in danger of over or underfitting. In that case, we can construct a numbering, so that a particular model, or class of models, represents all data more efficiently than any other model by an arbitrary constant. This constant boost is enough to force all other models out of the candidate set. 
 
 The following lemma generalizes the principle. We will instantiate it for different variants of sophistication: 
 
-\begin{lemma}\label{lem:thecoolone}
+\begin{lemma}\label{lemma:thecoolone}
   Let $\psi_1,\psi_2,\ldots$ be any acceptable enumeration of the partial recursive functions.
   Let $\M$ be any model class, let $\X$ be any set of binary sequences and let $D:\{0,1\}^*\to\N$ be a computable decoding function with a prefix-free domain that maps function descriptions to their indices in $\psi$, i.e. if $f=\psi_{D(p)}$ then $p$ is a $D$-description of $f$. Let $\M'=\{\psi_i:i\in\tn{range}(D)\}$. Further assume there is a constant $c$ such that
 \begin{enumerate}
   \item $\forall_{f\in\M'}:\min\{|p|:\psi_{D(p)}=f\}\le K^\psi(f)+c$
   \item $\forall_{x\in\X}:L^{\M',\psi}(x)-L^{\M,\psi}(x)\le c$.
 \end{enumerate}
-Then is an enumeration $\phi_1,\phi_2,\ldots$ of the partial recursive functions such that $S^\phi_{\M}(x) = |\bar 0|+S^\psi_{\M'}(x)$ for all $x\in\X$.
+Then there is an enumeration $\phi_1,\phi_2,\ldots$ of the partial recursive functions such that $S^\phi_{\M}(x) = |\bar 0|+S^\psi_{\M'}(x)$ for all $x\in\X$.
 \end{lemma}
 \begin{proof}
 We define the numbering $\phi$ as follows:
@@ -441,7 +438,31 @@ K^\phi(g)+C^g(x) &\ge K^\psi(g)+C^g(x)+c''\\
 By choosing $c''$ sufficiently large, we can ensure that the best representation is in $\M'$ for all $x\in\X$, which completes the proof.
 \end{proof}
 
-\begin{lemma}
+This is a very technical and opaque lemma, due to the double effect of the choice of numbering. The choice of numbering affects both the model complexity and the data complexity by a constant amount. The idea behind the lemma, however, is simple. Given a subset $\M'$ of the model class, we can choose the numbering so that representations use a model in $\M'$ perform an arbitrary constant better than all other models. This lets us effectively `push' all other models out of the candidate set, so that the sophistication is determined by a model in $\M'$.
+
+The simplest instantiation shows a the most well known problem with sophistication: the universal model (ie. a UTM) is a candidate model too. We can manipulate the numbering so that the universal model always determines the sophistication. That is, the sophistication measure \emph{underfits}.
+
+\begin{lemma}[underfitting]
+Let $\M$ be a model class containing model $u$, called a \emph{universal model} with the following property
+\[
+\exists c \forall m \in \M : L^u(x) \leq L^m(x) + c \p
+\]  
+Then any $\s^\M$ with the default threshold function is either non-invariant or unbounded.
+\end{lemma}
+\begin{proof}
+We will construct an acceptable numbering for which $\s^\M$ is bounded. This means that if $\s^\M$
+ is either bounded for all acceptable numberings, or not invariant.
+ 
+Let $D$ be a prefix function as in Lemma~\ref{lemma:thecoolone} such that it returns the index of $u$ for the argument $\epsilon$ and $\infty$ for any other argument. That is, $\M' = \{u\}$. The assumptions 1 and 2 from Lemma~\ref{lemma:thecoolone} follow directly from this construction, so that we can instantiate the Lemma. This tells us that there exists an acceptable numbering for which $\s_\M(x) = \s_{\M'}(x) + c$. Since $\M'$ contains only a single model, $\s_{\M'}$ must be constant, completing the proof.
+\end{proof}
+
+The underfitting problem is the reason that almost all sophistication measures limit their model class, usually to either finite sets ($\F$) or total functions ($\T$ or $\K$). This eliminates the universal model, but as we shall see in Section~\ref{section:depth}, this does not solve the problem for most data. The variants that are sucseptible to the problem of underfitting are facticity \cite{adriaans2012facticity} and some versions of effective complexity \ref{gellmann1996information}. The latter aims to bypass the problem by selecting carefully from the candidate set, but as we have shown, for some numberings the candidate set contains only the universal model. 
+
+\section{Overfitting: the singletons}
+
+On the other end of the spectrum, we find the problem of optimally performing, highly-specific models. Most poigniantly, the singletons models. Sets which only contain $x$, probability distributions with $p(x) = 1$, or functions which produce $x$ for all arguments. Lemma~\ref{lemma:thecoolone} allows us to give these models a constant boost as well:
+
+\begin{lemma}[overfitting]
 Let $\M$ be a prefix model class where for every $x\in\X$ there is a singleton model $f\in\M$ with $f(\epsilon)=x$. Then there is an enumeration $\phi_1,\phi_2,\ldots$ of the prefix partial recursive functions, and a constant $c$, such that
 \[
 K(x)-S^{\M,\phi}(x)\le c
@@ -462,22 +483,15 @@ Together, these inequalities establish the second condition.
 Then by Lemma~\ref{lem:thecoolone} there is an enumeration $\phi_1,\phi_2,\ldots$ such that $S^{\M,\phi}(x)=|\bar 0|+S^{\M',\psi}(x)$. We observed that $|K(f)-K(x)|\le c$ for any $f\in\M'$, so $S^{\M',\psi}(x)\ge K(x)+c$. This proves the lemma.
 \end{proof}
 
-\pb{What happens if we just look at the witnesses to Komogorov complexity.}
-\pb{
-stelling: Bounded door universeel model \\
-literatuur: Gell-man, Vitanyi noemen univ model.
-oplossing: beperk de model klasse
-}
+In short, this lemma tells us that there are numberings for which the singleton models always determine the sophistication. This means that for any dataset, the sophistication is equal to the Kolmogorov complexity. 
 
-\subsection{Overfitting: the singletons}
+Many variants in the literature are susceptible to this problem, including the structure function \cite{cover1985kolmogorov,gacs2001algorithmic}. \cite{vitanyi2004meaningful} and \cite{adriaans2012facticity} circumvent this problem by using non-self-delimiting representations. Since a singleton representation places all information in the (self-delimiting) model part, singletons are automatically less efficient than representations placing some information in the input. While this side-steps the issue of the singletons, there is no suggestion that this makes the sophistication invariant.
 
-\pb{
-stelling: singletons kunnen domineren in structure function.
-lit: Kolmogorov, Vitanyi, Antunes, Gell-Man
-oplossing: Paul's meaningful information?
-}
+Another solution would be to make the constant in the threshold function dependent on the choice of enumeration. We are not aware of any approach to this effect, and there does not seem to be a simple way to determine the thresholkd based on the properties of the numbering.
 
 \section{The problem of depth}
+
+We have seen that some variants of sophistication sidestep the simplest examples of underfitting by limiting the model class to exclude universal models. While this eliminates the simplest proof of boundedness, it does not follow immediately that the sophistication based on a limited model class must be bounded. In fact, a well-known result in algorithmic statistics shows that there exist strings for which no finite set is as good a model as the singleton set. We will show the consequences for sophistication:
 
 \begin{theorem}
 There are infinitely many $x$ such that $S^\F_K(x) \geq K(x)/5$. \label{theorem:structure-function-is-not-bounded}
@@ -485,8 +499,6 @@ There are infinitely many $x$ such that $S^\F_K(x) \geq K(x)/5$. \label{theorem:
 \begin{proof}
 From \cite[Proposition~I.3 (b)]{gacs2001algorithmic} we know that for sufficiently large $i$ there are strings of length less than $i$ that are not $(i/4, i/4)$-stochastic. For each $i$, let $x_i$ be the smallest binary string that is not $(i/4, i/4)$-stochastic. Since every string is $(\alpha,\alpha)$-stochastic for sufficiently large $\alpha$, this sequence contains infinitely many distinct binary strings. Now pick any $i$ that is large enough that (a) $|x_i|<i$ and (b) $K(x_i)/5 < i/4$. By definition of $(\alpha,\beta)$-stochasticity, if a string is not $(i/4,i/4)$-stochastic, then for every finite set $S$ containing $x$, either (a) $\log|S|\ge K(x_i)+i/4$, in which case $S$ cannot be a candidate representation for $x$ in $C^\F_K$, or (b) $K(S)>i/4>K(x_i)/5$. This proves the theorem.
 \end{proof}
-
-
 
 \begin{lemma}
 Let $f$ be a total, computable function, such that for some $d$, $f(d) = x$ and let $k = K(f) + |d|$. Then there exists a finite set $S$ containing $x$ and a constant $c$, such that $K(S) \leq K(f) + K(|d|) + c$ and $\log |S| \leq |d|$.\label{lemma:total-to-sets}
@@ -508,19 +520,36 @@ There are infinitely many $x$ with
 \end{enumerate}
 \end{theorem}
 \begin{proof}
-We continue from the proof of Theorem~\ref{theorem:structure-function-is-not-bounded}. Suppose towards contradiction that either $C^\T_K(x_i)$ or $C^T_{\tau^\circ}(x_i)$ contains a candidate $f$ with $K(f)\le i/5$. Then by Lemma~\ref{lemma:total-to-sets}, there is a set $S$ with $\log|S|\le|d|\le\tau^\circ(x)\le K(x)$, so (a) in the proof of Theorem~\ref{theorem:structure-function-is-not-bounded} above cannot be the case, and $K(S)\le K(f)+K(|d|)+c\le i/5+K(|d|)+c$, which contradicts (b) in the same proof for large enough $i$. Therefore such candidates $f$ cannot exist and all candidates must satisfy $K(f)>i/5>K(x_i)/6$.
+We continue from the proof of Theorem~\ref{theorem:structure-function-is-not-bounded}. Suppose towards contradiction that either $C^\T_K(x_i)$ or $C^\T_{\tau^\circ}(x_i)$ contains a candidate $f$ with $K(f)\le i/5$. Then by Lemma~\ref{lemma:total-to-sets}, there is a set $S$ with $\log|S|\le|d|\le\tau^\circ(x)\le K(x)$, so (a) in the proof of Theorem~\ref{theorem:structure-function-is-not-bounded} above cannot be the case, and $K(S)\le K(f)+K(|d|)+c\le i/5+K(|d|)+c$, which contradicts (b) in the same proof for large enough $i$. Therefore such candidates $f$ cannot exist and all candidates must satisfy $K(f)>i/5>K(x_i)/6$.
 \end{proof}
 Note that we favoured simplicity of the proof over the strength of the bounds: the multiplicative constant $1/6$ can be improved with a more detailed treatment.
 
-\pb{
-stelling: voor alle niet superdiepe strings is Paul's sophistication bounded.
-}
+This tells us that for the right strings, a sophistication so defined can truly grow to a significant part of the total description length. While this shows that sophistication, if carefully defined, is not entirely vacuous, we can shed some light on exactly which strings end up with high sophistication, using the principle of depth. We will use the following definition:
+
+\begin{definition}[depth]
+Let $U$ be some universal Turing machine, so that $U(\bar\imath y) = \phi_i(y)$. Let $U^t$ be a simulation of this machine, which is allowed to run for at most $t$ steps, and returns $0$ if it has not yet finished at that point. Let $C^t_\M(x) = \min{|\bar\imath y| : U^t(\bar\imath y) = x, \phi_i \in \M}$.
+
+The \emph{$c$-depth} $d^\M_c(x)$ of a string is defined as:
+\[
+	d^\M_c(x) = \min \left\{t : C^\M_t(x) - C^\M(x) \leq c \right\}
+\] 
+\end{definition}
+
+Thus, deep strings are those that can only be optimally compressed with a great investment of time. The notion of depth was first proposed by Bennett \cite{} and later refined to variants of this form \cite{}.
+
+\begin{theorem}
+Let $A(n)$ be the single-argument Ackermann function and $c$ some arbitrary constant. For all strings with depth $d^\C_c(x) \leq A(|x|)$, $\s^\T(x)$, $s^\P(x)$ and $\s^\F$ are bounded for specific numberings.
+\end{theorem}
+\begin{proof}
+\end{proof}
+This shows that while high-sophistication strings exist for variants with limited model class, the mechanics do not follow the basic intuition of sophistication. Unless we encounter data that would take longer than the lifetime of the universe to produce (and then some), sophistication behaves exactly as it would without the restricted model class. 
+
 
 \section{A world without sophistication}
 
 We have conjectured that sophistication is a lost cause, and that the notion is impossible to formalize in a satisfying manner. 
 
-\pb{Procedural view: we cannot between dominating models. This may not be the aim of algorithmic statistics, but it suggests that it's kind of unreasonable to ask for model selection without repeated samples, or assumptions on the model class.} 
+\pb{Procedural view: we cannot choose between dominating models. This may not be the aim of algorithmic statistics, but it suggests that it's kind of unreasonable to ask for model selection without repeated samples, or assumptions on the model class.} 
 \pb{The problem with making a fixed choice.}
 \pb{The existence of balanced strings.}
 \pb{Total functions. They ruin efficiency and push sophistication into a land of unprovable claims.}
