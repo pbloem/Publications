@@ -323,7 +323,9 @@ returns the correct function, rewrite $\phi_{h(\bar\imath
 Unfortunately, even with a faithful index, we can fail, if the prefix-function used to separate the model from its input is inefficient:
 
 \begin{lemma}
-Let $L(\phi) = |\bar\imath|$ If $\min\{i\ge i_0:|\bar\imath|-K(i)\}$ is an unbounded function of $i_0$, then facticity is bounded.
+Let $L(\phi) = |\bar\imath|$ for a faithful index, and some prefix encoding function, and let $\s^\C$ be defined on this $L$ with the default threshold function.
+
+If $\min\{i\ge i_0:|\bar\imath|-K(i)\}$ is an unbounded function of $i_0$, then $s^\C$ is bounded for all numberings $\phi$
 \end{lemma}
 \begin{proof}
 Let $\bar\imath p$ be any two-part representation for the data $x$, i.e. $\phi_i(p)=x$. Then construct an alternative two-part representation $\bar vi^* p$, where $i^*$ is the shortest $\psi_u$-program for $i$ such that $\phi_v(i^* p)=\phi_{\psi_u(i^*)}(p) = \phi_i(p)=x$. We compare the lengths of these two representations. Note that $|i^*|=K^\psi(i)$. Therefore,
@@ -332,23 +334,36 @@ Let $\bar\imath p$ be any two-part representation for the data $x$, i.e. $\phi_i
 \]
 By assumption there must be an $i_0$ such that the above expression is positive for all $i>i_0$. From this $i$ onwards, the second representation (using $v$) will have a shorter code length, so $\bar\imath p$ cannot achieve the minimum in the definition of the facticity. Consequently, the facticity is bounded by $F^\phi(x)<|\overline{\imath_0}|$ for all $x$. 
 \end{proof}
+This result applies to Adriaans' facticity\cite{adriaans2012facticity}. In order to circumvent the problem, the UTM should should encode the model $f$ in $K(f)$ bits, relying on $K$'s own prefix encoding to delimit the model from its input. 
 
-
-Note that the condition for this lemma applies to all known partial recursive prefix functions:
+Note that the condition for this lemma applies to all known partial computable prefix functions. We conjecture that it applies to all:
 
 \begin{conjecture}
-For any partial recursive prefix code length function $L$, the function
+For any partial computable prefix code length function $L$, the function
 \[
 \min\{L(i)-K(i):i\ge i_0\}
 \]
 is unbounded in $i_0$.
 \end{conjecture}
 
+This result shows that even if we have a faithful numbering, we can only use it in settings where we don't count the cost of delimiting the model from the input (eg. \cite{koppelSoph1988}). In the cases where the data representations are taken as a single code word, the model-part must represent the model as efficient as $K(f)$ does. Instead of a numbering, we require a self-delimiting code for functions rather than a numbering. 
+
+In the rest of this paper, we will take the second perspective: we will consider the representations as two-part descriptions $K(f)$, and $|y|$, such that $f(y)=x$. This description can be unpacked by a very specific universal Turing machine, but contrary to the construction of the Kolmogorov complexity, we are not free to choose any UTM.
+
 \section{Underfitting and overfitting}
 
-\pb{explain title}
+In the previous section, we saw a first example of underfitting: a UTM with a more efficient model representation became a model for all strings. Even if we chose our model-description carefully, to avoid the issues of the previous section, however, universal Turing machines are still candidate model for the data. These candidates represent the data efficiently (they reach the Kolmogorov complexity up to a constant), but they are extremely generic: taking a second sample from the model can produce a string that has nothing to do with the data. Nevertheless, these models perform well, in terms of compression, and there is no justification for excluding them from the candidate set.
+
+The opposite problem is overfitting. A model that can produce only $x$ can be described in as many bits as it takes to describe $x$, plus some constant amount. Again, such models perform as well as any other, but they are not very informative. We call this \emph{overfitting}.
+
+As we shall see, most variants of sophistication are constructed specifically to prevent over- and underfitting.
+
 
 \subsection{Underfitting: the universal model}
+
+Any sophistication function built on a model class that includes singletons, or universal models is in danger of over or underfitting. In that case, we can construct a numbering, so that a particular model, or class of models, represents all data more efficiently than any other model by an arbitrary constant. This constant boost is enough to force all other models out of the candidate set. 
+
+The following lemma generalizes the principle. We will instantiate it for different variants of sophistication: 
 
 \begin{lemma}\label{lem:thecoolone}
   Let $\psi_1,\psi_2,\ldots$ be any acceptable enumeration of the partial recursive functions.
