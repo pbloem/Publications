@@ -364,7 +364,6 @@ This result shows that even if we have a faithful numbering, we can only use it 
 
 In the rest of this paper, we will take the second perspective: we will consider the representations as two-part descriptions $K(f)$, and $|y|$, such that $f(y)=x$. This description can be unpacked by a very specific universal Turing machine, but contrary to the construction of the Kolmogorov complexity, we are not free to choose any UTM.
 
-
 \section{Underfitting: the universal model}
 
 In the previous section, we saw a first example of \emph{underfitting}: a second UTM with a more efficient model representation became a model for all strings. Even if we chose our model-description carefully, to avoid the issues of the previous section, however, universal Turing machines are still candidate model for the data. These candidates represent the data efficiently (they reach the Kolmogorov complexity up to a constant), but they are extremely generic: taking a second sample from the model can produce a string that has nothing to do with the data. Nevertheless, these models perform well, in terms of compression, and there is no justification for excluding them from the candidate set.
@@ -548,21 +547,21 @@ Let $D$ be a prefix function with $D(\epsilon) = u$. We can instantiate Lemma~\r
 
 This shows that while high-sophistication strings exist for variants with limited model class, the mechanics do not follow the basic intuition of sophistication. Unless we encounter data that would take longer than the lifetime of the universe (and then some) to produce, sophistication behaves exactly as it would without the restricted model class: a solution to a superexponential problem would have no greater sophistication that a string sampled from a simple Bernoulli model.
 
-\section{A world without sophistication}
+\section{Conclusion}
 
-We have conjectured that sophistication is a lost cause, and that the notion is impossible to formalize in a satisfying manner. 
+As we have seen, the idea behind sophistication has a rich history. It has been proposed many times, by many different authors: sometimes building on the work of others, sometimes proposing it independently. This tells us two things. Firstly, there is a strong intuition behind the idea of sophistication, a sense that it can be both meaningful and properly defined. Secondly, it shows that it is not an easy intuition to pin down in an unambiguous manner.
 
-\pb{Procedural view: we cannot choose between dominating models. This may not be the aim of algorithmic statistics, but it suggests that it's kind of unreasonable to ask for model selection without repeated samples, or assumptions on the model class.} 
-\pb{The problem with making a fixed choice.}
-\pb{The existence of balanced strings.}
-\pb{Total functions. They ruin efficiency and push sophistication into a land of unprovable claims.}
-\pb{reference Antunes instability}
+So why should we consider this intuition reasonable at all? The starting point behind sophistication is that high structure and high randomness are objectively `uninteresting'. A more sophisticated signal, such as a television broadcast must contain, in some objective sense, more meaningful information. Whether this intuition seems reasonable likely differs per person, but sophistication goes one step further: it also posits an unambiguous separation into structure and randomness. Not for nothing is the sophistication also known as the \emph{algorithmic minimal sufficient statistic}.
 
-However, even if sophistication must be abandoned, that does not mean that the efforts surrounding it are lost. The are many elements of algorithmic statistics that do not rely 
-\pb{Non-stochastic strings are in some sense invariant}
-\pb{We can eliminate almost all models. Complexity is countevidence.No difficult business with total functions.}
+Let us consider whether an unambiguous separation of structure and noise is valid. Imagine a prefix-free universal Turing machine, to which we feed random bits whenever it reads from its input tape. We continue doing so until it halts (or indefinitely as the case may be). In other words, we are sampling from $m(x)$, the universal distribution. What can we say about the resulting data? If the universal Turing is constructed in the conventional manner, it will first sample random bits to select a non-universal Turing machine, and then sample an output from that. What's the characteristic model of this data? Certainly, we cannot exclude the possibility of a universal model. Also, we cannot exclude the possibility that the model actually selected was a singleton model. Ultimately, selecting that model that was actually used in generating the data comes down to guessing where the model ended and the input began. In an unbounded scenario, this is an entirely arbitrary choice.
 
-Finally, the question remains how we can solve the matter of meaningful information without the ability to perform model selection. \pb{All candidates likely Take the finite set case. }
+It must be said that such probabilistic views are strongly discouraged by the proponents of algorithmic statistics, mostly due to the sentiment expressed earlier in the words of Kolmogorov. Information theory, should precede probability, not the other way around. Nevertheless, this sampling scenario somewhat undercuts the intuition behind sophistication: there is no reason to assume that a string with high sophistication was sampled from a complex model. Repeated samples offer an unambiguous golden standard, seeing the same string a million times, strongly suggests a singleton model, 
+
+For this reason, we advocate a skeptical view of sophistication. In particular the notion that it can be made invariant must be mentioned and investigated skeptically. We offer no generic proofs to the contrary, be we do offer the following insight. As we have seen, candidates within a constant of the optimal representation can occur all over the spectrum from small to large models. A small change in construction, such as a different acceptable numbering, or a change in threshold function, can arbitrarily push models into or out of the candidate set. Whereas in Kolmogorov complexity constant changes have constant effects on the outcome, here constant changes can cause very large changes in the outcome.
+
+The most common solution, restricting the models to be total, is problematic. We have show that the behavior of the resulting function does not correspond with the intuition behind it. Additionaly, we must not that this restriction seems arbitrary. What makes the total functions better than any other model class? If it is an arbitrary choice, then the sophistication should be invariant to changing it to some other value. If it isn't, which model classes are permissable and why? Finally, we note that the use of total functions has a very subtle effect on the discussion surrounding sophistication. Since the total functions are not enumerable, the value of the sophistication relies strongly on the difference between the Komogorov complexity and the 
+
+
 
 \subsubsection*{\ackname}
 
