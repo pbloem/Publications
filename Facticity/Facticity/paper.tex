@@ -52,12 +52,12 @@
 \maketitle
 
 \begin{abstract}
-Kolmogorov complexity is a sound expression of the information content of a binary string, but it clashes with our intuitive notions of information: the strings with maximal information content are not the ones we would regard as interesting, or meaningful. One attempt to capture this idea of `useful' information is \emph{sophistication}. It is a simple idea with many attempted formalizations: describe the string efficiently with a two-part coding approach, and take the complexity of the model as a measure of the amount of interesting information. Kolmogorov complexity is invariant to the ad-hoc choices in its construction: change them, and the result will not change more than a constant. We review the history of sophistication critically, asking whether invariance exists for the proposed sophistication functions as well. In most cases, we can show that it doesn't. We conjecture that no formalization of sophistication can be invariant, and we briefly review the consequences of this conjecture.
+Kolmogorov complexity is a sound measure of the amount information in a binary string, but it does not distinguish between the information that expresses the structural properties of the data, and noise. Kolmogorov's definition of the \emph{structure function} in his lecture Tallinn in 1973 was the first attempt to separate meaningful information from noise, but many alternative definitions of the \emph{sophistication}, or the amount of meaningful information in the data, have subsequently been proposed. This indicates that the idea is considered worth pursuing by multiple distinguished scholars, but at the same time it shows that the issue has never been resolved completely satisfactorily.
+
+In this paper we describe four fundamental problems that arise with all existing proposals, showing each of them to be \emph{unsound}. Based on these results we we lay down the view that this unsoundness is fundamental: while it is certainly possible to make nontrivial and useful statements about the structural properties of binary strings, it is \emph{not} possible to objectively quantify its amount of meaningful information.
 \end{abstract}
 
 \section*{Steven's playground}
-
-Potential alternative title: ``Four problems with all current attempts to define meaningful information''
 
 Requirements for sophistication:
 
