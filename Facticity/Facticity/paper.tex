@@ -538,12 +538,15 @@ The \emph{$c$-depth} $d^\M_c(x)$ of a string is defined as:
 Thus, deep strings are those that can only be optimally compressed with a great investment of time. The notion of depth was first proposed by Bennett \cite{} and later refined to variants of this form \cite{}.
 
 \begin{theorem}
-Let $A(n)$ be the single-argument Ackermann function and $c$ some arbitrary constant. For all strings with depth $d^\C_c(x) \leq A(|x|)$, $\s^\T(x)$, $s^\P(x)$ and $\s^\F$ are bounded for specific numberings.
+Let $A(n)$ be the single-argument Ackermann function and $c$ some arbitrary constant. There are numberings such that for all strings with depth $d^\C_c(x) \leq A(C(x))$, $\s^\T(x)$, $s^\P(x)$ and $\s^\F$ are bounded.
 \end{theorem}
 \begin{proof}
-\end{proof}
-This shows that while high-sophistication strings exist for variants with limited model class, the mechanics do not follow the basic intuition of sophistication. Unless we encounter data that would take longer than the lifetime of the universe to produce (and then some), sophistication behaves exactly as it would without the restricted model class. 
+Let $U(\bar\imath y)$ be some (non-prefix) universal Turing machine, and let $U^A(\bar\imath y)$ be a simulation of that machine which outputs $0$ if the number of steps taken exceeds $A(|\bar\imath y|)$. Let $u$ be the index of the function $U^A$ in the standard enumeration.
 
+Let $D$ be a prefix function with $D(\epsilon) = u$. We can instantiate Lemma~\ref{lemma:thecoolone} with $D$, $\M' = \{\phi_u\}$ and $X = \{x : d^\C_c(x) \leq A(C(x))\}$. This tells us that there exists a numbering for which $\s^\T(x) = \s^{\M'}(x) + |\bar0| \leq c$ for all $x \in X$.
+\end{proof}
+
+This shows that while high-sophistication strings exist for variants with limited model class, the mechanics do not follow the basic intuition of sophistication. Unless we encounter data that would take longer than the lifetime of the universe (and then some) to produce, sophistication behaves exactly as it would without the restricted model class: a solution to a superexponential problem would have no greater sophistication that a string sampled from a simple Bernoulli model.
 
 \section{A world without sophistication}
 
