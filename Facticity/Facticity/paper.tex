@@ -55,7 +55,7 @@
 \maketitle
 
 \begin{abstract}
-Kolmogorov complexity is a sound measure of the amount information in a binary string, but it does not distinguish between the information that expresses the structural properties of the data, and noise. Kolmogorov's definition of the \emph{structure function} in his lecture in Tallinn in 1973 was the first attempt to separate meaningful information from noise, but many alternative definitions of the \emph{sophistication}, or the amount of meaningful information in the data, have subsequently been proposed. This indicates that the idea is considered worth pursuing by multiple distinguished scholars, but at the same time it shows that the issue has never been resolved completely satisfactorily.
+Kolmogorov complexity is a sound measure of the amount information in a binary string, but it does not distinguish between the information that expresses the structural properties of the data, and noise. Kolmogorov's definition of the \emph{structure function} in his lecture Tallinn in 1973 was the first attempt to separate meaningful information from noise, but many alternative definitions of the \emph{sophistication}, or the amount of meaningful information in the data, have subsequently been proposed. This indicates that the idea is considered worth pursuing by multiple distinguished scholars, but at the same time it shows that the issue has never been completely satisfactorily resolved.
 
 In this paper we describe three fundamental problems that arise with all existing proposals, showing each of them to be \emph{unsound}. Based on these results we we put forward the view that the problem is fundamental: while many nontrivial and useful structural properties of binary strings can be detected without a priori assumptions, it is \emph{not} possible to objectively quantify its sophistication.
 \end{abstract}
@@ -384,6 +384,37 @@ This result shows that even if we have a faithful numbering, we can only use it 
 
 In the rest of this paper, we will take the second perspective: we will consider the representations as two-part descriptions $K(f)$, and $|y|$, such that $f(y)=x$. This description can be unpacked by a very specific universal Turing machine, but contrary to the construction of the Kolmogorov complexity, we are not free to choose any UTM.
 
+\section{Overfitting: the singletons}
+
+On the other end of the spectrum, we find the problem of optimally performing, highly-specific models. Most poigniantly, the singletons models. Sets which only contain $x$, probability distributions with $p(x) = 1$, or functions which produce $x$ for all arguments. Lemma~\ref{lemma:thecoolone} allows us to give these models a constant boost as well:
+
+\begin{lemma}[overfitting]
+Let $\M$ be a prefix model class where for every $x\in\X$ there is a singleton model $f\in\M$ with $f(\epsilon)=x$. Then there is an enumeration $\phi_1,\phi_2,\ldots$ of the prefix partial recursive functions, and a constant $c$, such that
+\[
+K(x)-S^{\M,\phi}(x)\le c
+\]
+for all $x\in\X$.
+\end{lemma}
+\begin{proof}
+Let $\psi_1,\psi_2,\ldots$ be any default enumeration of the partial recursive prefix functions. Note that since $f$ is a prefix function, if $f$ is defined for input $\epsilon$ then it cannot be defined for any other input. Pick $f,x$ with $f(\epsilon)=x$. Note that $x$ can be computed from $f$ and a fixed program, so there is a $c$ such that $K(x)\le K(f)+c$. Vice versa, given any $x$ we can construct an index of $f$, since $\psi$ is an acceptable numbering. Therefore $|K(f)-K(x)|\le c$.
+
+We now define a computable function $D$ by $D(\bar\imath p)=j$ where $\psi_j(\epsilon) = \psi_i(p)$.  We will show that the two conditions of Lemma~\ref{lem:thecoolone} hold for the prefix function $D$.
+
+\begin{enumerate}
+\item Let $f$ be any function in the range of $D$, and $x$ its output. Then $\min\{|p|:\psi_{D(p)}=f\}=\min\{|\bar\imath q|:\psi_i(q)=x\}=K(x)\le K(f)+c$.
+\item On the one hand $L^{\M',\psi}(x)\le K(f)+|\epsilon|\le K(x)+c$. On the other hand, $L^{\M,\psi}(x)$ is an effective description of $x$, so $K(x)$ is at most a constant larger.
+Together, these inequalities establish the second condition.
+\end{enumerate}
+
+Then by Lemma~\ref{lem:thecoolone} there is an enumeration $\phi_1,\phi_2,\ldots$ such that $S^{\M,\phi}(x)=|\bar 0|+S^{\M',\psi}(x)$. We observed that $|K(f)-K(x)|\le c$ for any $f\in\M'$, so $S^{\M',\psi}(x)\ge K(x)+c$. This proves the lemma.
+\end{proof}
+
+In short, this lemma tells us that there are numberings for which the singleton models always determine the sophistication. This means that for any dataset, the sophistication is equal to the Kolmogorov complexity. 
+
+Many variants in the literature are susceptible to this problem, including the structure function \cite{cover1985kolmogorov,gacs2001algorithmic}. \cite{vitanyi2004meaningful} and \cite{adriaans2012facticity} circumvent this problem by using non-self-delimiting representations. Since a singleton representation places all information in the (self-delimiting) model part, singletons are automatically less efficient than representations placing some information in the input. While this side-steps the issue of the singletons, there is no suggestion that this makes the sophistication invariant.
+
+Another solution would be to make the constant in the threshold function dependent on the choice of enumeration. We are not aware of any approach to this effect, and there does not seem to be a simple way to determine the thresholkd based on the properties of the numbering.
+
 \section{Underfitting: the universal model}
 
 In the previous section, we saw a first example of \emph{underfitting}: a second UTM with a more efficient model representation became a model for all strings. Even if we chose our model-description carefully, to avoid the issues of the previous section, however, universal Turing machines are still candidate model for the data. These candidates represent the data efficiently (they reach the Kolmogorov complexity up to a constant), but they are extremely generic: taking a second sample from the model can produce a string that has nothing to do with the data. Nevertheless, these models perform well, in terms of compression, and there is no justification for excluding them from the candidate set.
@@ -459,7 +490,7 @@ By choosing $c''$ sufficiently large, we can ensure that the best representation
 
 This is a very technical and opaque lemma, due to the double effect of the choice of numbering. The choice of numbering affects both the model complexity and the data complexity by a constant amount. The idea behind the lemma, however, is simple. Given a subset $\M'$ of the model class, we can choose the numbering so that representations use a model in $\M'$ perform an arbitrary constant better than all other models. This lets us effectively `push' all other models out of the candidate set, so that the sophistication is determined by a model in $\M'$.
 
-The simplest instantiation shows a the most well known problem with sophistication: the universal model (ie. a UTM) is a candidate model too. We can manipulate the numbering so that the universal model always determines the sophistication. That is, the sophistication measure \emph{underfits}.
+The simplest instantiation shows the most well known problem with sophistication: the universal model (ie. a UTM) is a candidate model too. We can manipulate the numbering so that the universal model always determines the sophistication. That is, the sophistication measure \emph{underfits}.
 
 \begin{lemma}[underfitting]
 Let $\M$ be a model class containing model $u$, called a \emph{universal model} with the following property
@@ -477,36 +508,7 @@ Let $D$ be a prefix function as in Lemma~\ref{lemma:thecoolone} such that it ret
 
 The underfitting problem is the reason that almost all sophistication measures limit their model class, usually to either finite sets ($\F$) or total functions ($\T$ or $\K$). This eliminates the universal model, but as we shall see in Section~\ref{section:depth}, this does not solve the problem for most data. The variants that are sucseptible to the problem of underfitting are facticity \cite{adriaans2012facticity} and some versions of effective complexity \ref{gellmann1996information}. The latter aims to bypass the problem by selecting carefully from the candidate set, but as we have shown, for some numberings the candidate set contains only the universal model. 
 
-\section{Overfitting: the singletons}
 
-On the other end of the spectrum, we find the problem of optimally performing, highly-specific models. Most poigniantly, the singletons models. Sets which only contain $x$, probability distributions with $p(x) = 1$, or functions which produce $x$ for all arguments. Lemma~\ref{lemma:thecoolone} allows us to give these models a constant boost as well:
-
-\begin{lemma}[overfitting]
-Let $\M$ be a prefix model class where for every $x\in\X$ there is a singleton model $f\in\M$ with $f(\epsilon)=x$. Then there is an enumeration $\phi_1,\phi_2,\ldots$ of the prefix partial recursive functions, and a constant $c$, such that
-\[
-K(x)-S^{\M,\phi}(x)\le c
-\]
-for all $x\in\X$.
-\end{lemma}
-\begin{proof}
-Let $\psi_1,\psi_2,\ldots$ be any default enumeration of the partial recursive prefix functions. Note that since $f$ is a prefix function, if $f$ is defined for input $\epsilon$ then it cannot be defined for any other input. Pick $f,x$ with $f(\epsilon)=x$. Note that $x$ can be computed from $f$ and a fixed program, so there is a $c$ such that $K(x)\le K(f)+c$. Vice versa, given any $x$ we can construct an index of $f$, since $\psi$ is an acceptable numbering. Therefore $|K(f)-K(x)|\le c$.
-
-We now define a computable function $D$ by $D(\bar\imath p)=j$ where $\psi_j(\epsilon) = \psi_i(p)$.  We will show that the two conditions of Lemma~\ref{lem:thecoolone} hold for the prefix function $D$.
-
-\begin{enumerate}
-\item Let $f$ be any function in the range of $D$, and $x$ its output. Then $\min\{|p|:\psi_{D(p)}=f\}=\min\{|\bar\imath q|:\psi_i(q)=x\}=K(x)\le K(f)+c$.
-\item On the one hand $L^{\M',\psi}(x)\le K(f)+|\epsilon|\le K(x)+c$. On the other hand, $L^{\M,\psi}(x)$ is an effective description of $x$, so $K(x)$ is at most a constant larger.
-Together, these inequalities establish the second condition.
-\end{enumerate}
-
-Then by Lemma~\ref{lem:thecoolone} there is an enumeration $\phi_1,\phi_2,\ldots$ such that $S^{\M,\phi}(x)=|\bar 0|+S^{\M',\psi}(x)$. We observed that $|K(f)-K(x)|\le c$ for any $f\in\M'$, so $S^{\M',\psi}(x)\ge K(x)+c$. This proves the lemma.
-\end{proof}
-
-In short, this lemma tells us that there are numberings for which the singleton models always determine the sophistication. This means that for any dataset, the sophistication is equal to the Kolmogorov complexity. 
-
-Many variants in the literature are susceptible to this problem, including the structure function \cite{cover1985kolmogorov,gacs2001algorithmic}. \cite{vitanyi2004meaningful} and \cite{adriaans2012facticity} circumvent this problem by using non-self-delimiting representations. Since a singleton representation places all information in the (self-delimiting) model part, singletons are automatically less efficient than representations placing some information in the input. While this side-steps the issue of the singletons, there is no suggestion that this makes the sophistication invariant.
-
-Another solution would be to make the constant in the threshold function dependent on the choice of enumeration. We are not aware of any approach to this effect, and there does not seem to be a simple way to determine the thresholkd based on the properties of the numbering.
 
 \section{The problem of depth}
 
@@ -565,27 +567,46 @@ Let $U(\bar\imath y)$ be some (non-prefix) universal Turing machine, and let $U^
 Let $D$ be a prefix function with $D(\epsilon) = u$. We can instantiate Lemma~\ref{lemma:thecoolone} with $D$, $\M' = \{\phi_u\}$ and $X = \{x : d^\C_c(x) \leq A(C(x))\}$. This tells us that there exists a numbering for which $\s^\T(x) = \s^{\M'}(x) + |\bar0| \leq c$ for all $x \in X$.
 \end{proof}
 
-This shows that while high-sophistication strings exist for variants with limited model class, the mechanics do not follow the basic intuition of sophistication. Unless we encounter data that would take longer than the lifetime of the universe (and then some) to produce, sophistication behaves exactly as it would without the restricted model class: a solution to a superexponential problem would have no greater sophistication that a string sampled from a simple Bernoulli model.
+This shows that while high-sophistication strings exist for variants with limited model class, the mechanics do not follow the basic intuition of sophistication. Unless we encounter data that would take longer than the lifetime of the universe (and then some) to produce, sophistication behaves exactly as it would without the restricted model class: a solution to a superexponential problem would have no greater sophistication that a string sampled from a simple Bernoulli model. This result also suggests that the `non-stochastic' property of strings with high sophistication\cite{shen1983concept,vereshchagin2004kolmogorov} says more about depth and totality than it does about stochasticity.
+
+\pb{We may need to cite Antunes for similar results.}  
 
 \section{Conclusion}
 
-As we have seen, the idea behind sophistication has a rich history. It has been proposed many times, by many different authors: sometimes building on the work of others, sometimes proposing it independently. This tells us two things. Firstly, there is a strong intuition behind the idea of sophistication, a sense that it can be both meaningful and properly defined. Secondly, it shows that it is not an easy intuition to pin down in an unambiguous manner.
+As we have seen, the idea behind sophistication has a rich history. It has been proposed many times, by many different authors. This tells us two things. Firstly, there is a strong intuition behind sophistication, shared by many respected authors, and second, it is not easy to get the definition exactly right.
 
-So why should we consider this intuition reasonable at all? The starting point behind sophistication is that high structure and high randomness are objectively `uninteresting'. A more sophisticated signal, such as a television broadcast must contain, in some objective sense, more meaningful information. Whether this intuition seems reasonable likely differs per person, but sophistication goes one step further: it also posits an unambiguous separation into structure and randomness. Not for nothing is the sophistication also known as the \emph{algorithmic minimal sufficient statistic}.
+So why should we consider this intuition reasonable at all? The first assumption of sophistication is that high structure and high randomness are objectively `uninteresting'. A more sophisticated signal, such as a television broadcast must contain, in some objective sense, more meaningful information. Whether this intuition seems reasonable likely differs per person, but sophistication goes one step further: it also posits an objective separation of a string into structure and randomness.
 
-Let us consider whether an unambiguous separation of structure and noise is valid. Imagine a prefix-free universal Turing machine, to which we feed random bits whenever it reads from its input tape. We continue doing so until it halts (or indefinitely as the case may be). In other words, we are sampling from $m(x)$, the universal distribution. What can we say about the resulting data? If the universal Turing is constructed in the conventional manner, it will first sample random bits to select a non-universal Turing machine, and then sample an output from that. What's the characteristic model of this data? Certainly, we cannot exclude the possibility of a universal model. Also, we cannot exclude the possibility that the model actually selected was a singleton model. Ultimately, selecting that model that was actually used in generating the data comes down to guessing where the model ended and the input began. In an unbounded scenario, this is an entirely arbitrary choice.
+Let us consider whether this assumption is valid. Imagine a prefix-free universal Turing machine, to which we feed random bits whenever it reads from its input tape. We continue doing so until it halts (or indefinitely as the case may be). In other words, we are sampling from $m(x)$, the universal distribution. What can we say about the resulting data? If the universal Turing machine is constructed in the conventional manner, it will first sample random bits to select a non-universal Turing machine, and then sample an output from that. What's the characteristic model of this data? Certainly, we cannot exclude the possibility of a universal model. Also, we cannot exclude the possibility that the model actually selected was a singleton model. Ultimately, selecting that model that was actually used in generating the data comes down to guessing where the model ended and the input began. In an unbounded scenario, an entirely arbitrary choice, since the singleton and the universal model are equally likely explanations for the same data.
 
-It must be said that such probabilistic views are strongly discouraged by the proponents of algorithmic statistics, mostly due to the sentiment expressed earlier in the words of Kolmogorov. Information theory, should precede probability, not the other way around. Nevertheless, this sampling scenario somewhat undercuts the intuition behind sophistication: there is no reason to assume that a string with high sophistication was sampled from a complex model. Repeated samples offer an unambiguous golden standard, seeing the same string a million times, strongly suggests a singleton model, 
+Such a probabilistic view is strongly discouraged by the proponents of algorithmic statistics, as expressed earlier in the words of Kolmogorov: information theory should precede probability theory. Nevertheless, this sampling scenario undercuts the intuition behind sophistication: there is no reason to assume that a string with high sophistication was sampled from a complex model, so how can the complex model be intrinsic to the data, moreso than any other model that reaches the Kolmogorov complexity.
 
-For this reason, we advocate a skeptical view of sophistication. In particular the notion that it can be made invariant must be mentioned and investigated skeptically. We offer no generic proofs to the contrary, be we do offer the following insight. As we have seen, candidates within a constant of the optimal representation can occur all over the spectrum from small to large models. A small change in construction, such as a different acceptable numbering, or a change in threshold function, can arbitrarily push models into or out of the candidate set. Whereas in Kolmogorov complexity constant changes have constant effects on the outcome, here constant changes can cause very large changes in the outcome.
+For this reason, we take a skeptical view of sophistication. In particular the question whether it can be defined in an invariant way must be asked, and carefully investigated. It is exceedingly difficult to prove that this is impossible, but we can offer the following insight. As we have seen, candidates within a constant of the optimal representation can occur all over the spectrum from small to large models. A small change in construction, such as a different acceptable numbering, or a change in threshold function, can arbitrarily push models into or out of the candidate set. Whereas in Kolmogorov complexity constant changes have constant effects on the outcome, here constant changes can cause very large changes in the outcome. While no authors have touched on the issue of invariance explicitly, it is strongly related to the issue of instability, discussed in \cite{antunes2013sophistication,vereshchagin2013algorithmic}.
 
-The most common solution, restricting the models to be total, is problematic. We have show that the behavior of the resulting function does not correspond with the intuition behind it. Additionaly, we must not that this restriction seems arbitrary. What makes the total functions better than any other model class? If it is an arbitrary choice, then the sophistication should be invariant to changing it to some other value. If it isn't, which model classes are permissable and why? Finally, we note that the use of total functions has a very subtle effect on the discussion surrounding sophistication. Since the total functions are not enumerable, the value of the sophistication relies strongly on the difference between the Komogorov complexity and the 
+The most common approach, restricting the models to be total, is problematic. We have shown that the behavior of the resulting function does not correspond with the intuition behind it. Additionally, we must note that this restriction seems arbitrary. What makes the total functions better than any other model class? If it is an arbitrary choice, then the sophistication should be invariant to changing it to some other reasonable class. If it isn't, which model classes are permissable and why? Finally, we note that the use of total functions has a very subtle effect on the discussion surrounding sophistication. Since the total functions are not enumerable, the value of the sophistication relies strongly on the difference between the Kolmogorov complexity and the Kolmogorov complexity bounded to total functions. This gap is exceedingly difficult to capture, because the total functions cannot be enumerated. 
 
+This is dangerous: if such definitions cannot be proved wrong or right, they will stand as the ad-hoc official view, while the restrictions used to elude proofs of incorrectness make them very difficult to build on. This creates an artificial dead-end for what is at heart a useful and valuable topic of research.
+
+\subsection{A world without sophistication}
+
+It is too early to say that sophistication is an impossible ideal, but the points we have raised certainly show that it is riddled with subtle pitfalls, and inspired by questionable intuitions. We will conclude by asking what it would mean if we were to abandon this ideal entirely.
+
+Of course the definition of Kolmogorov complexity still stands, and the space of two-part descriptions, ordered by strength of compression is still meaningful. If we give up on the ability to distinguish between representations that are close to the minimum, and consider them equivalent, we lose the ability to select a model, but we can still eliminate all those representation that are far from the Kolmogorov complexity. This gives us a kind of hypothesis test for a model. The probability of the model forming a good hypothesis is $2^|\bar\imath y|$, where $\bar\imath y$ is the representation. We can exclude any model if we know that that there exists a more probable representation. We might worry whether, in this scenario, the Kolmogorov complexity might compress better than the original model. 
+
+Consider the following metaphor. We are given a datastring which can be read as a high-resolution bitmap image of the painting\emph{Impression of a Sunrise}. The candidate set allows us to say that this data represents an object, an image, a painting, an impressionist painting, a Monet and that it is specifically `Impression of a sunrise'. Each of these descriptions are models, which require further specification of the exact data, and each of these descriptions may end up in the candidate set. Which model takes precedence is a subjective choice.We cannot  say that it is in any way \emph{more} of an image than it is a painting, or vice versa.
+
+It does allow us to say, however, that it is unlikely to be a Jackson Pollock painting, or a piece of music. And, if we were to get a second sample from the same source, we \emph{could} answer the question: we would receive either the same painting again, another Monet, the same painting again, or simply another `thing', and we would gain information about the model.
+
+The question of meaningful information can be resolved by other means. There is firstly, the notion of depth in its different variants, which tells us that the complexity of a representation can be measured by its use of computational resources. Additionally, we might look at the patterns found  by models in the candidate set. In both views, the candidate set must be relatively homogenous. For instance, all programs must exceed the depth of $x$. WE know of no framework that would allow this kind of investigation, but it is conceivable that all one-part codes that approximate the Kolmogorov complexity exploit the same patterns. It is only the separation into random and non-random structure that is in question.
+
+We note that these model-selection problems are not specific to Algorithmic statistics. They can largely be directly translated to the MDL and Bayesian frameworks. While proponents in these fields have never made explicit claims of asymptotically objective model selection, it is a sobering thought that when the model class is extended to all computable distributions, model selection on a single sample becomes arbitrary. (Among the candidate set)
+
+Our conclusion, is thus that in giving up sophistication, we do not lose Algorithmic Statistics, but rather clean up some its more unmanageable components. Letting go of the minimal sufficient statistic will allow us to return to the simplicity of $\K$ as model classes. This gives us a simple framework, with a one-to-one relation to Bayesian statistics and MDL. Within this framework, we can simply study the consequences of assuming only that the source of our data is a computable process with access to a source of randomness.
 
 
 \subsubsection*{\ackname}
 
-This publication was supported by the Dutch national program COMMIT and by the the Netherlands eScience center.
+This publication was supported by the Dutch national program COMMIT and by  the Netherlands eScience center.
 
 \bibliographystyle{plain}
 \bibliography{facticity}
