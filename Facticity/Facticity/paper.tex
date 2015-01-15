@@ -23,6 +23,9 @@
 \newcommand{\s}{\tn{soph}}
 \newcommand{\num}[1]{#1_1, #1_2, \ldots}
 
+\newcommand{\phiv}{\mathbf\phi}
+\newcommand{\psiv}{\mathbf\psi}
+
 \newtheorem{conj}{Conjecture}
 
 \let\doendproof\endproof
@@ -39,7 +42,7 @@
 
 \newcommand{\argmin}{\mathop{\arg\min}}
 
-\title{Four Problems for Sophistication}
+\title{Three Problems for Sophistication}
 
 \author{Peter Bloem and Steven de Rooij}
 
@@ -54,22 +57,39 @@
 \begin{abstract}
 Kolmogorov complexity is a sound measure of the amount information in a binary string, but it does not distinguish between the information that expresses the structural properties of the data, and noise. Kolmogorov's definition of the \emph{structure function} in his lecture in Tallinn in 1973 was the first attempt to separate meaningful information from noise, but many alternative definitions of the \emph{sophistication}, or the amount of meaningful information in the data, have subsequently been proposed. This indicates that the idea is considered worth pursuing by multiple distinguished scholars, but at the same time it shows that the issue has never been resolved completely satisfactorily.
 
-In this paper we describe four fundamental problems that arise with all existing proposals, showing each of them to be \emph{unsound}. Based on these results we we lay down the view that this unsoundness is fundamental: while many nontrivial and useful structural properties of binary strings can be detected without a priori assumptions, it is \emph{not} possible to objectively quantify its sophistication.
+In this paper we describe three fundamental problems that arise with all existing proposals, showing each of them to be \emph{unsound}. Based on these results we we put forward the view that the problem is fundamental: while many nontrivial and useful structural properties of binary strings can be detected without a priori assumptions, it is \emph{not} possible to objectively quantify its sophistication.
 \end{abstract}
 
-\section*{Steven's playground}
-
-Requirements for sophistication:
-
-(1) Being an information measure, the value should count the number of bits required for an effective description of the meaningful properties of a binary object.
-
-(2) The Invariance Theorem for Kolmogorov complexity states that a change in reference UTM can only influence the complexity up to an additive constant term. Analogously, if sophistication is to be interpreted as an objective property of the data, then there should be strict limits on the degree to which a change in the UTM can affect the sophistication.
-
-(3) Sophistication should not be $\gamma$-equivalent to 0. While a valid information measure, the function 0 is clearly at odds with the intuition that there is no universal cap on the amount of meaningful information in the world.
-
-(4) Sophistication should not be $\gamma$-equivalent to the Kolmgorov complexity, because then there is no point in defining a new word for the same concept. Moreover, Kolmogorov complexity is at odds with the intuition that there is no meaningful information in a random string.
-
 \section{Introduction}
+
+Kolmogorov complexity breaks away from the tradition in statistics and information theory by allowing the analysis of \emph{individual} binary sequences rather than studying probability distributions. This is important because for many binary strings, such as a binary encoding of a novel, or a holiday snapshot, or the fossil record, it is impossible to determine what distribution generates such objects. There is, however, a nagging discrepancy between Kolmogorov complexity and what most people whould intuitively call ``complex''. For example, a sequence of a million coin flips is exceedingly unlikely to have a Kolmogorov complexity of much less than one million bits, even though there is nothing complex about flipping a lot of coins --- it's just hard work. For this reason, many scholars have defined alternative complexity measures in the spirit of Kolmogorov complexity, aimed at quantifying not \emph{all} information in a binary string, but only the \emph{meaningful} information in the data. This tradition started with a lecture by Kolmogorov in Talinn, Estonia in 1973, but many alternative definitions of meaningful information, or \emph{sophistication}, were proposed, see Section~\ref{sec:related_work} for an overview. In this paper, we investigate three problems that have plagued these definitions, and show that existing definitions of sophistication are unsatisfactory. We believe the problem to be fundamental, and provide several intuitive arguments why these attempts to define sophistication must fail.
+
+The Kolmogorov complexity of a binary string $x$ is, roughly, the length of the shortest computer program that will output $x$. This length depends on the chosen computer language. However, the Invariance Theorem states that the choice between any two Turing complete languages affects the Kolmogorov complexity by at most a constant term: if $K^L(x)$ denotes Kolmogorov complexity of $x$ with respect to computer language $L$, then there $|K^L(x)-K^M(x)|<c$ for some constant $c$ that depends on $L$ and $M$, but \emph{not on $x$}. This means that for sufficiently complex objects, the choice of computer language becomes irrelevant and Kolmogorov complexity becomes an \emph{objective} measure of the complexity of binary strings. The invariance theorem allows us to fix a single reference computer language and omit it from the superscript.
+
+A definition of sophistication $S(x)$ in the spirit of Kolmogorov complexity should have similar robustness guarantees if it is to be interpreted as an objective property of a binary string. We are interested in a measure satisfying the following requirements:
+
+\begin{enumerate}
+\item Being an information measure, the sophistication should count the number of bits required for an effective description of the structural properties of a binary string.
+\item An analogue of the Invariance Theorem should hold for sophistication: at the very least, there should be strict limits on the degree to which a change in the used computer language can affect the sophistication.
+\item There should be no constant $c$ such that $S(x)\le c$ for every input sequence $x$. If sophistication is bounded, then its value can change entirely when another computer language is adopted, even for inputs of very high Kolmogorov complexity. Moreover, a bounded sophistication would be at odds with the intuition that there is no limit to the amount structure that a binary string can exhibit.
+\item Similarly, there should be no constant $c$ such that the $K(x)-S(x)\le c$, because then sophistication would be equivalent to Kolmogorov complexity, and the sophistication would incorporate the amount of noise in the data just like Kolmogorov complexity does.
+\end{enumerate}
+
+For most of proposed definitions of sophistication, we can prove that they fail one or more of the attributes above. Vit\'anyi's definition \cite{TODO} is the one exception that we cannot \emph{prove} to be at odds with our requirements, but we can show that only extremely deep strings (i.e., strings that require an enormous amount of processing to construct) yield a large sophistication, which is at odds with the intuition that there can be objects that there can be objects that contain a lot of structure that can be easily described. Moreover in our discussion section we provide arguments that suggest that it should be possible to generalise our negative results, so that they show that Vit\'anyi's sophistication is not invariant.
+
+A valid definition of sophistication must contend with the following issues. First, while all definitions are based on a two-part encoding of the data sequence, some researchers use Kolmogorov complexity as a building block of their proposed code, while others look for the two parts of the code \emph{inside} the Kolmgorov complexity: the definition of Kolmgorov complexity is opened up, and is observed to consist of two parts, one of which is then interpreted as sophistication. In Section~\ref{sec:nickname}, we show how this second approach sets us up to suffer from to the so-called \emph{nickname problem}: the sophistication almost trivially becomes highly dependent on the chosen enumeration of partial recursive functions. This immediately breaks invariance of the sophistication, unless additional requirements are made on the enumeration. We also show that there do exist optimally efficient enumerations of the partial recursive functions that address this issue.
+
+The second issue is that of \emph{overfitting}, which we consider in Section~\ref{sec:overfitting}. Overfitting is a common problem in the statistical literature, that refers to the tendency of some model selection procedures to select a model that provides a very good fit to the observed data, but does not generalise well to unseen data. For example, in a polynomial regression setting, a higher order polynomial can always provide better fit to a data set. Therefore, even if the data are in fact drawn from a second order polynomial with gaussian errors, naive model selection methods will select a higher order polynomial that provides a worse description of the trend in the data. The same can occur for the sophistication. We somehow need to make sure that the two-part representation that determines the sophistication does not store noise in the ``structure'' part of the code. In statistics, this is typically addressed by penalising complex models, e.g. using the BIC criterion \cite{TODO}. However, such penalisations tend to break the delicate balance between structural information and noise, and lead to the opposite problem: underfitting.
+
+Underfitting is the subject of Section~\ref{sec:underfitting}. It is an especially serious problem for sophistication because the considered models for sophistication are so powerful. In particular, in any numbering of the partial recursive functions, there are universal elements that can mimic any other partial recursive function. Such universal elements are a good models for \emph{any} data sequence, and if complex models are penalized to avoid overfitting, then the problem becomes to make sure that they are not \emph{always} preferred for complex data. This problem is widely recognised, and is sometimes referred to as the ``collapse'' of the structure function. The usual workaround is to restrict the set of considered models such that universal elements are no longer allowed. For example, the model class may be restricted to the set of all total recursive functions rather than all partial recursive functions. While this patches the ``collapse'' problem to an extent, it is very questionable whether it adequately solves the problem of underfitting in general.
+
+Finally, in the discussion in Section~\ref{sec:discussion} we argue that while two-part coding can yield useful insights into the structure of the data and allows us to identify some models as unlikely to capture all structure in the data, it is probably not possible to identify a \emph{single} model as ``best'': in general many models, of vastly different complexities, may be reasonable candidates for describing the data generating mechanism. Rather than doggedly trying to ``fix'' this property of algorithmic statistics, we propose embracing the idea that sometimes the data allows for multiple very different interpretations, and there is no such thing as sophistication.
+
+\subsection{Related work}
+This originated with Kolmogorov's lecture about his \emph{structure function}, in Tallinn, Estonia in 1973. This work was never published, but summarized by Cover \cite{cover1985kolmogorov} and later discussed more extensively, and generalised, by Vereshchagin, G\'acs and Vit\'anyi \cite{vereshchagin2004kolmogorov,gacs2001algorithmic}). Koppel \cite{koppelSoph1988,koppel1991almost} built on this notion to define a measure of the meaningful information in a binary string, called \emph{sophistication}, which is the term we will adopt in this paper. A similar notion called ``effective complexity'' was described by Gell-Mann and Lloyd \cite{gellmann1996information}. Antunes and Fortnow, worried about a certain instability with Koppel's sophistication, tweaked the definition to obtain ``coarse sophistication'' \cite{antunes2009sophistication}. Adriaans is the first to address the p a different problem in Koppel's definition gain very similar is Adriaans' \emph{facticity}\cite{adriaans2012facticity}.
+
+
+\subsection{Old stuff}
 
 \noindent Kolmogorov complexity is an objective measure of the information content of an object. Although its definition contains several arbitrary choices, these only affect its value up to a constant additive term. This property is crucial for the measure's success: it allows us to view Kolmogorov complexity as a \emph{property of the data} rather than an arbitrary function computed on it. This, in turn, allows us to define the intrinsic entropy, or randomness, inherent in a single object expressed as a binary string, without any assumptions on the process that produced it. However, this notion of complexity does not in all respects match our intuitive idea of which objects are complex, and which objects are not.
 
@@ -93,7 +113,7 @@ We first provide a brief chronological overview of the existing variants of soph
 
 The first suggestion that a representation of a string can be separated cleanly into an encoding of its regular and its stochastic proeperties came from Kolmogorov himself, in a talk given at a conference in Tallinn in 1973 (first committed to paper by Cover \cite{cover1985kolmogorov} and later discussed more extensively discussed by Vereshchagin and Vit\'anyi \cite{vereshchagin2004kolmogorov}). Here, he proposed what has become known as the \emph{Kolmogorov structure function}.Minimizes over two part representations for a given string $x$, consisting of some finite set $S$ (containing $x$) and the index of $x$ in $S$. The \emph{minimal sufficient statistic} is the set with the lowest complexity for which the length of the two-part representation reaches the prefix-free Kolmogorov complexity. It was first shown by Shen \cite{shen1983concept} that there are strings for which the best model cannot be small.
 
-Koppel \cite{koppelSoph1988,koppel1991almost} built on this notion, coining the phrase \emph{sophistication}. He changed the class of models from finite sets to total functions and used monotone functions, instead of prefix-free Kolmogorov complexity. We expect that this change was made to extend the theory to infinite strings, an approach which has been abandoned by subsequent authors. We will only consider the finite version (based on regular functions) in this paper.
+He changed the class of models from finite sets to total functions and used monotone functions, instead of prefix-free Kolmogorov complexity. We expect that this change was made to extend the theory to infinite strings, an approach which has been abandoned by subsequent authors. We will only consider the finite version (based on regular functions) in this paper.
 
 While Koppel expands the model class from finite sets to functions,he does require that the functions be total. This is a recurring theme: if the model class is expanded to all computable functions, the universal Turing machine $U$ itself becomes a model. If we assume that $U$ computes the function $\phi_u$ in the standard enumeration of computable functions, and that $\bar\imath y$ is a shortest description for $x$ on $U$ (ie. $U(\bar\imath y) = x)$), then $\br{u}\br{\imath}y$ is also a description for $x$ on $\bar u$. This description has a constant model size ($|\br{u}|$), ie. every $x$ has constant sophistication. This `collapse' to a universal model is the reason that most treatments of sophistication constrain the model class to exclude the universal Turing machine. This makes it more expensive to move information out of the model. As we shall see, defining sophistication quickly becomes a balancing act, forcing information one way or the other.
 
