@@ -23,6 +23,7 @@
 \newcommand{\br}[1]{\overline{#1}}
 \newcommand{\s}{S}
 \newcommand{\dom}[1]{\mathop{\tn{dom}(#1)}}
+\newcommand{\range}[1]{\mathop{\tn{range}(#1)}}
 
 \newtheorem{conj}{Conjecture}
 
@@ -477,12 +478,14 @@ Since $S$ is the image of a set of size $2^{|d|}$ under $f$, we have $\log |S| \
 We use this to show that sophistications with a restricted model class are not bounded:
 \dogfood*
 \begin{proof}
-From \cite[Proposition~I.3 (b)]{gacs2001algorithmic} we know that for sufficiently large $i$ there are strings of length less than $i$ that are not $(i/4, i/4)$-stochastic. For each $i$, let $x_i$ be the smallest binary string that is not $(i/4, i/4)$-stochastic. Since every string is $(\alpha,\alpha)$-stochastic for sufficiently large $\alpha$, this sequence contains infinitely many distinct binary strings. Now pick any $i$ that is large enough that (a) $|x_i|<i$ and (b) $C^\K(x_i)/5 < i/4$. By definition of $(\alpha,\beta)$-stochasticity, if a string is not $(i/4,i/4)$-stochastic, then for every finite set $S$ containing $x$, either (a) $\log|S|\ge C^\K(x_i)+i/4$, in which case $S$ cannot be a candidate representation for $x$ in \pb{candidate set}, or (b) $C^\K(S)>i/4>C^\K(x_i)/5$. This proves the first inequality.
+For all $i$, let $x_i$ be the smallest binary string that is not $(i/4, i/4)$-stochastic. Since every string is $(\alpha,\alpha)$-stochastic for sufficiently large $\alpha$, this sequence contains infinitely many distinct binary strings.
+From \cite[Proposition~I.3 (b)]{gacs2001algorithmic} we know that for all sufficiently large $i$ there are strings of length less than $i$ that are not $(i/4, i/4)$-stochastic. Now pick any $i$ that is large enough that (a) $|x_i|<i$ and (b) $C^\K(x_i)/5 < i/4$. By definition of $(\alpha,\beta)$-stochasticity, if a string is not $(i/4,i/4)$-stochastic, then for every finite set $S$ containing $x$, either (a) $\log|S|\ge C^\K(x_i)+i/4\ge 5C^\K(x_i)/4$, or (b) $C^\K(S)>i/4>C^\K(x_i)/5$.
+In case (a), any two-part description using a uniform code for $S$ is substantially larger than the Kolmogorov complexity, for large enough $i$, so it does not determine the sophistication. Case (b) provides the required lower bound on the complexity of the model.
 
-Now, suppose towards contradiction that \pb{$\T$ candidate set} contains a candidate $f$ with $C^\K(f)\le i/5$. Then by Lemma~\ref{lemma:total-to-sets}, there is a set $S$ with $\log|S|\le|d|\le\tau^\circ(x)\le C^\K(x)$, so (a) above cannot be the case, and $K(S)\le K(f)+K(|d|)+c\le i/5+K(|d|)+c$, which contradicts (b) for large enough $i$. Therefore such candidates $f$ cannot exist and all candidates must satisfy $K(f)>i/5>K(x_i)/6$.
+Now, take $\T$ as model class and suppose towards contradiction that the sophistication is determined by a total function $f=\phi_j,j\in\T$ with $f(d)=x$ and $C^\K(f)\le i/5$. Then by Lemma~\ref{lemma:total-to-sets}, for some fixed constant $c$ there is a finite set $S$ with $\log|S|\le|d|\le C^\K(x_i)$, so (a) above cannot be the case, and $C^\K(S)\le C^\K(f)+C^\K(|d|)+c\le i/5+K(|d|)+c$, which contradicts (b) for large enough $i$. Therefore such candidates $f$ cannot exist and all candidates must satisfy $C^\K(f)>i/5>C^\K(x_i)/6$.
 \end{proof}
 
-Note that we favoured simplicity of the proof over the strength of the bounds: the multiplicative constant $1/6$ can be improved with a more detailed treatment.
+Note that we favoured brevity of the proof over the strength of the bounds: the multiplicative constant $1/6$ can be improved with a more detailed treatment.
 
 \depth*
 \begin{proof}
