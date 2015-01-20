@@ -92,9 +92,7 @@ Koppel \cite{koppelSoph1988,koppel1991almost} also built on the structure functi
 In 1996 Gell-Mann and Lloyd introduced \emph{effective complexity} \cite{gellmann1996information}. Working from the perspective of statistical mechanics, they arrived (independently, it seems) at a notion that fits the mold of sophistication.
 
 
-Antunes et al. \cite{antunes2009sophistication} note that the constant cutoff used by Koppel is a source of instability, a result in the spirit of this paper. They propose a different definition called \emph{coarse sophistication}. As we shall see, this version behaves very differently from regular sophistication, and is closer to computational depth. Vereshchagin \cite{vereshchagin2013algorithmic} proposes an alternative solution to the instability issue. Adriaans' \emph{Facticity}, introduced in 2012\cite{adriaans2012facticity}, relaxes the model class to include all partial recursive functions. Adriaans also identifies the nickname problem discussed in Section~\ref{section:indices}.
-
-\sdr{Discuss Vereshchagin's solution}
+Antunes et al. \cite{antunes2009sophistication} note that the constant cutoff used by Koppel is a source of instability, a result in the spirit of this paper. They propose a different definition called \emph{coarse sophistication}. As we shall see, this version behaves very differently from regular sophistication, and is closer to computational depth. Vereshchagin \cite{vereshchagin2013algorithmic}, working in the finite set setting,  suggests additional restrictions on models that are allowed to determine the sophistication, in hopes of curbing the instability issue. Adriaans' \emph{Facticity}, introduced in 2012\cite{adriaans2012facticity}, relaxes the model class to include all partial recursive functions. Adriaans also identifies the nickname problem discussed in Section~\ref{section:indices}.
 
 \section{Preliminaries}
 Let $\B = \{0,1\}^*$. We deal with partial computable functions $\phi: \B \to \B$, which we will also call \emph{models}. A function is called \emph{prefix} if its domain, $\dom{f} = \{y : f(y) \neq \infty\}$ is a prefix free set, i.e. no string in $\dom{f}$ is a prefix of another. A function $f$ is \emph{total} if $\dom{f} = \B$.
@@ -109,22 +107,15 @@ A \emph{model class} is a set of model indices. We distinguish four important mo
 \item $\F$ is an enumerable set such that $\{\phi_i:i\in\F\}$ contains a uniform code for every finite set. A uniform code for a finite set $S$ is a total computable surjective function $f:\{0,1\}^{\lceil|S|\rceil}\to S$.
 \end{enumerate}
 
-We sometimes need to map binary strings to a prefix-free set. We denote by $\bar x$ the prefix-encoded representation for $x$. We require that the mapping satisfies $|\bar{x}| = |x|+O(\log(|x|)$ (see eg. \cite[Section~1.4]{li1993introduction}).
-
-\sdr{Define mapping between numbers and binary strings}
+We sometimes need to map binary strings to a prefix-free set. We denote by $\bar x$ the prefix-encoded representation for $x$. We require that the mapping satisfies $|\bar{x}| = |x|+O(\log(|x|)$ (see eg. \cite[Section~1.4]{li1993introduction}). To simplify notation, we will sometimes conflate natural numbers and binary strings, implicitly using the ordering $(0, \epsilon)$, $(1, 0)$, $(2, 1)$, $(3, 00)$, $(4, 01)$, \ldots
 
 Now define the Kolmogorov complexity of a binary string $x$, with respect to a model class $\M$ and a numbering $\psi$, as follows:
 \[
 C^{\M,\psi}(x)=\min\{\bar\imath y:\psi_i(y)=x,i\in\M\}.
 \]
-The Kolmogorov complexity is invariant for the model classes $\C$ and $\K$; for those model classes the default numbering is used if it is omitted in the superscript.
+The model class $\C$ gives us the plain Kolmogorov complexity and the $\K$ gives us the prefix-free Kolmogorov complexity. The complexity is invariant to the numbering for these model classes, so we may omit it from the superscript.
 
 A pair $(i,y)$ is a \emph{representation} for $x$ if $\phi_i(y)=x$.
-
-The \emph{sophistication} of $x$ is 
-\begin{equation}\label{eq:soph}
-S^{\M,\psi,c}(x)=\min\{C^\K(\phi_i):i\in\M,C^{\{i\},\psi}(x)\le C^{\M,\psi}(x)+c\}.
-\end{equation}
 
 \section{Inefficient indices}
 \label{section:indices}
@@ -167,8 +158,7 @@ The complexity of a computable function is defined by \label{definition:model-co
 C^{\M,\psi}(f) = \min\{C^{\M,\psi}(i):\phi_i=f\}\p
 \]
 \end{definition}
-
-We show in the appendix (Lemma~\ref{lemma:invariance}) that this definition is invariant, so as the Kolmogorov complexity is an objective property of a function, as it is of a binary string. There are two ways to use this notion of model complexity for more robust attempts to define sophistication. Confusingly, both approaches are used in the literature.
+We show in the appendix (Lemma~\ref{lemma:invariance}) that this definition is invariant, so that the Kolmogorov complexity is an objective property of a function, as it is of a binary string. There are two ways to use this notion of model complexity for more robust attempts to define sophistication. Confusingly, both approaches are used in the literature.
 \begin{enumerate}
   \item We maintain that the representation witnessing the Kolmogorov complexity determines the sophistication, but impose the additional constraint that an efficient acceptable numbering is used. We construct such an efficient index, called a \emph{faithful} index, below. This is the approach taken by Adriaans \cite{adriaans2012facticity}.
   \item On the other hand, rather than distinguishing the two components of the code \emph{within} the definition of Kolmogorov complexity, we can also use $K$ to measure the complexity of the \emph{model} (as in Definition~\ref{definition:model-complexity}), which is then the first part of a two-part code describing the data. With this approach, the total code length is $K(\phi_i)+|y|$, with $\phi_i(y)=x$. In this approach, we can construct everything on the basis of a single acceptable numbering, without additional constraints. This approach is used in  \cite{cover1985kolmogorov,gacs2001algorithmic,vitanyi2004meaningful,gellmann1996information}.
@@ -178,15 +168,14 @@ We first construct an efficient numbering: we will call a numbering $\psi$ \emph
 \begin{lemma}
 There exist faithful acceptable numberings.
 \end{lemma}
+Unfortunately, even with a faithful numbering, we can fail. The Kolmogorov complexity uses representations of the form $\bar\imath y$, where the bar denotes some straightforward prefix encoding to delimit the model description $i$ from its input $y$. If we define a second prefix encoding $\tilde{\imath}$, which is always better than our default by some slowly growing term, such as $O(\log\log\log i)$, we can define a second representation $\bar u \tilde \imath y$, which takes a constant amount of bits $|\bar u|$ to switch to a different universal model, but gains more than a constant, for sufficiently complex strings, because a different prefix function is used. Ultimately, $u$ would always be chosen as a model for sufficiently complex $x$.
 
-Unfortunately, even with a faithful numbering, we can fail. The Kolmogorov complexity uses representations of the form $\bar\imath y$, where the bar denotes some straightforward prefix encoding to delimit the model description $i$ from its input $y$. If we define a second prefix encoding $\tilde{\imath}$, which is always better than our default by some slowly growing term, such as $O(\log\log\log i)$, we can define a second representation $\bar u \tilde \imath y$, which takes a constant amount to switch to a different encoding of the numbering, but gains more than a constant, for sufficiently complex strings. Ultimately, $u$ would always be chosen as a model for sufficiently complex $x$.
-
-Can we make our prefix encoding so efficient that no other encoding can undercut it by more than a constant amount? One self-delimiting description of $\phi_i$ is teh one implied by $C^\K(\phi_i)$. By definition, this is the smallest effective, self-delimiting description of $\phi_i$. Let $i^*$ be a self-delimiting program for $\phi_i$, witnessing $C^\K(\phi_i)$. If our prefix function is less efficient than $C^\K(x)$ by an unbounded amount, the effective representation $i^*y$ will always beat $\bar\imath y$ for complex enough data. We conjecture that no computable prefix function can avoid this:
+Can we make our prefix encoding so efficient that no other encoding can undercut it by more than a constant amount? One self-delimiting description of $\phi_i$ is the one used in $C^\K(\phi_i)$. By definition, this is the smallest effective, self-delimiting description of $\phi_i$. Let $i^*$ be a the shortest self-delimiting program for $\phi_i$. If our prefix function is less efficient than $C^\K(x)$ by an unbounded amount, the effective representation $i^*y$ will always beat $\bar\imath y$ for complex enough data. We conjecture that no computable prefix encoding function can avoid this issue:
 \begin{conjecture}
 For any partial computable prefix codelength function $L$, the function $\min\{L(i)-C^\K(i):i\ge i_0\}$
 is unbounded in $i_0$.
 \end{conjecture}
-The following lemma shows that for all prefix functions that are inefficient in this way, the index sophistication fails. This icludes \cite{adriaans2012facticity}.
+The following lemma shows that for all index sophistications using an inefficient prefix encoding will fail. This includes \cite{adriaans2012facticity}.
 \begin{restatable}{lemma}{ineffprefix}
 Assume $\phi$ is faithful and define the index sophistication $s^c(x)=\min\{|\bar\imath|:C^{\{i\}}(x)\le C^{\C}(x)+c\}$.
 If $\min\{i\ge i_0:|\bar\imath|-C^\K(i)\}$ is an unbounded function of $i_0$, then $s^c$ is bounded.\label{lemma:prefix-inefficiency}
@@ -194,19 +183,18 @@ If $\min\{i\ge i_0:|\bar\imath|-C^\K(i)\}$ is an unbounded function of $i_0$, th
 
 If our conjecture is correct, the index sophistication is always bounded. The only way to avoid the problem is to use a the self-delimiting program of length $C^\K(x)$ to describe the model. Any inefficieny in the model description, and a second represention using a universal model with a more efficient model description will win, causing a bounded sophistication.
 
-This leads us to the follwong definition of sophistication:
-\begin{definition}
-The sophistication, for a model class $\M$, any acceptable numbering $\psi$ and constant $c$ is:
-\end{definition}
+For this reason we will using the following definition of sophistication in the remainder of this article: 
+\begin{equation}\label{eq:soph}
+S^{\M,\psi,c}(x)=\min\left\{C^\K(\phi_i):i\in\M,C^{\{i\},\psi}(x)\le C^{\M,\psi}(x)+c\right\}.
+\end{equation}
 
 \section{Balancing under- and overfitting}
 \label{section:balance}
 
-In the previous section, we saw the first glimpse of how delicate the internal balance in sophistication is. If the description of the model $m$ is less efficient than $C^\K(m)$ by anything more than a constant, representations with a bounded model size will always win out in the limit.
-
- 
-
-
+In the previous section, we saw the first glimpse of how delicate the internal balance in sophistication is. If the description of the model $m$ is less efficient than $C^\K(m)$ by anything more than a constant, representations with a bounded model size will always win out in the limit. 
+In light of this balance issues, the most natural definition of sophistication is $S^{\K,\psi,c}$. In this setting, we know that there always exist candidate models---those models $i$ with $i \in \K$ and $C^{i}(x) \leq C^\K(x) + c$---for which al information except a constant amount is stored in the data, and candidates for which all information is stored in the model. This tells us that $S^\K$ is \emph{balanced}: there is no inefficiency in the representation forcing information in or out of the model.
+The flipside of having a balanced sophistication is that invariance is easy to show. We will show that there are numberings for which the universal models always determine the $S^\K$ and numberings for which the singletons always determine $S^\K$. 
+	The following lemma generalizes the principle: 
 \begin{restatable}{lemma}{coolone}
 \label{lemma:thecoolone}
   Let $\psi$ be any acceptable enumeration of the partial recursive functions.
@@ -216,8 +204,14 @@ In the previous section, we saw the first glimpse of how delicate the internal b
 Then there is an enumeration $\phi$ of the partial recursive functions such that $S^\phi_{\M}(x) = |\bar 0|+S^\psi_{\M'}(x)$ for all $x\in\X$.
 \end{restatable}
 
-- ingewikkeld lemma, laat zien:\\
-- can make it equal to $C^K$
+This is a technical lemma, due to the double effect of the numbering, which occurs in both the definition of model complexity and the definition of data complexity. The \emph{idea} behind the lemma, however, is simple. Given a subset $\M'$ of the model class, we can choose the numbering so that representations use a model in $\M'$ perform an arbitrary constant better than all other models. This lets us effectively `push' all other models out of the candidate set, so that the sophistication is determined by a model in $\M'$.- can make it equal to $C^K$
+
+This allows us to ensure that for some numberings, the unversal model always determines the sophistication, making is bounded:
+
+\begin{restatable}[underfitting]{lemma}{underfitting}
+Let $\M$ be a model class containing a universal model $u$, with the property that $\exists c \forall m \in \M : L^u(x) \leq L^m(x) + c \p$. Then, there exist numberings such that $\s^\M$ is bounded.
+\end{restatable}
+For other numberings, the singletons determine the sophistication, making it equal to the complexity:
 \begin{restatable}[Overfitting]{lemma}{overfitting}
 Let $\M \subseteq \K$ be a model class where for every $x\in\X$ there is a singleton model $f\in\M$ with $f(\epsilon)=x$. Then there is an enumeration $\phi$ of the prefix partial recursive functions, and a constant $c$, such that
 \[
@@ -225,31 +219,25 @@ K(x)-S^{\M,\phi}(x)\le c
 \]
 for all $x\in\X$.
 \end{restatable}
-
-- can make it bounded
-\begin{restatable}[underfitting]{lemma}{underfitting}
-Let $\M$ be a model class containing a universal model $u$, with the property that $\exists c \forall m \in \M : L^u(x) \leq L^m(x) + c \p$. Then, there exist numberings such that $\s^\M$ is bounded.
-\end{restatable}
-
-- it's certainly not invariant \\
-- any tweak that upsets balance -> can still go wrong the other way
-
+This shows that the price we pay for balance is absolute invariance. All information can be seen as structure of noise, depending on the numbering. To avoid these issues, existing proposals upset the balance to exclude, or penalize at least the singleton models and the universal models.
+ 
 \subsection{Overfitting}
 
-- overfitting: one solution is to consider all representations that are within a constant of optimal, and then select the one with the smallest model. To effectively do this, the constant must depend on the numbering, but no-one knows how. \\
-- In statistics overfitting is often addressed by imposing a penalty on complex models. For sophistication a natural way of doing this is to allow non-prefix functions as models, which makes it comparatively cheap to put stuff in the data part. If you do this, overfitting cannot really happen anymore (?), but obviously only makes underfitting problem worse
+The existing proposals that do not avoid overfitting as the structure function \cite{cover1985kolmogorov}, the sophistication as defined in \cite{mota2013sophistication}, the miinimal sufficient statistic \cite{gacs2001algorithmic} and Vereshchagin's strongly  sufficient statistic \cite{vereshchagin2013algorithmic}. It may be argued that the constant determining the candidates should be allowed to depend on the numbering, but this dependence has not been mentioned in the literature and there is no clear way to determine what such a constant should be, on the basis of a given numbering. 
 
+In traditional statistics, overfitting is often addressed by imposing a penalty on complex models. As we have seen, a strong penalty, such as the one imposed by an inefficient prefix encoding of the model, will immediately cause underfitting. A more subtle approach is to use $C$ as a model class, allowing representations that are not self-delimiting. This eliminates at least the singletons, as placing all information in the model automatically creates a self delimiting representation. Self delimiting representations are longer than plain representations, and this gap is unbounded \cite[Section~4.5.5]{vitanyi2004meaningful}, which tells us that singletons will be candidates for only finitely many strings. This approach is taken by Vit\'anyi \cite{vitanyi2004meaningful} and by Adriaans \cite{adriaans2012facticity}. 
 
 \subsection{Underfitting}
-- underfitting: most common solution is to restrict the model class. This helps 
+
+Underfitting is a widely acknowledged problem, and almost all proposals avoid it by limiting the class of allowed models, to exclude universal models. Does this make the sophistication unbounded? The following theorem shows that it does.
 
 \begin{restatable}{theorem}{dogfood}
 There are infinitely many $x$ with $\s^{\F,\phi,c}(x) \geq C^{\K}(x)/5$ and $\s^{\T,\phi,c}(x) \geq C^{\K}(x)/6$. 
 \end{restatable} 
 
-(theorem), but obviously makes overfitting problem only worse
+But clearly, this only exacerbates the overfitting problem. Only one model class eliminates both the singletons and the unversal model: $S^\T(x)$. The only proposal that uses an efficient model representation, excludes the universal models and excludes the singletons is Vit\'anyi's \cite{vitanyi2004meaningful}. While this invalidates straightforward proofs of boundedness, there is no suggestion that $S^\T(x)$ is actually invariant.
 
-- only solution: upset balance both ways at the same time. There are approaches that do this and that therefore do not provably overfit or underfit, but (1) not clear if these methods are invariant (2) not clear if this sophistication still corresponds to original intuition: depth. See discussion
+While under $S^{\T, \phi, c}(x)$ there are clearly string with high sophistication, these may not conform to the original intuition that motivated sophistication. To show this, we require the concept of depth:
 
 \begin{definition}[Depth\cite{bennett1988logical,antunes2006computational}]\belowdisplayskip=-12pt
 Let $U$ be some universal Turing machine, so that $U(\bar\imath y) = \phi_i(y)$. Let $U^t$ be a simulation of this machine, which is allowed to run for at most $t$ steps, and returns $0$ if it has not yet finished at that point. Let $C^t_\M(x) = \min\{|\bar\imath y| : U^t(\bar\imath y) = x, \phi_i \in \M\}$.
@@ -262,36 +250,14 @@ Deep strings are those that can only be optimally compressed with a great invest
 \begin{restatable}{theorem}{depth}
 Let $A(n)$ be the single-argument Ackermann function and $c$ some arbitrary constant. There are numberings such that for all strings with depth $d^\C_c(x) \leq A(C(x))$, $\s^\T(x)$, $s^\P(x)$ and $\s^\F$ are bounded.
 \end{restatable}
-\noindent This shows that while high-sophistication strings exist, the mechanics do not follow the basic intuition of sophistication. Unless we encounter data that would take longer than the lifetime of the universe (and then some) to produce \sdr{Not sure about this philosophically, but lets discuss}, sophistication behaves exactly as it would without the restricted model class: a solution to a super-exponential problem \sdr{Bad example, use something that clearly does not require much computation but has a lot of structure. A midpoint-displaced heightmap comes to mind} would have no greater sophistication than a string sampled from a simple Bernoulli model. This result also suggests that the `non-stochastic' property of strings with high sophistication\cite{shen1983concept,vereshchagin2004kolmogorov} says more about depth and totality than it does about structure and noise.
+\noindent This shows that while high-sophistication strings exist, they do not behave as expected. Consider a string that is typical for a low-depth model, say some high-complexity Markov chain. Under sophistication, no matter how complex the markov chain, the sophistication would stay the same. Any structure that is simple enough to be exploited within the time bound of the Ackermann function (or some other fast-growing, simply stated bound) will be counted as noise. Only structure that is so deep that if we used it to compress $x$ we could never hope to decompress it within the lifetime of the universe, would count towards sophistication. 
+This clearly contradicts the motivating principle of sophistication, which is to capture the number of bits required to express \emph{all} regularity in the data. 
+What makes a string high-sophistication is not the fact that it has a great deal of structure, but the fact that it can be compressed far better with partial functions than with total. That is, it is non-typical for the model class $\T$. This suggests that the `non-stochastic' property of strings with high sophistication \cite{shen1983concept,vereshchagin2004kolmogorov} says more about depth and totality than it does about structure and noise.
 
 The relation between sophistication, depth and absolutely non-stochastic strings was also investigated in \cite{antunes2013sophistication}.
- 
-\old{
-
-We now come to the main issue plaguing sophistication. \sdr{Beetje bombastisch. En hierna zou ik zeggen, we first consider the simplest, most natural setting, \dots} If we use model class $\K$, the candidate set always contains two representations that do not provide a good separation. The first is a \emph{universal model}: a basic universal Turing machine. The second is a \emph{singleton model} a model which returns $x$ for any input. As we will show, in many settings, we can ensure that one of them is the \emph{only} model in the candidate set. The following lemma generalizes the principle:
-
-\noindent We can now show numberings for which the singletons are always selected:
-
-\noindent In short, this lemma tells us that there are numberings for which the singleton models always determine the sophistication. This means that there is a numbering $\phi$ such that the sophistication is equivalent to Kolmogorov complexity, which implies that this sophistication is unsound (by Lemma~\ref{lem:broken}).
- 
-Many variants in the literature (including the structure function) are susceptible to this problem  \sdr{Don't say ``many'', just list explicitly} \cite{cover1985kolmogorov,gacs2001algorithmic,vereshchagin2013algorithmic}. In \cite{vitanyi2004meaningful,adriaans2012facticity} this issue is avoided by not using self-delimiting representations.
-\sdr{Prep the balance idea so that this is understandable. We need it}  Since a singleton representation places all information in the (self-delimiting) model part, singletons are automatically not optimally efficient. While this dodges the issue of the singletons, it does not show that $S$ is invariant. 
-
-Another approach may be to make the constant threshold dependent on the choice of enumeration, although we are not aware of any published efforts.
-
-On the other end of the spectrum, there exist representations with all information in the noise, using a universal model. We can easily show that if such models exist, we can choose our numbering so that they are always chosen.
-
-\noindent Most sophistication measures avoid the underfitting problem by limiting their model class, usually to either finite sets ($\F$) or total functions ($\T$ or $\P$). This eliminates the universal model, but as we shall see, it does not solve the problem for most data. The variants that are susceptible to the this type of underfitting are facticity \cite{adriaans2012facticity} and some versions of effective complexity \cite{gellmann1996information}. The latter aims to bypass the problem by selecting carefully from the candidate set, but as we have shown, for some numberings the candidate set contains only the universal model.
-\sdr{Explain this is actually a widely recognised problem}
-
-
-\noindent This tells us that $S^\T_K(x)$ and $S^\T(x)$ can truly grow to a significant part of the total description length. While this shows that sophistication, if defined with particular care, is not entirely vacuous, \sdr{hold on, it might still be completely meaningless and/or not invariant} we can shed some light on exactly which strings end up with high sophistication, using the principle of \emph{depth}. We will use the following definition:
-
-}
 
 \section{Discussion}
 \label{section:conclusion}
-
 
 So why should we consider this intuition reasonable at all? The first assumption of sophistication is that high compressibility and pure randomness are objectively `uninteresting'. A more sophisticated signal, such as a television broadcast must contain, in some objective sense, more meaningful information. Whether this intuition seems reasonable likely differs per person \sdr{weak}, but sophistication goes one step further: it also suggests that we can objectively separate the information in a string into random and structured. \sdr{I think here we should sell the intuition better before we tear it down.}
 
@@ -436,8 +402,7 @@ K^\phi(g)+C^g(x) &\ge K^\psi(g)+C^g(x)+c''\\
 By choosing $c''$ sufficiently large, we can ensure that the best representation is in $\M'$ for all $x\in\X$, which completes the proof.
 \end{proof}
 
-\sdr{Move this proof to appendix. Explain the lemma above it rather than below it.}
-This is a technical lemma, due to the double effect of the numbering, which occurs in both the definition of model complexity and the definition of data complexity. The \emph{idea} behind the lemma, however, is simple. Given a subset $\M'$ of the model class, we can choose the numbering so that representations use a model in $\M'$ perform an arbitrary constant better than all other models. This lets us effectively `push' all other models out of the candidate set, so that the sophistication is determined by a model in $\M'$.
+
 
 \subsection{Overfitting}
 
