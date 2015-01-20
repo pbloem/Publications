@@ -34,6 +34,7 @@
 \newcommand{\tuple}[1]{\left\langle{#1}\right\rangle}
 
 \newcommand{\hide}[1]{}
+\newcommand{\old}[1]{}
 
 \newcommand{\sdr}[1]{\textcolor{blue}{\small #1\textsuperscript{[Steven]} }}
 \newcommand{\pb}[1]{\textcolor{OliveGreen}{\small #1 \textsuperscript{[Peter]} }}
@@ -196,23 +197,9 @@ is unbounded in $i_0$.
 
 
 \section{Balancing under- and overfitting}
-
+\label{section:balance}
 
 - define a default sophistication. PROBLEMS, PROBLEMS!
-- ingewikkeld lemma, laat zien:
-- can make it equal to C^K
-- can make it bounded
-- it's certainly not invariant
-- any tweak that upsets balance -> can still go wrong the other way
-- overfitting: one solution is to consider all representations that are within a constant of optimal, and then select the one with the smallest model. To effectively do this, the constant must depend on the numbering, but no-one knows how. In statistics overfitting is often addressed by imposing a penality on complex models. For sophistication a natural way of doing this is to allow non-prefix functions as models, which makes it comparatively cheap to put stuff in the data part. If you do this, overfitting cannot really happen anymore (?), but obviously only makes underfitting problem worse
-- underfitting: most common solution is to restrict the model class. This helps (theorem), but obviously makes overfitting problem only worse
-- only solution: upset balance both ways at the same time. There are approaches that do this and that therefore do not provably overfit or underfit, but (1) not clear if these methods are invariant (2) not clear if this sophistication still corresponds to original intuition: depth. See discussion
-
-
-
-Overfitting: the singletons}
-\label{section:balance}
-We now come to the main issue plaguing sophistication. \sdr{Beetje bombastisch. En hierna zou ik zeggen, we first consider the simplest, most natural setting, \dots} If we use model class $\K$, the candidate set always contains two representations that do not provide a good separation. The first is a \emph{universal model}: a basic universal Turing machine. The second is a \emph{singleton model} a model which returns $x$ for any input. As we will show, in many settings, we can ensure that one of them is the \emph{only} model in the candidate set. The following lemma generalizes the principle:
 
 \begin{restatable}{lemma}{coolone}
 \label{lemma:thecoolone}
@@ -222,11 +209,9 @@ We now come to the main issue plaguing sophistication. \sdr{Beetje bombastisch. 
 \-\hspace{1cm}(2)$\forall_{x\in\X}:L^{\M',\psi}(x)-L^{\M,\psi}(x)\le c$.\\
 Then there is an enumeration $\phi$ of the partial recursive functions such that $S^\phi_{\M}(x) = |\bar 0|+S^\psi_{\M'}(x)$ for all $x\in\X$.
 \end{restatable}
-\noindent We can now show numberings for which the singletons are always selected:
 
-
-\subsection(Overfitting}\label{section:overfitting}
-
+- ingewikkeld lemma, laat zien:\\
+- can make it equal to $C^K$
 \begin{restatable}[Overfitting]{lemma}{overfitting}
 Let $\M \subseteq \K$ be a model class where for every $x\in\X$ there is a singleton model $f\in\M$ with $f(\epsilon)=x$. Then there is an enumeration $\phi$ of the prefix partial recursive functions, and a constant $c$, such that
 \[
@@ -234,41 +219,31 @@ K(x)-S^{\M,\phi}(x)\le c
 \]
 for all $x\in\X$.
 \end{restatable}
-\noindent In short, this lemma tells us that there are numberings for which the singleton models always determine the sophistication. This means that there is a numbering $\phi$ such that the sophistication is equivalent to Kolmogorov complexity, which implies that this sophistication is unsound (by Lemma~\ref{lem:broken}).
- 
-Many variants in the literature (including the structure function) are susceptible to this problem  \sdr{Don't say ``many'', just list explicitly} \cite{cover1985kolmogorov,gacs2001algorithmic,vereshchagin2013algorithmic}. In \cite{vitanyi2004meaningful,adriaans2012facticity} this issue is avoided by not using self-delimiting representations.
-\sdr{Prep the balance idea so that this is understandable. We need it}  Since a singleton representation places all information in the (self-delimiting) model part, singletons are automatically not optimally efficient. While this dodges the issue of the singletons, it does not show that $S$ is invariant. 
 
-Another approach may be to make the constant threshold dependent on the choice of enumeration, although we are not aware of any published efforts.
-
-\subsection{Underfitting: the universal model}
-\label{section:underfitting}
-On the other end of the spectrum, there exist representations with all information in the noise, using a universal model. We can easily show that if such models exist, we can choose our numbering so that they are always chosen.
+- can make it bounded
 \begin{restatable}[underfitting]{lemma}{underfitting}
 Let $\M$ be a model class containing a universal model $u$, with the property that $\exists c \forall m \in \M : L^u(x) \leq L^m(x) + c \p$. Then, there exist numberings such that $\s^\M$ is bounded.
 \end{restatable}
-\noindent Most sophistication measures avoid the underfitting problem by limiting their model class, usually to either finite sets ($\F$) or total functions ($\T$ or $\P$). This eliminates the universal model, but as we shall see, it does not solve the problem for most data. The variants that are susceptible to the this type of underfitting are facticity \cite{adriaans2012facticity} and some versions of effective complexity \cite{gellmann1996information}. The latter aims to bypass the problem by selecting carefully from the candidate set, but as we have shown, for some numberings the candidate set contains only the universal model.
-\sdr{Explain this is actually a widely recognised problem}
 
-\subsection{The problem of depth}\label{section:depth}
+- it's certainly not invariant \\
+- any tweak that upsets balance -> can still go wrong the other way
 
-We have seen that some variants of sophistication sidestep the simplest examples of underfitting by using total models. Does this ensure that these variants are not bounded? A well-known result in algorithmic statistics shows that there exist strings for which no finite set is as good a model as the singleton set. In this section we will focus on the variants $S^\T$ and $S^T_K$ \cite{vitanyi2004meaningful}, as those are the variants most resistant to proofs of non-invariance.
-\sdr{Do I know this notation? Also, I wanna emphasize that the structure function underfits in this way.}
-\sdr{Combine this lemma with the one after next}
-\begin{restatable}{lemma}{nonstochastic}
-There are infinitely  $x$ such that $S^\F_K(x) \geq K(x)/5$. \label{lemma:structure-function-is-not-bounded}
-\end{restatable}
+\subsection{Overfitting}
 
-\sdr{Move this lemma to the appendix altogether}
-\begin{restatable}{lemma}{vitanyi}
-Let $f$ be a total, computable function, such that for some $d$, $f(d) = x$ and let $k = K(f) + |d|$. Then there exists a finite set $S$ containing $x$ and a constant $c$, such that $K(S) \leq K(f) + K(|d|) + c$ and $\log |S| \leq |d|$.\label{lemma:total-to-sets}
-\end{restatable}
-\noindent This lemma is a variation on \cite[Lemma~7.2]{vitanyi2004meaningful}. We use this lemma to transport the result of Theorem~\ref{lemma:structure-function-is-not-bounded} to the model class of total functions:
+- overfitting: one solution is to consider all representations that are within a constant of optimal, and then select the one with the smallest model. To effectively do this, the constant must depend on the numbering, but no-one knows how. \\
+- In statistics overfitting is often addressed by imposing a penalty on complex models. For sophistication a natural way of doing this is to allow non-prefix functions as models, which makes it comparatively cheap to put stuff in the data part. If you do this, overfitting cannot really happen anymore (?), but obviously only makes underfitting problem worse
+
+
+\subsection{Underfitting}
+- underfitting: most common solution is to restrict the model class. This helps 
 
 \begin{restatable}{theorem}{dogfood}
-There are infinitely many $x$ with $S^\T_K(x) \geq K(x)/6$ and $S^\T(x) \geq K(x)/6$. 
+There are infinitely many $x$ with $\s^{\F,\phi,c}(x) \geq C^{\K}(x)/5$ and $\s^{\F,\phi,c}(x) \geq C^{\K}(x)/6$. 
 \end{restatable} 
-\noindent This tells us that $S^\T_K(x)$ and $S^\T(x)$ can truly grow to a significant part of the total description length. While this shows that sophistication, if defined with particular care, is not entirely vacuous, \sdr{hold on, it might still be completely meaningless and/or not invariant} we can shed some light on exactly which strings end up with high sophistication, using the principle of \emph{depth}. We will use the following definition:
+
+(theorem), but obviously makes overfitting problem only worse
+
+- only solution: upset balance both ways at the same time. There are approaches that do this and that therefore do not provably overfit or underfit, but (1) not clear if these methods are invariant (2) not clear if this sophistication still corresponds to original intuition: depth. See discussion
 
 \begin{definition}[Depth\cite{bennett1988logical,antunes2006computational}]\belowdisplayskip=-12pt
 Let $U$ be some universal Turing machine, so that $U(\bar\imath y) = \phi_i(y)$. Let $U^t$ be a simulation of this machine, which is allowed to run for at most $t$ steps, and returns $0$ if it has not yet finished at that point. Let $C^t_\M(x) = \min\{|\bar\imath y| : U^t(\bar\imath y) = x, \phi_i \in \M\}$.
@@ -284,6 +259,29 @@ Let $A(n)$ be the single-argument Ackermann function and $c$ some arbitrary cons
 \noindent This shows that while high-sophistication strings exist, the mechanics do not follow the basic intuition of sophistication. Unless we encounter data that would take longer than the lifetime of the universe (and then some) to produce \sdr{Not sure about this philosophically, but lets discuss}, sophistication behaves exactly as it would without the restricted model class: a solution to a super-exponential problem \sdr{Bad example, use something that clearly does not require much computation but has a lot of structure. A midpoint-displaced heightmap comes to mind} would have no greater sophistication than a string sampled from a simple Bernoulli model. This result also suggests that the `non-stochastic' property of strings with high sophistication\cite{shen1983concept,vereshchagin2004kolmogorov} says more about depth and totality than it does about structure and noise.
 
 The relation between sophistication, depth and absolutely non-stochastic strings was also investigated in \cite{antunes2013sophistication}.
+ 
+\old{
+
+We now come to the main issue plaguing sophistication. \sdr{Beetje bombastisch. En hierna zou ik zeggen, we first consider the simplest, most natural setting, \dots} If we use model class $\K$, the candidate set always contains two representations that do not provide a good separation. The first is a \emph{universal model}: a basic universal Turing machine. The second is a \emph{singleton model} a model which returns $x$ for any input. As we will show, in many settings, we can ensure that one of them is the \emph{only} model in the candidate set. The following lemma generalizes the principle:
+
+\noindent We can now show numberings for which the singletons are always selected:
+
+\noindent In short, this lemma tells us that there are numberings for which the singleton models always determine the sophistication. This means that there is a numbering $\phi$ such that the sophistication is equivalent to Kolmogorov complexity, which implies that this sophistication is unsound (by Lemma~\ref{lem:broken}).
+ 
+Many variants in the literature (including the structure function) are susceptible to this problem  \sdr{Don't say ``many'', just list explicitly} \cite{cover1985kolmogorov,gacs2001algorithmic,vereshchagin2013algorithmic}. In \cite{vitanyi2004meaningful,adriaans2012facticity} this issue is avoided by not using self-delimiting representations.
+\sdr{Prep the balance idea so that this is understandable. We need it}  Since a singleton representation places all information in the (self-delimiting) model part, singletons are automatically not optimally efficient. While this dodges the issue of the singletons, it does not show that $S$ is invariant. 
+
+Another approach may be to make the constant threshold dependent on the choice of enumeration, although we are not aware of any published efforts.
+
+On the other end of the spectrum, there exist representations with all information in the noise, using a universal model. We can easily show that if such models exist, we can choose our numbering so that they are always chosen.
+
+\noindent Most sophistication measures avoid the underfitting problem by limiting their model class, usually to either finite sets ($\F$) or total functions ($\T$ or $\P$). This eliminates the universal model, but as we shall see, it does not solve the problem for most data. The variants that are susceptible to the this type of underfitting are facticity \cite{adriaans2012facticity} and some versions of effective complexity \cite{gellmann1996information}. The latter aims to bypass the problem by selecting carefully from the candidate set, but as we have shown, for some numberings the candidate set contains only the universal model.
+\sdr{Explain this is actually a widely recognised problem}
+
+
+\noindent This tells us that $S^\T_K(x)$ and $S^\T(x)$ can truly grow to a significant part of the total description length. While this shows that sophistication, if defined with particular care, is not entirely vacuous, \sdr{hold on, it might still be completely meaningless and/or not invariant} we can shed some light on exactly which strings end up with high sophistication, using the principle of \emph{depth}. We will use the following definition:
+
+}
 
 \section{Discussion}
 \label{section:conclusion}
@@ -458,22 +456,25 @@ Let $D$ be a prefix function as in Lemma~\ref{lemma:thecoolone} such that it ret
 
 \subsection{The problem of depth}
 
-\nonstochastic*
+We first show that representions using $\T$ can be reduced to representations in $\F$ with a small overhead.
+\pb{Definitie nonstochastic strings uit \cite[Proposition~I.3 (b)]{gacs2001algorithmic}}
 
-\begin{proof}
-From \cite[Proposition~I.3 (b)]{gacs2001algorithmic} we know that for sufficiently large $i$ there are strings of length less than $i$ that are not $(i/4, i/4)$-stochastic. For each $i$, let $x_i$ be the smallest binary string that is not $(i/4, i/4)$-stochastic. Since every string is $(\alpha,\alpha)$-stochastic for sufficiently large $\alpha$, this sequence contains infinitely many distinct binary strings. Now pick any $i$ that is large enough that (a) $|x_i|<i$ and (b) $K(x_i)/5 < i/4$. By definition of $(\alpha,\beta)$-stochasticity, if a string is not $(i/4,i/4)$-stochastic, then for every finite set $S$ containing $x$, either (a) $\log|S|\ge K(x_i)+i/4$, in which case $S$ cannot be a candidate representation for $x$ in $C^\F_K$, or (b) $K(S)>i/4>K(x_i)/5$. This proves the theorem.
-\end{proof}
-
-\vitanyi*
+\begin{restatable}{lemma}{vitanyi}
+Let $f$ be a total, computable function, such that for some $d$, $f(d) = x$ and let $k = K(f) + |d|$. Then there exists a finite set $S$ containing $x$ and a constant $c$, such that $K(S) \leq K(f) + K(|d|) + c$ and $\log |S| \leq |d|$.\label{lemma:total-to-sets}
+\end{restatable}
 \begin{proof}
 Let $S = f\left(\{0,1\}^{|d|}\right)$. Since $f$ is total, this set can be explicity computed from a description of $f$ and a description of $|d|$, which tells us that there is a constant $c$ such that $K(S) \leq K(f) + K(|d|) + c$. 
 
 Since $S$ is the image of a set of size $2^{|d|}$ under $f$, we have $\log |S| \leq |d|$.
 \end{proof}
+\noindent This lemma is a variation on \cite[Lemma~7.2]{vitanyi2004meaningful}. 
 
+We use this to show that sophistications with a restricted model class are not bounded:
 \dogfood*
 \begin{proof}
-We continue from the proof of Theorem~\ref{lemma:structure-function-is-not-bounded}. Suppose towards contradiction that either $C^\T_K(x_i)$ or $C^\T_{\tau^\circ}(x_i)$ contains a candidate $f$ with $K(f)\le i/5$. Then by Lemma~\ref{lemma:total-to-sets}, there is a set $S$ with $\log|S|\le|d|\le\tau^\circ(x)\le K(x)$, so (a) in the proof of Theorem~\ref{lemma:structure-function-is-not-bounded} above cannot be the case, and $K(S)\le K(f)+K(|d|)+c\le i/5+K(|d|)+c$, which contradicts (b) in the same proof for large enough $i$. Therefore such candidates $f$ cannot exist and all candidates must satisfy $K(f)>i/5>K(x_i)/6$.
+From \cite[Proposition~I.3 (b)]{gacs2001algorithmic} we know that for sufficiently large $i$ there are strings of length less than $i$ that are not $(i/4, i/4)$-stochastic. For each $i$, let $x_i$ be the smallest binary string that is not $(i/4, i/4)$-stochastic. Since every string is $(\alpha,\alpha)$-stochastic for sufficiently large $\alpha$, this sequence contains infinitely many distinct binary strings. Now pick any $i$ that is large enough that (a) $|x_i|<i$ and (b) $C^\K(x_i)/5 < i/4$. By definition of $(\alpha,\beta)$-stochasticity, if a string is not $(i/4,i/4)$-stochastic, then for every finite set $S$ containing $x$, either (a) $\log|S|\ge C^\K(x_i)+i/4$, in which case $S$ cannot be a candidate representation for $x$ in \pb{candidate set}, or (b) $C^\K(S)>i/4>C^\K(x_i)/5$. This proves the first inequality.
+
+Now, suppose towards contradiction that \pb{$\T$ candidate set} contains a candidate $f$ with $C^\K(f)\le i/5$. Then by Lemma~\ref{lemma:total-to-sets}, there is a set $S$ with $\log|S|\le|d|\le\tau^\circ(x)\le C^\K(x)$, so (a) above cannot be the case, and $K(S)\le K(f)+K(|d|)+c\le i/5+K(|d|)+c$, which contradicts (b) for large enough $i$. Therefore such candidates $f$ cannot exist and all candidates must satisfy $K(f)>i/5>K(x_i)/6$.
 \end{proof}
 
 Note that we favoured simplicity of the proof over the strength of the bounds: the multiplicative constant $1/6$ can be improved with a more detailed treatment.
