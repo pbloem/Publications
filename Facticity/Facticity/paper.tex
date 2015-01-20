@@ -5,6 +5,9 @@
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \usepackage[mathscr]{eucal}
 \usepackage{thmtools}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
 
 \newcommand{\M}{\mathscr M}
 \newcommand{\C}{\mathscr C}
@@ -116,6 +119,21 @@ C^{\M,\psi}(x)=\min\{\bar\imath y:\psi_i(y)=x,i\in\M\}.
 The model class $\C$ gives us the plain Kolmogorov complexity and the $\K$ gives us the prefix-free Kolmogorov complexity. The complexity is invariant to the numbering for these model classes, so we may omit it from the superscript.
 
 A pair $(i,y)$ is a \emph{representation} for $x$ if $\phi_i(y)=x$.
+
+\begin{figure*}[tb]
+  \hspace{-0.9cm}
+  \begin{subfigure}[b]{0.55\textwidth}    
+     \includegraphics[width=\textwidth]{./img/sophistication.pdf}
+      \label{figure:sophistication}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.55\textwidth} 
+     \includegraphics[width=\textwidth]{./img/sophistication-jump.pdf}
+      \label{figure:sophistication-jump}
+  \end{subfigure}
+  
+  \caption{\small (left) A schematic representation of the idea of sophistication. We can represent the data $x$ in two parts: by describing first, a model, and then the residual information required to specify the data given the model. The smallest possible effective description, denoted by a black diagonal, is $C^\M(x)$. We accept all representation that come within a given \emph{slack} of this optimum, represented by a dashed line. The size of the smallest model within the slack is the sophistication of the data. (right) The same image, after a constant perturbation  in te model complexity caused by a change in numbering.}
+  \label{fig:diagram}
+\end{figure*}
 
 \section{Inefficient indices}
 \label{section:indices}
