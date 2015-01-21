@@ -163,13 +163,15 @@ Choose any $x$ and assume w.l.o.g. that $s^\psi(x)\le s^\xi(x)$. By construction
 \end{proof}
 Thus, even though the Kolmogorov complexity changes by only a constant number of bits under a switch to a different numbering, the plain length of the index in a given acceptable numbering is a very poor indicator of model complexity.
 
-In order to obtain a reasonable and robust measure of model complexity, we define the Kolmogorov complexity of functions as in \cite{grunwald2004shannon,vitanyi2004meaningful}] by $C^{\M,\psi}(f) = \min\{C^{\M,\psi}(i):\phi_i=f\}$.
-Lemma~\ref{lemma:invariance} in the appendix shows that this definition is invariant, so that the Kolmogorov complexity is an objective property of a function.
+In order to obtain a reasonable and robust measure of model complexity, we define the Kolmogorov complexity of functions as in \cite{grunwald2004shannon,vitanyi2004meaningful} by $C^{\M,\psi}(f) = \min\{C^{\M,\psi}(i):\phi_i=f\}$.
+Lemma~\ref{lemma:invariance} in the appendix shows that this definition is invariant: the Kolmogorov complexity is an objective property of a function.
 
-There are two ways to use this notion of model complexity for more robust attempts to define sophistication. Confusingly, both approaches are used in the literature. First, we can stick to using the length of the index as the measure of sophistication, but impose the additional constraint that an efficient acceptable numbering is used. We construct such an efficient index, called a \emph{faithful} index, below. This is the approach taken by Adriaans \cite{adriaans2012facticity}.
-Second, rather than distinguishing the two components of the code \emph{within} the definition of Kolmogorov complexity, we can also use $C^\K$ to measure the complexity of the \emph{model} (as defined above), which is then the first part of a two-part code describing the data. With this approach, the total codelength is $C^\K(\phi_i)+|y|$, with $\phi_i(y)=x$. In this approach, we can construct everything on the basis of a single acceptable numbering, without additional constraints. This approach is used in  \cite{cover1985kolmogorov,gacs2001algorithmic,vitanyi2004meaningful,gellmann1996information}.
+There are two ways to use this notion of model complexity for more robust attempts to define sophistication. Confusingly, both approaches are used in the literature.
+First, we can measure the complexity of the \emph{model} using $C^{\M,\psi}(\phi_i)$, which is then the first part of a two-part code describing the data. This approach is used in  \cite{cover1985kolmogorov,gacs2001algorithmic,vitanyi2004meaningful,gellmann1996information} and in most of the present paper.
 
-We first construct an efficient numbering: we will call a numbering $\psi$ \emph{faithful} if for all $i$ there is a $j$ such that $\psi_i=\psi_j$ and $|j|\le C^{\C}(\psi_j)+c$, for some constant $c$. This definition is a refinement of \cite[Definition~10]{adriaans2012facticity}. The following Lemma is proved in the appendix:
+Second, we can stick to using the length of the index as the measure of sophistication, but impose the additional constraint that an efficient acceptable numbering is used. This is the approach taken by Adriaans \cite{adriaans2012facticity}.  Before switching to the other approach we construct such an efficient index.
+
+We call a numbering $\psi$ \emph{faithful} if for all $i$ there is a $j$ such that $\psi_i=\psi_j$ and $|j|\le C^{\C}(\psi_j)+c$, for some constant $c$. This definition is a refinement of \cite[Definition~10]{adriaans2012facticity}. The following Lemma is proved in the appendix:
 
 \begin{lemma}
 There exist faithful acceptable numberings.
