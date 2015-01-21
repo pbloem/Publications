@@ -297,22 +297,23 @@ This publication was supported by the Dutch national program COMMIT and by  the 
 
 \appendix
 
-\section{Proofs and further discussion}
+\section{Proofs}
 
 \subsection{Invariance of function complexity}
 
 \begin{lemma}[Invariance of function complexity]
-Let $\phi$ and $\psi$ be any two acceptable numberings. There exists a constant $c$ such that $\left| K_\phi(f) - K_\psi(f)\right | \leq c$ for all $f$. \label{lemma:invariance}
+Let $\psi$ and $\eta$ be any two acceptable numberings. There exists a constant $c$ such that $\left| C^{\K,\psi}(f) - C^{\K, \eta}(f)\right | \leq c$ for all $f \in \C$ and $\left| C^{\C,\psi}(f) - C^{\C, \eta}(f)\right | \leq c$ for all $f \in \C$. \label{lemma:invariance}
 \end{lemma}
 \begin{proof}
-Let $g(i)$ be the function such that $\psi_i=\phi_{g(i)}$.
+Let $g(i)$ be the function such that $\psi_i=\eta_{g(i)}$.
 \begin{align*}
-K_\phi(f) &= \min\left\{ K_\phi(i) : \phi_i= f\right\} 
-\geq \min\left\{ K_\psi(i) : \phi_i= f\right\} - c\\
-&= \min\left\{ K_\psi(i) : \psi_{g(i)}= f\right\} - c
-\geq \min\left\{ K_\psi(i) : \psi_i= f\right\} - c' = K_\psi(f).
+C^{\C,\psi}(f) &= \min\left\{ C^{\C,\psi}(i) : \psi_i= f\right\} 
+\geq \min\left\{ C^{\C, \eta}(i) : \psi_i= f\right\} - c\\
+&= \min\left\{ C^{\C, \eta}(i) : \eta_{g(i)}= f\right\} - c
+\geq \min\left\{ C^{\C, \eta}(i) : \eta_i= f\right\} - c' \\
+&= C^{\C, \eta}(f).
 \end{align*}
-The opposite inequality can be achieved by reversing $\phi$ and $\psi$. 
+The opposite inequality can be achieved by reversing $\psi$ and $\eta$. The same proof holds with model class $\K$.
 \end{proof}
 This lemma shows that the complexity of a function does not depend on the choice of
 enumeration by more than a constant term.
@@ -321,14 +322,14 @@ enumeration by more than a constant term.
   There is a faithful acceptable numbering.\label{lemma:faithful-numberings}
 \end{lemma}
 \begin{proof}
-Let $\tn{div} \in \N$ be an index such that $\phi_{\tn{div}}(y)=\infty$ for all $y$. Define
+Let $d \in \N$ be an index such that $\phi_d(y)=\infty$ for all $y$. Define
   \[\psi_q=\begin{cases}
     \phi_{\phi_i(p)}&\tn{if $q$ can be written as $\bar\imath p$ and $\phi_i(p)<\infty$,}\\
-    \phi_{i_\tn{div}}&\tn{otherwise.}\end{cases}
+    \phi_d&\tn{otherwise.}\end{cases}
   \]
   To show that $\psi$ is faithful, pick any function $f$. Then
 \[\begin{split}
-C(f)&=\min\{C(i):\phi_i=f\} =\min\{\min\{|\bar a b|:\phi_a(b)=i\}:\phi_i=f\} \\
+C^{\C, \phi}(f)&=\min\{C^{\C, \phi}(i):\phi_i=f\} =\min\{\min\{|\bar a b|:\phi_a(b)=i\}:\phi_i=f\} \\
 & =\min\{|\bar a b|:\phi_{\phi_a(b)}=f\}
  =\min\{|\bar a b|:\psi_{\bar a b}=f\}.
 \end{split}\]
@@ -343,7 +344,7 @@ $\bar\imath p$, the
 $s^n_m$-theorem \cite{kleene193notation} states that we can compute the $h$
 such that $\phi_h(y)=\phi_v(\bar\imath p,y)$. Let $h(\bar\imath p)$
 denote this index as a function of the program; further define
-$h(q)=\tn{div}$ if $q$ cannot be expressed as $\bar\imath p$. By
+$h(q)=d$ if $q$ cannot be expressed as $\bar\imath p$. By
 construction $h$ is total and computable. To check that the mapping
 returns the correct function, rewrite $\phi_{h(\bar\imath
   p)}(y)=\phi_v(\bar\imath p,y)=\phi_{\phi_i(p)}(y)=\psi_{\bar\imath p}(y)$.
@@ -354,11 +355,11 @@ returns the correct function, rewrite $\phi_{h(\bar\imath
 
 \ineffprefix*
 \begin{proof}
-Let $\bar\imath y$ be any two-part representation for the data $x$, i.e. $\phi_i(y)=x$. Then construct an alternative two-part representation $\bar vi^* y$, where $i^*$ is the shortest $\psi_u$-program for $i$ such that $\phi_v(i^* y)=\phi_{\psi_u(i^*)}(y) = \phi_i(y)=x$. We compare the lengths of these two representations. Note that $|i^*|=K^\psi(i)$. Therefore,
+Let $\bar\imath y$ be any two-part representation for the data $x$, i.e. $\phi_i(y)=x$. Then construct an alternative two-part representation $\bar vi^* y$, where $i^*$ is the shortest $\psi_u$-program for $i$ such that $\phi_v(i^* y)=\phi_{\psi_u(i^*)}(y) = \phi_i(y)=x$. We compare the lengths of these two representations. Note that $|i^*|=C^{\K,\phi}(i)$. Therefore,
 \[
-|\bar\imath p|-|\bar v i^* y| = |\bar\imath|-|\bar v| - |i^*| = |\bar\imath|-|\bar v|-K(i).
+|\bar\imath y|-|\bar v i^* y| = |\bar\imath|-|\bar v| - |i^*| = |\bar\imath|-|\bar v|-C^{\K}(i).
 \]
-By assumption there must be an $i_0$ such that the above expression is positive for all $i>i_0$. From this $i_0$ onwards, the second representation (using $v$) will have a shorter codelength, so $\bar\imath p$ cannot achieve the minimum in the definition of the sophistication. Consequently, the sophistication is bounded by $\s(x)<|\overline{\imath_0}|$ for all $x$. 
+By assumption there must be an $i_0$ such that the above expression is positive for all $i>i_0$. From this $i_0$ onwards, the second representation (using $v$) will have a shorter codelength, so $\bar\imath p$ cannot achieve the minimum in the definition of the sophistication. Consequently, the sophistication is bounded by $s(x)<|\overline{\imath_0}|$ for all $x$. 
 \end{proof}
 
 \subsection{Boosting a model class by manipulating the numbering}
@@ -366,31 +367,31 @@ By assumption there must be an $i_0$ such that the above expression is positive 
 \coolone*
 
 \begin{proof}
-We define the numbering $\phi$ as follows:
+We define the numbering $\psi$ as follows:
 \[\begin{cases}
-\phi_0(p) = 1^r 0 D(p) \\
-\phi_{1^r0i}(p) = \psi_i(p) \\
-\phi_j(\cdot) = \infty &\text{if $j$ contains no zeroes.}
+\psi_0(p) = 1^r 0 D(p) \\
+\psi_{1^r0i}(p) = \phi_i(p) \\
+\psi_j(\cdot) = \infty &\text{if $j$ contains no zeroes.}
 \end{cases}\]
-We will show that under the $\phi$-enumeration, the best representation for $x$ using a model $f\in\M'$ is always better than the best representation using some $f\not\in\M'$.
+We will show that under the $\psi$-enumeration, the best representation for $x$ using a model $m\in\M'$ is always better than the best representation using some $m\notin\M'$.
 
-First suppose $f\in\M'$. Then
+First suppose $m\in\M'$. Then
 \begin{align*}
-K^\phi(f) &=\min\{|\bar\jmath q|:\phi_{\phi_j(q)}=f\}
-\leq\min\{|\bar0 q|:\phi_{\phi_0(q)}=f\} \\ 
-&=\min\{|\bar0 q|:\phi_{1^r0 D(q)}=f\}  
-=|\bar 0|+\min\{|q|:\psi_{D(q)}=f\}
-\leq K^\psi(f)+c+|\bar 0|,
+C^{\K,\psi}(m) &=\min\{|\bar\jmath q|:\psi_{\psi_j(q)}=m\}
+\leq\min\{|\bar0 q|:\psi_{\psi_0(q)}=m\} \\ 
+&=\min\{|\bar0 q|:\psi_{1^r0 D(q)}=m\}  
+=\min\{|q|:\phi_{D(q)}=m\} + |\bar 0|\\
+&\leq C^{\K,\phi}(m)+c+|\br{0}|,
 \end{align*}
-where the last inequality uses the first assumption.
+where the last inequality uses assumption (1).
 
-Now assume that the best model $f$ for $x$ is not in $\M'$. 
-Let $i$ be the index of $f$ with the shortest description, i.e. it achieves the minimum in $K^\phi(f)=\min\{K^\phi(i):\phi_i=f\}$.
-There are two possibilities. Either $i=0$, in which case we have $K^\phi(f)\ge r$ because $\phi_0$ cannot output zero and all other $\phi$-programs are at least $r$ bits long.
+Now assume that the best model $m$ for $x$ is not in $\M'$. 
+Let $i$ be the index of $m$ with the shortest description, i.e. it achieves the minimum in $C^{\K, \psi}(m)=\min\left\{C^{\K,\psi}(i):\psi_i=m\right\}$.
+There are two possibilities. Either $i = 0$, in which case we have $C^{\K,\psi}(m)\ge r$ because $\phi_0$ cannot output zero and all other $\psi$-programs are at least $r$ bits long.
 
 Otherwise, we can bound
 \begin{align*}
-K^\phi(f)&=K^\phi(i)=K^\phi(1^r0j)\\
+C^{\K,\psi}(m)&=C^{\K\psi}(i)=K^\phi(1^r0j)\\
 &\ge K^\phi(j)-c' \ge K^\psi(j)+r+1-c'\\
 &=K^\psi(f)+r+1-c'.
 \end{align*}
