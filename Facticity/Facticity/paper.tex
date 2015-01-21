@@ -118,18 +118,17 @@ A \emph{numbering} is an enumeration of of the partial computable functions, den
 A \emph{model class} is a set of model indices. We distinguish four important model classes: 
 \begin{enumerate}
 \item $\C=\N$, the indices of all partial computable functions
-\item $\T=\{i:\tn{$\phi_i$ is total}\}$. Note that $\T$ is not enumerable.
+\item $\T=\{i:\tn{$\phi_i$ is total}\}$. Note that $\T$ is not computably enumerable.
 \item $\K$ is an enumerable set such that $\{\phi_i:i\in\K\}$ is the set of all partial computable prefix functions
 \item $\F$ is an enumerable set such that $\{\phi_i:i\in\F\}$ contains a uniform code for every finite set. A uniform code for a finite set $S$ is a total computable surjective function $f:\{0,1\}^{\lceil|S|\rceil}\to S$.
 \end{enumerate}
-
-We sometimes need to map binary strings to a prefix-free set. We denote by $\bar x$ the prefix-encoded representation for $x$. We require that the mapping satisfies $|\bar{x}| = |x|+O(\log(|x|)$ (see eg. \cite[Section~1.4]{li1993introduction}). To simplify notation, we will sometimes conflate natural numbers and binary strings, implicitly using the ordering $(0, \epsilon)$, $(1, 0)$, $(2, 1)$, $(3, 00)$, $(4, 01)$, \ldots
+We sometimes need to map binary strings to a prefix-free set. We denote by $\br{x}$ the prefix-encoded representation for $x$. We require that the mapping satisfies $|\br{x}| = |x|+O(\log(|x|)$ (see eg. \cite[Section~1.4]{li1993introduction}). To simplify notation, we will sometimes conflate natural numbers and binary strings, implicitly using the ordering $(0, \epsilon)$, $(1, 0)$, $(2, 1)$, $(3, 00)$, $(4, 01)$, \ldots
 
 Now define the Kolmogorov complexity of a binary string $x$, with respect to a model class $\M$ and a numbering $\psi$, as follows:
 \[
 C^{\M,\psi}(x)=\min\{\bar\imath y:\psi_i(y)=x,i\in\M\}.
 \]
-The model class $\C$ gives us the plain Kolmogorov complexity and the $\K$ gives us the prefix-free Kolmogorov complexity. The complexity is invariant to the numbering for these model classes, so we may omit it from the superscript.
+The model class $\C$ gives us the plain Kolmogorov complexity and $\K$ gives us the prefix-free Kolmogorov complexity. For $\C$ and $\K$, the complexity is invariant to the numbering, so we may omit it from the superscript.
 
 A pair $(i,y)$ is a \emph{representation} for $x$ if $\phi_i(y)=x$.
 
@@ -137,7 +136,7 @@ A pair $(i,y)$ is a \emph{representation} for $x$ if $\phi_i(y)=x$.
 \label{section:indices}
 In some works, the definition of sophistication is obtained by opening up the definition of Kolmogorov complexity, and measuring the length of the index part of that two-part code. We call such a sophistication \emph{index sophistication}. Examples are Koppel and Atlan's works \cite{koppelSoph1988,koppel1991almost},  and several of its variants \cite{antunes2009sophistication,antunes2013sophistication}. 
 
-In these works, no constraints are placed on the used numbering. This makes these approaches vulnerable to the so-called \emph{nickname problem}: the number of bits required to specify a model becomes very dependent on the numbering. This problem is severe: \emph{any} index sophistication without requirements on the numbering is either bounded, or not invariant:
+In these works, no constraints are placed on the numbering. This makes these approaches vulnerable to the so-called \emph{nickname problem}: the number of bits required to specify a model becomes very dependent on the numbering. This problem is severe: \emph{any} index sophistication without requirements on the numbering is either bounded, or not invariant:
 
 \begin{lemma}
 Let $s^\psi$ denote any index sophistication with respect to numbering $\psi$.
