@@ -206,65 +206,66 @@ S^{\M,\psi,c}(x)=\min\left\{C^\K(\phi_i):i\in\M,C^{\{i\},\psi}(x)\le C^{\M,\psi}
 \label{section:balance}
 
 In the previous section, we saw the first glimpse of how delicate the internal balance in sophistication is. If the description of the model $m$ is less efficient than $C^\K(m)$ by anything more than a constant, representations with a bounded model size will always win out in the limit. 
-In light of this balance issues, the most natural definition of sophistication is $S^{\K,\psi,c}$. In this setting, we know that there always exist candidate models---those models $i$ with $i \in \K$ and $C^{i}(x) \leq C^\K(x) + c$---for which al information except a constant amount is stored in the data, and candidates for which all information is stored in the model. This tells us that $S^\K$ is \emph{balanced}: there is no inefficiency in the representation forcing information in or out of the model.
-The flipside of having a balanced sophistication is that invariance is easy to show. We will show that there are numberings for which the universal models always determine the $S^\K$ and numberings for which the singletons always determine $S^\K$. 
+In light of such balance issues, the most natural definition of sophistication is $S^{\K,\psi,c}$. In this setting, we know that there always exist candidate models---those models $i$ with $i \in \K$ and $C^{\{i\}}(x) \leq C^\K(x) + c$---for which all but a constant amount of information is stored in the data, and candidates for which all information is stored in the model. This tells us that $S^\K$ is \emph{balanced}: there is no inefficiency in the description of either the data or the model, forcing information one way or the other.
+The flipside of having a balanced sophistication is that invariance is easy to show: there are numberings for which the universal models always determine the $S^\K$ and numberings for which the singletons always determine $S^\K$. 
 	The following lemma generalizes the principle: 
 \begin{restatable}{lemma}{coolone}
 \label{lemma:thecoolone}
-  Let $\psi$ be any acceptable enumeration of the partial recursive functions.
-  Let $\M$ be any model class, let $\X$ be any set of binary sequences and let $D:\B\to\N$ be a computable decoding function with a prefix-free domain that maps function descriptions to their indices in $\psi$, i.e. if $f=\psi_{D(p)}$ then $p$ is a $D$-description of $f$. Let $\M'=\{\psi_i:i\in\tn{range}(D)\}$. Further assume there is a constant $c$ such that:\\
-\-\hspace{1cm}(1)$\forall_{f\in\M'}:\min\{|p|:\psi_{D(p)}=f\}\le K^\psi(f)+c$\\
-\-\hspace{1cm}(2)$\forall_{x\in\X}:L^{\M',\psi}(x)-L^{\M,\psi}(x)\le c$.\\
-Then there is an enumeration $\phi$ of the partial recursive functions such that $S^\phi_{\M}(x) = |\bar 0|+S^\psi_{\M'}(x)$ for all $x\in\X$.
+  Let $\M$ be any model class, let $\X$ be any set of binary strings and let $D:\B\to\N$ be a computable decoding function with a prefix-free domain that maps function descriptions to their indices in $\phi$, i.e. if $m=\phi_{D(p)}$ then $p$ is a $D$-description of $m$. Let $\M'=\{\phi_i:i\in\tn{range}(D)\}$. Further assume there is a constant $c$ such that:\\
+\-\hspace{1cm}(1) $\forall_{m\in\M'}:\min\{|p|:\phi_{D(p)}=m\}\le C^{\K,\phi}(m)+c$\\
+\-\hspace{1cm}(2) $\forall_{x\in\X}:C^{\M',\phi}(x)-C^{\M,\phi}(x)\le c$.\\
+Then there is an enumeration $\psi$ of the partial recursive functions such that $S^{\M,\psi}(x) = |\br{0}|+S^{\M',\phi}(x)$ for all $x\in\X$.
 \end{restatable}
+This is a technical lemma, but the \emph{idea} behind the it is simple: given a subset $\M'$ of the model class, we can choose the numbering so that representations use a model in $\M'$ perform an arbitrary constant better than all other models. This lets us effectively `push' all other models out of the candidate set, so that the sophistication is determined by a model in $\M'$.
 
-This is a technical lemma, due to the double effect of the numbering, which occurs in both the definition of model complexity and the definition of data complexity. The \emph{idea} behind the lemma, however, is simple. Given a subset $\M'$ of the model class, we can choose the numbering so that representations use a model in $\M'$ perform an arbitrary constant better than all other models. This lets us effectively `push' all other models out of the candidate set, so that the sophistication is determined by a model in $\M'$.- can make it equal to $C^K$
-
-This allows us to ensure that for some numberings, the unversal model always determines the sophistication, making is bounded:
+This allows us to ensure that for some numberings, a universal model always determines the sophistication, making it bounded:
 
 \begin{restatable}[underfitting]{lemma}{underfitting}
-Let $\M$ be a model class containing a universal model $u$, with the property that $\exists c \forall m \in \M : L^u(x) \leq L^m(x) + c \p$. Then, there exist numberings such that $\s^\M$ is bounded.
+Let $\M$ be a model class containing a universal model $\phi_u$, with the property that $\exists c \forall i \in \M : C^{\{u\}}(x) \leq C^{\{i\}}(x) + c \p$. Then, there exist numberings such that $\s^\M$ is bounded.
 \end{restatable}
-For other numberings, the singletons determine the sophistication, making it equal to the complexity:
+\noindent For other numberings, the singletons determine the sophistication, making it equal to the complexity:
 \begin{restatable}[Overfitting]{lemma}{overfitting}
-Let $\M \subseteq \K$ be a model class where for every $x\in\X$ there is a singleton model $f\in\M$ with $f(\epsilon)=x$. Then there is an enumeration $\phi$ of the prefix partial recursive functions, and a constant $c$, such that
+Let $\M \subseteq \K$ be a model class where for every $x\in\X$ there is a singleton model $i\in\M$ with $\phi_i(\epsilon)=x$. Then there is a numbering $\psi$, and a constant $c$, such that for all $x\in\X$ 
 \[
-K(x)-S^{\M,\phi}(x)\le c
-\]
-for all $x\in\X$.
+C^\M(x)-S^{\M,\psi}(x)\leq c
+\]\label{lemma:overfitting}
 \end{restatable}
-This shows that the price we pay for balance is absolute invariance. All information can be seen as structure of noise, depending on the numbering. To avoid these issues, existing proposals upset the balance to exclude, or penalize at least the singleton models and the universal models.
+\noindent This shows that the price we pay for balance is absolute invariance. All information can be seen as structure of noise, depending on the numbering. To avoid these issues, existing proposals upset the balance to exclude or penalize at least the singleton models and the universal models.
  
 \subsection{Overfitting}
 
-The existing proposals that do not avoid overfitting as the structure function \cite{cover1985kolmogorov}, the sophistication as defined in \cite{mota2013sophistication}, the miinimal sufficient statistic \cite{gacs2001algorithmic} and Vereshchagin's strongly  sufficient statistic \cite{vereshchagin2013algorithmic}. It may be argued that the constant determining the candidates should be allowed to depend on the numbering, but this dependence has not been mentioned in the literature and there is no clear way to determine what such a constant should be, on the basis of a given numbering. 
+The existing proposals that do not avoid overfitting are the structure function \cite{cover1985kolmogorov}, the sophistication as defined in \cite{mota2013sophistication}, the minimal sufficient algorithmic statistic \cite{gacs2001algorithmic} and Vereshchagin's strongly sufficient statistic \cite{vereshchagin2013algorithmic}. It is widely recognized that singleton models are always candidates in these settings, but not, it seems that they may be the only candidates for any string, as Lemma~\ref{lemma:overfitting} shows. 
 
-In traditional statistics, overfitting is often addressed by imposing a penalty on complex models. As we have seen, a strong penalty, such as the one imposed by an inefficient prefix encoding of the model, will immediately cause underfitting. A more subtle approach is to use $C$ as a model class, allowing representations that are not self-delimiting. This eliminates at least the singletons, as placing all information in the model automatically creates a self delimiting representation. Self delimiting representations are longer than plain representations, and this gap is unbounded \cite[Section~4.5.5]{vitanyi2004meaningful}, which tells us that singletons will be candidates for only finitely many strings. This approach is taken by Vit\'anyi \cite{vitanyi2004meaningful} and by Adriaans \cite{adriaans2012facticity}. 
+It may be argued that the constant determining the candidates should be allowed to depend on the numbering, but this dependence has not been mentioned in the literature and there is no clear way to determine what such a constant should be, on the basis of a given numbering. 
+
+In traditional statistics, overfitting is often addressed by imposing a penalty on complex models. As we have seen, a strong penalty, such as the one imposed by an inefficient prefix encoding of the model, will immediately cause underfitting. A more subtle approach is to use $\C$ as a model class, allowing representations that are not self-delimiting. This eliminates at least the singletons, as placing all information in the model automatically creates a self delimiting representation. Self delimiting representations are longer than plain representations, and this gap is unbounded \cite[Section~4.5.5]{vitanyi2004meaningful}, which tells us that singletons will be candidates for only finitely many strings. This approach is taken by Vit\'anyi \cite{vitanyi2004meaningful} and by Adriaans \cite{adriaans2012facticity}. The price we pay is that the models can no longer be equated with probability measures, removing the link to traditional statistics and probability theory.
 
 \subsection{Underfitting}
 
 Underfitting is a widely acknowledged problem, and almost all proposals avoid it by limiting the class of allowed models, to exclude universal models. Does this make the sophistication unbounded? The following theorem shows that it does.
 
 \begin{restatable}{theorem}{dogfood}
-There are infinitely many $x$ with $\s^{\F,\phi,c}(x) \geq C^{\K}(x)/5$ and $\s^{\T,\phi,c}(x) \geq C^{\K}(x)/6$. 
+There are infinitely many $x$ with 
+\[
+	\s^{\F,\phi,c}(x) \geq C^{\K}(x)/5  \text{\;\;\;and\;\;\;} \s^{\T,\phi,c}(x) \geq C^{\K}(x)/6\p
+\] 
 \end{restatable} 
 
-But clearly, this only exacerbates the overfitting problem. Only one model class eliminates both the singletons and the unversal model: $S^\T(x)$. The only proposal that uses an efficient model representation, excludes the universal models and excludes the singletons is Vit\'anyi's \cite{vitanyi2004meaningful}. While this invalidates straightforward proofs of boundedness, there is no suggestion that $S^\T(x)$ is actually invariant.
+But clearly, this only exacerbates the overfitting problem. Only one model class eliminates both the singletons and the universal model: $\T$. The only proposal that uses an efficient model representation \emph{and} excludes the universal models \emph{and} excludes the singletons is Vit\'anyi's \cite{vitanyi2004meaningful}. While this invalidates straightforward proofs of boundedness, there is no suggestion that $S^{\T, \phi, c}(x)$ is actually invariant.
 
-While under $S^{\T, \phi, c}(x)$ there are clearly string with high sophistication, these may not conform to the original intuition that motivated sophistication. To show this, we require the concept of depth:
+While under $S^{\T, \phi, c}(x)$ there are strings with high sophistication, these may not conform to the original intuition that motivated sophistication. To show this, we require the concept of depth:
 
 \begin{definition}[Depth\cite{bennett1988logical,antunes2006computational}]\belowdisplayskip=-12pt
-Let $U$ be some universal Turing machine, so that $U(\bar\imath y) = \phi_i(y)$. Let $U^t$ be a simulation of this machine, which is allowed to run for at most $t$ steps, and returns $0$ if it has not yet finished at that point. Let $C^t_\M(x) = \min\{|\bar\imath y| : U^t(\bar\imath y) = x, \phi_i \in \M\}$.
+Let $U$ be some universal Turing machine, so that $U(\bar\imath y) = \phi_i(y)$. Let $U^t$ be a simulation of this machine, which is allowed to run for at most $t$ steps, and returns $0$ if it has not yet finished at that point. Let $C^\M_t(x) = \min\{|\bar\imath y| : U^t(\bar\imath y) = x, \phi_i \in \M\}$.
 
-The \emph{$c$-depth} $d^\M_c(x)$ of a string is $d^\M_c(x) = \min \left\{t : C^\M_t(x) - C^\M(x) \leq c \right\}$.
+The \emph{$c$-depth} is $d^{\M,c}(x) = \min \left\{t : C^\M_t(x) - C^\M(x) \leq c \right\}$.
 \end{definition}
-
 Deep strings are those that can only be optimally compressed with a great investment of time. We note that it is exceedingly unlikely that a deep string is sampled from a shallow distribution \cite{bloem2014safe,bennett1988logical}.
  
 \begin{restatable}{theorem}{depth}
-Let $A(n)$ be the single-argument Ackermann function and $c$ some arbitrary constant. There are numberings such that for all strings with depth $d^\C_c(x) \leq A(C(x))$, $\s^\T(x)$, $s^\P(x)$ and $\s^\F$ are bounded.
+Let $A(n)$ be the single-argument Ackermann function and $c$ some arbitrary constant. There are numberings such that for all strings with depth $d^{\C,c}(x) \leq A(C^\C(x))$, $\s^{\T, \psi, c}$ is bounded. The same is true for $\s^{\F}$ 
 \end{restatable}
-\noindent This shows that while high-sophistication strings exist, they do not behave as expected. Consider a string that is typical for a low-depth model, say some high-complexity Markov chain. Under sophistication, no matter how complex the markov chain, the sophistication would stay the same. Any structure that is simple enough to be exploited within the time bound of the Ackermann function (or some other fast-growing, simply stated bound) will be counted as noise. Only structure that is so deep that if we used it to compress $x$ we could never hope to decompress it within the lifetime of the universe, would count towards sophistication. 
+\noindent This shows that while high-sophistication strings exist, they do not behave as expected. Consider a string that is typical for a low-depth model, say some high-complexity Markov chain. Under sophistication, no matter how complex the Markov chain, the sophistication would stay the same. Any structure that is simple enough to be exploited within the time bound of the Ackermann function (or some other fast-growing, simply stated bound) will be counted as noise. Only structure that is so deep that if we used it to compress $x$ we could never hope to decompress it within the lifetime of the universe, would count towards sophistication. 
 This clearly contradicts the motivating principle of sophistication, which is to capture the number of bits required to express \emph{all} regularity in the data. 
 What makes a string high-sophistication is not the fact that it has a great deal of structure, but the fact that it can be compressed far better with partial functions than with total. That is, it is non-typical for the model class $\T$. This suggests that the `non-stochastic' property of strings with high sophistication \cite{shen1983concept,vereshchagin2004kolmogorov} says more about depth and totality than it does about structure and noise.
 
