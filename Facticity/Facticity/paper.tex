@@ -392,9 +392,9 @@ By choosing $c''$ sufficiently large, we can ensure that the best representation
 \overfitting*
 
 \begin{proof}
-Note that since $\phi_i$ is a prefix function, if $\phi_i$ is defined for input $\epsilon$ then it cannot be defined for any other input. Pick $i,x$ with $\phi_i(\epsilon)=x$. Note that $x$ can be computed from $i$ and a fixed program, so there is a $c$ such that $C^{\K, \phi}(x)\le C^{\K, \phi}(\phi_i)+c$. Vice versa, given any $x$ we can construct an index of $f$, since $\psi$ is an acceptable numbering. Therefore $|K(f)-K(x)|\le c$.
+Let $\phi_i$ be a singleton for $x$ as described. Note that since $\phi_i$ is a prefix function, if $\phi_i$ is defined for input $\epsilon$ then it cannot be defined for any other input. Pick $i,x$ with $\phi_i(\epsilon)=x$. Note that $x$ can be computed from $i$ and a fixed program, so there is a $c$ such that $C^{\K, \phi}(x)\le C^{\K, \phi}(\phi_i)+c$. Vice versa, given any $x$ we can construct an index of $\phi_i$, since $\phi$ is an acceptable numbering. Therefore $|C^{\K,\phi}(\phi_i)-C^{\K, \phi}(x)|\le c$.
 
-We now define a computable function $D$ by $D(\bar\imath p)=j$ where $\psi_j(\epsilon) = \psi_i(p)$.  We will show that the two conditions of Lemma~\ref{lemma:thecoolone} hold for the prefix function $D$.
+We now define a computable function $D$ by $D(\bar\imath y)=j$ where $\psi_j(\epsilon) = \psi_i(y)$.  We will show that the two conditions of Lemma~\ref{lemma:thecoolone} hold for the prefix function $D$.
 
 (1) Let $f$ be any function in the range of $D$, and $x$ its output. Then $\min\{|p|:\psi_{D(p)}=f\}=\min\{|\bar\imath q|:\psi_i(q)=x\}=K(x)\le K(f)+c$. (2) On the one hand $L^{\M',\psi}(x)\le K(f)+|\epsilon|\le K(x)+c$. On the other hand, $L^{\M,\psi}(x)$ is an effective description of $x$, so $K(x)$ is at most a constant larger. Together, these inequalities establish the second condition.
 
@@ -410,7 +410,7 @@ Let $D$ be a prefix function as in Lemma~\ref{lemma:thecoolone} such that it ret
 
 \subsection{The problem of depth}
 
-We first show that representions using $\T$ can be reduced to representations in $\F$ with a small overhead.
+We first show that representations using $\T$ can be reduced to representations in $\F$ with a small overhead.
 
 \begin{definition}[Stochastic strings, Definition~1.1 from~\cite{gacs2001algorithmic}]
   Let $\alpha$ and $\beta$ be natural numbers. A finite binary string $x$ is called \emph{$(\alpha,\beta)$-stochastic} if there exists a finite set $S\subseteq\B$ such that 
