@@ -345,7 +345,7 @@ Let $\bar\imath y$ be any two-part representation for the data $x$, i.e. $\phi_i
 By assumption there must be an $i_0$ such that the above expression is positive for all $i>i_0$. From this $i_0$ onwards, the second representation (using $v$) will have a shorter codelength, so $\bar\imath p$ cannot achieve the minimum in the definition of the sophistication. Consequently, the sophistication is bounded by $s(x)<|\overline{\imath_0}|$ for all $x$. 
 \end{proof}
 
-\subsection{Boosting a model class by manipulating the numbering}
+\subsection{Boosting submodel by manipulating the numbering}
 
 \coolone*
 
@@ -374,30 +374,27 @@ There are two possibilities. Either $i = 0$, in which case we have $C^{\K,\psi}(
 
 Otherwise, we can bound
 \begin{align*}
-C^{\K,\psi}(m)&=C^{\K\psi}(i)=K^\phi(1^r0j)\\
-&\ge K^\phi(j)-c' \ge K^\psi(j)+r+1-c'\\
-&=K^\psi(f)+r+1-c'.
+C^{\K,\psi}(m)&=C^{\K,\psi}(i)=C^{\K,\psi}(1^r0j)\\
+&\ge C^{\K,\psi}(j)-c' \ge C^{\K,\phi}(j)+r+1-c'\\
+&=C^{\K,\phi}(m)+r+1-c'.
 \end{align*}
-Now choose $r=c''+\max\{K^\psi(\phi_0),c'-1\}$. Then substitution yields, for both cases, 
-$K^\phi(f)\ge c''+K^\psi(f)$.
+Now choose $r=c''+\max\left\{C^{\K,\psi}(\phi_0),c'-1\right\}$. Then substitution yields, for both cases, 
+$C^{\K,\phi}(m)\ge c''+C^{\K,\psi}(m)$.
 
 Combining the inequalities above, for any model $g\not\in\M'$, there is a model $f\in\M$ such that
 \[\begin{split}
-K^\phi(g)+C^g(x) &\ge K^\psi(g)+C^g(x)+c''\\
-&\ge K^\phi(f)+C^f(x) -2c+c'' -|\bar0|.
+C^{\K,\psi}(g)+\min \{|y| : g(y) = x\} &\ge C^{\K,^\phi}(g)+\min\{|y| : g(y) = x\}+c''\\
+&\ge C^{\K,\psi}(f)+\min \{|y| : f(y) = x\} -2c+c'' -|\bar0|.
 \end{split}\]
-
 By choosing $c''$ sufficiently large, we can ensure that the best representation is in $\M'$ for all $x\in\X$, which completes the proof.
 \end{proof}
-
-
 
 \subsection{Overfitting}
 
 \overfitting*
 
 \begin{proof}
-Let $\psi$ \sdr{This should probably be $\phi$} be any default enumeration of the partial recursive prefix functions. Note that since $f$ is a prefix function, if $f$ is defined for input $\epsilon$ then it cannot be defined for any other input. Pick $f,x$ with $f(\epsilon)=x$. Note that $x$ can be computed from $f$ and a fixed program, so there is a $c$ such that $K(x)\le K(f)+c$. Vice versa, given any $x$ we can construct an index of $f$, since $\psi$ is an acceptable numbering. Therefore $|K(f)-K(x)|\le c$.
+Note that since $\phi_i$ is a prefix function, if $\phi_i$ is defined for input $\epsilon$ then it cannot be defined for any other input. Pick $i,x$ with $\phi_i(\epsilon)=x$. Note that $x$ can be computed from $i$ and a fixed program, so there is a $c$ such that $C^{\K, \phi}(x)\le C^{\K, \phi}(\phi_i)+c$. Vice versa, given any $x$ we can construct an index of $f$, since $\psi$ is an acceptable numbering. Therefore $|K(f)-K(x)|\le c$.
 
 We now define a computable function $D$ by $D(\bar\imath p)=j$ where $\psi_j(\epsilon) = \psi_i(p)$.  We will show that the two conditions of Lemma~\ref{lemma:thecoolone} hold for the prefix function $D$.
 
