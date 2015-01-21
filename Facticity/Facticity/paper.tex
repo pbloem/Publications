@@ -444,26 +444,32 @@ Let $D$ be a prefix function as in Lemma~\ref{lemma:thecoolone} such that it ret
 \subsection{The problem of depth}
 
 We first show that representions using $\T$ can be reduced to representations in $\F$ with a small overhead.
-\pb{Definitie nonstochastic strings uit \cite[Proposition~I.3 (b)]{gacs2001algorithmic}}
+
+\begin{definition}[Stochastic strings, Definition~1.1 from~\cite{gacs2001algorithmic}]
+  Let $\alpha$ and $\beta$ be natural numbers. A finite binary string $x$ is called \emph{$(\alpha,\beta)$-stochastic} if there exists a finite set $S\subseteq\B$ such that 
+  \[
+  x\in S,~C^\K(S)\le\alpha,~C^\K(x)\ge\log|A|-\beta.
+\]
+\end{definition}
 
 \begin{restatable}{lemma}{vitanyi}
-Let $f$ be a total, computable function, such that for some $d$, $f(d) = x$ and let $k = K(f) + |d|$. Then there exists a finite set $S$ containing $x$ and a constant $c$, such that $K(S) \leq K(f) + K(|d|) + c$ and $\log |S| \leq |d|$.\label{lemma:total-to-sets}
+Let $f$ be a total, computable function, such that for some $d$, $f(d) = x$ and let $k = K(f) + |d|$. Then there exists a finite set $A$ containing $x$ and a constant $c$, such that $K(A) \leq K(f) + K(|d|) + c$ and $\log |A| \leq |d|$.\label{lemma:total-to-sets}
 \end{restatable}
 \begin{proof}
-Let $S = f\left(\{0,1\}^{|d|}\right)$. Since $f$ is total, this set can be explicity computed from a description of $f$ and a description of $|d|$, which tells us that there is a constant $c$ such that $K(S) \leq K(f) + K(|d|) + c$. 
+Let $S = f\left(\{0,1\}^{|d|}\right)$. Since $f$ is total, this set can be explicity computed from a description of $f$ and a description of $|d|$, which tells us that there is a constant $c$ such that $C^\K(A) \leq C^\K(f) + C^\K(|d|) + c$. 
 
-Since $S$ is the image of a set of size $2^{|d|}$ under $f$, we have $\log |S| \leq |d|$.
+Since $A$ is the image of a set of size $2^{|d|}$ under $f$, we have $\log |A| \leq |d|$.
 \end{proof}
 \noindent This lemma is a variation on \cite[Lemma~7.2]{vitanyi2004meaningful}. 
 
 We use this to show that sophistications with a restricted model class are not bounded:
 \dogfood*
 \begin{proof}
-For all $i$, let $x_i$ be the smallest binary string that is not $(i/4, i/4)$-stochastic. Since every string is $(\alpha,\alpha)$-stochastic for sufficiently large $\alpha$, this sequence contains infinitely many distinct binary strings.
-From \cite[Proposition~I.3 (b)]{gacs2001algorithmic} we know that for all sufficiently large $i$ there are strings of length less than $i$ that are not $(i/4, i/4)$-stochastic. Now pick any $i$ that is large enough that (a) $|x_i|<i$ and (b) $C^\K(x_i)/5 < i/4$. By definition of $(\alpha,\beta)$-stochasticity, if a string is not $(i/4,i/4)$-stochastic, then for every finite set $S$ containing $x$, either (a) $\log|S|\ge C^\K(x_i)+i/4\ge 5C^\K(x_i)/4$, or (b) $C^\K(S)>i/4>C^\K(x_i)/5$.
-In case (a), any two-part description using a uniform code for $S$ is substantially larger than the Kolmogorov complexity, for large enough $i$, so it does not determine the sophistication. Case (b) provides the required lower bound on the complexity of the model.
+In this proof, for convenience we identify the models indexed by $\F$ with the sets that they encode. Thus the two-part code consists of the description of a set $A$, and then an index in this set using $\log|A|$ bits.
+For all $i$, let $x_i$ be the smallest binary string that is not $(i/4, i/4)$-stochastic. Since every string is $(\alpha,\alpha)$-stochastic for sufficiently large $\alpha$, this is a sequence of infinitely many distinct binary strings of increasing length. From \cite[Proposition~I.3 (b)]{gacs2001algorithmic} we know that for all sufficiently large $i$ there are strings of length less than $i$ that are not $(i/4, i/4)$-stochastic. Now pick any $i$ that is large enough that (a) $|x_i|<i$ and (b) $C^\K(x_i)/5 < i/4$. By definition of $(\alpha,\beta)$-stochasticity, if a string is not $(i/4,i/4)$-stochastic, then for every finite set $A$ containing $x$, either (a) $\log|A|\ge C^\K(x_i)+i/4\ge 5C^\K(x_i)/4$, or (b) $C^\K(A)>i/4>C^\K(x_i)/5$.
+In case (a), any two-part description using $A$ is substantially larger than the Kolmogorov complexity, for large enough $i$, so it does not determine the sophistication. Case (b) provides the required lower bound on the complexity of the model.
 
-Now, take $\T$ as model class and suppose towards contradiction that the sophistication is determined by a total function $f=\phi_j,j\in\T$ with $f(d)=x$ and $C^\K(f)\le i/5$. Then by Lemma~\ref{lemma:total-to-sets}, for some fixed constant $c$ there is a finite set $S$ with $\log|S|\le|d|\le C^\K(x_i)$, so (a) above cannot be the case, and $C^\K(S)\le C^\K(f)+C^\K(|d|)+c\le i/5+K(|d|)+c$, which contradicts (b) for large enough $i$. Therefore such candidates $f$ cannot exist and all candidates must satisfy $C^\K(f)>i/5>C^\K(x_i)/6$.
+Now, take $\T$ as model class and suppose towards contradiction that the sophistication is determined by a total function $f=\phi_j,j\in\T$ with $f(d)=x$ and $C^\K(f)\le i/5$. Then by Lemma~\ref{lemma:total-to-sets}, for some fixed constant $c$ there is a finite set $A$ with $\log|A|\le|d|\le C^\K(x_i)$, so (a) above cannot be the case, and $C^\K(A)\le C^\K(f)+C^\K(|d|)+c\le i/5+C^\K(|d|)+c$, which contradicts (b) for large enough $i$. Therefore such candidates $f$ cannot exist and all candidates must satisfy $C^\K(f)>i/5>C^\K(x_i)/6$.
 \end{proof}
 
 Note that we favoured brevity of the proof over the strength of the bounds: the multiplicative constant $1/6$ can be improved with a more detailed treatment.
