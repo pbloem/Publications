@@ -47,7 +47,7 @@
 % --- DELETE BEFORE SUBMISSIONS ---
 \pagestyle{headings} 
 
-\title{Two Problems for Sophistication}
+\title{Three Problems for Sophistication}
 
 \author{Peter Bloem and Steven de Rooij}
 
@@ -60,7 +60,7 @@
 \maketitle
 
 \begin{abstract}
-Kolmogorov complexity measures the amount of information in data, but does not distinguish structure from noise. Kolmogorov's definition of the \emph{structure function} was the first attempt to measure only the structural information in data, by measuring the complexity of an objectively best model under two-part coding. Since then, many variations of this idea have been proposed, for which we use \emph{sophistication} as an umbrella term. We describe three fundamental problems with all existing proposals, showing each  to be \emph{unsound}. Consequently, we put forward the view that the problem is fundamental, it may be impossible to objectively quantify the sophistication.
+Kolmogorov complexity measures the amount of information in data, but does not distinguish structure from noise. Kolmogorov's definition of the \emph{structure function} was the first attempt to measure only the structural information in data, by measuring the complexity of an objectively best model under two-part coding. Since then, many variations of this idea have been proposed, for which we use \emph{sophistication} as an umbrella term. We describe three fundamental problems with all existing proposals, showing each  to be \emph{unsound}. Consequently, we put forward the view that the problem is fundamental: it may be impossible to objectively quantify the sophistication.
 \end{abstract}
 
 \section{Introduction}
@@ -289,7 +289,7 @@ The second argument why we believe sophistication will elude definition is more 
 
 For this reason, we take a skeptical view of sophistication. Note that \emph{part} of the theory is fine: there is nothing wrong with evaluating models for the data by comparing their two-part code lengths. In fact, the randomness deficiency $\delta(\phi_i,x)=\min\{|y|:\phi_i(y)=x\}-C^\K(x\mid i)$ of a model $\phi_i$ has a direct statistical interpretation as a measure of counterevidence against the hypothesis that it generated the data --- if $\phi_i$ truly generated the data, then the probability that the random deficiency is more than $k$ bits is less than $2^{-k}$ (proof omitted). In the Monet example above, this will allow us to disqualify the model expressing that the data is actually, say, a recording of Jazz music.
 
-But fundamental problems arise as soon as hard cut-offs are introduced. In our opinion, a lot of measures taken in the literature to address problems with sophistication, such as restricting the model class or introducing model penalties, complicate the method and make problems harder to analyse, without actually addressing the fundamental issue. This is dangerous: if such ad-hoc ``fixes'' result in a theory that is hard to prove either wrong or right, then this can create an artificial dead end for a valuable area of research. When hard cut-offs are avoided on the other hand, all such measures are suddenly no longer necessary. What remains is a simple and elegant theory that can be used to sift through all possible models, disproving most while retaining a select number of interesting candidates for our further consideration.
+But fundamental problems arise as soon as hard cut-offs are introduced. In our opinion, a lot of measures taken in the literature to address problems with sophistication, such as restricting the model class or introducing model penalties, complicate the method and make problems harder to analyse, without actually addressing the fundamental issue. This is dangerous: if such ad-hoc fixes result in a theory that is hard to prove either wrong or right, then this can create an artificial dead end for a valuable area of research. When hard cut-offs are avoided on the other hand, all such measures are suddenly no longer necessary. What remains is a simple and elegant theory that can be used to sift through all possible models, disproving most while retaining a select number of interesting candidates for our further consideration.
 
 \subsubsection*{\ackname}
 
