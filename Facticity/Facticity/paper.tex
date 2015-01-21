@@ -7,7 +7,6 @@
 \usepackage{thmtools}
 \usepackage{graphicx}
 \usepackage{caption}
-\usepackage{subcaption}
 
 \newcommand{\M}{\mathscr M}
 \newcommand{\C}{\mathscr C}
@@ -79,7 +78,19 @@ A robust definition of sophistication $S(x)$ in the spirit of Kolmogorov complex
 \end{enumerate}
 There have been many related proposals for such a measure, that are all based on a \emph{two-part code}: rather than encoding $x$ by means of a single computer program, we encode a \emph{model} for $x$ in the first part of the code, that is interpreted as a representation of $x$'s structural properties. The model does not fully specify $x$, but when combined with the second part of the code, which specifies the noise, the original string becomes fully determined. Thus, the model can be interpreted as a function mapping the noise to the original object.
 
-For any string $x$, there may be many different two-part representations. The total code length can never be less than the Kolmogorov complexity, but it can come close. The balance between the two parts may vary; Figure~\ref{fig:todo} provides an illustration. The various proposals then define sophistication in terms of the length of the structure part of this two-part code for one of the representations that (almost) achieves the Kolmogorov complexity. However, For most of these definitions, we can prove that they fail one or more of the conditions above. Vit\'anyi's definition \cite{vitanyi2004meaningful} is the one exception that we cannot \emph{prove} to conflict with our requirements, but we can show that only strings that require an enormous amount of processing to construct, yield a large sophistication.
+\begin{figure*}[tb]
+  \hspace{-2.8em}
+  \begin{minipage}{0.55\textwidth}
+     \includegraphics[width=\textwidth]{./img/sophistication.pdf}
+  \end{minipage}
+  \begin{minipage}{0.55\textwidth}
+     \includegraphics[width=\textwidth]{./img/sophistication-jump.pdf}
+  \end{minipage}
+  \caption{\small (left) Two-part representations of $x$. The horizontal axis measures the bits used to describe the model, the vertical axis measures the number of bits used to describe the noise. The smallest possible effective description, denoted by a black diagonal, is $C^\M(x)$. We accept all representations that are close to this optimum, the threshold being represented by a dashed line. The size of the smallest model within the slack is the sophistication of the data. (right) The same image, after a constant perturbation in te model complexity caused by a change in numbering.}
+  \label{fig:diagram}
+\end{figure*}
+
+For any string $x$, there may be many different two-part representations. The total code length can never be less than the Kolmogorov complexity, but it can come close. The balance between the two parts may vary; Figure~\ref{fig:diagram} provides an illustration. The various proposals then define sophistication in terms of the length of the structure part of this two-part code for one of the representations that (almost) achieves the Kolmogorov complexity. However, For most of these definitions, we can prove that they fail one or more of the conditions above. Vit\'anyi's definition \cite{vitanyi2004meaningful} is the one exception that we cannot \emph{prove} to conflict with our requirements, but we can show that only strings that require an enormous amount of processing to construct, yield a large sophistication.
 
 A valid definition of $S$ must contend with two important issues. First, the details of the way the model is encoded are important. There are two technically distinct approaches; in one of these one has to deal with the so-called ``nickname problem'' that strangely remains unresolved in several publications. These definitions yield a sophistication that is highly dependent on the chosen programming language, unless special care is taken, as discussed in Section~\ref{section:indices}.
 
@@ -121,21 +132,6 @@ C^{\M,\psi}(x)=\min\{\bar\imath y:\psi_i(y)=x,i\in\M\}.
 The model class $\C$ gives us the plain Kolmogorov complexity and the $\K$ gives us the prefix-free Kolmogorov complexity. The complexity is invariant to the numbering for these model classes, so we may omit it from the superscript.
 
 A pair $(i,y)$ is a \emph{representation} for $x$ if $\phi_i(y)=x$.
-
-\begin{figure*}[tb]
-  \hspace{-0.9cm}
-  \begin{subfigure}[b]{0.55\textwidth}    
-     \includegraphics[width=\textwidth]{./img/sophistication.pdf}
-      \label{figure:sophistication}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.55\textwidth} 
-     \includegraphics[width=\textwidth]{./img/sophistication-jump.pdf}
-      \label{figure:sophistication-jump}
-  \end{subfigure}
-  
-  \caption{\small (left) A schematic representation of the idea of sophistication. We can represent the data $x$ in two parts: by describing first, a model, and then the residual information required to specify the data given the model. The smallest possible effective description, denoted by a black diagonal, is $C^\M(x)$. We accept all representation that come within a given \emph{slack} of this optimum, represented by a dashed line. The size of the smallest model within the slack is the sophistication of the data. (right) The same image, after a constant perturbation  in te model complexity caused by a change in numbering.}
-  \label{fig:diagram}
-\end{figure*}
 
 \section{Inefficient indices}
 \label{section:indices}
