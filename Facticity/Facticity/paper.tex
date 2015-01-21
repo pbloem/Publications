@@ -134,7 +134,7 @@ A pair $(i,y)$ is a \emph{representation} for $x$ if $\phi_i(y)=x$. \sdr{Gebruik
 \label{section:indices}
 In some works, the definition of sophistication is obtained by opening up the definition of Kolmogorov complexity, and measuring the length of the index part of that two-part code. We call such a sophistication \emph{index sophistication}. Examples are Koppel and Atlan's works \cite{koppelSoph1988,koppel1991almost},  and several of its variants \cite{antunes2009sophistication,antunes2013sophistication}. 
 
-In these works, no constraints are placed on the numbering. This makes these approaches vulnerable to the so-called \emph{nickname problem}: the number of bits required to specify a model becomes very dependent on the numbering. This problem is severe: \emph{any} index sophistication without requirements on the numbering is either bounded, or not invariant:
+In these works, no constraints are placed on the numbering. This makes these approaches vulnerable to the so-called \emph{nickname problem}: the number of bits required to specify a model becomes very dependent on the numbering. This problem is severe: \emph{any} index sophistication without requirements on the numbering is either bounded, or nowhere near invariant:
 
 \begin{lemma}
 Let $s^\psi$ denote any index sophistication with respect to numbering $\psi$.
@@ -142,7 +142,7 @@ There are acceptable numberings $\psi$ and $\xi$ such that for all $x$:
 \[|s^\psi(x) - s^\xi(x)|\geq \frac{1}{2}\min\{s^\psi(x),s^\xi(x)\}\p\]
 \end{lemma}
 
-To prove this, we use numberings that are deliberately extremely inefficient:
+To prove this, we simply use extremely inefficient numberings:
 
 \begin{proof}
 Let $s_i$ be the binary string consisting of $2^{i}$ zeroes followed by a one.
@@ -161,41 +161,41 @@ Define $\psi$ and $\xi$ by
 \]
 Choose any $x$ and assume w.l.o.g. that $s^\psi(x)\le s^\xi(x)$. By construction of $\psi$ and $\xi$ we have $2s_\psi(x)  \leq s_\xi(x)$ from which the result follows.
 \end{proof}
-The Kolmogorov complexity does not suffer from inefficient indices. A switch to to a more efficient index will only cost a constant amount of bits in the complexity. However, as this lemma shows, it creates a massive change in the size of the model that witnesses the complexity. The plain length of the index in a given acceptable numbering may be a very poor indicator of model complexity.
+The Kolmogorov complexity does not suffer from inefficient indices. A switch to to a more efficient index will only cost a constant amount of bits in the complexity. However, as this lemma shows, it creates a massive change in the size of the model that witnesses the complexity. The plain length of the index in a given acceptable numbering is a very poor indicator of model complexity.
 
 In order to obtain a reasonable and robust measure of model complexity, we extend the definition of Kolmogorov complexity to functions:
 
-\begin{definition}[\cite{grunwald2004shannon,vitanyi2004meaningful}]
-The complexity of a computable function is defined by \label{definition:model-complexity}
+\begin{definition}[\cite{grunwald2004shannon,vitanyi2004meaningful}]\label{definition:model-complexity}
+The complexity of a computable function $f$ is given by 
 \[
 C^{\M,\psi}(f) = \min\{C^{\M,\psi}(i):\phi_i=f\}\p
 \]
 \end{definition}
-We show in the appendix (Lemma~\ref{lemma:invariance}) that this definition is invariant, so that the Kolmogorov complexity is an objective property of a function, as it is of a binary string. There are two ways to use this notion of model complexity for more robust attempts to define sophistication. Confusingly, both approaches are used in the literature.
-\begin{enumerate}
-  \item We maintain that the representation witnessing the Kolmogorov complexity determines the sophistication, but impose the additional constraint that an efficient acceptable numbering is used. We construct such an efficient index, called a \emph{faithful} index, below. This is the approach taken by Adriaans \cite{adriaans2012facticity}.
-  \item On the other hand, rather than distinguishing the two components of the code \emph{within} the definition of Kolmogorov complexity, we can also use $K$ to measure the complexity of the \emph{model} (as in Definition~\ref{definition:model-complexity}), which is then the first part of a two-part code describing the data. With this approach, the total codelength is $C^\K(\phi_i)+|y|$, with $\phi_i(y)=x$. In this approach, we can construct everything on the basis of a single acceptable numbering, without additional constraints. This approach is used in  \cite{cover1985kolmogorov,gacs2001algorithmic,vitanyi2004meaningful,gellmann1996information}.
-\end{enumerate}
-We first construct an efficient numbering: we will call a numbering $\psi$ \emph{faithful} if for all $i$ there is a $j$ such that $\psi_i=\psi_j$ and $|j|\le C^{\C}(\psi_j)+c$, for some constant $c$. This definition is a refinement of \cite[Definition~10]{adriaans2012facticity}. 
+We show in the appendix (Lemma~\ref{lemma:invariance}) that this definition is invariant, so that the Kolmogorov complexity is an objective property of a function, as it is of a binary string.
+
+There are two ways to use this notion of model complexity for more robust attempts to define sophistication. Confusingly, both approaches are used in the literature. First, we can stick to using the length of the index as the measure of sophistication, but impose the additional constraint that an efficient acceptable numbering is used. We construct such an efficient index, called a \emph{faithful} index, below. This is the approach taken by Adriaans \cite{adriaans2012facticity}.
+Second, rather than distinguishing the two components of the code \emph{within} the definition of Kolmogorov complexity, we can also use $C^\K$ to measure the complexity of the \emph{model} (as in Definition~\ref{definition:model-complexity}), which is then the first part of a two-part code describing the data. With this approach, the total codelength is $C^\K(\phi_i)+|y|$, with $\phi_i(y)=x$. In this approach, we can construct everything on the basis of a single acceptable numbering, without additional constraints. This approach is used in  \cite{cover1985kolmogorov,gacs2001algorithmic,vitanyi2004meaningful,gellmann1996information}.
+
+We first construct an efficient numbering: we will call a numbering $\psi$ \emph{faithful} if for all $i$ there is a $j$ such that $\psi_i=\psi_j$ and $|j|\le C^{\C}(\psi_j)+c$, for some constant $c$. This definition is a refinement of \cite[Definition~10]{adriaans2012facticity}. The following Lemma is proved in the appendix:
 
 \begin{lemma}
 There exist faithful acceptable numberings.
 \end{lemma}
 Unfortunately, even with a faithful numbering, we can fail. The Kolmogorov complexity uses representations of the form $\bar\imath y$, where the bar denotes some straightforward prefix encoding to delimit the model description $i$ from its input $y$. If we define a second prefix encoding $\tilde{\imath}$, with $|\bar\imath|-|\tilde\imath|$ unbounded, we can define a second representation $\bar u \tilde \imath y$, at a constant overhead $|\br{u}|$, and gain more than $|\br{u}|$ for sufficiently complex strings. Ultimately, $u$ will always be chosen as a model for sufficiently complex $x$, and the sophistication becomes bounded.
 
-Can we make our prefix encoding so efficient that no other encoding can undercut it? By definition, $C^{\M}(m)$ this is the smallest effective, self-delimiting description of $\phi_i$. We cannot compute the prefix code from the data, but this is not necessary to define a representation. Let $i^*$ be the shortest self-delimiting program for $\phi_i$, then $i^*y$ is a decodable representation for $x$. If our prefix function is less efficient than $C^\K(m)$ by an unbounded amount, $i^*y$ will always beat $\bar\imath y$ for complex enough data. We conjecture that no computable prefix encoding function can avoid this issue:
+Can we make our prefix encoding so efficient that no other encoding can undercut it? By definition, $C^{\K}(\phi_i)$ is the smallest effective, self-delimiting description of $\phi_i$. We cannot compute the prefix code from the data, but this is not necessary to define a representation. Let $i^*$ be the shortest self-delimiting program for $\phi_i$, then $i^*y$ is a decodable representation for $x$. If our prefix function is less efficient than $C^\K(m)$ by an unbounded amount, $i^*y$ will always beat $\bar\imath y$ for complex enough data. We conjecture that no computable prefix encoding function can avoid this issue:
 \begin{conjecture}
 For any partial computable prefix codelength function $L$, the function $\min\{L(i)-C^\K(i):i\ge i_0\}$
 is unbounded in $i_0$.
 \end{conjecture}
-The following lemma shows that for index sophistications using a faithful index, but an inefficient prefix encoding are bounded. This includes \cite{adriaans2012facticity}.
+The following lemma shows that even index sophistications using a faithful index are bounded if the prefix encoding is inefficient. This includes \cite{adriaans2012facticity}.
 \begin{restatable}{lemma}{ineffprefix}
 Assume $\phi$ is faithful and define the index sophistication $s^c(x)=\min\{|\bar\imath|:C^{\{i\}}(x)\le C^{\C}(x)+c\}$.
-If $\min\{i\ge i_0:|\bar\imath|-C^\K(i)\}$ is an unbounded function of $i_0$, then $s^c$ is bounded.\label{lemma:prefix-inefficiency}
+If $\min\{|\bar\imath|-C^\K(i):i\ge i_0\}$ is an unbounded function of $i_0$, then $s^c$ is bounded.\label{lemma:prefix-inefficiency}
 \end{restatable}
-If our conjecture is correct, the index sophistication is always bounded. The only way to avoid the problem is to use a self-delimiting program of length $C^\K(m)$ to describe the model. Any inefficieny in the model description, and a second represention using a universal model with a more efficient model description will win, causing a bounded sophistication.
+If our conjecture is correct, the index sophistication is always bounded for model class $\C$. Any inefficieny in the model description, and a second represention using a universal model with a more efficient model description will win, causing a bounded sophistication.
 
-For this reason we will use the following definition of sophistication in the remainder of this article: 
+Because of these issues, rather than index sophistication we will use the following definition of sophistication in the remainder of this article: 
 \begin{equation}\label{eq:soph}
 S^{\M,\psi,c}(x)=\min\left\{C^\K(\phi_i):i\in\M,C^{\{i\},\psi}(x)\le C^{\M,\psi}(x)+c\right\}.
 \end{equation}
@@ -203,16 +203,14 @@ S^{\M,\psi,c}(x)=\min\left\{C^\K(\phi_i):i\in\M,C^{\{i\},\psi}(x)\le C^{\M,\psi}
 \section{Balancing under- and overfitting}
 \label{section:balance}
 
-In the previous section, we saw the first glimpse of how delicate the internal balance in sophistication is. If the description of the model $m$ is less efficient than $C^\K(m)$ by anything more than a constant, representations with a bounded model size will always win out in the limit. 
-In light of this balance issues, the most natural definition of sophistication is $S^{\K,\psi,c}$. In this setting, we know that there always exist candidate models---those models $i$ with $i \in \K$ and $C^{i}(x) \leq C^\K(x) + c$---for which al information except a constant amount is stored in the data, and candidates for which all information is stored in the model. This tells us that $S^\K$ is \emph{balanced}: there is no inefficiency in the representation forcing information in or out of the model.
-The flipside of having a balanced sophistication is that invariance is easy to show. We will show that there are numberings for which the universal models always determine the $S^\K$ and numberings for which the singletons always determine $S^\K$. 
-	The following lemma generalizes the principle: 
+In the previous section, we saw the first glimpse of the delicate balance between the two code components in sophistication. If the description of the model $m$ is less efficient than $C^\K(m)$ by anything more than a constant, the sophistication becomes bounded. We will investigate this balance, starting with the sophistication $S^{\K,\psi,c}$. In this setting, we know that, on the one hand, there always exist candidate models---those models $i$ with $i \in \K$ and $C^{i}(x) \leq C^\K(x) + c$---for which al information except a constant amount is stored in the data, and on the other hand, there are also candidate representations for which all information is stored in the model. This tells us that $S^\K$ is \emph{balanced}: there is no inefficiency in the representation forcing information in or out of the model.
+The flip side of having a balanced sophistication is that it becomes easy to show invariance. We will show that there are numberings for which the universal models always determine the $S^\K$ and numberings for which the singletons always determine $S^\K$. We use the following lemma to do so:
 \begin{restatable}{lemma}{coolone}
 \label{lemma:thecoolone}
   Let $\psi$ be any acceptable enumeration of the partial recursive functions.
   Let $\M$ be any model class, let $\X$ be any set of binary sequences and let $D:\B\to\N$ be a computable decoding function with a prefix-free domain that maps function descriptions to their indices in $\psi$, i.e. if $f=\psi_{D(p)}$ then $p$ is a $D$-description of $f$. Let $\M'=\{\psi_i:i\in\tn{range}(D)\}$. Further assume there is a constant $c$ such that:\\
-\-\hspace{1cm}(1)$\forall_{f\in\M'}:\min\{|p|:\psi_{D(p)}=f\}\le K^\psi(f)+c$\\
-\-\hspace{1cm}(2)$\forall_{x\in\X}:L^{\M',\psi}(x)-L^{\M,\psi}(x)\le c$.\\
+\-\hspace{1cm}(1)~$\forall_{f\in\M'}:\min\{|p|:\psi_{D(p)}=f\}\le C^\K^\psi(f)+c$\\
+\-\hspace{1cm}(2)~$\forall_{x\in\X}:L^{\M',\psi}(x)-L^{\M,\psi}(x)\le c$.\\
 Then there is an enumeration $\phi$ of the partial recursive functions such that $S^\phi_{\M}(x) = |\bar 0|+S^\psi_{\M'}(x)$ for all $x\in\X$.
 \end{restatable}
 
