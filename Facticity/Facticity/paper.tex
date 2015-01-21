@@ -116,6 +116,7 @@ A \emph{model class} is a set of model indices. We distinguish four important mo
 We sometimes need to map binary strings to a prefix-free set. We denote by $\br{x}$ the prefix-encoded representation for $x$. We require that the mapping satisfies $|\br{x}| = |x|+O(\log(|x|)$ (see eg. \cite[Section~1.4]{li1993introduction}). To simplify notation, we will sometimes conflate natural numbers and binary strings, implicitly using the ordering $(0, \epsilon)$, $(1, 0)$, $(2, 1)$, $(3, 00)$, $(4, 01)$, \ldots  
 We define the $\M$-Kolmogorov complexity of a binary string $x$, with respect to a model class $\M$ and a numbering $\psi$, as follows $C^{\M,\psi}(x)=\min\{\bar\imath y:\psi_i(y)=x,i\in\M\}$. The model classes $\C$ and $\K$ give us the plain and prefix-free Kolmogorov complexity respectively.
 
+ 
 \section{Inefficient indices}
 \label{section:indices}
 In some works, the definition of sophistication is obtained by opening up the definition of Kolmogorov complexity, and measuring the length of the index in that two-part code. We call such a sophistication \emph{index sophistication}. Examples are Koppel and Atlan's works \cite{koppelSoph1988,koppel1991almost},  and several of its variants \cite{antunes2009sophistication,antunes2013sophistication}. 
@@ -180,28 +181,28 @@ As mentioned in the related work, underfitting is a widely acknowledged problem 
 There are infinitely many $x$ with $\s^{\F,\phi,c}(x) \geq C^{\K}(x)/5$, and also infinitely many $x$ with $\s^{\T,\phi,c}(x) \geq C^{\K}(x)/6$.
 \end{restatable} 
 
-Thus, there are no longer any numberings for which sophistication is bounded. However, as we show below, the resulting sophistication is not an intuitive measure of the amount of structure in the data. Moreover, the balance is pushed back in the direction of overfitting, which is only exacerbated by this change. Only one model class eliminates both the singletons and the universal model: $\T$. The only proposal that uses an efficient model representation \emph{and} excludes the universal models \emph{and} excludes the singletons is Vereshchagin and Vit\'anyi's \cite{vitanyi2004meaningful}. While this invalidates straightforward proofs of boundedness, there is no suggestion that $S^{\T, \phi, c}(x)$ is actually invariant.
+Thus, there are no longer any numberings for which sophistication is bounded. However, as we show below, the resulting sophistication is not an intuitive measure of the amount of structure in the data. Moreover, the balance is pushed back in the direction of overfitting, which is only exacerbated by this change. Only one model class eliminates both the singletons and the universal model: $\T$. The only proposal that uses an efficient model representation \emph{and} excludes the universal models \emph{and} excludes the singletons is \cite{vitanyi2004meaningful}. While this invalidates straightforward proofs of boundedness, there is no suggestion that $S^{\T, \phi, c}(x)$ is actually invariant.
 
 While under $S^{\T, \phi, c}(x)$ there are strings with high sophistication, these may not conform to the original intuition that motivated sophistication. To show this, we need the concept of depth:
 
 \begin{definition}[Depth\cite{bennett1988logical,antunes2006computational}]\belowdisplayskip=-12pt
 Let $U$ be some universal Turing machine, so that $U(\bar\imath y) = \phi_i(y)$. Let $U^t$ be a simulation of this machine, which is allowed to run for at most $t$ steps, and returns $0$ if it has not yet finished at that point. Let $C^\M_t(x) = \min\{|\bar\imath y| : U^t(\bar\imath y) = x, \phi_i \in \M\}$. The \emph{$c$-depth} is $d^{\M,c}(x) = \min \left\{t : C^\M_t(x) - C^\M(x) \leq c \right\}$.
 \end{definition}
-Deep strings are those that can only be optimally compressed with a great investment of time. We note that it is exceedingly unlikely that a deep string is sampled from a shallow distribution \cite{bloem2014safe,bennett1988logical}.
+Deep strings are those that can only be optimally compressed with a great investment of time. We note that it is exceedingly unlikely that a deep string is sampled from a shallow distribution \cite{bloem2014safe,bennett1988logical}. 
+\cite{antunes2013sophistication} also investigates the relation between $S(x)$ and $d(x)$.
  
 \begin{restatable}{theorem}{depth}
 Let $A(n)$ be the single-argument Ackermann function and $c$ some arbitrary constant. There are numberings such that for strings with depth $d^{\C,c}(x) \leq A(C^\C(x))$ the sophistication $\s^{\T, \psi, c}$ is bounded. The same is true for $\s^{\F}$ .
 \end{restatable}
-\noindent This shows that while high-sophistication strings do exist, they do not behave as expected. Consider a string that is typical for a shallow model, say some elaborate Markov chain. Under $\s^{\T,\psi,c}$, no matter how long an effective description of the Markov chain would have to be, the sophistication is bounded. Any structure that is simple enough to be exploited within the time bound of the Ackermann function (or some other fast-growing, simply stated bound) will be counted as noise. Only structure that is so deep that if we used it to compress $x$ we could never hope to decompress it within the lifetime of the universe, would count towards sophistication. 
+\noindent This shows that while high-sophistication strings exist, they do not behave as expected. Consider a string that is typical for a shallow model, say some elaborate Markov chain. Under $\s^{\T,\psi,c}$, no matter how high the complexity of the Markov chain, the sophistication is bounded. Any structure that is simple enough to be exploited within the time bound of the Ackermann function (or some other fast-growing, simply stated bound) will be counted as noise. Only structure so deep that it would take beyond the lifetime of the universe to decompress would count towards sophistication. 
+
 This clearly contradicts the motivating principle of sophistication, which is to capture the number of bits required to express \emph{all} regularity in the data, not just the regularity that is difficult to describe. 
 In this setting, a string high-sophistication not only has a lot of structure, but it also has the property that it can be compressed far better with partial functions than with total. That is, it is non-typical for the model class $\T$. This suggests that the `non-stochastic' property of strings with high sophistication \cite{shen1983concept,vereshchagin2004kolmogorov} says more about depth and totality than it does about structure and noise.
-
-The relation between sophistication, depth and absolutely non-stochastic strings was also investigated in \cite{antunes2013sophistication}.
 
 \section{Discussion and conclusion}
 \label{section:conclusion} 
 
-We have criticized existing measures of the sophistication of a binary string. Our results show that there are technical problems with all of them. But that does not in itself mean that it should be impossible to come up with a sound measure. The intuition throughout the literature, starting with the structure function, appears to be that the crucial property is whether a string is typical for a model. If so, another random choice from that mode selects a string with the same structure: a string of the same `type'.
+We have criticized existing measures of sophistication and shown technical problems with all of them. But that does not in itself mean that it should be impossible to come up with a sound measure. The intuition throughout the literature, starting with the structure function, appears to be that the crucial property is whether a string is typical for a model. If so, another random choice from that mode selects a string with the same structure: a string of the same `type'.
 
 This idea is bold, but not necessarily unreasonable. Nevertheless, in this section we offer the opinion that such a clean-cut separation \emph{cannot} be made to work. We provide two arguments to support this belief.
 
