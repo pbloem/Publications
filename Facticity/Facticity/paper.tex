@@ -396,16 +396,16 @@ Let $\phi_i$ be a singleton for $x$ as described. Note that since $\phi_i$ is a 
 
 We now define a computable function $D$ by $D(\bar\imath y)=j$ where $\psi_j(\epsilon) = \psi_i(y)$.  We will show that the two conditions of Lemma~\ref{lemma:thecoolone} hold for the prefix function $D$.
 
-(1) Let $f$ be any function in the range of $D$, and $x$ its output. Then $\min\{|p|:\psi_{D(p)}=f\}=\min\{|\bar\imath q|:\psi_i(q)=x\}=K(x)\le K(f)+c$. (2) On the one hand $L^{\M',\psi}(x)\le K(f)+|\epsilon|\le K(x)+c$. On the other hand, $L^{\M,\psi}(x)$ is an effective description of $x$, so $K(x)$ is at most a constant larger. Together, these inequalities establish the second condition.
+(1) Let $f$ be any function in the range of $D$, and $x$ its output. Then $\min\{|p|:\psi_{D(p)}=f\}=\min\{|\bar\imath q|:\phi_i(q)=x\}=C^{\K}(x) \le C^{\K}(f)+c$. (2) On the one hand $C^{\M',\psi}(x)\le C^\K(f)+|\epsilon|\le C^\K(x)+c$. On the other hand, $C^{\M,\psi}(x)$ is an effective description of $x$, so $C^{\K}(x)$ is at most a constant larger. Together, these inequalities establish the second condition.
 
-Now, by Lemma~\ref{lemma:thecoolone} there is an enumeration $\phi_1,\phi_2,\ldots$ such that $S^{\M,\phi}(x)=|\bar 0|+S^{\M',\psi}(x)$. We observed that $|K(f)-K(x)|\le c$ for any $f\in\M'$, so $S^{\M',\psi}(x)\ge K(x)+c$. This proves the lemma.
+Now, by Lemma~\ref{lemma:thecoolone} there is an numbering $\psi_1,\psi_2,\ldots$ such that $\s^{\M,\phi}(x)=|\bar 0|+S^{\M',\psi}(x)$. We observed that $|C^{\K}(f)-C^{\K}(x)|\le c$ for any $f\in\M'$, so $\s^{\M',\psi}(x)\ge C^{\K}(x)-c$. This proves the lemma.
 \end{proof}
 \subsection{Underfitting}
 
 \underfitting*
 
 \begin{proof}
-Let $D$ be a prefix function as in Lemma~\ref{lemma:thecoolone} such that it returns the index of $u$ for the argument $\epsilon$ and $\infty$ for any other argument. That is, $\M' = \{u\}$. This construction satisfies the conditions 1 and 2 from Lemma~\ref{lemma:thecoolone}; invoking it we find that there exists an acceptable numbering for which $\s_\M(x) = \s_{\M'}(x) + c$. Since $\M'$ contains only a single model, $\s_{\M'}$ is constant.
+Let $D$ be a prefix function as in Lemma~\ref{lemma:thecoolone} such that it returns the index of $u$ for the argument $\epsilon$ and $\infty$ for any other argument. That is, $\M' = \{u\}$. This construction satisfies the conditions 1 and 2 from Lemma~\ref{lemma:thecoolone}; invoking it we find that there exists an acceptable numbering $\psi$ for which $\s^{\M,\psi}(x) = \s^{\M', phi}(x) + c$. Since $\M'$ contains only a single model, $\s_{\M',\phi}(x)$ is constant.
 \end{proof}
 
 \subsection{The problem of depth}
@@ -439,13 +439,13 @@ In case (a), any two-part description using $A$ is substantially larger than the
 Now, take $\T$ as model class and suppose towards contradiction that the sophistication is determined by a total function $f=\phi_j,j\in\T$ with $f(d)=x$ and $C^\K(f)\le i/5$. Then by Lemma~\ref{lemma:total-to-sets}, for some fixed constant $c$ there is a finite set $A$ with $\log|A|\le|d|\le C^\K(x_i)$, so (a) above cannot be the case, and $C^\K(A)\le C^\K(f)+C^\K(|d|)+c\le i/5+C^\K(|d|)+c$, which contradicts (b) for large enough $i$. Therefore such candidates $f$ cannot exist and all candidates must satisfy $C^\K(f)>i/5>C^\K(x_i)/6$.
 \end{proof}
 
-Note that we favoured brevity of the proof over the strength of the bounds: the multiplicative constant $1/6$ can be improved with a more detailed treatment.
+Note that we favored brevity of the proof over the strength of the bounds: the multiplicative constant $1/6$ can be improved with a more detailed treatment.
 
 \depth*
 \begin{proof}
 Let $U(\bar\imath y)$ be some (non-prefix) universal Turing machine, and let $U^A(\bar\imath y)$ be a simulation of that machine which outputs $0$ if the number of steps taken exceeds $A(|\bar\imath y|)$. Let $u$ be the index of the function $U^A$ in the standard enumeration.
 
-Let $D$ be a prefix function with $D(\epsilon) = u$. We can instantiate Lemma~\ref{lemma:thecoolone} with $D$, $\M' = \{\phi_u\}$ and $X = \{x : d^\C_c(x) \leq A(C(x))\}$. This tells us that there exists a numbering for which $\s^\T(x) = \s^{\M'}(x) + |\bar0| \leq c$ for all $x \in X$.
+Let $D$ be a prefix function with $D(\epsilon) = u$. We can instantiate Lemma~\ref{lemma:thecoolone} with $D$, $\M' = \{\phi_u\}$ and $X = \{x : d^{\C,c}(x) \leq A(C(x))\}$. This tells us that there exists a numbering for which $\s^\T(x) = \s^{\M'}(x) + |\bar0| \leq c$ for all $x \in X$.
 \end{proof}
 
 \end{document}
