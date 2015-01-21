@@ -160,7 +160,7 @@ The flip side of having a balanced sophistication is that it becomes easy to sho
 \-\hspace{1cm}(2) $\forall_{x\in\X}:C^{\M',\phi}(x)-C^{\M,\phi}(x)\le c$.\\
 Then there is an enumeration $\psi$ of the partial recursive functions such that $S^{\M,\psi}(x) = |\br{0}|+S^{\M',\phi}(x)$ for all $x\in\X$.
 \end{restatable}
-This means that for model classes with a universal model, there is a numbering such that sophistication is bounded:
+This means that for model classes with a universal model, we can choose our numbering to make $S^\K$ bounded, or equal to the complexity.
 \begin{restatable}[underfitting]{lemma}{underfitting}
 Let $\M$ be a model class containing a universal model $\phi_u$, with the property that $\exists c \forall i \in \M : C^{\{u\}}(x) \leq C^{\{i\}}(x) + c \p$. Then, there exist numberings such that $\s^\M$ is bounded.
 \end{restatable}
@@ -186,7 +186,7 @@ As mentioned in the related work, underfitting is a widely acknowledged problem 
 There are infinitely many $x$ with $\s^{\F,\phi,c}(x) \geq C^{\K}(x)/5$, and also infinitely many $x$ with $\s^{\T,\phi,c}(x) \geq C^{\K}(x)/6$.
 \end{restatable} 
 
-Thus, there are no longer any numberings for which sophistication is bounded, so the underfitting problem is at least partly solved. However, as we show below, the resulting sophistication is not an intuitive measure of the amount of structure in the data. Moreover, we push the balance back in the direction of overfitting, which is only exacerbated by this change. Only one model class eliminates both the singletons and the universal model: $\T$. The only proposal that uses an efficient model representation \emph{and} excludes the universal models \emph{and} excludes the singletons is Vereshchagin and Vit\'anyi's \cite{vitanyi2004meaningful}. While this invalidates straightforward proofs of boundedness, there is no suggestion that $S^{\T, \phi, c}(x)$ is actually invariant.
+Thus, there are no longer any numberings for which sophistication is bounded. However, as we show below, the resulting sophistication is not an intuitive measure of the amount of structure in the data. Moreover, the balance is pushed back in the direction of overfitting, which is only exacerbated by this change. Only one model class eliminates both the singletons and the universal model: $\T$. The only proposal that uses an efficient model representation \emph{and} excludes the universal models \emph{and} excludes the singletons is Vereshchagin and Vit\'anyi's \cite{vitanyi2004meaningful}. While this invalidates straightforward proofs of boundedness, there is no suggestion that $S^{\T, \phi, c}(x)$ is actually invariant.
 
 While under $S^{\T, \phi, c}(x)$ there are strings with high sophistication, these may not conform to the original intuition that motivated sophistication. To show this, we need the concept of depth:
 
