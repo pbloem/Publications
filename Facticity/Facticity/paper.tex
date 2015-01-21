@@ -173,9 +173,10 @@ Second, we can stick to using the length of the index as the measure of sophisti
 
 We call a numbering $\psi$ \emph{faithful} if for all $i$ there is a $j$ such that $\psi_i=\psi_j$ and $|j|\le C^{\C}(\psi_j)+c$, for some constant $c$. This definition is a refinement of \cite[Definition~10]{adriaans2012facticity}. The following Lemma is proved in the appendix:
 
-\begin{lemma}
-There exist faithful acceptable numberings.
-\end{lemma}
+\begin{restatable}{lemma}{faithful}
+  There exist faithful, acceptable numberings.\label{lemma:faithful-numberings}
+\end{restatable}
+
 Unfortunately, even with a faithful numbering, we can fail. The Kolmogorov complexity uses representations of the form $\bar\imath y$, where the bar denotes some straightforward prefix encoding to delimit the model description $i$ from its input $y$. If we define a second prefix encoding $\tilde{\imath}$, with $|\bar\imath|-|\tilde\imath|$ unbounded, we can define a second representation $\bar u \tilde \imath y$, at a constant overhead $|\br{u}|$, and gain more than $|\br{u}|$ for sufficiently complex strings. Ultimately, $u$ will always be chosen as a model for sufficiently complex $x$, and the sophistication becomes bounded.
 
 Can we make our prefix encoding so efficient that no other encoding can undercut it? By definition, $C^{\K}(\phi_i)$ is the smallest effective, self-delimiting description of $\phi_i$. We cannot compute the prefix code from the data, but this is not necessary to define a representation. Let $i^*$ be the shortest self-delimiting program for $\phi_i$, then $i^*y$ is a decodable representation for $x$. If our prefix function is less efficient than $C^\K(m)$ by an unbounded amount, $i^*y$ will always beat $\bar\imath y$ for complex enough data. We conjecture that no computable prefix encoding function can avoid this issue:
@@ -301,9 +302,8 @@ The opposite inequality can be achieved by reversing $\psi$ and $\eta$. The same
 This lemma shows that the complexity of a function does not depend on the choice of
 enumeration by more than a constant term.
 
-\begin{lemma}
-  There is a faithful acceptable numbering.\label{lemma:faithful-numberings}
-\end{lemma}
+\faithful*
+
 \begin{proof}
 Let $d \in \N$ be an index such that $\phi_d(y)=\infty$ for all $y$. Define
   \[\psi_q=\begin{cases}
