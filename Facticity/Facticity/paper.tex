@@ -182,17 +182,11 @@ S^{\M,\psi,c}(x)=\min\left\{C^\K(\phi_i):i\in\M,C^{\{i\},\psi}(x)\le C^{\M,\psi}
 \section{Balancing under- and overfitting}
 \label{section:balance}
 
-In the previous section, we saw the first glimpse of the delicate balance between the two code components in sophistication. If the description of the model $m$ is less efficient than $C^\K(m)$ by anything more than a constant, the sophistication becomes bounded. We will investigate this balance, starting with the sophistication $S^{\K,\psi,c}$. In this setting, we know that, on the one hand, there always exist candidate models---those models $i$ with $i \in \K$ and $C^{i}(x) \leq C^\K(x) + c$---for which al information except a constant amount is stored in the data, and on the other hand, there are also candidate representations for which all information is stored in the model. This tells us that $S^\K$ is \emph{balanced}: there is no inefficiency in the representation forcing information in or out of the model.
-The flip side of having a balanced sophistication is that it becomes easy to show invariance. We will show that there are numberings for which the universal models always determine the $S^\K$ and numberings for which the singletons always determine $S^\K$. The following lemma is based on the idea that, given a subset $\M'$ of the model class, we can choose the numbering so that representations use a model in $\M'$ perform an arbitrary constant better than all other models, so that a model in $\M'$ always ends up determining the sophistication.
-\begin{restatable}{lemma}{coolone}
-\label{lemma:thecoolone}
-  Let $\M$ be any model class, let $\X$ be any set of binary strings and let $D:\B\to\N$ be a computable decoding function with a prefix-free domain that maps function descriptions to their indices in $\phi$, i.e. if $m=\phi_{D(p)}$ then $p$ is a $D$-description of $m$. Let $\M'=\{\phi_i:i\in\tn{range}(D)\}$. Further assume there is a constant $c$ such that:\\
-\-\hspace{1cm}(1) $\forall_{m\in\M'}:\min\{|p|:\phi_{D(p)}=m\}\le C^{\K,\phi}(m)+c$\\
-\-\hspace{1cm}(2) $\forall_{x\in\X}:C^{\M',\phi}(x)-C^{\M,\phi}(x)\le c$.\\
-Then there is an enumeration $\psi$ of the partial recursive functions such that $S^{\M,\psi}(x) = |\br{0}|+S^{\M',\phi}(x)$ for all $x\in\X$.
-\end{restatable}
+In the previous section, we saw the first glimpse of the delicate balance between the two code components in sophistication. If the description of the model $m$ is less efficient than $C^\K(m)$ by anything more than a constant, the sophistication becomes bounded. We will investigate this balance, starting with the sophistication $S^{\K,\psi,c}$. In this setting, we know that, on the one hand, there always exist candidate models---those models $i$ with $i \in \K$ and $C^{\{i\}}(x) \leq C^\K(x) + c$---for which al information except a constant amount is stored in the data, and on the other hand, there are also candidate representations for which all information is stored in the model. This tells us that $S^\K$ is \emph{balanced}: there is no inefficiency in the representation forcing information in or out of the model.
+The flip side of having a balanced sophistication is that it becomes easy to show invariance, by tweaking the numbering in such a way that models in a specific subset $\M'\subset\M$ of the model class becomes an arbitrary constant number of bits cheaper to represent than all other models, so that a model in $\M'$ always ends up determining the sophistication.
+
 This means that for model classes with a universal model, there is a numbering such that sophistication is bounded:
-\begin{restatable}[underfitting]{lemma}{underfitting}
+\begin{restatable}[Underfitting]{lemma}{underfitting}
 Let $\M$ be a model class containing a universal model $\phi_u$, with the property that $\exists c \forall i \in \M : C^{\{u\}}(x) \leq C^{\{i\}}(x) + c \p$. Then, there exist numberings such that $\s^\M$ is bounded.
 \end{restatable}
 \noindent For other numberings, the singletons determine the sophistication, making it equal to the complexity:
@@ -345,7 +339,13 @@ By assumption there must be an $i_0$ such that the above expression is positive 
 
 \subsection{Boosting submodel by manipulating the numbering}
 
-\coolone*
+\begin{restatable}{lemma}{coolone}
+\label{lemma:thecoolone}
+  Let $\M$ be any model class, let $\X$ be any set of binary strings and let $D:\B\to\N$ be a computable decoding function with a prefix-free domain that maps function descriptions to their indices in $\phi$, i.e. if $m=\phi_{D(p)}$ then $p$ is a $D$-description of $m$. Let $\M'=\{\phi_i:i\in\tn{range}(D)\}$. Further assume there is a constant $c$ such that:\\
+\-\hspace{1cm}(1) $\forall_{m\in\M'}:\min\{|p|:\phi_{D(p)}=m\}\le C^{\K,\phi}(m)+c$\\
+\-\hspace{1cm}(2) $\forall_{x\in\X}:C^{\M',\phi}(x)-C^{\M,\phi}(x)\le c$.\\
+Then there is an enumeration $\psi$ of the partial recursive functions such that $S^{\M,\psi}(x) = |\br{0}|+S^{\M',\phi}(x)$ for all $x\in\X$.
+\end{restatable}
 
 \begin{proof}
 We define the numbering $\psi$ as follows:
