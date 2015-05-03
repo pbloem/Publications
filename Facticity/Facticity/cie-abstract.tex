@@ -1,53 +1,5 @@
 \documentclass{style/llncs}
 
-\usepackage{amsmath,amsfonts}
-\usepackage{color}
-\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
-\usepackage[mathscr]{eucal}
-\usepackage{thmtools}
-\usepackage{graphicx}
-\usepackage{caption}
-
-\newcommand{\M}{\mathscr M}
-\newcommand{\C}{\mathscr C}
-\newcommand{\T}{\mathscr T}
-\newcommand{\F}{\mathscr F}
-\renewcommand{\P}{\mathscr P}
-\newcommand{\K}{\mathscr K}
-\newcommand{\X}{\mathscr X}
-\newcommand{\B}{\mathbb B}
-\newcommand{\D}{\Delta}
-\newcommand{\N}{\mathbb N}
-\newcommand{\tn}[1]{\textnormal{#1}}
-\newcommand{\pair}[1]{\left\langle{#1}\right\rangle}
-\newcommand{\concat}{\oplus}
-\newcommand{\symb}[1]{\texttt{#1}}
-\newcommand{\br}[1]{\overline{#1}}
-\newcommand{\s}{S}
-\newcommand{\dom}[1]{\mathop{\tn{dom}(#1)}}
-\newcommand{\range}[1]{\mathop{\tn{range}(#1)}}
-
-\newtheorem{conj}{Conjecture}
-
-\let\doendproof\endproof
-\renewcommand\endproof{~\hfill\qed\doendproof}
-
-\newcommand{\p}{\,\text{.}}
-
-\newcommand{\tuple}[1]{\left\langle{#1}\right\rangle}
-
-\newcommand{\hide}[1]{}
-\newcommand{\old}[1]{}
-
-\newcommand{\sdr}[1]{\textcolor{blue}{\small #1\textsuperscript{[Steven]} }}
-\newcommand{\pb}[1]{\textcolor{OliveGreen}{\small #1 \textsuperscript{[Peter]} }}
-
-\newcommand{\argmin}{\mathop{\arg\min}}
-
-% --- DELETE BEFORE SUBMISSIONS ---
-% \pagestyle{headings} 
-
-
 \title{The problem of Sophistication}
 
 \author{Peter Bloem and Steven de Rooij}
@@ -61,14 +13,17 @@
 \maketitle
 
 \begin{abstract}
-Kolmogorov complexity is a sound, unambiguous formalization of the information content of an object. However, researchers have long been plagued by its inability to express a more intuitive notion of complexity: in terms of Kolmogorov complexity, a completely random bitstring is the most complex object possible. This is not what we mean when we we use the word complexity informally: a television broadcast is complex when we can see structures, faces and landscapes, not when we can only see white noise. 
+Kolmogorov complexity formalizes the idea of information content, but clashes with intuitive ideas of complexity: data seems most complex to us when it contains structure, like language or interesting visual information, not when it contains only random noise.
 
-\hspace{0.05\textwidth} The desire to capture this notion of complexity in formal terms has led to many proposals for additional measures. The largest family of proposals is built on the following idea:  an object consists of \emph{structural} and \emph{stochastic} information, and the information content of the structural information determines the complexity of the object. We will use the name \emph{sophistication} for such proposals. 
+\hspace{0.05\textwidth}A popular approach is to assume that an object consists of \emph{structural} and \emph{stochastic} information, and that only the former determines the complexity. A dataset $x$ is separated into structural and stochastic parts by representing it as a two-part code: a computable function $\phi$, the \emph{model}, and a string $y$, the \emph{input}, such that $\phi(y) = x$. The aim is that for efficient representations, $\phi$ contains all structure, and $y$ contains all stochastic information. Many proposals, including the structure function, the minimal sufficient algorithmic statistic and sophistication fit this mold. We use \emph{sophistication} as a catch-all term. 
 
-\hspace{0.05\textwidth} In essence, sophistication performs model selection using the class of all computable models. This means that we are dealing not just with the problem of formally defining complexity, but also with a limiting case of statistics: what happens if we extend our model class to the entirety of conceivable models? Do we end up with an ultimate statistics machine, or does the whole framework collapse, and does model selection only work with carefully constrained model classes? 
+\hspace{0.05\textwidth} We highlight two issues. First, it is crucial to correctly measure the information content of the model. All treatments rely on a \emph{numbering}; a canonical description of the computable functions. Kolmogorov complexity is not affected by the choice of numbering by more than a constant, but for sophistication the impact can be dramatic when the length of the plain description of $\phi$ is used to measure information content.
 
-\hspace{0.05\textwidth} While sophistication is a simple enough idea, any attempt to formalize it quickly runs into problems. We highlight the two major issues, and show how they invalidate each proposal. We are forced to conclude that no current proposal truly solves the problem of sophistication, and we offer some informal arguments which suggest that no such formalization may be possible at all.
+\hspace{0.05\textwidth} Second, we discuss the problems of over- and underfitting. To give an extreme example of underfitting: we can use a universal Turing machine as a model. This representation has all information in the input, yet is maximally efficient, up to a constant. We show that for some numberings, such models are always preferred, leading to a bounded sophistication. 
 
+\hspace{0.05\textwidth} Underfitting is a known issue which many treatments seek to circumvent by restricting the class of models to total functions. This leads to the opposite problem: for some numberings, all information ends up inside the model. Only one formalization escapes this problem by allowing non-self-delimiting descriptions. While the question whether this form is invariant remains open, we show that numberings exist that cause it to be bounded for all but extremely deep strings. Thus, it certainly does not fit the original idea behind sophistication.
+
+\hspace{0.05\textwidth} We draw three conclusions. First, sophistication is an interesting problem that leads to diverse questions about statistics, computability and compression. Second, we show that all currently published approaches are either incorrect, or do not behave as desired. Finally we propose that a sound definition of sophistication, capturing the right intuition may be impossible. We ask what we can truly discover about individual objects if our only assumption is that the model should be computable.
 \end{abstract}
 
 \end{document}
