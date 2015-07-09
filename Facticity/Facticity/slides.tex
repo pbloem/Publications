@@ -1,0 +1,94 @@
+\documentclass{article}
+
+\usepackage{amsmath,amsfonts}
+\usepackage{color}
+\usepackage{eulervm}
+\usepackage{charter}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[mathscr]{eucal}
+	
+\usepackage[landscape]{geometry}
+
+\newcommand{\M}{\mathscr M}
+\newcommand{\C}{\mathscr C}
+\newcommand{\T}{\mathscr T}
+\newcommand{\F}{\mathscr F}
+\renewcommand{\P}{\mathscr P}
+\newcommand{\K}{\mathscr K}
+\newcommand{\X}{\mathscr X}
+\newcommand{\B}{\mathbb B}
+\newcommand{\D}{\Delta}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Nm}{\mathscr N}
+\newcommand{\tn}[1]{\textnormal{#1}}
+\newcommand{\pair}[1]{\left\langle{#1}\right\rangle}
+\newcommand{\concat}{\oplus}
+\newcommand{\symb}[1]{\texttt{#1}}
+\newcommand{\br}[1]{\overline{#1}}
+\newcommand{\s}{S}
+\newcommand{\bi}{\bar\imath}
+\newcommand{\dom}[1]{\mathop{\tn{dom}(#1)}}
+\newcommand{\range}[1]{\mathop{\tn{range}(#1)}}
+\newcommand{\pe}{\stackrel{+}{=}}
+
+\newcommand{\p}{\,\text{.}}
+
+\newcommand{\tuple}[1]{\left\langle{#1}\right\rangle}
+
+\newcommand{\hide}[1]{}
+\newcommand{\old}[1]{}
+
+\newcommand{\argmin}{\mathop{\arg\min}}
+
+\title{Two Problems for Sophistication}
+
+\author{Peter Bloem and Steven de Rooij}
+
+\makeatletter %only needed in preamble
+\renewcommand\Huge{\@setfontsize\Huge{32pt}{63}}
+\makeatother
+
+\begin{document} 
+\maketitle
+
+
+\pagebreak
+\Huge
+\[
+U\left(\bar \imath y\right) = T_i(y)
+\]
+\[
+K^U(x) = \text{min}\left\{ \left |p\right | : U(p) = x \right\}
+\]
+\pagebreak
+
+\[K^U(x) \pe  K^V(x)\]
+
+\pagebreak
+
+\[ 
+K(x) = \text{min} \left\{ \left |\bar \imath y \right | : T_i(y) = x \right\}
+\]
+
+\[
+S(x) = \text{min} \left \{ |\bar \imath | \mid \exists y : T_i(y) = x, |\bar \imath y| \stackrel{+}{\leq} K(x) \right\}
+\]
+
+\pagebreak
+
+$K(f) = \text{min} \left\{K(i) : T_i \text{ computes } f \right\}$
+
+\begin{align*}
+S_c(x) =  \;\text{min}  \big\{ &K(\phi_i) \mid \\ 
+& \exists y : \phi_i(y) = x,\\
+& K(\phi_i)+|y| \leq C(x) + c \big\}
+\end{align*}
+
+\pagebreak
+
+\[
+S^{\M}_c(x) = \text{min} \big \{ K(\phi_i) \mid \ldots, \phi_i \in \M \big\}
+\]
+$\M$: sets, total functions, prefix functions etc.
+
+\end{document}

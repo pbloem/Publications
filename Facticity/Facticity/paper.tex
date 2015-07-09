@@ -49,12 +49,12 @@
 
 \title{Two Problems for Sophistication}
 
-\author{Peter Bloem and Steven de Rooij}
+\author{\ldots}
 
-\institute{
-  System and Network Engineering Group, \\University of Amsterdam, the Netherlands\\
-  \email{uva@peterbloem.nl, steven.de.rooij@gmail.com}
-}
+%institute{
+%  System and Network Engineering Group, \\University of Amsterdam, the Netherlands\\
+%  \email{uva@peterbloem.nl, steven.de.rooij@gmail.com}
+%}
 
 \begin{document} 
 \maketitle
@@ -65,7 +65,6 @@ Kolmogorov complexity measures the amount of information in data, but does not d
 
 \section{Introduction}
 \enlargethispage{2\baselineskip}
-\footnotetext{Peter Bloem is a student author (PhD student).}
 
 Kolmogorov complexity gives us a sound definition of the amount of information contained in a binary string. It does not, however, capture what most people would consider complexity. For example, a sequence of a million coin flips will almost certainly have maximal Kolmogorov complexity, even though there is nothing complex about flipping a coin repeatedly. Many scholars have defined additional measures in the spirit of Kolmogorov complexity, aimed at quantifying not \emph{all} information in a binary string, but only the \emph{meaningful}. While this concept has been given many names, we use \emph{sophistication} as an umbrella term. In this paper, we investigate two serious problems with sophistication. We conclude with two arguments suggesting the problems are fundamental, explaining our belief that sophistication cannot be defined in a satisfactory manner.
 
@@ -122,7 +121,7 @@ A model class is thus defined in reference to a specific numbering, indicated by
 
 We sometimes need to map binary strings to a prefix-free set. We denote by $\br{x}$ the prefix-encoded representation for $x$. We require that the mapping satisfies $|\br{x}| = |x|+O(\log(|x|)$ (see eg. \cite[Section~1.4]{li1993introduction}). To simplify notation, we will sometimes conflate natural numbers and binary strings, implicitly using the ordering $(0, \epsilon)$, $(1, 0)$, $(2, 1)$, $(3, 00)$, $(4, 01)$, \ldots  
 
-For technical reasons, we deviate slightly from the traditional notation of Kolmogorov complexity: we define the $\M$-Kolmogorov complexity of a binary string $x$, with respect to a model class $\M$ and a numbering $\psi$, as follows $C^{\M,\psi}(x\mid z)=\min\{\bar\imath y:\psi_i(y; z)=x,i\in\M\}$, with $C^{\M,\psi}(x) = C^{\M,\psi}(x\mid \epsilon)$. We may drop the numbering parameter when the distinction isn't relevant. Under this notation $C^\C(x)$ corresponds to the plain Kolmogorov complexity $C(x)$ and $C^\K(x)$ corresponds to the prefix-free version $K(x)$. We can also represent the smallest two-part description of $x$ using a given model $\phi_i$ as $C^{\{i\}}(x)$. The complexity of a finite set is defined an the complexity of an explicit enumeration.
+For technical reasons, we deviate slightly from the traditional notation of Kolmogorov complexity: we define the $\M$-Kolmogorov complexity of a binary string $x$, with respect to a model class $\M$ and a numbering $\psi$, as follows $C^{\M,\psi}(x\mid z)=\min\{\bar\imath y:\psi_i(y; z)=x,i\in\M\}$, with $C^{\M,\psi}(x) = C^{\M,\psi}(x\mid \epsilon)$. We may drop the numbering parameter when the distinction is not relevant. Under this notation $C^\C(x)$ corresponds to the plain Kolmogorov complexity $C(x)$ and $C^\K(x)$ corresponds to the prefix-free version $K(x)$. We can also represent the smallest two-part description of $x$ using a given model $\phi_i$ as $C^{\{i\}}(x)$. The complexity of a finite set is defined an the complexity of an explicit enumeration.
 
 We use a choice of numbering for the purpose that is normally served by the universal Turing machine. The choice is a matter of taste: a UTM determines a numbering, and vice versa. The reason that we prefer to work with numberings is that it highlights an important issue: while Kolmogorov complexity is invariant to the choice of numbering this property does not immediately carry over to sophistication: for some treatments, the result is highly dependent on the chosen numbering (as shown in the next section). 
  
@@ -363,8 +362,8 @@ So we take a skeptical view of sophistication. Note that part of the theory is f
 But fundamental problems arise as soon as a hard cut-off is introduced on how far we are allowed to deviate from the minimum determined by the Kolmogorov complexity. In our opinion, a lot of measures taken in the literature to address problems with sophistication, such as restricting the model class or introducing model penalties, complicate the method and make problems harder to analyse, without actually addressing the fundamental issue. This is dangerous: if such ad-hoc fixes result in a theory that is hard to prove either wrong or right, it creates an artificial dead end for a valuable area of research. When the hard cut-off on which models are considered is avoided, on the other hand, all such measures are suddenly no longer necessary. What remains is a simple and elegant theory that can be used to sift through all possible models, disproving most while retaining a select number of interesting candidates for our further consideration.
 
 \subsubsection*{\ackname}
-
-This publication was supported by the Dutch national program COMMIT and by  the Netherlands eScience center. We thank Tom Sterkenburg for interesting discussions.
+\ldots
+\hide{This publication was supported by the Dutch national program COMMIT and by  the Netherlands eScience center. We thank Tom Sterkenburg for interesting discussions.}
 
 \bibliographystyle{plain}
 \bibliography{facticity}
