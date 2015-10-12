@@ -1,0 +1,160 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath,amsthm}
+
+
+\theoremstyle{example}
+\newtheorem{example}{Example}[section]
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+
+\newcommand{\del}[1]{\left(#1\right)}
+\newcommand{\dif}{\,\textnormal{d}}
+
+\newcommand{\pim}{\ensuremath{\pi_\textsc{\tiny{m}}}}
+\newcommand{\pit}{\ensuremath{\pi_\textsc{\tiny{t}}}}
+\newcommand{\pik}{\ensuremath{\pi_\textsc{\tiny{k}}}}
+
+\title{Priors in the Switch Distribution}
+\author{Steven de Rooij}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+In the original switch distribution, we use a geometric prior $\pim$
+on the number of switches, an arbitrary prior $\pit$ on the switch
+indices and an arbitrary prior $\pik$ on the expert to switch to. In
+this document we disregard both $\pim$ and $\pik$. The aim is to
+analyse an interesting prior $\pit$, defined via the conditional
+probabilities $\alpha_n:=\pit(Z>n|Z\ge n)$. Thus $\alpha_n$ denotes the
+probability that we do not switch at sample size $n$. Defining priors
+in terms of these conditional probabilities is useful because those
+are the numbers that are actually used in the algorithm, and some
+sequences $\alpha_n$ turn out to correspond to interesting $\pit$ that
+would be hard to come up with otherwise.
+
+\section{Loss Bound}
+Here we develop a loss bound on the cost of encoding switch points
+using the prior specified by the sequence $\alpha_1,\ldots,\alpha_n$.
+We compute the $-\ln$ prior probability that the switches that occur
+within the first $n$ samples are exactly $t_1,\ldots,t_m$:
+\begin{equation}\label{eq:bnd}
+\begin{split}
+  &-\ln\pit(t^m\text{, no switches between $t_m$ and $n$})\\
+&=-\ln\del{\del{\prod_{j=1}^m\del{\prod_{i=t_{m-1}+1}^{t_m-1}\alpha_i}(1-\alpha_{t_m})}\prod_{i=t_m+1}^n\alpha_i}\\
+  &= \sum_{i=1}^n-\ln\alpha_i+\sum_{j=1}^m-\ln\del{\frac{1}{\alpha_{t_j}}-1}.
+\end{split}
+\end{equation}
+The last expression can be read as follows: the first sum denotes the
+cost of not switching during the first $n$ outcomes, and the second
+sum denotes the correction for the switches that actually did occur.
+
+Now set
+\begin{equation}
+  \alpha_n:=e^{-c\cdot w(n)},
+\end{equation}
+for some $c>0$ and some mass function $w$ on the positive integers. We
+can now bound
+\begin{equation}\label{eq:bnd2}
+-\ln\pit(t^m)=c\sum_{i=1}^n w(n)+\sum_{j=1}^m -\ln\del{e^{c\cdot w(t_j)}-1}\le
+c-m\ln c+\sum_{j=1}^m -\ln\del{w(t_j)},
+\end{equation}
+where we used that $w$ is a mass function summing to one, and the rule
+$e^x\ge x+1$.
+
+\begin{remark}
+  Note that the loss does not depend on $n$, even though we do not
+  allow ``stabilising'' by means of $\pim$. This is possible because
+  distributions $\pit$ that are indirectly defined through their
+  conditional probabilities and $w$ as above, are defective. Namely,
+  the prior probability of never switching is
+  $\prod_{i=1}^\infty\alpha_i=e^{-\sum w(i)}=e^{-1}$.
+\end{remark}
+We now choose $w(n)$ to be the universal prior for the integers,
+$w(n)=1/(n(\log n)^2)$, which allows us to derive
+\begin{equation}
+  -\ln\pit(t^m)\le c-m\ln c+\sum_{j=1}^m\ln t_j+2\ln\ln t_j,
+\end{equation}
+a bound that is comparable to the one we obtain for the original
+switch code (there we have $-\ln\pit(t^m)\le
+m\ln2+\sum_{j=1}^m\ln t_j+\ln(t_m+1)$). However, we now have the following
+two advantages:
+\begin{itemize}
+\item[(a)] We no longer need the stable states, which yields a much
+  simpler algorithm with only half the running time of the previous
+  version.
+\item[(b)] There is a direct relationship between $w(n)$ and the
+  obtained loss bound. The relationship is even easier than it used to
+  be between $\pit$ and the loss bound in the original switch
+  distribution.
+\end{itemize}
+
+\noindent The next step is to work out the relationship between $\pit$
+and $w$. Assuming $c=1$, we have
+\begin{equation}
+  \pit(Z>n|Z\ge n)=\alpha_n=e^{-w(n)}\approx 1-w(n).
+\end{equation}
+A last question is: to which value should we set $c$. Optimisation
+yields
+\begin{equation}
+0=\frac{\dif}{\dif c}\del{c-m\ln c}=1-\frac{m}{c}\quad\Rightarrow\quad c=m.
+\end{equation}
+Thus, if we know a priori that the number of switches will be large,
+it can pay to set $c$ to a value larger than one. However, using a
+conservative value for $c$ is better in the worst case.
+
+\newpage
+\section{A Method for Constructing $w(n)$}
+Here we describe a convenient way to construct a discrete,
+non-defective, easy to use prior $w(n)$ on the positive integers such
+that it asymptotically behaves like a given continuous function
+$f(x)$. This function should be positive and decreasing, and
+$\int_1^\infty f(x)\dif x$ should converge. For example, $f(x)$ may
+itself be a density on $[1,\infty)$, but we will not worry about
+normalisation until after discretisation. As an example, we will
+consider $f(x)=1/((x+o)(\ln(x+o))^2)$ for some $o\ge1$, since we want
+to obtain something resembling the universal prior on the
+integers. Now define
+\begin{equation}
+  g(x):=-\int f(x)\dif x.
+\end{equation}
+Note that $g(x)$ is decreasing and convex. In the example we obtain
+$g(x)=1/\ln(x+o)$. We use $g$ to define the prior mass function
+\begin{equation}
+  w(n):=\frac{g(n)-g(n+1)}{g(1)}.
+\end{equation}
+The probability under $w$ of a range of numbers can be calculated
+using the telescoping sum
+\[
+  \frac{1}{g(1)}\cdot \sum_{i=1}^n w(i) =
+  g(1)-g(2)+g(2)-g(3)+\ldots+g(n)-g(n+1)=g(1)-g(n+1),
+\]
+so that
+\begin{equation}
+  \sum_{i=1}^n w(i)=1-\frac{g(n+1)}{g(1)}.
+\end{equation}
+In particular, by summing over all $i=1,2,\ldots$, we find that the
+distribution is normalised. We will now compare $w$ to the function
+$f$ we started out with: we have
+\begin{equation}
+  f(n+1)\le w(n)g(1)\le f(n)
+\end{equation}
+To see why this is true, note that $w(n)g(1)$ approximates the
+derivative of $g$, which is $f$. Since $g$ is convex, $w(n)g(1)$
+underestimates the derivative at $n$ and overestimates it at $n+1$.
+
+We will treat two more examples. Let $f(x)=x^{-\alpha}$ for
+$\alpha>1$. This can easily be normalised (it integrates to
+$1/(\alpha-1)$), but if we would just set $w(n)=n^{-\alpha}$, the
+normalising sum can no longer be computed. Therefore, we follow the
+above procedure instead. We obtain $g(x)=(x^{1-a})/(\alpha-1)$ and
+$w(n)=n^{1-\alpha}-(n+1)^{1-\alpha}$. We now have a distribution that is easy to
+compute, with the bound
+\[
+(\alpha-1)(n+1)^{-\alpha}\le w(n)\le (\alpha-1)n^{-\alpha}.
+\]
+In the special case where $\alpha=2$ this reduces to $g(x)=1/n$ and
+the familiar prior $w(n)=1/n-1/(n+1)=1/(n(n+1))$.
+
+\end{document}
