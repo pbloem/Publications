@@ -245,13 +245,13 @@ Q(\{f_k\}, \{w_k\}) = \sum_k \sum_{i=1,j=1}^{N, M} & p(k.c_j \mid x, F^\text{old
 \end{align*}
 We then \emph{approximate} all elements indexed by $j$, so that of all the transformations in each code, only the last one functions as an argument of $Q$. We approximate $\cN_j$ by fitting a maximum likelihood spherical MVN to the data weighted by $P^k1_M$: that is, the part of the dataset that $\cN_j$ was responsible for under the old model. This gives us $\cN_j = f_{s_j, I, t_j}(\cN_0)$ with
 \[
-t_j = \frac{YP^k0_M^j}{P^k0_M^j 1_M} \;\;\;\;\; s_j = \sqrt{\frac{\sum_i \|P^k0_M^j - t_j\|^2 }{({1_M}^TP^k)_j}} \p
+t_j = \frac{YP^k0_M^j}{P^k0_M^j 1_M} \;\;\;\;\; s_j = \sqrt{\frac{\sum_i P^k0_M^j\| y_i - t_j\|^2 }{({1_M}^TP^k)_j}} \p
 \]
 That is, $t_j$ and $s_j$ are the weighted mean and weighted standard deviation respectively. Arranging the different $t_j$ as the columns of a matrix $T^k$, we get 
 \begin{align}
-T^k = Y(P^k / (1_N{1_M}^TP^k)) \label{line:tk}
+T^k = (YP^k) / (1_H({1_N}^T)P^k) \label{line:tk}
 \end{align}
-where the division is element-wise. $p(c_j)$ becomes a term independent of any parameters, so we need not approximate it. This gives us:
+where the division is pointwise. $p(c_j)$ becomes a term independent of any parameters, so we need not approximate it. This gives us:
 \begin{align*}
 Q(f_k, w_k) &= \sum_{i, j} P^k_{ij} \ln f_k(\cN_j)(y_i) + \sum_{i, j} P^k_{ij} \ln w_k  
 \end{align*}
@@ -284,7 +284,7 @@ with
 \ol{Y}^k &= Y - y^k {1_N}^T\\
 \ol{T}^k &= T^k - t^k {1_M}^T\\
 \end{align*}
-By \cite[Lemma~1]{myronenko2010point}, the optimal $R_k$ can be derived from the singular value decomposition (SVD) of $A=Y^kP^kZ{T^k}^T$. If $A = USV^T$, with $U$, $S$ and $V$ defined as normal for the SVD then we have $\hat R_k = U \;\text{diag} (1, \ldots, 1, |UV^T|)\; V^T$.
+By \cite[Lemma~1]{myronenko2010point}, the optimal $R_k$ can be derived from the singular value decomposition (SVD) of $A=\ol{Y}^kP^kZ{\ol{T}^k}^T$. If $A = USV^T$, with $U$, $S$ and $V$ defined as normal for the SVD then we have $\hat R_k = U \;\text{diag} (1, \ldots, 1, |UV^T|)\; V^T$.
 
 Finally, we derive the scaling parameter $s_k$ by filling in $\hat t_k$ and solving $\partial Q(S_k)/\partial s_k$. We get:
 
@@ -473,14 +473,13 @@ Where we use the fact that $\text{tr}(A^TB) = \sum_{i,j}(A\circ B)_{ij}$ and the
 \paragraph{The scaling $s_k$}
 We derive the scaling by filling in $\hat t_k$ and solving for $\partial Q(S_k)/\partial s_k$.
 \begin{align*}
-\frac{\partial Q(s_k)}{\partial s_k} &=  \frac{- p^k \ln s_k - \sum_{i,j} P^k_{ij} \frac{1}{2{s_j}^2} \left\|y_i - t_k - s_k R_k t_j \right\|^2}{\partial s_k}\\
-\frac{\partial Q(s_k)}{\partial s_k} &= - p^k {s_k}^{-1} - \sum_{i,j} P^k_{ij} \frac{1}{2{s_j}^2} \left(-{s_k}^{-3} {y^k_i}^T y^k_i + {s_k^{-2}} {y^k_i}^TR_kt_j^k + {s_k}^{-3}{t_j^k}^T t_j^k\right) \\
-&= - p^k {s_k}^{-1} + {s_k}^{-3} \frac{1}{2}\sum_{i,j} P^k_{ij} 2{s_j}^{-2} {y^k_i}^T y^k_i \\ 
-& - {s_k}^{-2} \frac{1}{2}\sum_{i,j} P^k_{ij} 2{s_j}^{-2} {y^k_i}^TR_kt_j^k - {s_k}^{-3} \frac{1}{2}\sum_{i,j} P^k_{ij} 2{s_j}^{-2} {t_j^k}^T t_j^k)
+\frac{\partial Q(s_k)}{\partial s_k} &=  \frac{- p^k \ln s_k - \frac{1}{2}\sum_{i,j} (P^kZ)_{ij} {s_k}^{-2} \left\|y_i - t_k - s_k R_k t_j \right\|^2}{\partial s_k}\\
+\frac{\partial Q(s_k)}{\partial s_k} &= - p^k {s_k}^{-1} - \frac{1}{2}\sum_{i,j} (P^kZ)_{ij} \left(-2{s_k}^{-3} {y^k_i}^T y^k_i + 2{s_k^{-2}} {y^k_i}^TR_kt_j^k \right) \\
+&= -p^k {s_k}^{-1} + {s_k}^{-3} \sum_{i, j} (P^kZ)_{ij}{s_k}^{-3} {y^k_i}^T y^k_i - s_k^{-1} \sum_{i, j}(P^kZ)_{ij}{s_k^{-2}} {y^k_i}^TR_kt_j^k
 \end{align*}
 In matrix notation:
 \begin{align*}
-0 &= {s_k}^{-2} \text{tr}({Y^k}^T\text{d}(P^kZ1_M)Y^k) + {s_k}^{-1} \text{tr}(T^kZ{P^k}^T{Y^k}^TR_k) -p^k \p
+0 &= {s_k}^{-2} \text{tr}({\ol{Y}^k}^T\text{d}(P^kZ1_M)\ol{Y}^k) + {s_k}^{-1} \text{tr}(\ol{T}^kZ{P^k}^T{\ol{Y}^k}^TR_k) -p^k \p
 \end{align*}
 
 \section{Relation to the absolute orientation problem}
