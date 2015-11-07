@@ -243,15 +243,21 @@ To make the optimization of $Q$ practical, we simplify the task in two ways. Fir
 Q(\{f_k\}, \{w_k\}) = \sum_k \sum_{i=1,j=1}^{N, M} & p(k.c_j \mid x, F^\text{old}) \ln f_p f_k(\cN_{j})(x_i) p^{\text{old}}(c_j) p(k)\\ & \hfill \text{with } M = |[1,K]^{[0, D-1]}|  \\
 = \frac{1}{s^\text{old}_p}\sum_k \sum_{i, j} &P^k_{ij} \ln \left[ f_k(\cN_{j})(y_i) \; v_{|c_j|+1} p(c_j) \; w_k \right]\p
 \end{align*}
-We then \emph{approximate} all elements indexed by $j$, so that of all the transformations in each code, only the last one functions as an argument of $Q$. We approximate $\cN_j$ by fitting a maximum likelihood spherical MVN to the data weighted by $P^k1_M$: that is, the part of the dataset that $\cN_j$ was responsible for under the old model. This gives us $\cN_j = f_{s_j, I, t_j}(\cN_0)$ with
+We then \emph{approximate} all elements indexed by $j$, so that of all the transformations in each code, only the last one functions as an argument of $Q$. We approximate $\cN_j$ by fitting a maximum likelihood spherical MVN to the data weighted by $P1_M$: that is, the part of the dataset that $\cN_j$ was responsible for under the old model. 
+
+Let $P'$ consist of all but the last $K^D$ columns of $P$ (ie., those corresponding to values of $j$ in the sum above. Note that this is different from any $P^k$: both $P^k$ and $P'$ are a submatrix of $P$, but column $j$ in $P'$ contains $p(k.c_j\mid x)$, while column $j$ in $P'$ contains $p(c_j \mid x)$. 
+
+This gives us $\cN_j = f_{s_j, I, t_j}(\cN_0)$ with
 \[
-t_j = \frac{YP^k0_M^j}{P^k0_M^j 1_M} \;\;\;\;\; s_j = \sqrt{\frac{\sum_i P^k0_M^j\| y_i - t_j\|^2 }{({1_M}^TP^k)_j}} \p
+t_j = \frac{YP'0_M^j}{P'0_M^j 1_M} \;\;\;\;\; s_j = \sqrt{\frac{\sum_i P'0_M^j\| y_i - t_j\|^2 }{({1_M}^TP')_j}} \p
 \]
-That is, $t_j$ and $s_j$ are the weighted mean and weighted standard deviation respectively. Arranging the different $t_j$ as the columns of a matrix $T^k$, we get 
+That is, $t_j$ and $s_j$ are the weighted mean and weighted standard deviation respectively. Arranging the different $t_j$ as the columns of a matrix $T^k$, we get
 \begin{align}
-T^k = (YP^k) / (1_H({1_N}^T)P^k) \label{line:tk}
+T = (YP') / (1_H({1_N}^T)P') \label{line:tk}
 \end{align}
-where the division is pointwise. $p(c_j)$ becomes a term independent of any parameters, so we need not approximate it. This gives us:
+where the division is pointwise. We remove the last $K^D$ columns from 
+
+$p(c_j)$ becomes a term independent of any parameters, so we need not approximate it. This gives us:
 \begin{align*}
 Q(f_k, w_k) &= \sum_{i, j} P^k_{ij} \ln f_k(\cN_j)(y_i) + \sum_{i, j} P^k_{ij} \ln w_k  
 \end{align*}
