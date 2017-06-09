@@ -1,0 +1,806 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.7.7)  9 JUN 2017 15:30
+entering extended mode
+ restricted \write18 enabled.
+ Source specials enabled.
+ %&-line parsing enabled.
+**fractal.tex
+(./fractal.tex
+LaTeX2e <2016/03/31>
+Babel <3.9r> and hyphenation patterns for 83 language(s) loaded.
+(/usr/local/texlive/2016/texmf-dist/tex/latex/revtex/revtex4-1.cls
+Document Class: revtex4-1 2010/07/25/20:33:00 4.1r (http://publish.aps.org/revt
+ex4/ for documentation)
+ Copyright (c) 2009 The American Physical Society.
+ mailto:revtex@aps.org
+ Licensed under the LPPL:
+http://www.ctan.org/tex-archive/macros/latex/base/lppl.txt
+ Arthur Ogawa <arthur_ogawa at sbcglobal dot net>
+ Based on work by David Carlisle <david at dcarlisle.demon.co.uk>.
+ltxutil[2010/07/25/20:33:00 4.1r utilities package (portions licensed from W. E
+. Baxter web at superscript.com)]
+LaTeX Info: Redefining \@centercr on input line 308.
+Class revtex4-1 Info: Repairing broken LaTeX eqnarray on input line 358.
+\eqncolsep=\skip41
+Class revtex4-1 Info: Repairing hyperref-unfriendly LaTeX definition of \mpfoot
+note on input line 433.
+Class revtex4-1 Info: Repairing broken LateX \@sect on input line 755.
+\intertabularlinepenalty=\count79
+\@tbpen=\count80
+\@arstrutbox@hline=\box26
+Class revtex4-1 Info: Repairing broken LaTeX \@xbitor on input line 1786.
+Class revtex4-1 Info: Making \typeout \long on input line 2046.
+ltxfront[2010/07/25/20:33:00 4.1r frontmatter package (AO,DPC)]
+\c@affil=\count81
+\c@collab=\count82
+\absbox=\box27
+ltxgrid[2010/07/25/20:33:00 4.1r page grid package (portions licensed from W. E
+. Baxter web at superscript.com)]
+\c@linecount=\count83
+\output@latex=\toks14
+\box@size@1=\box28
+\box@size@2=\box29
+\@protection@box=\box30
+\@topmark@saved=\toks15
+\footins@saved=\box31
+\footins@recovered=\box32
+\column@recovered=\box33
+\pagesofar=\box34
+\footsofar=\box35
+\pagegrid@col=\count84
+Class revtex4-1 Info: Overriding \@vspace, \@vspacer, \@no@pgbk, \@newline, and
+ \\  on input line 5578.
+\c@part=\count85
+\c@section=\count86
+\c@subsection=\count87
+\c@subsubsection=\count88
+\c@paragraph=\count89
+\c@subparagraph=\count90
+\abovecaptionskip=\skip42
+\belowcaptionskip=\skip43
+\c@figure=\count91
+\fbox@1=\box36
+\c@table=\count92
+\fbox@2=\box37
+\c@video=\count93
+\fbox@4=\box38
+\@bibdataout=\write3
+\widetext@top=\box39
+\widetext@bot=\box40
+Class revtex4-1 Info: Selecting society aps on input line 7542.
+(/usr/local/texlive/2016/texmf-dist/tex/latex/revtex/aps4-1.rtx
+File: aps4-1 2010/07/25/20:33:00 4.1r (http://publish.aps.org/revtex4/ for docu
+mentation)
+Class revtex4-1 Info: RevTeX society APS selected on input line 31.
+)
+Class revtex4-1 Info: Selecting journal prl on input line 7544.
+Class revtex4-1 Info: APS journal PRL selected on input line 7545.
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/revtex/aps10pt4-1.rtx
+File: aps10pt4-1 2010/07/25/20:33:00 4.1r (http://publish.aps.org/revtex4/ for 
+documentation)
+Class revtex4-1 Info: RevTeX pointsize 10pt selected on input line 30.
+)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/textcase/textcase.sty
+Package: textcase 2004/10/07 v0.07 Text only upper/lower case changing (DPC)
+)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks16
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(/usr/local/texlive/2016/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2016/03/10 v2.15b AMS math features
+\@mathmargin=\skip44
+
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2016/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks17
+\ex@=\dimen102
+)
+LaTeX Info: Redefining \text on input line 28.
+)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen103
+)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count94
+LaTeX Info: Redefining \frac on input line 199.
+\uproot@=\count95
+\leftroot@=\count96
+LaTeX Info: Redefining \overline on input line 297.
+\classnum@=\count97
+\DOTSCASE@=\count98
+LaTeX Info: Redefining \ldots on input line 394.
+LaTeX Info: Redefining \dots on input line 397.
+LaTeX Info: Redefining \cdots on input line 518.
+\Mathstrutbox@=\box41
+\strutbox@=\box42
+\big@size=\dimen104
+LaTeX Font Info:    Redeclaring font encoding OML on input line 634.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 635.
+\macc@depth=\count99
+\c@MaxMatrixCols=\count100
+\dotsspace@=\muskip10
+\c@parentequation=\count101
+\dspbrk@lvl=\count102
+\tag@help=\toks18
+\row@=\count103
+\column@=\count104
+\maxfields@=\count105
+\andhelp@=\toks19
+\eqnshift@=\dimen105
+\alignsep@=\dimen106
+\tagshift@=\dimen107
+\tagwidth@=\dimen108
+\totwidth@=\dimen109
+\lineht@=\dimen110
+\@envbody=\toks20
+\multlinegap=\skip45
+\multlinetaggap=\skip46
+\mathdisplay@stack=\toks21
+LaTeX Info: Redefining \[ on input line 2739.
+LaTeX Info: Redefining \] on input line 2740.
+)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip11
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip47
+\bibsep=\skip48
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count106
+)
+Class revtex4-1 Info: Repairing natbib's \BibitemShut on input line 7549.
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/revtex/revsymb4-1.sty
+Package: revsymb4-1 2010/07/25/20:33:00 4.1r (http://publish.aps.org/revtex4/ f
+or documentation)
+LaTeX Info: Redefining \frak on input line 95.
+LaTeX Info: Redefining \Bbb on input line 111.
+LaTeX Info: Redefining \REV@mathfrak on input line 119.
+))
+(/usr/local/texlive/2016/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks22
+)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2016/05/09 v1.0r Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/01/02 v1.10 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 96.
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+)
+(/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count107
+))
+\Gin@req@height=\dimen111
+\Gin@req@width=\dimen112
+)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2016/02/04 v1.7-139 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 67.
+\captionmargin=\dimen113
+\captionmargin@=\dimen114
+\captionwidth=\dimen115
+\caption@tempdima=\dimen116
+\caption@indent=\dimen117
+\caption@parindent=\dimen118
+\caption@hangindent=\dimen119
+Package caption Info: Unknown document class (or package),
+(caption)             standard defaults will be used.
+)
+
+Package caption Warning: Unsupported document class (or package) detected,
+(caption)                usage of the caption package is not recommended.
+See the caption package documentation for explanation.
+
+Package caption Info: \@makecaption = \long macro:#1#2->\par \vskip \abovecapti
+onskip \begingroup \small \rmfamily \sbox \@tempboxa {\let \\\heading@cr \@make
+@capt@title {#1}{#2}}\@ifdim {\wd \@tempboxa >\hsize }{\begingroup \samepage \f
+lushing \let \footnote \@footnotemark@gobble \@make@capt@title {#1}{#2}\par \en
+dgroup }{\global \@minipagefalse \hb@xt@ \hsize {\hfil \unhbox \@tempboxa \hfil
+ }}\endgroup \vskip \belowcaptionskip .
+\c@ContinuedFloat=\count108
+) (/usr/local/texlive/2016/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2016/02/20 v1.1-142 Sub-captions (AR)
+\c@subfigure=\count109
+\c@subtable=\count110
+)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2016/05/05 v6.83n Hypertext links for LaTeX
+
+(/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+Package: hobsub-hyperref 2016/05/16 v1.14 Bundle oberdiek, subset hyperref (HO)
+
+
+(/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
+Package: hobsub-generic 2016/05/16 v1.14 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2016/05/16 v1.14 Construct package bundles (HO)
+Package hobsub Info: Skipping package `infwarerr' (already loaded).
+Package hobsub Info: Skipping package `ltxcmds' (already loaded).
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+Package: ifvtex 2016/05/16 v1.6 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+Package: intcalc 2016/05/16 v1.2 Expandable calculations with integers (HO)
+Package: ifpdf 2016/05/14 v3.1 Provides the ifpdf switch
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+Package: pdftexcmds 2016/05/10 v0.21 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+Package: pdfescape 2016/05/16 v1.14 Implements pdfTeX's escape features (HO)
+Package: bigintcalc 2016/05/16 v1.4 Expandable calculations on big integers (HO
+)
+Package: bitset 2016/05/16 v1.2 Handle bit-vector datatype (HO)
+Package: uniquecounter 2016/05/16 v1.3 Provide unlimited unique counter (HO)
+)
+Package hobsub Info: Skipping package `hobsub' (already loaded).
+Package: letltxmacro 2016/05/16 v1.5 Let assignment for LaTeX macros (HO)
+Package: hopatch 2016/05/16 v1.3 Wrapper for package hooks (HO)
+Package: xcolor-patch 2016/05/16 xcolor patch
+Package: atveryend 2016/05/16 v1.9 Hooks at the very end of document (HO)
+Package: atbegshi 2016/05/16 v1.17 At begin shipout hook (HO)
+Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
+Package: hycolor 2016/05/16 v1.8 Color options for hyperref/bookmark (HO)
+)
+(/usr/local/texlive/2016/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/oberdiek/auxhook.sty
+Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
+)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+)
+\@linkdim=\dimen120
+\Hy@linkcounter=\count111
+\Hy@pagecounter=\count112
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2016/05/05 v6.83n Hyperref: PDFDocEncoding definition (HO)
+)
+\Hy@SavedSpaceFactor=\count113
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/latexconfig/hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+Package hyperref Info: Hyper figures OFF on input line 4446.
+Package hyperref Info: Link nesting OFF on input line 4451.
+Package hyperref Info: Hyper index ON on input line 4454.
+Package hyperref Info: Plain pages OFF on input line 4461.
+Package hyperref Info: Backreferencing OFF on input line 4466.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4691.
+LaTeX Info: Redefining \href on input line 4955.
+\c@Hy@tempcnt=\count114
+LaTeX Info: Redefining \url on input line 5044.
+\XeTeXLinkMargin=\dimen121
+\Fld@menulength=\count115
+\Field@Width=\dimen122
+\Fld@charsize=\dimen123
+Package hyperref Info: Hyper figures OFF on input line 6298.
+Package hyperref Info: Link nesting OFF on input line 6303.
+Package hyperref Info: Hyper index ON on input line 6306.
+Package hyperref Info: backreferencing OFF on input line 6313.
+Package hyperref Info: Link coloring OFF on input line 6318.
+Package hyperref Info: Link coloring with OCG OFF on input line 6323.
+Package hyperref Info: PDF/A mode OFF on input line 6328.
+LaTeX Info: Redefining \ref on input line 6368.
+LaTeX Info: Redefining \pageref on input line 6372.
+\Hy@abspage=\count116
+\c@Item=\count117
+\c@Hfootnote=\count118
+)
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2016/05/05 v6.83n Hyperref driver for pdfTeX
+\Fld@listcount=\count119
+\c@bookmark@seq@number=\count120
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
+Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+82.
+)
+\Hy@SectionHShift=\skip49
+)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count121
+\float@exts=\toks23
+\float@box=\box43
+\@float@everytoks=\toks24
+\@floatcapt=\box44
+)
+\@float@every@pseudo=\toks25
+\c@pseudo=\count122
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2016/05/09 v1.1c Standard LaTeX Color (DPC)
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 144.
+)
+Class revtex4-1 Info: Patching LaTeX tabular. on input line 51.
+
+
+Class revtex4-1 Warning: Repair the float package.
+
+Class revtex4-1 Info: Robustifying \LaTeX's \boldmath command on input line 51.
+
+Class revtex4-1 Info: cite was not loaded (OK!) on input line 51.
+Class revtex4-1 Info: mcite was not loaded (OK!) on input line 51.
+Class revtex4-1 Info: multicol was not loaded (OK!) on input line 51.
+(./fractal.aux)
+\openout1 = `fractal.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+
+(/usr/local/texlive/2016/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count123
+\scratchdimen=\dimen124
+\scratchbox=\box45
+\nofMPsegments=\count124
+\nofMParguments=\count125
+\everyMPshowfont=\toks26
+\MPscratchCnt=\count126
+\MPscratchDim=\dimen125
+\MPnumerator=\count127
+\makeMPintoPDFobject=\count128
+\everyMPtoPDFconversion=\toks27
+) (/usr/local/texlive/2016/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+)
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+Package caption Info: End \AtBeginDocument code.
+\AtBeginShipoutBox=\box46
+Package hyperref Info: Link coloring OFF on input line 51.
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
+
+(/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
+Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
+)
+\c@section@level=\count129
+)
+LaTeX Info: Redefining \ref on input line 51.
+LaTeX Info: Redefining \pageref on input line 51.
+LaTeX Info: Redefining \nameref on input line 51.
+
+(./fractal.out) (./fractal.out)
+\@outlinefile=\write4
+\openout4 = `fractal.out'.
+
+Class revtex4-1 Info: Taking \maketitle back from hyperref on input line 51.
+\openout3 = `fractalNotes.bib'.
+
+LaTeX Font Info:    Try loading font information for U+msa on input line 68.
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 68.
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+<../img/copies.png, id=35, 2732.2075pt x 515.9275pt>
+File: ../img/copies.png Graphic file (type png)
+ <use ../img/copies.png>
+Package pdftex.def Info: ../img/copies.png used on input line 78.
+(pdftex.def)             Requested size: 246.0pt x 46.4472pt.
+
+
+LaTeX Warning: Reference `figure:examples' on page 1 undefined on input line 92
+.
+
+[1{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <../im
+g/copies.png>] <../img/factor-graph.pdf, id=89, 294.79134pt x 173.32152pt>
+File: ../img/factor-graph.pdf Graphic file (type pdf)
+
+<use ../img/factor-graph.pdf>
+Package pdftex.def Info: ../img/factor-graph.pdf used on input line 125.
+(pdftex.def)             Requested size: 246.0pt x 144.637pt.
+
+Underfull \hbox (badness 4144) in paragraph at lines 132--133
+ [][]\OT1/cmr/m/n/10 The $\OML/cmm/m/it/10 K$ \OT1/cmr/m/n/10 simil-i-tudes
+ []
+
+[2 <../img/factor-graph.pdf>]
+<../img/sierpinski-codes.pdf, id=144, 167.68484pt x 145.6399pt>
+File: ../img/sierpinski-codes.pdf Graphic file (type pdf)
+
+<use ../img/sierpinski-codes.pdf>
+Package pdftex.def Info: ../img/sierpinski-codes.pdf used on input line 156.
+(pdftex.def)             Requested size: 115.6203pt x 100.42273pt.
+
+<../img/code-construction.pdf, id=145, 209.60608pt x 182.05013pt>
+File: ../img/code-construction.pdf Graphic file (type pdf)
+
+<use ../img/code-construction.pdf>
+Package pdftex.def Info: ../img/code-construction.pdf used on input line 162.
+(pdftex.def)             Requested size: 115.6203pt x 100.41954pt.
+
+Underfull \hbox (badness 5388) in paragraph at lines 212--213
+[][]\OT1/cmr/m/n/10 To find the op-ti-mal trans-la-tion $[][]$, we solve
+ []
+
+[3 <../img/sierpinski-codes.pdf> <../img/code-construction.pdf
+
+pdfTeX warning: /usr/local/texlive/2016/bin/x86_64-darwin/pdflatex (file ../img
+/code-construction.pdf): PDF inclusion: multiple pdfs with page group included 
+in a single page
+>] <../img/runs/sierpinski/data.png, id=222, 401.5pt x 401.5pt>
+File: ../img/runs/sierpinski/data.png Graphic file (type png)
+
+<use ../img/runs/sierpinski/data.png>
+Package pdftex.def Info: ../img/runs/sierpinski/data.png used on input line 281
+.
+(pdftex.def)             Requested size: 38.24844pt x 38.24704pt.
+
+<../img/runs/sierpinski/best.000000.png, id=223, 1003.75pt x 1003.75pt>
+File: ../img/runs/sierpinski/best.000000.png Graphic file (type png)
+
+<use ../img/runs/sierpinski/best.000000.png>
+Package pdftex.def Info: ../img/runs/sierpinski/best.000000.png used on input l
+ine 281.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/sierpinski/best.000019.png, id=224, 1003.75pt x 1003.75pt>
+File: ../img/runs/sierpinski/best.000019.png Graphic file (type png)
+
+<use ../img/runs/sierpinski/best.000019.png>
+Package pdftex.def Info: ../img/runs/sierpinski/best.000019.png used on input l
+ine 281.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/sierpinski/best.000299.png, id=225, 1003.75pt x 1003.75pt>
+File: ../img/runs/sierpinski/best.000299.png Graphic file (type png)
+
+<use ../img/runs/sierpinski/best.000299.png>
+Package pdftex.def Info: ../img/runs/sierpinski/best.000299.png used on input l
+ine 281.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/sierpinski/best.000299.deep.png, id=226, 1003.75pt x 1003.75pt>
+File: ../img/runs/sierpinski/best.000299.deep.png Graphic file (type png)
+
+<use ../img/runs/sierpinski/best.000299.deep.png>
+Package pdftex.def Info: ../img/runs/sierpinski/best.000299.deep.png used on in
+put line 281.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/sierpinski-off/data.png, id=227, 401.5pt x 401.5pt>
+File: ../img/runs/sierpinski-off/data.png Graphic file (type png)
+
+<use ../img/runs/sierpinski-off/data.png>
+Package pdftex.def Info: ../img/runs/sierpinski-off/data.png used on input line
+ 282.
+(pdftex.def)             Requested size: 38.24844pt x 38.24704pt.
+
+<../img/runs/sierpinski-off/best.000000.png, id=228, 1003.75pt x 1003.75pt>
+File: ../img/runs/sierpinski-off/best.000000.png Graphic file (type png)
+
+<use ../img/runs/sierpinski-off/best.000000.png>
+Package pdftex.def Info: ../img/runs/sierpinski-off/best.000000.png used on inp
+ut line 282.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/sierpinski-off/best.000019.png, id=229, 1003.75pt x 1003.75pt>
+File: ../img/runs/sierpinski-off/best.000019.png Graphic file (type png)
+
+<use ../img/runs/sierpinski-off/best.000019.png>
+Package pdftex.def Info: ../img/runs/sierpinski-off/best.000019.png used on inp
+ut line 282.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/sierpinski-off/best.000299.png, id=230, 1003.75pt x 1003.75pt>
+File: ../img/runs/sierpinski-off/best.000299.png Graphic file (type png)
+
+<use ../img/runs/sierpinski-off/best.000299.png>
+Package pdftex.def Info: ../img/runs/sierpinski-off/best.000299.png used on inp
+ut line 282.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/sierpinski-off/best.000299.deep.png, id=231, 1003.75pt x 1003.75pt
+>
+File: ../img/runs/sierpinski-off/best.000299.deep.png Graphic file (type png)
+ <use ../img/runs/sierpinski-off/best.000299.deep.png>
+Package pdftex.def Info: ../img/runs/sierpinski-off/best.000299.deep.png used o
+n input line 282.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/koch2/data.png, id=232, 401.5pt x 401.5pt>
+File: ../img/runs/koch2/data.png Graphic file (type png)
+
+<use ../img/runs/koch2/data.png>
+Package pdftex.def Info: ../img/runs/koch2/data.png used on input line 283.
+(pdftex.def)             Requested size: 38.24844pt x 38.24704pt.
+
+<../img/runs/koch2/best.000000.png, id=233, 1003.75pt x 1003.75pt>
+File: ../img/runs/koch2/best.000000.png Graphic file (type png)
+
+<use ../img/runs/koch2/best.000000.png>
+Package pdftex.def Info: ../img/runs/koch2/best.000000.png used on input line 2
+83.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/koch2/best.000019.png, id=234, 1003.75pt x 1003.75pt>
+File: ../img/runs/koch2/best.000019.png Graphic file (type png)
+
+<use ../img/runs/koch2/best.000019.png>
+Package pdftex.def Info: ../img/runs/koch2/best.000019.png used on input line 2
+83.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/koch2/best.000299.png, id=235, 1003.75pt x 1003.75pt>
+File: ../img/runs/koch2/best.000299.png Graphic file (type png)
+
+<use ../img/runs/koch2/best.000299.png>
+Package pdftex.def Info: ../img/runs/koch2/best.000299.png used on input line 2
+83.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/koch2/best.000299.deep.png, id=236, 1003.75pt x 1003.75pt>
+File: ../img/runs/koch2/best.000299.deep.png Graphic file (type png)
+
+<use ../img/runs/koch2/best.000299.deep.png>
+Package pdftex.def Info: ../img/runs/koch2/best.000299.deep.png used on input l
+ine 283.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/koch4/data.png, id=237, 401.5pt x 401.5pt>
+File: ../img/runs/koch4/data.png Graphic file (type png)
+
+<use ../img/runs/koch4/data.png>
+Package pdftex.def Info: ../img/runs/koch4/data.png used on input line 284.
+(pdftex.def)             Requested size: 38.24844pt x 38.24704pt.
+
+<../img/runs/koch4/best.000000.png, id=238, 1003.75pt x 1003.75pt>
+File: ../img/runs/koch4/best.000000.png Graphic file (type png)
+
+<use ../img/runs/koch4/best.000000.png>
+Package pdftex.def Info: ../img/runs/koch4/best.000000.png used on input line 2
+84.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/koch4/best.000019.png, id=239, 1003.75pt x 1003.75pt>
+File: ../img/runs/koch4/best.000019.png Graphic file (type png)
+
+<use ../img/runs/koch4/best.000019.png>
+Package pdftex.def Info: ../img/runs/koch4/best.000019.png used on input line 2
+84.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/koch4/best.000299.png, id=240, 1003.75pt x 1003.75pt>
+File: ../img/runs/koch4/best.000299.png Graphic file (type png)
+
+<use ../img/runs/koch4/best.000299.png>
+Package pdftex.def Info: ../img/runs/koch4/best.000299.png used on input line 2
+84.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/koch4/best.000299.deep.png, id=241, 1003.75pt x 1003.75pt>
+File: ../img/runs/koch4/best.000299.deep.png Graphic file (type png)
+
+<use ../img/runs/koch4/best.000299.deep.png>
+Package pdftex.def Info: ../img/runs/koch4/best.000299.deep.png used on input l
+ine 284.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/square/data.png, id=242, 401.5pt x 401.5pt>
+File: ../img/runs/square/data.png Graphic file (type png)
+
+<use ../img/runs/square/data.png>
+Package pdftex.def Info: ../img/runs/square/data.png used on input line 285.
+(pdftex.def)             Requested size: 38.24844pt x 38.24704pt.
+
+<../img/runs/square/best.000000.png, id=243, 1003.75pt x 1003.75pt>
+File: ../img/runs/square/best.000000.png Graphic file (type png)
+
+<use ../img/runs/square/best.000000.png>
+Package pdftex.def Info: ../img/runs/square/best.000000.png used on input line 
+285.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/square/best.000019.png, id=244, 1003.75pt x 1003.75pt>
+File: ../img/runs/square/best.000019.png Graphic file (type png)
+
+<use ../img/runs/square/best.000019.png>
+Package pdftex.def Info: ../img/runs/square/best.000019.png used on input line 
+285.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/square/best.000299.png, id=245, 1003.75pt x 1003.75pt>
+File: ../img/runs/square/best.000299.png Graphic file (type png)
+
+<use ../img/runs/square/best.000299.png>
+Package pdftex.def Info: ../img/runs/square/best.000299.png used on input line 
+285.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/square/best.000299.deep.png, id=246, 1003.75pt x 1003.75pt>
+File: ../img/runs/square/best.000299.deep.png Graphic file (type png)
+
+<use ../img/runs/square/best.000299.deep.png>
+Package pdftex.def Info: ../img/runs/square/best.000299.deep.png used on input 
+line 285.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/coast/data.png, id=247, 401.5pt x 401.5pt>
+File: ../img/runs/coast/data.png Graphic file (type png)
+
+<use ../img/runs/coast/data.png>
+Package pdftex.def Info: ../img/runs/coast/data.png used on input line 286.
+(pdftex.def)             Requested size: 38.24844pt x 38.24704pt.
+
+<../img/runs/coast/best.000000.png, id=248, 1003.75pt x 1003.75pt>
+File: ../img/runs/coast/best.000000.png Graphic file (type png)
+
+<use ../img/runs/coast/best.000000.png>
+Package pdftex.def Info: ../img/runs/coast/best.000000.png used on input line 2
+86.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/coast/best.000019.png, id=249, 1003.75pt x 1003.75pt>
+File: ../img/runs/coast/best.000019.png Graphic file (type png)
+
+<use ../img/runs/coast/best.000019.png>
+Package pdftex.def Info: ../img/runs/coast/best.000019.png used on input line 2
+86.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/coast/best.000299.png, id=250, 1003.75pt x 1003.75pt>
+File: ../img/runs/coast/best.000299.png Graphic file (type png)
+
+<use ../img/runs/coast/best.000299.png>
+Package pdftex.def Info: ../img/runs/coast/best.000299.png used on input line 2
+86.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/coast/best.000299.deep.png, id=251, 1003.75pt x 1003.75pt>
+File: ../img/runs/coast/best.000299.deep.png Graphic file (type png)
+
+<use ../img/runs/coast/best.000299.deep.png>
+Package pdftex.def Info: ../img/runs/coast/best.000299.deep.png used on input l
+ine 286.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/broccoli/data.png, id=252, 401.5pt x 401.5pt>
+File: ../img/runs/broccoli/data.png Graphic file (type png)
+
+<use ../img/runs/broccoli/data.png>
+Package pdftex.def Info: ../img/runs/broccoli/data.png used on input line 287.
+(pdftex.def)             Requested size: 38.24844pt x 38.24704pt.
+
+<../img/runs/broccoli/best.000000.png, id=253, 1003.75pt x 1003.75pt>
+File: ../img/runs/broccoli/best.000000.png Graphic file (type png)
+
+<use ../img/runs/broccoli/best.000000.png>
+Package pdftex.def Info: ../img/runs/broccoli/best.000000.png used on input lin
+e 287.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/broccoli/best.000019.png, id=254, 1003.75pt x 1003.75pt>
+File: ../img/runs/broccoli/best.000019.png Graphic file (type png)
+
+<use ../img/runs/broccoli/best.000019.png>
+Package pdftex.def Info: ../img/runs/broccoli/best.000019.png used on input lin
+e 287.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/broccoli/best.000299.png, id=255, 1003.75pt x 1003.75pt>
+File: ../img/runs/broccoli/best.000299.png Graphic file (type png)
+
+<use ../img/runs/broccoli/best.000299.png>
+Package pdftex.def Info: ../img/runs/broccoli/best.000299.png used on input lin
+e 287.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/broccoli/best.000299.deep.png, id=256, 1003.75pt x 1003.75pt>
+File: ../img/runs/broccoli/best.000299.deep.png Graphic file (type png)
+
+<use ../img/runs/broccoli/best.000299.deep.png>
+Package pdftex.def Info: ../img/runs/broccoli/best.000299.deep.png used on inpu
+t line 287.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/sphere/data.png, id=257, 401.5pt x 401.5pt>
+File: ../img/runs/sphere/data.png Graphic file (type png)
+
+<use ../img/runs/sphere/data.png>
+Package pdftex.def Info: ../img/runs/sphere/data.png used on input line 288.
+(pdftex.def)             Requested size: 38.24844pt x 38.24704pt.
+
+<../img/runs/sphere/best.000000.png, id=258, 1003.75pt x 1003.75pt>
+File: ../img/runs/sphere/best.000000.png Graphic file (type png)
+
+<use ../img/runs/sphere/best.000000.png>
+Package pdftex.def Info: ../img/runs/sphere/best.000000.png used on input line 
+288.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/sphere/best.000019.png, id=259, 1003.75pt x 1003.75pt>
+File: ../img/runs/sphere/best.000019.png Graphic file (type png)
+
+<use ../img/runs/sphere/best.000019.png>
+Package pdftex.def Info: ../img/runs/sphere/best.000019.png used on input line 
+288.
+(pdftex.def)             Requested size: 38.24844pt x 38.24397pt.
+
+<../img/runs/sphere/best.000299.png, id=260, 1003.75pt 
