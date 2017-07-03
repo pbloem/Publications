@@ -10,12 +10,7 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Database file #1: fractalNotes.bib
-Repeated entry---line 2 of file fractalNotes.bib
- : @footnote{Note1
- :                ,key="Note1",note="\protect \url  {https://github.com/pbloem/ifsem}"}
-I'm skipping whatever remains of this entry
 Database file #2: fractal.bib
-Warning--I didn't find a database entry for "Note3"
 control{REVTEX41Control}, control.key{N/A}, control.author{N/A}, control.editor{N/A}, control.title{N/A}, control.pages{N/A}, control.year{N/A}, control.eprint{N/A}, 
 control{apsrev41Control}, control.key{N/A}, control.author{08}, control.editor{1}, control.title{}, control.pages{0}, control.year{1}, control.eprint{N/A}, 
 Warning--jnrlst (dependency: not reversed) set 1
@@ -28,45 +23,45 @@ Control: production of article title (-1) disabled
 Control: page (0) single
 Control: year (1) truncated
 Control: production of eprint (0) enabled
-You've used 27 entries,
+You've used 31 entries,
             5847 wiz_defined-function locations,
-            1749 strings with 18637 characters,
-and the built_in function-call counts, 21319 in all, are:
-= -- 1393
+            1759 strings with 19084 characters,
+and the built_in function-call counts, 22375 in all, are:
+= -- 1521
 > -- 473
 < -- 160
-+ -- 167
++ -- 175
 - -- 125
-* -- 3091
-:= -- 2196
-add.period$ -- 25
-call.type$ -- 27
-change.case$ -- 102
-chr.to.int$ -- 35
-cite$ -- 27
-duplicate$ -- 2089
-empty$ -- 1608
+* -- 3223
+:= -- 2328
+add.period$ -- 29
+call.type$ -- 31
+change.case$ -- 122
+chr.to.int$ -- 39
+cite$ -- 31
+duplicate$ -- 2161
+empty$ -- 1672
 format.name$ -- 273
-if$ -- 4151
+if$ -- 4347
 int.to.chr$ -- 1
-int.to.str$ -- 34
-missing$ -- 269
-newline$ -- 127
+int.to.str$ -- 38
+missing$ -- 273
+newline$ -- 139
 num.names$ -- 69
-pop$ -- 952
+pop$ -- 992
 preamble$ -- 1
-purify$ -- 123
+purify$ -- 139
 quote$ -- 0
-skip$ -- 790
+skip$ -- 834
 stack$ -- 0
-substring$ -- 491
-swap$ -- 1813
+substring$ -- 547
+swap$ -- 1865
 text.length$ -- 53
 text.prefix$ -- 0
 top$ -- 10
-type$ -- 336
+type$ -- 380
 warning$ -- 1
 while$ -- 71
 width$ -- 0
-write$ -- 236
-(There was 1 error message)
+write$ -- 252
+(There was 1 warning)

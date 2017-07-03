@@ -6,7 +6,7 @@
 %Control: page (0) single
 %Control: year (1) truncated
 %Control: production of eprint (0) enabled
-\begin{thebibliography}{25}%
+\begin{thebibliography}{29}%
 \makeatletter
 \providecommand \@ifxundefined [1]{%
  \@ifx{#1\undefined}
@@ -52,10 +52,9 @@
 %</preamble>
 \bibitem [{Note1()}]{Note1}%
   \BibitemOpen
-  \bibinfo {note} {Mandelbrot originally defined a fractal as a set whose
-  topological dimension differs from its Hausdorff dimension, but later
-  retracted this definition, stating that he preferred the word to be not
-  precisely defined.}\BibitemShut {Stop}%
+  \bibinfo {note} {Mandelbrot originally defined fractals using Haussdorf
+  dimension, but later stated that he preferred the word to be not precisely
+  defined.}\BibitemShut {Stop}%
 \bibitem [{\citenamefont {Mandelbrot}(1982)}]{mandelbrot1982fractal}%
   \BibitemOpen
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont
@@ -169,6 +168,10 @@
   {1}} (\bibinfo {year} {1977})}\BibitemShut {NoStop}%
 \bibitem [{Note2()}]{Note2}%
   \BibitemOpen
+  \bibinfo {note} {\protect \url {https://github.com/pbloem/ifsem}}\BibitemShut
+  {NoStop}%
+\bibitem [{Note3()}]{Note3}%
+  \BibitemOpen
   \bibinfo {note} {To generalize to generic MOG models, the components should
   be extended to positive definite affine functions.}\BibitemShut {Stop}%
 \bibitem [{\citenamefont {Myronenko}\ and\ \citenamefont
@@ -194,6 +197,12 @@
   Analysis and Machine Intelligence, IEEE Transactions on}\ }\textbf {\bibinfo
   {volume} {32}},\ \bibinfo {pages} {2262} (\bibinfo {year}
   {2010})}\BibitemShut {NoStop}%
+\bibitem [{Note4()}]{Note4}%
+  \BibitemOpen
+  \bibinfo {note} {This principle could be extended further, iteratively using
+  the best model at depth $D$, as the initial model for depth $D+1$. For our
+  experiments, however, we to emphasize the convergence of of a single-model
+  search (given a good initialization).}\BibitemShut {Stop}%
 \bibitem [{\citenamefont {Franses}\ and\ \citenamefont
   {Van~Dijk}(2000)}]{franses2000non}%
   \BibitemOpen
@@ -225,6 +234,10 @@
   {journal} {\bibinfo  {journal} {IEEE Transactions on Information Technology
   in Biomedicine}\ }\textbf {\bibinfo {volume} {14}},\ \bibinfo {pages} {436}
   (\bibinfo {year} {2010})}\BibitemShut {NoStop}%
+\bibitem [{Note5()}]{Note5}%
+  \BibitemOpen
+  \bibinfo {note} {We select only class-0 motions (i.e. natural motion,
+  recorded in between the experiments).}\BibitemShut {Stop}%
 \bibitem [{\citenamefont {Skrutskie}\ \emph {et~al.}(2006)\citenamefont
   {Skrutskie}, \citenamefont {Cutri}, \citenamefont {Stiening}, \citenamefont
   {Weinberg}, \citenamefont {Schneider}, \citenamefont {Carpenter},
@@ -244,6 +257,11 @@
   {journal} {\bibinfo  {journal} {The Astronomical Journal}\ }\textbf {\bibinfo
   {volume} {131}},\ \bibinfo {pages} {1163} (\bibinfo {year}
   {2006})}\BibitemShut {NoStop}%
+\bibitem [{Note6()}]{Note6}%
+  \BibitemOpen
+  \bibinfo {note} {Preprocessed data downloaded from \protect \url
+  {https://www.cfa.harvard.edu/~dfabricant/huchra/seminar/lsc/}.}\BibitemShut
+  {Stop}%
 \bibitem [{\citenamefont {Beal}(2003)}]{beal2003variational}%
   \BibitemOpen
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {M.~J.}\ \bibnamefont
