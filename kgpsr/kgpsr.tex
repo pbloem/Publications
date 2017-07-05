@@ -1,0 +1,44 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{A Variational Approach to Knowledge Graph Node Embeddings}
+
+\begin{document}
+
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\fw}[1]{\text{\texttt{#1}}}
+
+\maketitle
+
+\begin{abstract}
+
+	We present a Variational approach to to the problem of embedding knowledge graph nodes.
+\end{abstract}	
+
+\section{Introduction}
+	Knowledge graph node embeddings are vector representations of the nodes in a knowledge graph. Effective embeddings are an important first step in many pipelines for knowledge graphs visualisation, completion, classification and other tasks. Many embedding algorithms model the relations in the knowledge graph as maps in the embedding space: either translations, or more complex transformations. If for instance, we have the triple $(\fw{John}, \fw{parentof}, \fw{Mary})$, then we learn embeddings $v_\fw{John}, v_\fw{Mary} \in \R^k$  (for some chosen embedding dimension $k$) and a map $f_\fw{parentof} : \R^k \to \R^k$ for the relation \texttt{parentof} such that $f_\fw{parentof}(v_\fw{John})$ should be as close to $v_\fw{Mary}$ as possible.
+	This scheme works well, but has trouble representing multiple relations. If John has more than one child, what should $f_\fw{parentof}(v_\fw{John})$ be? Many approaches have been introduced, often requiring an advanced mathematical structure for the embedding space, such as complex vectors \cite{trouillon2016complex}, or holographic projections \cite{nickel2016holographic}.
+	We introduce a variational approach. We model each knowledge graph node not as a point in the embedding space, but as a spherical Gaussian of fixed variance. Transforming this Gaussian by the relational map should then result in a new Gaussian which maximizes the likelihood of the nodes connected to the original by the given relation.\footnotemark
+	\footnotetext{This approach is inspired by the Coherent Point Drift algorithm \cite{}, which uses a similar approach for the problem of point set registration.}
+	The variational approach has several advantages:
+	\begin{itemize}
+		\item The embedding space is a simple Euclidean space, making no special demands on downstream architectures.
+		\item The multiple-relation issue is solved in an intuitive manner: mapping a parent node to its children creates a probability distribution that covers the children. 
+		\item For linear maps, we can decompose the loss function into factors which can be solved analytically. Thus, the problem can be solved using an iterative algorithm which is guaranteed to converge to a local optimum.
+		\item Negative sampling is not required. The basic framework constrains the problem sufficiently to lead to models that generalize well.
+	\end{itemize}
+
+	We test our embeddings on the tasks of knowledge base completion and node classification. We outperform the state-of the art in each case. We also compare a general-purpose stochastic gradient descent approach for our model, to the variational search, showing that the latter converges faster, in fewer iterations, and to better solutions.
+	
+\section{Model}
+
+\section{Experiments}
+
+\section{Conclusion}
+
+
+\bibliography{kgpsr}
+
+\end{document}
