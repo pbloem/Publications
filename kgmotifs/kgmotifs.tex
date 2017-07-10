@@ -2,8 +2,10 @@
 
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{url}
 
 \newcommand{\N}{{\mathbb N}}
+\newcommand{\G}{{\cal G}}
 
 \title{Detecting Network Motifs in Knowledge Graphs using Compression}
 
@@ -15,11 +17,11 @@
 We introduce a method to detect \emph{network motifs} in knowledge graphs. Network motifs are useful patterns or meaningful subunits of the graph that recur frequently. We introduce a scalable approach for detecting such motifs in large knowledge graphs, inspired by recent work for simple graphs, and show that the motifs returned reflect the basic structure of the graph. Specifically, we show that common motifs reflect graph patterns used in common queries, basic schematic units of the graph and meaningful functional subunits, for various knowledge graphs.
 \end{abstract}
 
-The Linked, Open Data cloud contains a wealth of knowledge graphs, and is growing quickly. At the time of writing the average knowledge graph contains overt 65 000 edges, with many datasets containing more than a million \footnotemark. For such large graphs, it can be difficult to see the forest for the trees: how is the graph structured at the lowest level? What kind of things can I ask of what types of objects? What are small recurring patterns that might represent a novel insight into the data?
+\noindent The Linked, Open Data cloud contains a wealth of knowledge graphs, and is growing quickly. At the time of writing the average knowledge graph contains over 65 000 edges, with many datasets containing more than a million.\footnotemark~For such large graphs, it can be difficult to see the forest for the trees: how is the graph structured at the lowest level? What kind of things can I ask of what types of objects? What are small, recurring patterns that might represent a novel insight into the data?
 
 \footnotetext{\url{http://stats.lod2.eu/stats}}
 
-In the domain of plain (unlabelled graphs), \emph{network motifs} were recently introduced as a tool to provide users of large graphs insight into their data. Network motifs are small subgraphs whose frequency is unexpected with respect to a null model. That is, for a given graph dataset $g$ and small graph $m$, we count the frequency $F(m, g)$: how often $m$ occurs in $g$ as a subgraph. We define a probability distribution over graphs $p^\text{null}(g)$, and estimate the probability that a graph sampled from $p^\text{null}$ contains more instances of $m$ than observed in our data: $p^\text{null}(F(m, G) \geq F(m, g))$, where $G$ is a random variable representing a graph. If this probability is low (commonly, below 0.05), we consider $m$ a motif. \footnotemark
+In the domain of plain (unlabelled) graphs, \emph{network motifs} \cite{milo} were recently introduced as a tool to provide users of large graphs insight into their data. Network motifs are small subgraphs whose frequency is unexpected with respect to a null model. That is, for a given graph dataset $g$ and small graph $m$, we count the frequency $F(m, g)$: how often $m$ occurs in $g$ as a subgraph. We define a probability distribution over graphs $p^\text{null}(g)$, and estimate the probability that a graph sampled from $p^\text{null}$ contains more instances of $m$ than observed in our data: $p^\text{null}(F(m, G) \geq F(m, g))$, where $G$ is a random variable representing a graph. If this probability is low (commonly, below 0.05), we consider $m$ a motif. \footnotemark
 
 \footnotetext{This procedure has the structure of a hypothesis test, but it is important not to interpret it as statistical evidence for the meaningfulness of the motif. The only thing it proves (in a frequentist statistical sense) is that $p^\text{null}$ is not the true source of the data. This is usually not a surprise: we are rarely able to model all aspects of a realistic data-generating process in a single distribution. The $p$-values used in motif analysis should be interpreted strictly as \emph{heuristics}. See also \cite{bloem2017large}.}
 
@@ -53,8 +55,47 @@ This representation means that when we used codes for all integers to represent 
 
 \label{section:null-model}
 
+The most common null model for classical motif analysis is the degree-sequence model (also known a the configuration model \cite{}): a uniform distribution over all graphs that share the same in and out degrees of the data for every node. We extend this to knowledge graphs by also including the frequency with which each relation occurs. Let a \emph{degree sequence} $D$ of length $n$ be a triple of three integer sequences: $(D^\text{in}, D^\text{rel}, D^\text{out})$. If $D$ is the degree sequence of a graph, then node $i$ has $D^\text{in}_i$ incoming links,  $D^\text{out}_i$ outgoing links and for each relation $r$, there are $D^\text{rel}_r$ links.
 
+Let $\G_D$ be the set of all graphs with degree sequence $D$. Then the configuration model can be expressed simply as
+\[
+p(G) = \frac{1}{|\G_D|}
+\]
+for any $G$ that satisfies $D$ and $p(G) = 0$ otherwise. Unfortunately, there is no efficient way to compute $|\G_D|$ and even approximations tend to be costly for large graphs. Following the approach in \cite{bloem2017large}, we define an approximation. 
+We can define a knowledge graph by three length-$m$ integer sequences: $S$, $P$, $O$, with ${(S_j, P_j, O_j)}_j$ the graph's tripleset. If the graph satisfies degree sequence $D$, then we know that $S$ should contain node $j$ $D^\text{out}_j$ times, $P$ should contain relation $r$ $D^\text{rel}_r$ times and $O$ should contain node $j$ $D^\text{in}_j$ times.  Let ${\cal S}_D$ be the set of all such triples of integer sequences satisfying $D$. We have 
+\[
+|{\cal S}_D| =
+ {m \choose {D_1^\text{out}, \ldots, D_n^\text{out}} }
+ {m \choose {D_1^\text{rel}, \ldots, D_n^\text{rel}} }
+ {m \choose {D_1^\text{in}, \ldots, D_n^\text{in}} } \text{.}
+\]
+
+While every member of ${\cal S}_D$ contains a valid graph satisfying $D$, many graphs are represented multiple times. Firstly, many elements of ${S}_D$ contain the same link multiple times, which means they are not is ${\cal G}_D$. We call the set without these elements ${\cal S'}_D \subset {\cal S}_D$. Secondly the links of the graph are listed in arbitrary order; if we apply the same permutation to all three lists $S$, $P$ and $O$, we get an encoding of the same graph. Since we know that any element in ${\cal S}'_D$ contains only unique triples, we know that each graph is present exactly $m!$ times. Thus, we have
+\[
+|\G_D| = |{\cal S}'_D| \frac{1}{m!} \leq  |{\cal S}_D| \frac{1}{m!} \text{.}
+\]
+
+We can thus use 
+\[
+p^\text{EL}_D(G) =  \frac{m!}{{m \choose {D_1^\text{out}, \ldots, D_n^\text{out}} }
+ {m \choose {D_1^\text{rel}, \ldots, D_n^\text{rel}} }
+ {m \choose {D_1^\text{in}, \ldots, D_n^\text{in}} }}
+\]
+as an approximation for the DS model. We call this the edge-list (EL) model. It always lower-bounds the true degree sequence model, since it affords some probability mass to graphs that cannot exist. \footnotemark Experiments in the classical motif setting have shown that the ES model is an acceptable proxy \cite{bloem2017large}, especially considering the extra scalability it affords.
+
+\footnotetext{Note that we cannot simply think of $p^\text{ES}$ as a uniform model for graphs containing multiple triples, since in we can only divide by $m!$ is we know that all triples are unique.}
+ 
+ \paragraph{Encoding D} In order to encode a graph with $L^\text{EL}_D$, we must first encode $D$. \footnote{Or, equivalently, to make $p^\text{EL}$ a complete distribution on all graphs, we must provide it with a prior on $D$.} For each of the three sequences in $D$ we use the following model:
+\[
+ p(D) = \prod_i p^{\N}(D_i) \\
+ L(D) = - \sum_i \log p^{\N}(D_i)
+\]
+
+where $p^{\N}$ is a distribution on the natural numbers. This is an optimal encoding for $D$ assuming that its members are independently drawn from $p^{\N}$. When we use $p^\text{DS}$ as the null model, we use the data distribution for $p^{\N}$ to ensure that we have a lower bound to the optimal code-length. When we use $p^\text{DS}$ as part of the motif code, we must use a fair encoding, so we use a Dirichlet-Multinomial model to store $D$.
+ 
 \section{Experiments}
+
+
 
 \subsection{Schema reconstruction}
 
@@ -62,7 +103,7 @@ This representation means that when we used codes for all integers to represent 
 
 \subsection{Scale}
 
-To show the scale of our method, we show its performance on some very large graphs, culminating with adump of the complete LOD cloud, from \cite{}.
+To show the scale of our method, we show its performance on some very large graphs, culminating with a dump of the complete LOD cloud, containing 38 billion triples, from \cite{}.
 
 \subsection{Various}
 
