@@ -21,15 +21,21 @@ We introduce a method to detect \emph{network motifs} in knowledge graphs. Netwo
 
 \footnotetext{\url{http://stats.lod2.eu/stats}}
 
-In the domain of plain (unlabelled) graphs, \emph{network motifs} \cite{milo} were recently introduced as a tool to provide users of large graphs insight into their data. Network motifs are small subgraphs whose frequency is unexpected with respect to a null model. That is, for a given graph dataset $g$ and small graph $m$, we count the frequency $F(m, g)$: how often $m$ occurs in $g$ as a subgraph. We define a probability distribution over graphs $p^\text{null}(g)$, and estimate the probability that a graph sampled from $p^\text{null}$ contains more instances of $m$ than observed in our data: $p^\text{null}(F(m, G) \geq F(m, g))$, where $G$ is a random variable representing a graph. If this probability is low (commonly, below 0.05), we consider $m$ a motif. \footnotemark
+In the domain of plain (unlabelled) graphs, \emph{network motifs} \cite{milo2002network} were recently introduced as a tool to provide users of large graphs insight into their data. Network motifs are small subgraphs whose frequency is unexpected with respect to a null model. That is, for a given graph dataset $g$ and small graph $m$, we count the frequency $F(m, g)$: how often $m$ occurs in $g$ as a subgraph. We define a probability distribution over graphs $p^\text{null}(g)$, and estimate the probability that a graph sampled from $p^\text{null}$ contains more instances of $m$ than observed in our data: $p^\text{null}(F(m, G) \geq F(m, g))$, where $G$ is a random variable representing a graph. If this probability is low (commonly, below 0.05), we consider $m$ a motif. \footnotemark
 
 \footnotetext{This procedure has the structure of a hypothesis test, but it is important not to interpret it as statistical evidence for the meaningfulness of the motif. The only thing it proves (in a frequentist statistical sense) is that $p^\text{null}$ is not the true source of the data. This is usually not a surprise: we are rarely able to model all aspects of a realistic data-generating process in a single distribution. The $p$-values used in motif analysis should be interpreted strictly as \emph{heuristics}. See also \cite{bloem2017large}.}
 
 In \cite{bloem2017large}, an alternative method is presented that uses compression as a heuristic for motif value: the better a motif compresses the data, the more likely it is to be meaningful. It is shown that this principle can be implemented in a similar sort of hypothesis test for a null model, allowing a comparable workflow to classical motif analysis. 
+
 In this paper, we extend the compression-based motif analysis to Knowledge Graphs. For the purposes of this research we define Knowledge graphs as labeled multigraphs. Nodes are labeled with entity names, and links are labeled with relations. We extend the definition of a motif to that of a basic graph pattern: that is, a motif is a small graph with some of its nodes and links labeled. The motif occurs in the graph where the graph structure matches, and the labels. The unlabeled nodes and links are free to contain whatever label when the motif is mapped to the data.
-To maintain the connection to graph pattern queries, we do not require the motifs to be\emph{induced} subgraphs: that is, when a motif is mapped to a graph, the graph can contain additional links that are not specified by the motif. 
+
+To maintain the connection to graph pattern queries, we do not require the motifs to be \emph{induced} subgraphs: that is, when a motif is mapped to a graph, the graph can contain additional links that are not specified by the motif. 
+
 We perform several experiments to show that our method returns meaningful subgraphs. First, we look at several graphs for which schema information is provided. That is, we know the basic properties available for each entity. We show that the motifs found by our method correspond well to the schema, and compare performance against several basic benchmarks. Second, we run motif analysis on several datasets for which a list of real SPARQL queries entered by users is available. From these, we extract the basic graph patterns, and show that (a) these correspond to good motifs using our criterion and (b) our method can return such motifs with good precision and recall.
-All code and benchmark datasets used in the paper are available, under open licenses.
+
+All code and benchmark datasets used in the paper are available, under open licenses.\footnotemark
+
+\footnotetext{\url{...}}
 
 % TODO: Make illustration
 
@@ -40,12 +46,34 @@ All code and benchmark datasets used in the paper are available, under open lice
 \section{Method}
 
 We will first describe our method under the assumption that a good null model $p^\text{null}$ is available, and that $- \log p^\text{null}(G)$ can be efficiently computed. In Section~\ref{section:null-model}, we explain which null model we use for our experiments, and how it is implemented.
-We will start with some formal definitions of our basic ingredients. To help with notation, we make the simplifying assumption that all names (for entities and relations) have been mapped to the natural numbers in some arbitrary way.  We can then define a \textbf{knowledge graph} $G$ as a finite set of triples of integers: $G \subseteq \N \times\N \times \N$. If $(s, p, r) \in G$ with $s, p, r \in \N$, then the entities mapped to integers $s$ and $o$ are related by relation $r$.
-This representation means that when we used codes for all integers to represent these triples, that those nodes and relations assigned to small natural numbers will receive smaller codes. In practice, however we will always remap these integers to other symbols based on their frequency in the data, so this mapping will not affect performance. We may also worry that the names contain structure \emph{internally} that could be used for compression (since the labels of knowledge graphs are usually URLs), as was shown to be true in \cite{}. For our purposes, however we would like our analysis to use only the graph structure itself, and not the internal structure, so this simplified definition is a good way to ensure that we are blind to the internal structure of the labels.
+
+We will start with some formal definitions of our basic ingredients. To comfortably define probabilities and codes on graphs, we will slightly deviate from conventional definitions. Let $V$ be a countably infinite set containing all possible entities, and let $R$ be a countably infinite set containing all possible relations between them. Let $v: V \to \N$ and $r: R \to \N$ be arbitrary mappings of these sets to the natural numbers.\footnotemark
+
+\footnotetext{For instance, let $V$ and $E$ be the set of finite strings, and let $v$ and $e$ represent length-lexicographical order.}
+
+A \emph{knowledge graph} $G$, hereafter known simply as a \emph{graph} is a, is tuple $G = (V_G, E_G)$ with finite sets $V_G \subset V$ and $E_G \subset V \times R \times V$. We define the tripleset of $G$ as $G^T = \{(s, p, o) \in \N^3 : \left (v(s), r(p), v(o) \right ) \in E_G\}$. In this paper we will \emph{identify} the graph with the triple list. That is when we speak of encoding the graph, we mean encoding the triple list, and when we speak of a probability distribution over graphs, we mean a probability distribution over triple lists.
+
+This means that we are purposely \emph{not} modelling certain aspects of the data. There might, for instance bet a similarity between two node labels $v(a)$ and $v(b)$ (such as a shared IRI prefix). We are not interested in exploiting such structure, so we eliminate it from our notation. Additionally, is we use a simple code to store the integers in the triple-list we will end up using fewer bits for those nodes and triples with labels who were arbitrarily assigned short integers. Equivalently, when sampling from a simple distribution over the integers, small numbers will be more likely to be generated. In practice, however, we will always learn a distribution over the integers from the data, so that the choice of $e$ and $r$ will not affect the code. 
+
+As shown in Figure~\ref{figure:diagram}, the motifs that we aim to find are partially labeled: some nodes and edges are labeled with the marker "?" indicating that when we fit the motif to the graph, those edges can contain any label. In other words, the motif is a \emph{basic graph pattern}, and the edges and nodes marked with "?" are variables. To represent this, we add a single variable symbol $?$. Thus, a motif $M$ is defined by the triple set $M \subset (? \cup \N) ^3$, with integer values in triples interpreted as in complete knowledge graphs.
 
 \subsection{Motif search}
 
+Given a graph $G$, our aim is to find motifs $M$ that represent meaningful building blocks, or that are otherwise characteristic for $G$. In the design of our method, we will constantly aim to find a trade-off between completeness and efficiency that allows the method to scale to very large graphs. Specifically, when we economize, we will only do so in a way that makes the hypothesis test described in Section~\ref{section:relevance-test} \emph{more conservative}. For instance, we will use a very fast search for candidate motifs, which returns only a limit number of instances. A more expensive search might yield more motifs, but never less. That is, for those motifs that we find, we can be sure that they would also be found by a more expensive method. Since pattern mining of this kind often results in too many potential patterns rather than too few, it seems efficient to start with the motifs that can be found with fast, simple methods, and only extend the search once these have been exhausted.
+
+Specifically, we generate candidate motifs by \emph{sampling} them from the data. This method, inspired by \cite{kashtan2004efficient} is based on the simple insight that when we sample a pattern from the data, we are more likely to sample a frequently occurring pattern than a infrequent one. In we sample $K$ times, and rank the results by relative frequency within the sample, we are likely toe end up with a good indication of the most frequent patterns in the data. For unlabeled graphs, as little as 500 samples can be sufficient to find the most frequent subgraph.
+Theoretically, this allows us to generate promising motifs with time complexity indepenedent of the size of the graph. Our sampling algorithm is described in Figure~\ref{algorithm:sampling}
+
+
+
+
+
 \subsection{Relevance test}
+
+\label{section:relevance-test}
+
+
+
 
 \subsection{Motif code}
 
@@ -120,4 +148,5 @@ In this section, we show some experiments that are not intended to substantiate 
 \subsubsection{Node embedding}
 
 \bibliography{kgmotifs}
+
 \end{document}
