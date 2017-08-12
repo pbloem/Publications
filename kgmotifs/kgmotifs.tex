@@ -3,15 +3,22 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{url}
+\usepackage{float}
 
 \newcommand{\N}{{\mathbb N}}
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\Z}{{\mathbb Z}}
+
 \newcommand{\G}{{\cal G}}
 \newcommand{\I}{{\cal I}}
 \newcommand{\tab}{\hspace*{5mm}}
 \newcommand{\from}{\leftarrow}
 
+\floatstyle{ruled}
+\newfloat{pseudo}{h}{lop}
+\floatname{pseudo}{Algorithm}
 
-\title{Detecting Network Motifs in Knowledge Graphs using Compression}
+\title{Detecting Motifs in Knowledge Graphs using Compression}
 
 \begin{document}
 
@@ -21,7 +28,7 @@
 \noindent We introduce a method to detect \emph{network motifs} in knowledge graphs. Network motifs are useful patterns or meaningful subunits of the graph that recur frequently. We introduce a scalable approach for detecting such motifs in large knowledge graphs, inspired by recent work for simple graphs, and show that the motifs returned reflect the basic structure of the graph. Specifically, we show that common motifs reflect graph patterns used in common queries, basic schematic units of the graph and meaningful functional subunits, for various knowledge graphs.
 \end{abstract}
 
-\noindent The Linked Open Data cloud contains a wealth of knowledge graphs, and is growing quickly. At the time of writing the average knowledge graph contains over 65\,000 edges, with many datasets containing more than a million.\footnotemark~For such large graphs, it can be difficult to see the forest for the trees: how is the graph structured at the lowest level? What kind of things can I ask of what types of objects? What are small, recurring patterns that might represent a novel insight into the data?
+\noindent The Linked Open Data cloud contains a wealth of knowledge graphs, and is growing quickly. At the time of writing the average knowledge graph contains over 65\,000 edges, with many datasets containing more than a million.\footnotemark~For such large graphs, it can be difficult to see the forest for the trees: how is the graph structured at the lowest level? What kind of things can I ask of what types of entities? What are small, recurring patterns that might represent a novel insight into the data?
 
 \footnotetext{\url{http://stats.lod2.eu/stats}}
 
@@ -31,7 +38,7 @@ Unfortunately, counting all occurrences of a motif in a network is an expensive 
 
 \footnotetext{This procedure has the structure of a hypothesis test, but it is important not to interpret it as statistical evidence for the meaningfulness of the motif. The only thing it proves (in a frequentist statistical sense) is that $p^\text{null}$ is not the true source of the data. This is usually not a surprise: we are rarely able to model all aspects of a realistic data-generating process in a single distribution. The $p$-values used in motif analysis should be interpreted strictly as \emph{heuristics}. See also \cite{bloem2017large}.}
 
-In \cite{bloem2017large}, an alternative method is presented that uses \emph{compression} as a heuristic for motif value: the better a motif compresses the data, the more likely it is to be meaningful. It is shown that this principle can be implemented in a similar sort of hypothesis test for a null model, allowing a comparable workflow to classical motif analysis. Crucially, this method scales to graphs with billions of edges, suggesting that it might be suitable for the scale of knowledge graphs we encounter in the LOD cloud.
+In \cite{bloem2017large}, an alternative method is presented that uses \emph{compression} as a heuristic for motif relevance: the better a motif compresses the data, the more likely it is to be meaningful. It is shown that this principle can be implemented in a similar sort of hypothesis test for a null model, allowing a comparable workflow to classical motif analysis. Crucially, this method scales to graphs with billions of edges, suggesting that it might be suitable for the scale of knowledge graphs we encounter in the LOD cloud.
 
 In this paper, we extend the compression-based motif analysis to Knowledge Graphs. For the purposes of this research we define Knowledge graphs as labeled multigraphs. Nodes are labeled with entity names, and links are labeled with relations. We extend the definition of a motif to that of a basic graph pattern: that is, a motif is a small graph with \emph{some} of its nodes and links labeled. The motif \emph{occurs} in a graph where both the graph structure and the labels match. The unlabeled nodes and links are free to contain whatever label when the motif is mapped to the data. 
 
@@ -45,36 +52,31 @@ All code and benchmark datasets used in the paper are available, under open lice
 
 % TODO: Make illustration
 
-\subsection{Related Work}
+\paragraph{Related Work}
 
-\subsection{Preliminaries}
+\paragraph{Preliminaries}
 
 % TODO: General purpose codes: natural numbers, integers, sequences.
 
 \section{Method}
 
-We will start with some formal definitions of our basic ingredients. To comfortably define probabilities and codes on graphs, we will slightly deviate from conventional definitions. Let $V$ be a countably infinite set containing all possible entities, and let $R$ be a countably infinite set containing all possible relations between them. Let $v: V \to \N$ and $r: R \to \N$ be arbitrary mappings of these sets to the natural numbers.\footnotemark
+We will start with some formal definitions of our basic ingredients. To comfortably define probabilities and codes on graphs, we will slightly deviate from conventional definitions. Specifically, we will analyze the \emph{structure} of knowledge graphs only, ignoring any meaning they have outside the graph. For instance, we will distinguish between links with different labels, but we will ignore any internal structure of the label itself (such as shared IRI prefixes). Under this assumption we can assume that the node and link labels of our knowledge graphs are simply natural numbers. This leads to the following definition.
 
-\footnotetext{For instance, let $V$ and $E$ be the set of finite strings, and let $v$ and $e$ represent length-lexicographical order.}
+A \emph{knowledge graph} $G$, hereafter known simply as a \emph{graph} is a, is tuple $G = (v_G, r_G, E_G)$. $v_G \in \N$ is the number of nodes in the graph, and $r_G$ is the number of relations. We will define the nodeset as $V_G = \{0, \ldots, v_G-1\}$ and the relation-set as $R_G = \{0, \ldots, r_G\}$. The \emph{tripleset} $E_G \subset V_G \times R \times V_G$ defines the links of the graph and their labels. \footnotemark
 
-% TODO: Clarify that we aren't storing node labels
+\footnotetext{Commonly, the elements of the nodeset of a graph are defined to be simple atoms from some larger unspecified universe. However, since we are discussing sampling graphs, we need to specify where these atoms come from. This definition specifies that graphs are essentially unlabeled, but nodes do have a definite ordering (i.e. two graphs can be isomorphic without being the same graph).}
 
-A \emph{knowledge graph} $G$, hereafter known simply as a \emph{graph} is a, is tuple $G = (V_G, E_G)$ with finite sets $V_G \subset V$ and $E_G \subset V \times R \times V$. We define the \emph{tripleset} of $G$ as $G^T = \{(s, p, o) \in \N^3 : \left (v(s), r(p), v(o) \right ) \in E_G\}$. In this paper we will \emph{identify} the graph with the tripleset. That is, when we speak of encoding the graph, we mean encoding the triple list, and when we speak of a probability distribution over graphs, we mean a probability distribution over triplesets. Let $R_G \subset \N$ be the set of relations used in $G$. 
+As shown in Figure~\ref{figure:diagram}, the patterns that we aim to find are partially labeled: some nodes and edges are labeled with negative integers. In other words, the motif is a \emph{basic graph pattern}, and the edges and nodes marked with negative integers are variables. We will define a pattern in the same way we define a graph, but we will extend its nodeset en relationset. A pattern $M$ for graph $G$ is a tuple $(v'_M, r'_M, G, E_M)$. $v'_M$ and $r'_M$ indicate the number of variable nodes and links respectively. $M$'s nodeset is defined as $V_M = \{-v'_M, \ldots, v_G-1\}$ and the relationset as $R_M = \{-r'_M, \ldots, r_G-1\}$, with $E_M \subset V_M \times R_M \times V_M$, as for graphs. In short, nodes can be labeled with nonnegative integers referring to $G$'s nodes or with negative integers representing a variable node, and similar for relations.
 
-This means that we are purposely \emph{not} modelling certain aspects of the data. There might, for instance be a similarity between two node labels $a$ and $b$ (such as a shared IRI prefix). We are not interested in exploiting such structure, so we eliminate it from our notation. We also introduce some bias with our choice of $e$ and $r$. Entities and relations that are assigned small integers may end up receiving short codes or high probability mass, if a simple code or disgribution is used. In practice, however, we will always \emph{learn} a distribution over the integers from the data, so that $e$ and $r$ are purely a means to simplify the notation. Which functions we choose will not affect our model.
+An \emph{instance} for $M$ in $G$ is a pair of sequences of integers: $I = (I^n, I^r)$. $I^n$ is a sequence of distinct integers of length $v'_M$. $I^r$ is a sequence of non-distinct integers of length $r'_M$. For each link $(s, p, o) \in E_M$ containing a negative $s$, $p$ or $o$, there is a corresponding link in $E_G$ with a negative $s$ replaced by $I^n_{-s}$, a negative $o$ replaced by $I^n_{-o}$, and a negative $p$ replaced by $I^r_{-p}$. Put simply: for a pattern to match, variable links marked with the same negative integer, must map to the same relation in order for the pattern to match, but variable links labeled with different negative integers \emph{may} map to the same relation. Variable nodes are always labeled distinctly and may never map to the same node in $G$. An instance describes a subgraph of $G$ that \emph{matches} the pattern $M$. 
 
-As shown in Figure~\ref{figure:diagram}, the motifs that we aim to find are partially labeled: some nodes and edges are labeled with the marker "?" indicating that when we fit the motif to the graph, those edges can contain any label. In other words, the motif is a \emph{basic graph pattern}, and the edges and nodes marked with "?" are variables. To represent this, we require additional symbols: one for variable relations, and one for each node in the motif marked with a variable. We will define a pattern by an \emph{integer} triple list: $M \subset \Z^3$. Natural numbers mean the same as they do in a graph, and negative integers represent variable nodes. Variable links marked with the same negative integer, must map to the same relation in order for the pattern to match, but variable links labeled with different negative integers \emph{may} map to the same relation. For the current paper, we will only search for patterns where each variable link contains a unique label.
-
-We will first assume that a target pattern $M$ is given for the data $G$ and that we have a set of \emph{instances} $\cal I'$ where $I \in \cal I'$ is a subset of $E_G$ which matches the pattern. Moreover, we require that all instances in $\cal I$ are mutually disjoint. Thus, we cannot simply return all matches of the pattern, we require some selection to ensure that none of them overlap. In most settings we do not have a given $M$ and $I$ and we will need to search for them. We describe a simple and fast search algorithm in Section~\ref{section:search}.
-
-Note that unlike the graph, the nodes of $M$ \emph{are} explicitly labeled. The positive-valued nodes of $M$ are not simply the first $|V_M|$ integers, but refer specifically to the nodes of $G$.
+We will first assume that a target pattern $M$ is given for the data $G$ and that we have a set of instances $\I$. Moreover, we require that all instances in $\I$ are mutually disjoint: no two subgraphs defined by member of $\I$ may share an edge, but nodes may be shared. In most settings we do not actually have a given $M$ and $\I$ and we will need to search for them. We describe a simple and fast search algorithm in Section~\ref{section:search}.
 
 \subsection{Relevance test}
 
 \label{section:relevance-test}
 
 We will first describe our method under the assumption that a good null model $p^\text{null}$ is available, and that $- \log p^\text{null}(G)$ can be efficiently computed. In Section~\ref{section:null-model}, we explain which null model we use for our experiments, and how it is implemented. 
-
 
 In the design of our method, we will constantly aim to find a trade-off between completeness and efficiency that allows the method to scale to very large graphs. Specifically, when we economize, we will only do so in a way that makes the hypothesis test described in Section~\ref{section:relevance-test} \emph{more conservative}.
 
@@ -89,31 +91,70 @@ We also assume that we are given a code $L^\text{base}$ for generic knowledge gr
 We store, in order:
 
 \begin{description}
- \item[the graph dimensions] We first store $|V_G|$, $|E_G|$ and $|R_G|$ using the generic code $L^{\N}(\cdot)$.
+ \item[the graph dimensions] We first store $|V_G|$, $|E_G|$ and $|R_G|$ using the generic code $L^{\N}(\cdot)$. We also store the size of $\I$.
  \item[the pattern] Let $M'$ be the unlabeled graph representation of $M$: that is, $M'$ is a plain graph (not a pattern), $V_{M'}$ contains only the first $V_{M'}$ natural numbers and similarly for $R_{M'}$. Otherwise, $M$ is isomorphic to $M'$: the node and edge labels of $M$ can be mapped to those of $M'$ so that $M$ only contains an edge $E$ if and only if $M'$ contains the edge resulting from mapping $E$'s symbols. 
- \item[the template] This is the graph, minus all links occurring in  instances. Let $E_G'$ be $E_G$ minus any link occurring in any member of $\cal I$. We then store $(V_G, E_G')$ using $L^\text{base}$.
- \item[the instances] In order to reconstruct the graph from the template, we need to know which nodes correspond to instances of the motif, and in what order. For each node in $M'$, we create a list of length $\cal I$ of the nodes in $G$ to which it maps for each instance. For the non-variable list, this will be a a list simply repeating one node, and for the variable nodes it will be a list containing some subset of the ndoes in $G$.
- We store each list using the DM code. It may seem wasteful to store a list repeating a single element, but under the DM code such lists will be stored efficiently. The more varied the list, the more bits it will require to store.
+ \item[the template] This is the graph, minus all links occurring in  instances. Let $E_G'$ be $E_G$ minus any link occurring in any member of $\cal I$. We then store $(V_G, E_G')$ using $L^\text{base}(\cdot)$.
+ \item[the instances] In order to reconstruct the graph from the template, we need to know which nodes correspond to instances of the motif, and in what order. For each node in $M'$, we create a list of length $\cal |I|$ of the nodes in $G$ to which it maps for each instance. For the non-variable nodes of the pattern, this will be a list simply repeating one node node of $G$. For the variable nodes, it will be a list containing some subset of the nodes in $G$.
+ We store each list using the DM code. It may seem wasteful to store a list repeating a single element (instead of storing a labeled version of the pattern), but under the DM code such lists will be stored efficiently, using only a small, constant number of bits. The more varied the list, the more bits will be required to store it.
  \item[the edge labels] We now have enough information to reconstruct the graph structure. All that remains to fully reconstruct $G$ is to label the links of the motif instances. As for the nodes, we create one list of length $\cal I$ for each type of link in $M'$, which we store using the DM code.
 \end{description}
 
-The precise computation of the codelength is given in Algorithm~\ref{algorithm:codelength}. 
+The precise computation of the codelength is given in Algorithm~\ref{algorithm:motif-code}. 
 
-We note a few aspects of this code. Firstly, it achieves its compression by not storing the edges of the motif instances. For each additional instance, it pays the cost of storing the instance, and any variable nodes and links, but it saves $|E_M|$ edges in storing the template. The precise trade-off depends on the choice of base code, and on the structure of the rest of the graph (some edges are cheaper to store than others).
+We note a few aspects of this code. Firstly, it achieves its compression by reducing the number of links it has to store. For each additional instance, it pays the cost of storing the instance, and any variable nodes and links, but it saves $|E_M|$ links in storing the template. The precise trade-off depends on the choice of base code, and on the structure of the rest of the graph (some edges are cheaper to store than others, for some codes).
 
-Nevertheless, we can make a few broad observations: patterns with many variable nodes and links are more costly to store than fully labeled patterns. On the other hand, a pattern with many variable nodes and links is more likely to have many instances, so that \emph{if} it results in a small amount compression per instance, the large number of instances may cause it to compress a lot. For the variable nodes and links, we use a DM model for each specific node and link. This means that the more structure there is to the label given to a particular part of the pattern, the better we compress. For instance, suppose a particular node of the pattern is always labeled with either a node corresponding to YES or NO, in equal proportion, we will require only a bit per instance to record those labels. If, however, all nodes in the graph are equally likely to appear in the position of the variable, we will pay approximately $\log |V_G|$ bits per instance. If only a single node appears in the position, we pay only a a constant number of bits to record the entire sequence of instances. Thus, to our code, non-variable nodes are just a highly regular type of variable node. The distinction is only meaningful in the search algorithm.
+Nevertheless, we can make a few broad observations: patterns with many variable nodes and links are more costly to store than fully labeled patterns. On the other hand, a pattern with many variable nodes and links is more likely to have many instances, so that \emph{if} it results in a small amount of compression per instance, the large number of instances may cause it to compress a lot. For the variable nodes and links, we use a DM model for each specific node and link. This means that the more structure there is to the label given to a particular part of the pattern, the better we compress. For instance, suppose a particular node of the pattern is always labeled with either a node corresponding to YES or NO, in equal proportion, we will require only a bit per instance to record those labels. If, however, all nodes in the graph are equally likely to appear in the position of the variable, we will pay approximately $\log |V_G|$ bits per instance. If only a single node appears in the position, we pay only a a constant number of bits to record the entire sequence of instances. Thus, to our code, non-variable nodes are just a highly regular type of variable node. The distinction is only meaningful in the search algorithm.
+
+\begin{pseudo}[tb]
+\caption{The motif code $L^\text{motif}(G ; M, {\cal I}, L^\text{base})$. Note that the nodes and relations of the graph are integers.}
+\label{algorithm:motif-code}
+{ 
+\textbf{function} $\text{codelength}(G; M, {\cal I}, L^\text{base})$:\\
+\tab\tab a graph $G$, a pattern $M$\\ 
+\tab\tab a list $\cal I$ of instances of $M$ in $G$, a code $L^\text{base}$ on knowledge graphs.\\
+\\
+\tab $b_\text{dim} \leftarrow L^\N(|V_G|) + L^\N(|R_G|) + L^\N(|E_G|) + L^\N(|\I|)$ \\
+
+\tab \emph{// Turn the pattern into a normal knowledge graph}\\
+\tab $E_{M'} = \left\{(\text{i}(s, V_M),  \text{i}(p, R_M), \text{i}(o, V_M)) \mid (s, p, o) \in E_M\right\}$\\
+\tab $M' = ([0 ..  |V_M|-1], [0 .. |R_M|-1], E_{M'})$\\
+\tab $b_\text{pattern} \leftarrow L^\text{base}(M')$ \\
+
+\tab $E'_G = E_G - \cup_{\I \in {\cal I}} I$ \hfill \emph{// Store the graph, with instances removed}\\
+\tab $b_\text{template} = L_\text{base}((V_G, R_G, E'_G))$\\
+
+
+\tab $b_\text{labels} \leftarrow 0$ \hfill \emph{// Store the node labels} \\
+\tab \textbf{for} $n$ in $V_M$\\
+\tab\tab $\I_n = \langle v(n, I_1), v(n, I_2), ... \rangle$\\
+\tab\tab\tab with $v(n, I)$ the label (from $V_G$) of node $n$ in instance $I$\\
+\tab\tab $b_\text{labels} \leftarrow b_\text{labels} + L^{DM}(\I_n)$\\
+
+\tab \textbf{for} $e$ in $E_M$ \hfill \emph{// Store the edge labels}\\
+\tab\tab $\I_e = \langle r(e, I_1), r(n, I_2), ... \rangle$\\
+\tab\tab\tab with $r(e, I)$ the relation (from $R_G$) of edge $e$ in instance $I$\\
+\tab\tab $b_\text{labels} \leftarrow b_\text{labels} + L^{DM}(\I_e)$\\
+
+
+\tab \textbf{return} $b_\text{dim} + b_\text{pattern} + b_\text{template} + b_\text{labels}$\\
+}
+
+\textbf{function} $\text{i}(s, S)$:\\
+\tab \textbf{return} index of $s$ in $\text{sorted}(S)$\\
+
+\end{pseudo} 
 
 \subsection{Motif search}
 
 \label{section:search}
 
-In most use cases, we do not start with a given motif and a set of instances. We have only the graph $G$, and we wish to find any motifs that might be interesting. In order to do this efficiently, we generate candidate patterns by \emph{sampling} them from the data. This method, inspired by \cite{kashtan2004efficient} is based on the simple insight that when we sample a pattern from the data, we are more likely to sample a frequently occurring pattern than a infrequent one. Ik we sample $K$ times, and rank the results by relative frequency within the sample, we are likely to end up with a good indication of the most frequent patterns in the data. For unlabeled graphs, as few as 500 samples can be sufficient to find the most frequent subgraph.
+Usually, we do not start with a given pattern $M$ and a set of instances $\I$. We have only the graph $G$, and we wish to find \emph{any} pattern that might be interesting. In order to do this efficiently, we generate candidate patterns by \emph{sampling} them from the data. This method, inspired by \cite{kashtan2004efficient} is based on the simple insight that when we sample a pattern from the data, we are more likely to sample a frequently occurring pattern than a infrequent one. If we sample $K$ times, and rank the results by relative frequency within the sample, we are likely to end up with a good indication of the most frequent patterns in the data. For unlabeled graphs, as few as 500 samples can be sufficient to find the most frequent subgraph.
 
-Theoretically, this allows us to generate promising motifs with time complexity independent of the size of the graph. Our algorithm samples a pattern in three steps. First, it samples a weakly connected subset of $n$ nodes, and extracts the subgraph induced by these nodes. Second, it converts this subgraph to a non-induced pattern by randomly removing labels from some of the nodes and links and randomly removing some links entirely (as detailed below). Finally, we sort the nodes of this pattern into a canonical ordering, using the Nauty algorithm \cite{mckay1981practical}, this allows us to record the instances for each subgraph without counting isomorphic subgraphs separately.
+Theoretically, this allows us to generate promising candidates with time complexity independent of the size of the graph. Our algorithm samples a pattern in three steps. First, it samples a weakly connected subset of $n$ nodes, and extracts the \emph{induced subgraph} for these nodes. Second, it converts this induced subgraph to a non-induced pattern by randomly removing labels from some of the nodes and links and randomly removing some links entirely (as detailed below). Finally, we sort the nodes of this pattern into a canonical ordering, using the Nauty algorithm \cite{mckay1981practical} (so that we record isomorphic samples as the same pattern).
 
-For an induced subgraph with $n$ nodes and $e$ links, we can generate $n^2e^3$ patterns. A uniform random choice among these would make patterns with many labels very unlikely. Instead, we sample $n' ~ U([0.. n])$, $e' ~ U([0.. e])$ and $e^*~ U([0..e'])$, with $n'$ the number of nodes to leave labeled, $e'$ the number of links to leave, and $e^*$ the number of links to leave labeled, respectively. If the resulting pattern is disconnected, we reject the sample.
+For an induced subgraph with $n$ nodes and $e$ links, we can generate up to $n^2e^3$ different patterns: each node can be left labeled or made a variable node, each link can be removed, left unlabeled or be made variable. A uniform random choice among these would make patterns with many labels very unlikely. Instead, we sample $n' ~ U([0.. n])$, $e' ~ U([0.. e])$ and $e^*~ U([0..e'])$, with $n'$ the number of nodes to leave labeled, $e'$ the number of links to leave, and $e^*$ the number of links to leave labeled, respectively. If the resulting pattern is disconnected, we reject the sample.
 
-We sample $K$ such patterns, recording a dictionary mapping canonical patterns $M$ to a list of observed instances $\I'_M$ of $M$ in $G$. Note that we must store the \emph{link} of the occurrence in $\I'_M$, since the same pattern may emerge from a single induced subgraph in multiple ways.
+We sample $K$ such patterns, recording a dictionary which maps canonical patterns $M$ to a list of observed instances $\I'_M$ of $M$ in $G$. Note that we must store the \emph{links} of the occurrence in $\I'_M$, since the same pattern may emerge from a single induced subgraph in multiple ways.
 
 Before we can can pass each pattern to the relevance test to see if it is a motif, we must first ensure that $\I'_M$ contains only link-disjoint instances. Assuming that all instances contribute equally to the compression, we would like to select the largest subset of $\I'_M$ consisting entirely of mutually disjoint sets. This is an instance of the Maximum Independent Set Problem, which is NP-Hard to solve optimally. Since we are aiming for scalability, we use a simple greedy algorithm to create our set $\I_M$ of disjoint instances: we include the first instance $I$ in $\I'_M$ in $\I_M$ and exclude any other instances that overlap with $I$. We then move to the next instance that has not already been included or excluded, and repeat the procedure. We continue until all instances have been included or excluded.
 
@@ -121,56 +162,51 @@ We then pass each $M$ and $\I_M$ to the relevance test to see if they are motifs
 
 \footnotemark{In \cite{bloem2017large}, the number of edges between nodes inside the instance and outside it (the exdegree of the instance), was a strong predictor of whether the instances would benefit compression. Thus, the algorithm was strongly helped by pruning the list of instances using a ternary search. For the current code, the exdegree does not affect compression (since the instance nodes are not removed from the template graph). Therefore, we pass the entire instance list $\I_M$ to the relevance test without pruning it.}
 
-Our sampling algorithm is described more precisely in Figure~\ref{figure:sampling}.
+Our sampling algorithm is described more precisely in Algorithm~\ref{algorithm:sampling}.
 
 
-\begin{figure}[bt]
-{
-\hrule
-\vspace{3mm}
-\raggedright
-Given: a graph $G$, \\
-\tab a minimum motif size $s_\text{min}$ and a maximum motif size $s_\text{max}$ \\
-\tab a target number of graphs sampled\\
-\tab\\
-Initialize $d$, a dictionary from motif $M$ to a list of instances $d[M] \in 2^{2^N}$ \\ 
-\tab\\
-Choose $s$ uniformly from $[s_\text{min} .. s_\text{max}]$ \\
-Choose a starting node $n$ uniformly from $G$ \\
-$N \from \{n\}$ \\
-\textbf{while} $|N| < s$:\\
-\tab Choose $n$ uniformly from $N$
-\tab Choose $n'$ uniformly from the neighbors of $n$
-\tab $N \from N \cup n'$ \\
-\tab After 500 cycles, sample a different starting node\\
-
-$M \from G[N]$, the induced subgraph of $N$ \\
-$M \from \text{canonical}(M)$ using the Nauty canonization algorithm, ignoring label \\
-\vspace{3mm}
-\hrule
-}
+\begin{pseudo}[tb]
 \caption{The motif sampling algorithm.}
-\label{figure:sampling}
-\end{figure}
+
+\textbf{function} $\text{sample}(G, s_\text{min}, s_\text{max})$:\\
+\tab\tab a graph $G$, a minimum and maximum motif size $s_\text{min}$, $s_\text{max}$ \\
+
+\tab Choose $s$ uniformly from $[s_\text{min} .. s_\text{max}]$ \\
+\tab Choose a starting node $n$ uniformly from $V_G$ \\
+\tab $N \from \{n\}$ \\
+\tab \textbf{while} $|N| < s$:\\
+\tab \tab Choose $n$ uniformly from $N$\\
+\tab \tab Choose $n'$ uniformly from the neighbors of $n$\\
+\tab \tab $N \from N \cup n'$ \\
+\tab \tab After 500 cycles, sample a different starting node\\
+
+\tab $M \from G[N]$, the induced subgraph of $N$ \\
+\tab  Sample $n' ~ U([0.. n])$, $e' ~ U([0.. e])$ and $e^*~ U([0..e'])$\\
+\tab Randomly remove $e^*$ links, $e'$ linklabels and $n'$ nodelabels from $M$.\\
+\tab\tab (removed labels replaced by the next available negative integer)\\
 
 
-The sampling algorithm produces full labeled, induced subgraphs. 
+\tab \textbf{return} $\text{canonical}(M, N)$ \\
 
-For instance, we will use a very fast search for candidate motifs, which returns only a limited number of instances. A more expensive search might yield more instances, but never fewer. That is, for those motifs that we find, we can be sure that they would also be found by a more expensive method. Since pattern mining of this kind often results in too many potential patterns rather than too few, it seems efficient to start with the motifs that can be found with fast, simple methods, and only extend the search once these have been exhausted.
-
+\textbf{function} $\text{canonical}(G, I)$:\\
+\tab\tab a graph $G$, list of integers $I$\\
+\tab \textbf{return} $G$ with nodes in canonical order, $I$ permuted the same way
+\label{algorithm:sampling}
+\end{pseudo}
 
 \section{Null model}
 
 \label{section:null-model}
 
-The most common null model for classical motif analysis is the degree-sequence model (also known a the configuration model \cite{}): a uniform distribution over all graphs that share the same in and out degrees of the data for every node. We extend this to knowledge graphs by also including the frequency with which each relation occurs. Let a \emph{degree sequence} $D$ of length $n$ be a triple of three integer sequences: $(D^\text{in}, D^\text{rel}, D^\text{out})$. If $D$ is the degree sequence of a graph, then node $i$ has $D^\text{in}_i$ incoming links,  $D^\text{out}_i$ outgoing links and for each relation $r$, there are $D^\text{rel}_r$ links.
+The most common null model for classical motif analysis is the degree-sequence model (also known a the configuration model \cite{}): a uniform distribution over all graphs that share the same in and out degrees of the data for every node. We extend this to knowledge graphs by also including the frequency with which each relation occurs. Let a \emph{degree sequence} $D$ of length $n$ be a triple of three length-$n$ integer sequences: $(D^\text{in}, D^\text{rel}, D^\text{out})$. If $D$ is the degree sequence of a graph, then node $i$ has $D^\text{in}_i$ incoming links,  $D^\text{out}_i$ outgoing links and for each relation $r$, there are $D^\text{rel}_r$ links.
 
 Let $\G_D$ be the set of all graphs with degree sequence $D$. Then the configuration model can be expressed simply as
 \[
 p(G) = \frac{1}{|\G_D|}
 \]
-for any $G$ that satisfies $D$ and $p(G) = 0$ otherwise. Unfortunately, there is no efficient way to compute $|\G_D|$ and even approximations tend to be costly for large graphs. Following the approach in \cite{bloem2017large}, we define an approximation. 
-We can define a knowledge graph by three length-$m$ integer sequences: $S$, $P$, $O$, with ${(S_j, P_j, O_j)}_j$ the graph's tripleset. If the graph satisfies degree sequence $D$, then we know that $S$ should contain node $j$ $D^\text{out}_j$ times, $P$ should contain relation $r$ $D^\text{rel}_r$ times and $O$ should contain node $j$ $D^\text{in}_j$ times.  Let ${\cal S}_D$ be the set of all such triples of integer sequences satisfying $D$. We have 
+for any $G$ that satisfies $D$ and $p(G) = 0$ otherwise. Unfortunately, there is no efficient way to compute $|\G_D|$ and even approximations tend to be costly for large graphs. Following the approach in \cite{bloem2017large}, we define a fast approximation to the configuration model, which works well in practice for motif detection. 
+
+We can define a knowledge graph by three length-$m$ integer sequences: $S$, $P$, $O$, with $\{(S_j, P_j, O_j)\}_j$ the graph's tripleset. If the graph satisfies degree sequence $D$, then we know that $S$ should contain node $j$ $D^\text{out}_j$ times, $P$ should contain relation $r$ $D^\text{rel}_r$ times and $O$ should contain node $j$ $D^\text{in}_j$ times.  Let ${\cal S}_D$ be the set of all such triples of integer sequences satisfying $D$. We have 
 \[
 |{\cal S}_D| =
  {m \choose {D_1^\text{out}, \ldots, D_n^\text{out}} }
@@ -178,7 +214,7 @@ We can define a knowledge graph by three length-$m$ integer sequences: $S$, $P$,
  {m \choose {D_1^\text{in}, \ldots, D_n^\text{in}} } \text{.}
 \]
 
-While every member of ${\cal S}_D$ contains a valid graph satisfying $D$, many graphs are represented multiple times. Firstly, many elements of ${S}_D$ contain the same link multiple times, which means they are not is ${\cal G}_D$. We call the set without these elements ${\cal S'}_D \subset {\cal S}_D$. Secondly the links of the graph are listed in arbitrary order; if we apply the same permutation to all three lists $S$, $P$ and $O$, we get an encoding of the same graph. Since we know that any element in ${\cal S}'_D$ contains only unique triples, we know that each graph is present exactly $m!$ times. Thus, we have
+While every member of ${\cal S}_D$ represents a valid graph satisfying $D$, many graphs are represented multiple times. Firstly, many elements of ${S}_D$ contain the same link multiple times, which means they are not in ${\cal G}_D$. We call the set without these elements ${\cal S'}_D \subset {\cal S}_D$. Secondly the links of the graph are listed in arbitrary order; if we apply the same permutation to all three lists $S$, $P$ and $O$, we get a new representation of the same graph. Since we know that any element in ${\cal S}'_D$ contains only unique triples, we know that each graph is present exactly $m!$ times. Thus, we have
 \[
 |\G_D| = |{\cal S}'_D| \frac{1}{m!} \leq  |{\cal S}_D| \frac{1}{m!} \text{.}
 \]
@@ -189,17 +225,17 @@ p^\text{EL}_D(G) =  \frac{m!}{{m \choose {D_1^\text{out}, \ldots, D_n^\text{out}
  {m \choose {D_1^\text{rel}, \ldots, D_n^\text{rel}} }
  {m \choose {D_1^\text{in}, \ldots, D_n^\text{in}} }}
 \]
-as an approximation for the DS model. We call this the edge-list (EL) model. It always lower-bounds the true degree sequence model, since it affords some probability mass to graphs that cannot exist. \footnotemark Experiments in the classical motif setting have shown that the ES model is an acceptable proxy \cite{bloem2017large}, especially considering the extra scalability it affords.
+as an approximation for the DS model. We call this the edge-list (EL) model. It always lower-bounds the true degree sequence model, since it affords some probability mass to graphs that cannot exist.\footnotemark ~Experiments in the classical motif setting have shown that the ES model is an acceptable proxy \cite{bloem2017large}, especially considering the extra scalability it affords.
 
-\footnotetext{Note that we cannot simply think of $p^\text{ES}$ as a uniform model for graphs containing multiple triples, since in we can only divide by $m!$ is we know that all triples are unique.}
+\footnotetext{Note that we cannot simply think of $p^\text{EL}$ as a uniform model for graphs containing multiple links, since in we can only divide by $m!$ if we know that all triples are unique.}
  
  \paragraph{Encoding D} In order to encode a graph with $L^\text{EL}_D$, we must first encode $D$. \footnote{Or, equivalently, to make $p^\text{EL}$ a complete distribution on all graphs, we must provide it with a prior on $D$.} For each of the three sequences in $D$ we use the following model:
-\[
- p(D) = \prod_i p^{\N}(D_i) \\
- L(D) = - \sum_i \log p^{\N}(D_i)
-\]
+\begin{align*}
+ p(D) &= \prod_i p^{\N}(D_i) \\
+ L(D) &= - \sum_i \log p^{\N}(D_i)
+\end{align*}
 
-where $p^{\N}$ is a distribution on the natural numbers. This is an optimal encoding for $D$ assuming that its members are independently drawn from $p^{\N}$. When we use $p^\text{DS}$ as the null model, we use the data distribution for $p^{\N}$ to ensure that we have a lower bound to the optimal code-length. When we use $p^\text{DS}$ as part of the motif code, we must use a fair encoding, so we use a Dirichlet-Multinomial model to store $D$.
+where $p^{\N}$ is a distribution on the natural numbers. This is an optimal encoding for $D$ assuming that its members are independently drawn from $p^{\N}$. When we use $p^\text{EL}$ as the null model, we use the data distribution for $p^{\N}$ to ensure that we have a lower bound to the optimal code-length. When we use $p^\text{EL}$ as part of the motif code, we must use a fair encoding, so we use a Dirichlet-Multinomial model to store each sequence in $D$.
  
 \section{Experiments}
 

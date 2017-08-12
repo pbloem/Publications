@@ -5,7 +5,7 @@
 
 \DeclareMathOperator*{\argmin}{arg\,min}
 
-\title{A Variational Approach to Knowledge Graph Node Embeddings}
+\title{A Bayesian Approach to Knowledge Graph Node Embeddings}
 
 \begin{document}
 
@@ -17,24 +17,24 @@
 
 \begin{abstract}
 
-	We present a Variational approach to to the problem of embedding knowledge graph nodes.
+	We present a variational approach to to the problem of embedding knowledge graph nodes.
 \end{abstract}	
 
 \section{Introduction}
-Knowledge graph node embeddings are vector representations of the nodes in a knowledge graph. For a knowledge graph with nodes $N$, an embedding is a function $v: N \to \R^k$ such that $v$ organizes the nodes meaningfully in the spacer $\R^k$ according to some criterion.
+Knowledge graph node embeddings are vector representations of the nodes in a knowledge graph. For a knowledge graph with nodeset $N$, an embedding is a function $v: N \to \R^k$ such that $v$ organizes the nodes meaningfully in the space $\R^k$ according to some criterion.
 
-Effective embeddings are an important first step in many pipelines for knowledge graph visualisation, completion, classification and other tasks. Many embedding algorithms model the relations in the knowledge graph as maps in the embedding space: either translations, or more complex transformations. If for instance, we have the triple $(\fw{Mary}, \fw{childof}, \fw{John})$, then we learn embeddings $v_\fw{Mary}, v_\fw{John} \in \R^k$  (for some chosen embedding dimension $k$) and a map $f_\fw{childof} : \R^k \to \R^k$ for the relation \texttt{childof} such that $f_\fw{childof}(v_\fw{John})$ should be as close to $v_\fw{Mary}$ as possible (for some chosen distance metric).
+Effective embeddings are an important first step in many pipelines for knowledge graph visualisation, completion, classification and other tasks. Many embedding algorithms model the relations in the knowledge graph as maps in the embedding space: either translations, or more complex transformations. If for instance, we have the triple $(\fw{Mary}, \fw{childof}, \fw{John})$, then we learn embeddings $v_\fw{Mary}, v_\fw{John} \in \R^k$  (for some chosen embedding dimension $k$) and a map $f_\fw{childof} : \R^k \to \R^k$ for the relation \texttt{childof} such that $f_\fw{childof}(v_\fw{John})$ should be as close to $v_\fw{Mary}$ as possible (for some chosen notion of distance).
 
 This scheme works well, but has trouble representing multiple relations. If John has more than one child, what should $f_\fw{childof}(v_\fw{John})$ be? Many approaches have been introduced, often requiring an advanced mathematical structure for the embedding space, such as complex vectors \cite{trouillon2016complex}, or holographic projections \cite{nickel2016holographic}.
 
 Our approach is based on a simple intuition. For each source node, we place a spherical Gaussian distribution over the embedding. Transforming this Gaussian by the relational map should then result in a new Gaussian which maximizes the likelihood of the nodes connected to the original by the given relation.\footnotemark
 \footnotetext{This approach is inspired by the Coherent Point Drift algorithm \cite{}, which uses a similar approach for the problem of point set registration.} In other words, transforming a spherical Gaussian centered on $v_\fw{John}$ by $f_\fw{childof}$ should result in a distribution that maximizes the probability of John's children.
 
-Intuitively, this is a simple latent variable problem, that can be solved by an alternating optimization algorithm in the vein of expectation-maximization: given a choice for the node embeddings, we can find the optimal functions to represent the relations, and given a choice for the relation functions, we compute the optimal embeddings. Alternating these two optimizations is likely to converge to a good solution. To formalize this intuition in an elegant manner, take a Bayesian approach, and find the optimum using variational inference. Thge preicsae model is detailed in Section~\ref{section:model}.
+The task, then, given a knowledge graph, is to find an embedding $v_i$ for each node $i$, and a function $f_r$ for each relations, such that the resultant Gaussians optimally cover the required nodes. Intuitively, this problem can be solved by an alternating optimization algorithm in the vein of expectation-maximization: given a choice for the node embeddings, we can find the optimal functions to represent the relations, and given a choice for the relation functions, we can compute the optimal embeddings. Alternating these two optimizations is likely to converge to a good solution. To formalize this intuition in an elegant manner, we take a Bayesian approach, and find a solution using variational inference. The precise model is detailed in Section~\ref{section:model}.
 
 Our approach has several advantages over the alternatives:
 \begin{itemize}
-	\item The nodes are embedded in a simple Euclidean space, making no special demands on downstream architectures.
+	\item The nodes are embedded in a simple Euclidean space, making no special demands on downstream architectures. %TODO Check if ComplEx and HolE do actually do this. Explain better
 	\item The multiple-relation issue is solved in an intuitive manner: mapping a parent node to its children creates a probability distribution that covers the children. 
 	\item The method is agnostic to the family of maps used to represent relations. We choose affine maps as a good tradeoff between ease of optimization, rigidity to protect against overfitting, and expressiveness. The method easily generalizes to other function classes.
 	\item For linear maps, we can decompose the loss function into factors which can be solved analytically. Thus, the problem can be solved using an iterative algorithm which is guaranteed to converge to a local optimum.
@@ -51,20 +51,33 @@ Define a knowledge graph $G$ as a triple $G = (V_G, R_G, E_G)$ with $V_G$ repres
 
 To simplify notation, we will assume that the graph being modeled is clear from context, and drop the subscript $G$.
 
-Let $x_i \in \R^k$ be the embedding chosen for node $i \in V$. Let $f_r$ be a parametrized function from $\cal F$, representing relation $r \in R$. For our method, we will let $\cal F$ be the set of affine functions, each parametrized by a transformation matrix $A_r \in \R^{k\times k}$, and a translation vector $t_r\in \R^k$. Thus our model contains $|N|$ vectors in $\R^k$, and $|R|$ functions each defined by a matrix $A_r$ and vector $t_r$.
+Let $x_i \in \R^k$ be the embedding chosen for node $i \in V$. Let $f_r$ be a parametrized function from $\cal F$, representing relation $r \in R$. For our method, we will let $\cal F$ be the set of affine functions, each parametrized by a transformation matrix $A_r \in \R^{k\times k}$, and a translation vector $t_r\in \R^k$. Thus our model contains $|V|$ vectors in $\R^k$, and $|R|$ functions each defined by a matrix $A_r$ and vector $t_r$.
 
 To formalize the intuitions expressed in the introduction, we first express the constraints in a graphical model. Let $E^r_\text{subject} = \{s \mid \exists o, (s, r, o) \in E\}$ and $E^{r, o}_\text{object} = \{ s \mid (s, r, o) \in E\}$. Figure~\ref{figure:graphical-model} shows the relations between the different random variables. Interestingly, this model contains \emph{no observed variables}. The data is used purely to inform the topology of the graphical model.\footnotemark The model also gives us the priors: the prior probability for the embeddings, for which we will use the standard normal distribution: $\mu = 0$ and $\Lambda = \bf{1}$ and the prior $W_t$ on the
 
 \footnote{Modeling the data as observations would lead to tensor-factorization approaches like ReSCAL \cite{}.}
 
 
-% TODO Read up on Bayes and conjugate priors. GEt a better sense of what priors I should use.
+% TODO Read up on Bayes and conjugate priors. Get a better sense of what priors I should use.
 
 \[
 \argmin_{\{x_i\}, \{f_r\}, \sigma} \prod_{(s,r,o) \in E_G} f_r(N_{x_s,\sigma})(x_o)
 \]
 
+If we have $(s, p, o) \in G$, then we have:
+\begin{align*}
+p(X_o \mid F_p = f_p) = f_p(p(X_s))(X_o) \\
+p(X_s \mid F_p = f_p) = f_p^{-1}(p(X_o))(X_s) 
+\end{align*}
 
+Where $X_s$ are random variables over $\R^k$ representing the embedding of $s$, and $F_p$ is a random variable over $\cal F$ representing the function chosen for relation $p$. What this states, is that for a given choice of function embedding $f_p$, the probability distribution over $X_o$ can be found by taking the probability distribution over $X_s$, and transforming it by $f_p$. Starting with the joint distribution, and marginalizing out $F_p$:
+
+\begin{align*}
+p(X_o) = \int p(F_p = f_p) f_p(p(X_s))(X_o) df_p\\
+p(X_s) = \int p(F_p = f_p) f_p(p(X_o))(X_s) df_p\\
+\end{align*}
+
+Which is a recursive, cyclic definition. Use KL divergence instead, to measure error.
 
 
 \section{Experiments}

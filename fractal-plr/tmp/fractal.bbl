@@ -172,7 +172,7 @@
   {NoStop}%
 \bibitem [{Note3()}]{Note3}%
   \BibitemOpen
-  \bibinfo {note} {To generalize to generic MOG models, the components should
+  \bibinfo {note} {To generalize to generic GMM models, the components should
   be extended to positive definite affine functions.}\BibitemShut {Stop}%
 \bibitem [{\citenamefont {Myronenko}\ and\ \citenamefont
   {Song}(2009)}]{myronenko2009closed}%
@@ -201,8 +201,8 @@
   \BibitemOpen
   \bibinfo {note} {This principle could be extended further, iteratively using
   the best model at depth $D$, as the initial model for depth $D+1$. For our
-  experiments, however, we to emphasize the convergence of of a single-model
-  search (given a good initialization).}\BibitemShut {Stop}%
+  experiments, however, we wish to emphasize the performance of a single-model
+  search.}\BibitemShut {Stop}%
 \bibitem [{\citenamefont {Franses}\ and\ \citenamefont
   {Van~Dijk}(2000)}]{franses2000non}%
   \BibitemOpen
