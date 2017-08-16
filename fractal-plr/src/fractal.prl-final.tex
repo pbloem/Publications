@@ -74,6 +74,7 @@
 
 \maketitle
 
+
 \noindent The word \emph{fractal} is not precisely defined \footnote{Mandelbrot originally defined fractals using Haussdorf dimension, but later stated that he preferred the word to be not precisely defined.}, but typically refers to objects with self-similarity, a non-integer Hausdorff dimension, and an infinitely fine structure. 
 
 
@@ -103,7 +104,7 @@ We show that our algorithm reconstructs known fractals. We also apply the algori
 
 
 
-\section{Notation} 
+\paragraph{Notation} 
 
 Let $\{\bx_i\}_{i\in[1,N]} \subset \R^H$ be our dataset. Let $\bX$ be the $H\times N$ matrix with $\bx_i$ as its columns. 
 
@@ -119,7 +120,7 @@ Transforming a spherical Gaussian by a similitude yields
 \end{align}
 Let $[a .. b]$ be the integer interval from $a$ to $b$, including both. The \emph{Cartesian power} $[a .. b]^n$ is the set of all length $n$ sequences containing only elements from $[a .. b]$ (with repetition allowed). We extend this definition as follows $[a .. b]^{[c .. d]} = \bigcup_{i \in [c .. d]} [a .. b]^i$. Define $[a .. b]^0$ as the set containing the empty sequence. 
 
-\section{The IFS Model} 
+\paragraph{The IFS Model} 
 
 \begin{figure}[bt]
   \center
@@ -173,7 +174,7 @@ The post-transform caters for data that is not properly centered. While we can m
 \end{figure}
 
 
-\section{The EM Algorithm}
+\paragraph{The EM Algorithm}
 \label{section:algorithm}
 
 Our task is to select the parameters $\theta$ such that he probability of our data $\bX$ under the model $\theta$ is maximized. Unfortunately, we do not know the code $c_i$ corresponding to each point $\bx_i$. A common way to deal with such \emph{latent variables} is the EM algorithm. In brief, it starts with an initial model, computes the most likely values of the latent variables for each datapoint, and then re-computes the most likely model given these values of the latent variables, iterating until convergence.
@@ -272,7 +273,7 @@ $\hat\bt_p \leftarrow \bx^p - s_p\bR_p\bt^p$ \\
 \label{figure:algorithm}
 \end{figure}
 
-\section{Results}
+\paragraph{Results}
 \label{section:results}
 
 
@@ -360,14 +361,12 @@ The datasets are: a timeseries of currency conversion rates for three currencies
 
 The IFS model outperforms the isometric GMM (which has similar parameter complexity). The unconstrained GMM, which has more degrees of freedom than the IFS models, tends to outperform the IFS model. Clearly, the IFS model will not soon replace the GMM as a general-purpose probability density model. However, there may be a niche of domains for which the IFS model is suitable. Figure~\ref{figure:scatter} shows the difference in strategies between the two models.  
 
-\section{Discussion}
+\paragraph{Discussion}
 \label{section:discussion}
 
 To our knowledge, this is the first solution to the fractal inverse problem that does not use a general-purpose optimization technique like genetic algorithms. 
 
-The model easily generalizes to function classes more general than similitudes, although convex optimization or gradient descent may then be required for the maximization step. To increase the stability of the search and incorporate hyperparameters (like the number of components) in a natural way, the EM algorithm could be extended to a fully Bayesian approach, using variational inference to replace the EM search \cite{beal2003variational}. 
-
-The deterministic IFSs captured by this model are too regular to be credible models for natural fractals like coastlines or clouds, where a high degree of randomness is evident in additional to the fractal rgularity. Random IFSs \cite{hart1996fractal} sample a random deterministic IFS at every iteration. An EM or variational algorithm to fit such  models may provide a sound model for many natural random fractals. We consider this a promising direction for future reasearch.
+The model easily generalizes to function classes more general than similitudes, although convex optimization or gradient descent may then be required for the maximization step. Future work includes developing a variational algorithm \cite{beal2003variational} to increase stability, and the extension of the algorithm to random IFSs \cite{hart1996fractal} to model non-deterministic fractals.
 
 \paragraph{Acknowledgements} We thank Pieter Adriaans for valuable discussions in the early stages of this project. This publication was supported by the Dutch national program COMMIT, by the Netherlands eScience center, and by the Amsterdam Academic Alliance Data Science (AAA-DS) Program Award to the UvA and VU Universities.
 

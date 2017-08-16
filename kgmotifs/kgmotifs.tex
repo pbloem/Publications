@@ -5,6 +5,9 @@
 \usepackage{url}
 \usepackage{float}
 
+\usepackage{easylist}
+\usepackage{soul}
+
 \newcommand{\N}{{\mathbb N}}
 \newcommand{\R}{{\mathbb R}}
 \newcommand{\Z}{{\mathbb Z}}
@@ -21,6 +24,40 @@
 \title{Detecting Motifs in Knowledge Graphs using Compression}
 
 \begin{document}
+
+\section{TODO}
+
+\paragraph{Code}
+
+\begin{easylist}[itemize]
+§ Create fast KGraph implements DTGraph$<$Integer, Integer$>$.
+§§ \st{memory-back implementation}
+§§ \st{Load RDF data (from HDT)}
+§§ \st{Copy all tests from DTGraph, test}
+§§ Create Disk-backed version.
+§ Implement null model.
+§ Implement sampling code. 
+§§ $\to$ Implement Nauty for knowledge graphs
+§§§ Test \emph{really} thoroughly.
+§§ Implement sampling.
+§§ Test throughly. 
+§ Implement \textbf{motif code}
+§§ Tests:
+§§§ Implement random sampler. Check that random samples do not have significant motifs.
+§§§ Sum probabilities for large sample of small graphs. Check that they do not sum to more than one.
+§§§ ???
+\end{easylist}
+
+\paragraph{Paper}
+
+\begin{easylist}[itemize]
+§ Write preliminaries
+§§ Code and MDL
+§§ DM code, $\N$ code
+§ Write hypothesis test method
+§ Experiments
+§ Conclusion
+\end{easylist}
 
 \maketitle
 
@@ -57,6 +94,10 @@ All code and benchmark datasets used in the paper are available, under open lice
 \paragraph{Preliminaries}
 
 % TODO: General purpose codes: natural numbers, integers, sequences.
+
+\paragraph{Common codes}
+
+Extended DM code: test if necessary
 
 \section{Method}
 
@@ -95,7 +136,7 @@ We store, in order:
  \item[the pattern] Let $M'$ be the unlabeled graph representation of $M$: that is, $M'$ is a plain graph (not a pattern), $V_{M'}$ contains only the first $V_{M'}$ natural numbers and similarly for $R_{M'}$. Otherwise, $M$ is isomorphic to $M'$: the node and edge labels of $M$ can be mapped to those of $M'$ so that $M$ only contains an edge $E$ if and only if $M'$ contains the edge resulting from mapping $E$'s symbols. 
  \item[the template] This is the graph, minus all links occurring in  instances. Let $E_G'$ be $E_G$ minus any link occurring in any member of $\cal I$. We then store $(V_G, E_G')$ using $L^\text{base}(\cdot)$.
  \item[the instances] In order to reconstruct the graph from the template, we need to know which nodes correspond to instances of the motif, and in what order. For each node in $M'$, we create a list of length $\cal |I|$ of the nodes in $G$ to which it maps for each instance. For the non-variable nodes of the pattern, this will be a list simply repeating one node node of $G$. For the variable nodes, it will be a list containing some subset of the nodes in $G$.
- We store each list using the DM code. It may seem wasteful to store a list repeating a single element (instead of storing a labeled version of the pattern), but under the DM code such lists will be stored efficiently, using only a small, constant number of bits. The more varied the list, the more bits will be required to store it.
+ We store each list using the extended DM code. It may seem wasteful to store a list repeating a single element (instead of storing a labeled version of the pattern), but under the extended DM code such lists will be stored efficiently, using only a small, constant number of bits. The more varied the list, the more bits will be required to store it.
  \item[the edge labels] We now have enough information to reconstruct the graph structure. All that remains to fully reconstruct $G$ is to label the links of the motif instances. As for the nodes, we create one list of length $\cal I$ for each type of link in $M'$, which we store using the DM code.
 \end{description}
 
@@ -210,7 +251,7 @@ We can define a knowledge graph by three length-$m$ integer sequences: $S$, $P$,
 \[
 |{\cal S}_D| =
  {m \choose {D_1^\text{out}, \ldots, D_n^\text{out}} }
- {m \choose {D_1^\text{rel}, \ldots, D_n^\text{rel}} }
+ {m \choose {D_1^\text{rel}, \ldots, D_{|R_G|}^\text{rel}} }
  {m \choose {D_1^\text{in}, \ldots, D_n^\text{in}} } \text{.}
 \]
 
@@ -222,12 +263,12 @@ While every member of ${\cal S}_D$ represents a valid graph satisfying $D$, many
 We can thus use 
 \[
 p^\text{EL}_D(G) =  \frac{m!}{{m \choose {D_1^\text{out}, \ldots, D_n^\text{out}} }
- {m \choose {D_1^\text{rel}, \ldots, D_n^\text{rel}} }
+ {m \choose {D_1^\text{rel}, \ldots, D_{|R_G|}^\text{rel}} }
  {m \choose {D_1^\text{in}, \ldots, D_n^\text{in}} }}
 \]
-as an approximation for the DS model. We call this the edge-list (EL) model. It always lower-bounds the true degree sequence model, since it affords some probability mass to graphs that cannot exist.\footnotemark ~Experiments in the classical motif setting have shown that the ES model is an acceptable proxy \cite{bloem2017large}, especially considering the extra scalability it affords.
+as an approximation for the DS model. We call this the edge-list (EL) model. It always lower-bounds the true degree sequence model, since it affords some probability mass to graphs that cannot exist.\footnotemark ~Experiments in the classical motif setting have shown that the EL model is an acceptable proxy for the DS model \cite{bloem2017large}, especially considering the extra scalability it affords.
 
-\footnotetext{Note that we cannot simply think of $p^\text{EL}$ as a uniform model for graphs containing multiple links, since in we can only divide by $m!$ if we know that all triples are unique.}
+\footnotetext{Note that we cannot simply think of $p^\text{EL}$ as a uniform model for graphs containing multiple links, since we can only divide by $m!$ if we know that all triples are unique.}
  
  \paragraph{Encoding D} In order to encode a graph with $L^\text{EL}_D$, we must first encode $D$. \footnote{Or, equivalently, to make $p^\text{EL}$ a complete distribution on all graphs, we must provide it with a prior on $D$.} For each of the three sequences in $D$ we use the following model:
 \begin{align*}
@@ -253,7 +294,7 @@ To show the scale of our method, we show its performance on some very large grap
 
 % Note: only if there's time. If not, save for later.
 
-In this section, we show some experiments that are not intended to substantiate any claims about our method, but rather to illustrate the variety of uses for succesfull motif detection. 
+In this section, we show some experiments that are not intended to substantiate any claims about our method, but rather to illustrate the variety of uses for succesful motif detection. 
 
 \subsubsection{Analogical reasoning}
 
@@ -264,5 +305,32 @@ In this section, we show some experiments that are not intended to substantiate 
 \subsubsection{Node embedding}
 
 \bibliography{kgmotifs}
+
+\appendix
+
+\section{Appendix}
+
+\subsection{The canonical isomorphism algorithm for knowledge graphs}
+
+During sampling, we want to re-order the nodes in a sampled pattern to some canonical ordering. This way, when we sample isomorphic patterns, we recognize it, and group their instances together. The \emph{nauty} algorithm is the standard solution for findings such \emph{canonical isomorphs}. As we are sampling partially labeled, directed graphs, we have a lot of information that can speed up canonicalization. Since this steop is usually the bottleneck in sampling, it's important to perform it as efficiently as possible. Below, we provide a very succinct description of how nauty works, when applied to our patterns.
+
+Let $V'_M$ and $R'_M$ represent the labels of the variable nodes and links in $M$. Pattern $M$ is an isomorphism of pattern $M'$ if there exist bijections $\sigma_v : V'_M \times V'M$ and $\sigma_r: \R'_M \times \R'_M$ such that applying these to the variable elements of $M$ yields $M'$ (under graph equivalence). The set of all patterns isomorphic to $G$ is the isomorphism class $[G]$. A function $C(P)$ is a canonicalization function if it produces for all any pattern $M$ in $[M]$ the same, canonical member of $M$.
+
+Note that a very simple canonicalization algorithm would be to pass the unlabeled graph to the nauty algorithm, and use its canonical ordering on the labeled graph. However, the labels can make the canonicalization procedure significantly faster.
+
+The key principle behind the nauty algorithm is the use of a \emph{colouring}: a partition of the nodes of a graph. A \emph{safe colouring} is defined as a partition $\pi$ of the nodes of the graph such that any permutation that maps nodes from different partitions to one another is guaranteed \emph{not} to be an automorphism. No guarantees are made about nodes in the same cell. For instance, the partition that puts all nodes in the same cell is always safe. If two nodes have different degrees, we can put them in different cells and be sure that we have a safe colouring. Given one safe colouring $\pi$, if node $a$ from partition $i$ has a neighbor in partition $j$ and node $b$ from partition $j$ has no such node, we can \emph{refine} the partition $\pi$ by separating $i$ into a new partition (one contain $a$ and one containing $b$). 
+
+The nauty algorithm operates on a graph with a given colouring (with the unit colouring used by default). It first refines the colouring as much as possible, using degree information, and propagating the distinguishing features through the graph. Once the most refined colouring has been achieved, it searches through all autorphisms of the graph to produce a canonical example (using various optimizations to prune the search tree).
+
+In our case, we use the colouring to indicate what our labeling tells us about the colouring of the nodes.
+Note the following:
+\begin{easylist}
+§ Labeled nodes in the pattern can be placed in a discrete cell of the colouring.
+§ Variable nodes should be placed into a single cell in the partition.
+§ We define a partition over nodes \emph{and} relation labels. 
+joh\end{easylist}
+
+
+
 
 \end{document}

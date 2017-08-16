@@ -1,5 +1,5 @@
 #TeXlipse project settings
-#Mon Nov 14 16:51:24 CET 2016
+#Tue Aug 15 14:16:32 CEST 2017
 markTmpDer=true
 builderNum=2
 outputDir=out/
@@ -8,7 +8,7 @@ bibrefDir=
 outputFormat=pdf
 tempDir=tmp
 mainTexFile=fractal.tex
-outputFile=fractal-plr.pdf
+outputFile=fractal-complexitypdf
 langSpell=en
 markDer=true
 srcDir=src/

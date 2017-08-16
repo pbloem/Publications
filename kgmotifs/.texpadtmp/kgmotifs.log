@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.7.7)  12 AUG 2017 15:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.7.7)  14 AUG 2017 17:37
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -95,152 +95,240 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \float@box=\box28
 \@float@everytoks=\toks20
 \@floatcapt=\box29
+) (/usr/local/texlive/2016/texmf-dist/tex/latex/easylist/easylist.sty
+Package: easylist 2014/01/11 v.1.4 Numbered items with a single command.
+\el@CounterTotal=\count100
+\el@Scratch=\count101
+\el@ControlCounter=\count102
+\el@CounterLevel=\count103
+\c@List1=\count104
+\c@List2=\count105
+\c@List3=\count106
+\c@List4=\count107
+\c@List5=\count108
+\c@List6=\count109
+\c@List7=\count110
+\c@List8=\count111
+\c@List9=\count112
+\c@List10=\count113
+\el@ProgressiveDimension=\dimen112
+\el@CounterBox=\box30
+\el@ControlBox=\box31
+\el@TotalMargin=\dimen113
+\el@LeftMove=\dimen114
+) (/usr/local/texlive/2016/texmf-dist/tex/latex/soul/soul.sty
+Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
+\SOUL@word=\toks21
+\SOUL@lasttoken=\toks22
+\SOUL@cmds=\toks23
+\SOUL@buffer=\toks24
+\SOUL@token=\toks25
+\SOUL@spaceskip=\skip46
+\SOUL@ttwidth=\dimen115
+\SOUL@uldp=\dimen116
+\SOUL@ulht=\dimen117
 )
-\@float@every@pseudo=\toks21
-\c@pseudo=\count100
+\@float@every@pseudo=\toks26
+\c@pseudo=\count114
  (/Users/Peter/git/Publications/kgmotifs/.texpadtmp/kgmotifs.aux)
 \openout1 = `kgmotifs.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Try loading font information for U+msa on input line 25.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+Missing character: There is no Â in font cmr10!
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 33.
+ (/usr/local/texlive/2016/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 33.
+LaTeX Font Info:    Try loading font information for U+msa on input line 33.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 25.
+LaTeX Font Info:    Try loading font information for U+msb on input line 33.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+ [1
+
+{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 
 LaTeX Warning: No \author given.
 
 
-LaTeX Warning: Citation `milo2002network' on page 1 undefined on input line 35.
-
-[1
-
-{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-
-LaTeX Warning: Citation `bloem2017large' on page 2 undefined on input line 39.
-
-
-LaTeX Warning: Citation `bloem2017large' on page 2 undefined on input line 41.
+LaTeX Warning: Citation `milo2002network' on page 2 undefined on input line 72.
 
 [2]
 
-LaTeX Warning: Reference `figure:diagram' on page 3 undefined on input line 69.
-
-[3] [4] [5]
-Underfull \hbox (badness 10000) in paragraph at lines 112--117
-
- []
+LaTeX Warning: Citation `bloem2017large' on page 3 undefined on input line 76.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 112--117
+LaTeX Warning: Citation `bloem2017large' on page 3 undefined on input line 78.
 
- []
+[3]
 
+LaTeX Warning: Reference `figure:diagram' on page 4 undefined on input line 110.
 
-Underfull \hbox (badness 10000) in paragraph at lines 118--122
+[4] [5] [6]
+Underfull \hbox (badness 10000) in paragraph at lines 153--158
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 123--125
+Underfull \hbox (badness 10000) in paragraph at lines 153--158
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 127--132
+Underfull \hbox (badness 10000) in paragraph at lines 159--163
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 133--137
+Underfull \hbox (badness 10000) in paragraph at lines 164--166
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 139--141
+Underfull \hbox (badness 10000) in paragraph at lines 168--173
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--144
+Underfull \hbox (badness 10000) in paragraph at lines 174--178
 
  []
 
 
-LaTeX Warning: Citation `kashtan2004efficient' on page 6 undefined on input line 151.
-
-
-LaTeX Warning: Citation `mckay1981practical' on page 6 undefined on input line 153.
-
-[6]
-
-LaTeX Warning: Citation `bloem2017large' on page 7 undefined on input line 163.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 171--173
+Underfull \hbox (badness 10000) in paragraph at lines 180--182
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 174--182
+Underfull \hbox (badness 10000) in paragraph at lines 183--185
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 183--187
-
- []
+LaTeX Warning: Citation `kashtan2004efficient' on page 7 undefined on input line 192.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 189--190
-
- []
+LaTeX Warning: Citation `mckay1981practical' on page 7 undefined on input line 194.
 
 [7]
 
-LaTeX Warning: Citation `bloem2017large' on page 8 undefined on input line 207.
+LaTeX Warning: Citation `bloem2017large' on page 8 undefined on input line 204.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--214
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 215--223
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--228
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 230--231
+
+ []
+
+[8]
+
+LaTeX Warning: Citation `bloem2017large' on page 9 undefined on input line 248.
 
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 212.
+(amsmath)                 on input line 253.
 
-[8]
+[9]
 
-LaTeX Warning: Citation `bloem2017large' on page 9 undefined on input line 228.
+LaTeX Warning: Citation `bloem2017large' on page 10 undefined on input line 269.
 
-[9] (/Users/Peter/git/Publications/kgmotifs/.texpadtmp/kgmotifs.bbl) [10] [11] [12] (/Users/Peter/git/Publications/kgmotifs/.texpadtmp/kgmotifs.aux)
+[10] (/Users/Peter/git/Publications/kgmotifs/.texpadtmp/kgmotifs.bbl)
+Overfull \hbox (17.9681pt too wide) in paragraph at lines 313--313
+[]\OT1/cmr/bx/n/12 The canon-i-cal iso-mor-phism al-go-rithm for knowl-edge graphs 
+ []
+
+[11]
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no Â in font cmr10!
+ [12] [13] [14] (/Users/Peter/git/Publications/kgmotifs/.texpadtmp/kgmotifs.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 1320 strings out of 493014
- 15466 string characters out of 6133352
- 78556 words of memory out of 5000000
- 4880 multiletter control sequences out of 15000+600000
- 15362 words of font info for 58 fonts, out of 8000000 for 9000
+ 1885 strings out of 493014
+ 21761 string characters out of 6133352
+ 89788 words of memory out of 5000000
+ 5432 multiletter control sequences out of 15000+600000
+ 16035 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  27i,10n,26p,1272b,245s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on /Users/Peter/git/Publications/kgmotifs/.texpadtmp/kgmotifs.pdf (12 pages, 254946 bytes).
+Output written on /Users/Peter/git/Publications/kgmotifs/.texpadtmp/kgmotifs.pdf (14 pages, 265762 bytes).
 PDF statistics:
- 127 PDF objects out of 1000 (max. 8388607)
- 91 compressed objects within 1 object stream
+ 134 PDF objects out of 1000 (max. 8388607)
+ 96 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

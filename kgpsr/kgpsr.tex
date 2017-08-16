@@ -3,15 +3,34 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 
+\usepackage{easylist}
+\usepackage{soul}
+
+
 \DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\cN}{{\mathcal N}}
+\newcommand{\fw}[1]{\text{\texttt{#1}}}
+\newcommand{\p}{\text{.}}
+
+
 
 \title{A Bayesian Approach to Knowledge Graph Node Embeddings}
 
 \begin{document}
 
+\begin{easylist}
+§ Strict Bayesian approach doesn't seem to work: no data, no posterior. But, posterior over latent variables. Latent variables are embeddings and tranformations, \emph{observed are the memberships/responsibilities }. So we \emph{do} have observed variables?
+§§ Optimize for the posterior over the connections... This would tie in better with the link prediction use case.  
+§§ If the structure of the grpah is the latent variable, we should be bale to sample a structure from the model.
+§ Take inspiration from the fractal model start with $X_0 ~ N(0, I)$ as embedding for all
+nodes and iterate $X_1$ is $X_0$ transformed by all translations, for all points.
+§ It doesn't look like the constraints of just a probability model are sufficient to determine the problem. It seems most elegant to assume that the embeddings are (isometric) Gaussians, and to optimize for minimal KL divergence to the transformed ones.
 
-\newcommand{\R}{{\mathbb R}}
-\newcommand{\fw}[1]{\text{\texttt{#1}}}
+\end{easylist}
+
+
 
 \maketitle
 
@@ -51,39 +70,32 @@ Define a knowledge graph $G$ as a triple $G = (V_G, R_G, E_G)$ with $V_G$ repres
 
 To simplify notation, we will assume that the graph being modeled is clear from context, and drop the subscript $G$.
 
-Let $x_i \in \R^k$ be the embedding chosen for node $i \in V$. Let $f_r$ be a parametrized function from $\cal F$, representing relation $r \in R$. For our method, we will let $\cal F$ be the set of affine functions, each parametrized by a transformation matrix $A_r \in \R^{k\times k}$, and a translation vector $t_r\in \R^k$. Thus our model contains $|V|$ vectors in $\R^k$, and $|R|$ functions each defined by a matrix $A_r$ and vector $t_r$.
+Let $T_{spo}$ be a random bolean variable indicating whether the triple $\langle s, p, o\rangle$ is true. Let $T^u$ be the set of all such variables (for all combination of $s$, $p$, $o$) and let $T$ be the set of such variables for the observed triples. We will assume that the observed triples we samples from the set of all true triples by some unspecified distribution $p(G| G^u)$. This graph is fully specified by a set of node-embeddings $x_i$ and relation-maps $f_p$: we have $f_p(x_s) = x_o$ is and only if the triple $s, p, o$ is true. Thus, the embeddings specify the graph. We assume that the observed triples $T$ constitute a sequence of i.i.d. draws from the set of all triples satisfying the embeddings.
 
-To formalize the intuitions expressed in the introduction, we first express the constraints in a graphical model. Let $E^r_\text{subject} = \{s \mid \exists o, (s, r, o) \in E\}$ and $E^{r, o}_\text{object} = \{ s \mid (s, r, o) \in E\}$. Figure~\ref{figure:graphical-model} shows the relations between the different random variables. Interestingly, this model contains \emph{no observed variables}. The data is used purely to inform the topology of the graphical model.\footnotemark The model also gives us the priors: the prior probability for the embeddings, for which we will use the standard normal distribution: $\mu = 0$ and $\Lambda = \bf{1}$ and the prior $W_t$ on the
-
-\footnote{Modeling the data as observations would lead to tensor-factorization approaches like ReSCAL \cite{}.}
-
-
-% TODO Read up on Bayes and conjugate priors. Get a better sense of what priors I should use.
-
+To develop our model, we will first assume we know a value $x_i \in \R^k$ for each node $i$ in the knowledge graph, and a function $f_p$ for each predicate $p$. We will choose affine functions as our family, so that we can say (with some abuse of notation) $f_p \in \R^{k\times k} \times \R^k$. For such a fully known model, we will say that a triple is true if and only if $f_p$ is mapped exactly onto $x_s$:
 \[
-\argmin_{\{x_i\}, \{f_r\}, \sigma} \prod_{(s,r,o) \in E_G} f_r(N_{x_s,\sigma})(x_o)
+p(T_{spo} = \text{true} \mid f_p, x_s, x_o) = \begin{cases} 1 & \text{if} f_p(x_s) = x_o \\ 0 & \text{otherwise} \end{cases} \p
 \]
 
-If we have $(s, p, o) \in G$, then we have:
+This model suffers from the same problem as TransE: we cannot represent multiple relations. Interestingly, the fact that we do not observer $x_s$, $x_o$ and $f_p$ directly allows us to solve this problem. We express our uncertainty about these values in probability. If $s$ is mapped to several points by $p$, we are thus \emph{uncertain} about which point $f_p$ should map $x_s$ to. Expressing this uncertainty as probability as well allows as to retrieve a probability distribution over the model parameters that let $x_s$ map to deveral different $x_o$'s under $f_p$.
+
+We start dy removing the assumption that we know the model parameters. We express our uncertainty as probabilities: $p(F_p = f_p)$, $p(X_s = x_s)$, $p(X_o = x_o)$ and marginalize them out. The probability of a triple becomes:
 \begin{align*}
-p(X_o \mid F_p = f_p) = f_p(p(X_s))(X_o) \\
-p(X_s \mid F_p = f_p) = f_p^{-1}(p(X_o))(X_s) 
+p(T_{spo} = \text{true}) &= \int_{x_s, f_p, x_o \in S_{spo}} p(X_s = x_s) p(F_p = f_p) p(X_s = x_s) \,d x_s df_p dx_o\\
+\text{with} \,\,S_{spo} &= \{(x_s, f_p, x_o) \mid f_p(x_s) = x_o\}
 \end{align*}
 
-Where $X_s$ are random variables over $\R^k$ representing the embedding of $s$, and $F_p$ is a random variable over $\cal F$ representing the function chosen for relation $p$. What this states, is that for a given choice of function embedding $f_p$, the probability distribution over $X_o$ can be found by taking the probability distribution over $X_s$, and transforming it by $f_p$. Starting with the joint distribution, and marginalizing out $F_p$:
 
 \begin{align*}
-p(X_o) = \int p(F_p = f_p) f_p(p(X_s))(X_o) df_p\\
-p(X_s) = \int p(F_p = f_p) f_p(p(X_o))(X_s) df_p\\
+p(\{X_i\}, \{F_p\}\mid T) = \frac{p(T\mid \{X_i\}, \{F_p\}) \prod_i p(X_i)\prod_p p(F_p)}{P(T)}
 \end{align*}
-
-Which is a recursive, cyclic definition. Use KL divergence instead, to measure error.
 
 
 \section{Experiments}
 
 \section{Conclusion}
 
+It is worth noting that we started from an impossible definition of the structure of our graph. The presumed unobserved true embeddings cannot exist for any graph contain multiple children or parents. Moreover, the system may be overdetermined: even with unique relations for every triple, there may still be no way to satisfy the whole knowledge graph in a single set of embeddings. Nevertheless, the Bayesian approach allows us to satisfy the resulting contradictions, by not choosing a single truth, but but providing a probability distribution over configurations that are each close to a correct one. In other words, the uncertainty about how the contradictions should be resolved is simply modeled as another probability, and folded into the model, combined with our other uncertainties. 
 
 \bibliography{kgpsr}
 
