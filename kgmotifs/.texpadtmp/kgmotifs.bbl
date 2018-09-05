@@ -1,0 +1,106 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\citeauthoryear{Bloem and de Rooij}{2017}]{bloem2017large}
+Bloem, P., and de~Rooij, S.
+\newblock 2017.
+\newblock Large-scale network motif learning with compression.
+\newblock {\em arXiv preprint arXiv:1701.02026}.
+
+\bibitem[\protect\citeauthoryear{Cook and Holder}{1994}]{cook1994substructure}
+Cook, D.~J., and Holder, L.~B.
+\newblock 1994.
+\newblock Substructure discovery using minimum description length and
+  background knowledge.
+\newblock {\em CoRR} cs.AI/9402102.
+
+\bibitem[\protect\citeauthoryear{Cover and Thomas}{2006}]{cover2006elements}
+Cover, T.~M., and Thomas, J.~A.
+\newblock 2006.
+\newblock {\em Elements of information theory {(2.} ed.)}.
+\newblock Wiley.
+
+\bibitem[\protect\citeauthoryear{de Rooij \bgroup et al\mbox.\egroup
+  }{2016}]{de2016names}
+de~Rooij, S.; Beek, W.; Bloem, P.; van Harmelen, F.; and Schlobach, S.
+\newblock 2016.
+\newblock Are names meaningful? quantifying social meaning on the semantic web.
+\newblock In {\em International Semantic Web Conference},  184--199.
+\newblock Springer.
+
+\bibitem[\protect\citeauthoryear{Gr{\"u}nwald}{2007}]{grunwald2007minimum}
+Gr{\"u}nwald, P.
+\newblock 2007.
+\newblock {\em The minimum description length principle}.
+\newblock The MIT Press.
+
+\bibitem[\protect\citeauthoryear{Milo \bgroup et al\mbox.\egroup
+  }{2002}]{milo2002network}
+Milo, R.; Shen-Orr, S.; Itzkovitz, S.; Kashtan, N.; Chklovskii, D.; and Alon,
+  U.
+\newblock 2002.
+\newblock Network motifs: simple building blocks of complex networks.
+\newblock {\em Science} 298(5594):824--827.
+
+\bibitem[\protect\citeauthoryear{Newman}{2010}]{newman2010networks}
+Newman, M.
+\newblock 2010.
+\newblock {\em Networks: an introduction}.
+\newblock Oxford University Press.
+
+\bibitem[\protect\citeauthoryear{Pham and Boncz}{2016}]{pham2016exploiting}
+Pham, M.-D., and Boncz, P.
+\newblock 2016.
+\newblock Exploiting emergent schemas to make rdf systems more efficient.
+\newblock In {\em International Semantic Web Conference},  463--479.
+\newblock Springer.
+
+\bibitem[\protect\citeauthoryear{Pham \bgroup et al\mbox.\egroup
+  }{2015}]{pham2015deriving}
+Pham, M.-D.; Passing, L.; Erling, O.; and Boncz, P.
+\newblock 2015.
+\newblock Deriving an emergent relational schema from rdf data.
+\newblock In {\em Proceedings of the 24th International Conference on World
+  Wide Web},  864--874.
+\newblock International World Wide Web Conferences Steering Committee.
+
+\bibitem[\protect\citeauthoryear{Pitman and Yor}{1997}]{pitman1997two}
+Pitman, J., and Yor, M.
+\newblock 1997.
+\newblock The two-parameter poisson-dirichlet distribution derived from a
+  stable subordinator.
+\newblock {\em The Annals of Probability}  855--900.
+
+\bibitem[\protect\citeauthoryear{Rissanen and
+  Langdon}{1979}]{rissanen1979arithmetic}
+Rissanen, J., and Langdon, G.~G.
+\newblock 1979.
+\newblock Arithmetic coding.
+\newblock {\em IBM Journal of research and development} 23(2):149--162.
+
+\bibitem[\protect\citeauthoryear{Saltz \bgroup et al\mbox.\egroup
+  }{2014}]{saltz2014dualiso}
+Saltz, M.; Jain, A.; Kothari, A.; Fard, A.; Miller, J.~A.; and Ramaswamy, L.
+\newblock 2014.
+\newblock Dualiso: An algorithm for subgraph pattern matching on very large
+  labeled graphs.
+\newblock In {\em Big Data (BigData Congress), 2014 IEEE International Congress
+  on},  498--505.
+\newblock IEEE.
+
+\bibitem[\protect\citeauthoryear{V{\"o}lker and
+  Niepert}{2011}]{volker2011statistical}
+V{\"o}lker, J., and Niepert, M.
+\newblock 2011.
+\newblock Statistical schema induction.
+\newblock In {\em Extended Semantic Web Conference},  124--138.
+\newblock Springer.
+
+\bibitem[\protect\citeauthoryear{Wilcke, Bloem, and
+  De~Boer}{2017}]{wilcke2017knowledge}
+Wilcke, X.; Bloem, P.; and De~Boer, V.
+\newblock 2017.
+\newblock The knowledge graph as the default data model for learning on
+  heterogeneous knowledge.
+\newblock {\em Data Science} (Preprint):1--19.
+
+\end{thebibliography}
