@@ -1,5 +1,13 @@
 \begin{thebibliography}{}
 
+\bibitem[\protect\citeauthoryear{Bloehdorn and
+  Sure}{2007}]{bloehdorn2007kernel}
+Bloehdorn, S., and Sure, Y.
+\newblock 2007.
+\newblock Kernel methods for mining instance data in ontologies.
+\newblock In {\em The Semantic Web}. Springer.
+\newblock  58--71.
+
 \bibitem[\protect\citeauthoryear{Bloem and de Rooij}{2017}]{bloem2017large}
 Bloem, P., and de~Rooij, S.
 \newblock 2017.
@@ -33,6 +41,12 @@ Gr{\"u}nwald, P.
 \newblock {\em The minimum description length principle}.
 \newblock The MIT Press.
 
+\bibitem[\protect\citeauthoryear{Lehmann}{2009}]{lehmann2009dl}
+Lehmann, J.
+\newblock 2009.
+\newblock Dl-learner: learning concepts in description logics.
+\newblock {\em Journal of Machine Learning Research} 10(Nov):2639--2642.
+
 \bibitem[\protect\citeauthoryear{Milo \bgroup et al\mbox.\egroup
   }{2002}]{milo2002network}
 Milo, R.; Shen-Orr, S.; Itzkovitz, S.; Kashtan, N.; Chklovskii, D.; and Alon,
@@ -40,6 +54,15 @@ Milo, R.; Shen-Orr, S.; Itzkovitz, S.; Kashtan, N.; Chklovskii, D.; and Alon,
 \newblock 2002.
 \newblock Network motifs: simple building blocks of complex networks.
 \newblock {\em Science} 298(5594):824--827.
+
+\bibitem[\protect\citeauthoryear{M{\"o}ller \bgroup et al\mbox.\egroup
+  }{2007}]{moller2007recipes}
+M{\"o}ller, K.; Heath, T.; Handschuh, S.; and Domingue, J.
+\newblock 2007.
+\newblock Recipes for semantic web dog food—the eswc and iswc metadata
+  projects.
+\newblock In {\em The Semantic Web}. Springer.
+\newblock  802--815.
 
 \bibitem[\protect\citeauthoryear{Newman}{2010}]{newman2010networks}
 Newman, M.

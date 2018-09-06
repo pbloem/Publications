@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.7.7)  6 SEP 2018 04:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.7.7)  6 SEP 2018 14:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -59,58 +59,100 @@ Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
 ))
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
+) (/usr/local/texlive/2016/texmf-dist/tex/latex/makecell/makecell.sty
+Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
+ (/usr/local/texlive/2016/texmf-dist/tex/latex/tools/array.sty
+Package: array 2014/10/28 v2.4c Tabular extension package (FMi)
+\col@sep=\dimen105
+\extrarowheight=\dimen106
+\NC@list=\toks15
+\extratabsurround=\skip44
+\backup@length=\skip45
+)
+\rotheadsize=\dimen107
+\c@nlinenum=\count88
+\TeXr@lab=\toks16
+) (/usr/local/texlive/2016/texmf-dist/tex/latex/arydshln/arydshln.sty
+Package: arydshln 2016/04/28 v1.73 
+\dashlinedash=\dimen108
+\dashlinegap=\dimen109
+\adl@box=\box26
+\adl@height=\dimen110
+\adl@heightsave=\dimen111
+\adl@depth=\dimen112
+\adl@depthsave=\dimen113
+\adl@finaldepth=\dimen114
+\adl@columns=\count89
+\adl@ncol=\count90
+\adl@currentcolumn=\count91
+\adl@currentcolumnsave=\count92
+\adl@totalheight=\count93
+\adl@totalheightsave=\count94
+\adl@dash=\count95
+\adl@gap=\count96
+\adl@cla=\count97
+\adl@clb=\count98
+\adl@everyvbox=\toks17
+\adl@LTpagetotal=\dimen115
+) (/usr/local/texlive/2016/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count99
+\float@exts=\toks18
+\float@box=\box27
+\@float@everytoks=\toks19
+\@floatcapt=\box28
 ) (/usr/local/texlive/2016/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2016/03/10 v2.15b AMS math features
-\@mathmargin=\skip44
+\@mathmargin=\skip46
 
 For additional information on amsmath, use the `?' option.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsmath/amstext.sty
 Package: amstext 2000/06/29 v2.01 AMS text
  (/usr/local/texlive/2016/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks15
-\ex@=\dimen105
+\@emptytoks=\toks20
+\ex@=\dimen116
 )) (/usr/local/texlive/2016/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen106
+\pmbraise@=\dimen117
 ) (/usr/local/texlive/2016/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count88
+\inf@bad=\count100
 LaTeX Info: Redefining \frac on input line 199.
-\uproot@=\count89
-\leftroot@=\count90
+\uproot@=\count101
+\leftroot@=\count102
 LaTeX Info: Redefining \overline on input line 297.
-\classnum@=\count91
-\DOTSCASE@=\count92
+\classnum@=\count103
+\DOTSCASE@=\count104
 LaTeX Info: Redefining \ldots on input line 394.
 LaTeX Info: Redefining \dots on input line 397.
 LaTeX Info: Redefining \cdots on input line 518.
-\Mathstrutbox@=\box26
-\strutbox@=\box27
-\big@size=\dimen107
+\Mathstrutbox@=\box29
+\strutbox@=\box30
+\big@size=\dimen118
 LaTeX Font Info:    Redeclaring font encoding OML on input line 634.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 635.
-\macc@depth=\count93
-\c@MaxMatrixCols=\count94
+\macc@depth=\count105
+\c@MaxMatrixCols=\count106
 \dotsspace@=\muskip11
-\c@parentequation=\count95
-\dspbrk@lvl=\count96
-\tag@help=\toks16
-\row@=\count97
-\column@=\count98
-\maxfields@=\count99
-\andhelp@=\toks17
-\eqnshift@=\dimen108
-\alignsep@=\dimen109
-\tagshift@=\dimen110
-\tagwidth@=\dimen111
-\totwidth@=\dimen112
-\lineht@=\dimen113
-\@envbody=\toks18
-\multlinegap=\skip45
-\multlinetaggap=\skip46
-\mathdisplay@stack=\toks19
+\c@parentequation=\count107
+\dspbrk@lvl=\count108
+\tag@help=\toks21
+\row@=\count109
+\column@=\count110
+\maxfields@=\count111
+\andhelp@=\toks22
+\eqnshift@=\dimen119
+\alignsep@=\dimen120
+\tagshift@=\dimen121
+\tagwidth@=\dimen122
+\totwidth@=\dimen123
+\lineht@=\dimen124
+\@envbody=\toks23
+\multlinegap=\skip47
+\multlinetaggap=\skip48
+\mathdisplay@stack=\toks24
 LaTeX Info: Redefining \[ on input line 2739.
 LaTeX Info: Redefining \] on input line 2740.
 ) (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/amssymb.sty
@@ -121,79 +163,72 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-)) (/usr/local/texlive/2016/texmf-dist/tex/latex/float/float.sty
-Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count100
-\float@exts=\toks20
-\float@box=\box28
-\@float@everytoks=\toks21
-\@floatcapt=\box29
-) (/usr/local/texlive/2016/texmf-dist/tex/latex/easylist/easylist.sty
+)) (/usr/local/texlive/2016/texmf-dist/tex/latex/easylist/easylist.sty
 Package: easylist 2014/01/11 v.1.4 Numbered items with a single command.
-\el@CounterTotal=\count101
-\el@Scratch=\count102
-\el@ControlCounter=\count103
-\el@CounterLevel=\count104
-\c@List1=\count105
-\c@List2=\count106
-\c@List3=\count107
-\c@List4=\count108
-\c@List5=\count109
-\c@List6=\count110
-\c@List7=\count111
-\c@List8=\count112
-\c@List9=\count113
-\c@List10=\count114
-\el@ProgressiveDimension=\dimen114
-\el@CounterBox=\box30
-\el@ControlBox=\box31
-\el@TotalMargin=\dimen115
-\el@LeftMove=\dimen116
+\el@CounterTotal=\count112
+\el@Scratch=\count113
+\el@ControlCounter=\count114
+\el@CounterLevel=\count115
+\c@List1=\count116
+\c@List2=\count117
+\c@List3=\count118
+\c@List4=\count119
+\c@List5=\count120
+\c@List6=\count121
+\c@List7=\count122
+\c@List8=\count123
+\c@List9=\count124
+\c@List10=\count125
+\el@ProgressiveDimension=\dimen125
+\el@CounterBox=\box31
+\el@ControlBox=\box32
+\el@TotalMargin=\dimen126
+\el@LeftMove=\dimen127
 ) (/usr/local/texlive/2016/texmf-dist/tex/latex/soul/soul.sty
 Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
-\SOUL@word=\toks22
-\SOUL@lasttoken=\toks23
-\SOUL@cmds=\toks24
-\SOUL@buffer=\toks25
-\SOUL@token=\toks26
-\SOUL@spaceskip=\skip47
-\SOUL@ttwidth=\dimen117
-\SOUL@uldp=\dimen118
-\SOUL@ulht=\dimen119
+\SOUL@word=\toks25
+\SOUL@lasttoken=\toks26
+\SOUL@cmds=\toks27
+\SOUL@buffer=\toks28
+\SOUL@token=\toks29
+\SOUL@spaceskip=\skip49
+\SOUL@ttwidth=\dimen128
+\SOUL@uldp=\dimen129
+\SOUL@ulht=\dimen130
 )
-\@float@every@pseudo=\toks27
-\c@pseudo=\count115
+\@float@every@pseudo=\toks30
+\c@pseudo=\count126
  (/Users/Peter/git/Publications/kgmotifs/.texpadtmp/kgmotifs.aux)
 \openout1 = `kgmotifs.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 54.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 57.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 ) (/usr/local/texlive/2016/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count116
-\scratchdimen=\dimen120
-\scratchbox=\box32
-\nofMPsegments=\count117
-\nofMParguments=\count118
-\everyMPshowfont=\toks28
-\MPscratchCnt=\count119
-\MPscratchDim=\dimen121
-\MPnumerator=\count120
-\makeMPintoPDFobject=\count121
-\everyMPtoPDFconversion=\toks29
+\scratchcounter=\count127
+\scratchdimen=\dimen131
+\scratchbox=\box33
+\nofMPsegments=\count128
+\nofMParguments=\count129
+\everyMPshowfont=\toks31
+\MPscratchCnt=\count130
+\MPscratchDim=\dimen132
+\MPnumerator=\count131
+\makeMPintoPDFobject=\count132
+\everyMPtoPDFconversion=\toks32
 ) (/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2016/05/10 v0.21 Utility functions of pdfTeX for LuaTeX (HO)
  (/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/ifluatex.sty
@@ -230,138 +265,163 @@ Package grfext Info: Graphics extension search list:
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 56.
-LaTeX Font Info:    Try loading font information for U+msa on input line 56.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 59.
+LaTeX Font Info:    Try loading font information for U+msa on input line 59.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 56.
+LaTeX Font Info:    Try loading font information for U+msb on input line 59.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 56.
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 56.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 59.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 59.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <9> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 56.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 59.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 58.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 61.
  <example.pdf, id=1, 598.74992pt x 193.94759pt>
 File: example.pdf Graphic file (type pdf)
  <use example.pdf>
-Package pdftex.def Info: example.pdf used on input line 68.
+Package pdftex.def Info: example.pdf used on input line 73.
 (pdftex.def)             Requested size: 505.89pt x 163.87369pt.
 
-Underfull \hbox (badness 2591) in paragraph at lines 89--90
+Underfull \hbox (badness 2591) in paragraph at lines 96--97
  \OT1/ptm/b/n/10 Re-lated Work \OT1/ptm/m/n/10 Net-work mo-tifs for un-la-beled sim-ple
  []
 
-
-Underfull \vbox (badness 5008) has occurred while \output is active []
-
- [1{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+[1{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 
 
 ]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 95.
- [2 <./example.pdf>]
-Underfull \hbox (badness 1052) in paragraph at lines 115--116
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 102.
+
+Underfull \vbox (badness 1603) has occurred while \output is active []
+
+
+Underfull \hbox (badness 1052) in paragraph at lines 121--122
  \OT1/ptm/b/n/10 Com-mon codes \OT1/ptm/m/n/10 In the con-struc-tion of our codes for
  []
 
-[3]
-
-Package amsmath Warning: Foreign command \atopwithdelims;
-(amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 161.
-
-
-Overfull \hbox (12.9637pt too wide) detected at line 164
-\OMS/cmsy/m/n/10 jS[]j \OT1/cmr/m/n/10 = [][][][]
- []
-
-[4]
-Underfull \hbox (badness 10000) in paragraph at lines 225--230
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 225--230
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 231--236
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 237--240
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 241--242
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 243--245
-
- []
-
-
-Underfull \vbox (badness 1189) has occurred while \output is active []
-
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 251.
+[2 <./example.pdf>]
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 153.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-Underfull \hbox (badness 1325) in paragraph at lines 259--260
+Underfull \vbox (badness 1112) has occurred while \output is active []
+
+ [3]
+
+Package amsmath Warning: Foreign command \atopwithdelims;
+(amsmath)                \frac or \genfrac should be used instead
+(amsmath)                 on input line 220.
+
+
+Overfull \hbox (12.9637pt too wide) detected at line 223
+\OMS/cmsy/m/n/10 jS[]j \OT1/cmr/m/n/10 = [][][][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 266--266
+|[]
+ []
+
+
+Overfull \hbox (21.18883pt too wide) in paragraph at lines 266--266
+[]
+ []
+
+
+Overfull \hbox (1.66101pt too wide) in paragraph at lines 259--269
+[][] 
+ []
+
+
+Underfull \hbox (badness 1048) in paragraph at lines 269--269
+[]\OT1/ptm/m/n/10 Table 2: Se-lected mo-tifs.The last col-umn in-di-cates the
+ []
+
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 297--302
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 297--302
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 303--308
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 309--312
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 313--314
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 315--317
+
+ []
+
+
+Underfull \hbox (badness 1325) in paragraph at lines 325--326
 \OT1/ptm/m/n/10 will de-fine an ap-prox-i-ma-tion. Given $\OML/cmm/m/it/10 w$ \OT1/ptm/m/n/10 vari-able nodes
  []
 
-[5]
-Underfull \hbox (badness 5147) in paragraph at lines 279--280
-[]\OT1/ptm/m/n/10 Note that if we store a graph with the pat-tern
- []
+[5] <synthetic-plot.pdf, id=67, 1156.32pt x 505.89pt>
+File: synthetic-plot.pdf Graphic file (type pdf)
+ <use synthetic-plot.pdf>
+Package pdftex.def Info: synthetic-plot.pdf used on input line 356.
+(pdftex.def)             Requested size: 239.39438pt x 104.73477pt.
+ <synthrep-plot.pdf, id=68, 578.16pt x 505.89pt>
+File: synthrep-plot.pdf Graphic file (type pdf)
+ <use synthrep-plot.pdf>
+Package pdftex.def Info: synthrep-plot.pdf used on input line 380.
+(pdftex.def)             Requested size: 239.39438pt x 209.46956pt.
+ [6 <./synthetic-plot.pdf> <./synthrep-plot.pdf
 
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./synthrep-plot.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+>] (/Users/Peter/git/Publications/kgmotifs/.texpadtmp/kgmotifs.bbl
+Underfull \vbox (badness 1466) has occurred while \output is active []
 
-Underfull \hbox (badness 3417) in paragraph at lines 295--296
-[]\OT1/ptm/m/n/10 Choose a ran-dom con-stant
- []
-
-
-Underfull \hbox (badness 1152) in paragraph at lines 296--297
-[]\OT1/ptm/m/n/10 Choose a ran-dom con-stant
- []
-
-(/Users/Peter/git/Publications/kgmotifs/.texpadtmp/kgmotifs.bbl
-Underfull \hbox (badness 6141) in paragraph at lines 38--43
+ [7]
+Underfull \hbox (badness 6141) in paragraph at lines 52--57
 []\OT1/ptm/m/n/10 Milo, R.; Shen-Orr, S.; Itzkovitz, S.; Kash-tan, N.;
  []
 
-[6]) [7
+Missing character: There is no â in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no ” in font ptmr7t!
+) [8
 
 ] (/Users/Peter/git/Publications/kgmotifs/.texpadtmp/kgmotifs.aux) ) 
 Here is how much of TeX's memory you used:
- 3265 strings out of 493014
- 42804 string characters out of 6133352
- 117743 words of memory out of 5000000
- 6726 multiletter control sequences out of 15000+600000
- 29379 words of font info for 65 fonts, out of 8000000 for 9000
+ 3687 strings out of 493014
+ 48115 string characters out of 6133352
+ 139103 words of memory out of 5000000
+ 7133 multiletter control sequences out of 15000+600000
+ 29977 words of font info for 67 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,16n,26p,1269b,245s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on /Users/Peter/git/Publications/kgmotifs/.texpadtmp/kgmotifs.pdf (7 pages, 979699 bytes).
+ 38i,19n,26p,1065b,378s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on /Users/Peter/git/Publications/kgmotifs/.texpadtmp/kgmotifs.pdf (8 pages, 4044072 bytes).
 PDF statistics:
- 136 PDF objects out of 1000 (max. 8388607)
- 90 compressed objects within 1 object stream
+ 248 PDF objects out of 1000 (max. 8388607)
+ 126 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -8,45 +8,45 @@ Repeated entry---line 108 of file ../kgmotifs.bib
  :                         ,
 I'm skipping whatever remains of this entry
 Warning--there's a number but no volume in wilcke2017knowledge
-You've used 14 entries,
+You've used 17 entries,
             2568 wiz_defined-function locations,
-            662 strings with 7025 characters,
-and the built_in function-call counts, 6212 in all, are:
-= -- 671
-> -- 240
-< -- 6
-+ -- 83
-- -- 80
-* -- 461
-:= -- 981
-add.period$ -- 75
-call.type$ -- 14
-change.case$ -- 93
-chr.to.int$ -- 14
-cite$ -- 15
-duplicate$ -- 258
-empty$ -- 442
-format.name$ -- 103
-if$ -- 1316
+            679 strings with 7455 characters,
+and the built_in function-call counts, 7693 in all, are:
+= -- 842
+> -- 283
+< -- 8
++ -- 97
+- -- 94
+* -- 566
+:= -- 1202
+add.period$ -- 94
+call.type$ -- 17
+change.case$ -- 112
+chr.to.int$ -- 17
+cite$ -- 18
+duplicate$ -- 322
+empty$ -- 558
+format.name$ -- 121
+if$ -- 1645
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 17
-newline$ -- 92
-num.names$ -- 42
-pop$ -- 89
+missing$ -- 20
+newline$ -- 112
+num.names$ -- 51
+pop$ -- 107
 preamble$ -- 1
-purify$ -- 110
+purify$ -- 132
 quote$ -- 0
-skip$ -- 214
+skip$ -- 266
 stack$ -- 0
-substring$ -- 331
-swap$ -- 82
-text.length$ -- 6
+substring$ -- 433
+swap$ -- 104
+text.length$ -- 8
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 100
+type$ -- 124
 warning$ -- 1
-while$ -- 52
-width$ -- 18
-write$ -- 204
+while$ -- 66
+width$ -- 21
+write$ -- 250
 (There was 1 error message)
