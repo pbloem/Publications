@@ -1,0 +1,100 @@
+ -2040.6 & 68514 & \makecell{\texttt{?n1 rdfs:subClassOf ?n2.} \\\texttt{?n3 rdf:type owl:Class.} \\\texttt{?n4 rdf:type owl:Class.} \\\texttt{?n4 rdfs:subClassOf ?n2.} } \\ 
+ -2077.8 & 60832 & \makecell{\texttt{?n1 ?p5 owl:Class.} \\\texttt{?n3 rdfs:subClassOf ?n2.} \\\texttt{?n4 ?p5 owl:Class.} \\\texttt{?n4 rdfs:subClassOf ?n2.} } \\ 
+ -1532.6 & 32009 & \makecell{\texttt{?n1 mtg:\_cytogen\_sce "true"^^<http://www.w3.org/2001/XMLSchema\_boolean>.} \\\texttt{?n1 mtg:\_salmonella ?n3.} \\\texttt{?n2 mtg:\_amesTestPositive ?n3.} } \\ 
+ 404.6 & 28243 & \makecell{\texttt{?n1 ?p3 "false"^^<http://www.w3.org/2001/XMLSchema\_boolean>.} \\\texttt{?n1 mtg:\_hasAtom ?n2.} } \\ 
+ -1880.8 & 27723 & \makecell{\texttt{?n1 rdf:type ?n2.} \\\texttt{?n1 mtg:\_amesTestPositive ?n4.} \\\texttt{?n1 mtg:\_cytogen\_sce "true"^^<http://www.w3.org/2001/XMLSchema\_boolean>.} \\\texttt{?n3 mtg:\_amesTestPositive "true"^^<http://www.w3.org/2001/XMLSchema\_boolean>.} } \\ 
+ -1341.6 & 26341 & \makecell{\texttt{?n1 rdf:type ?n2.} \\\texttt{?n1 mtg:\_amesTestPositive "false"^^<http://www.w3.org/2001/XMLSchema\_boolean>.} \\\texttt{?n1 mtg:\_cytogen\_sce ?n4.} \\\texttt{?n3 mtg:\_amesTestPositive ?n4.} } \\ 
+ -1903.4 & 24451 & \makecell{\texttt{?n1 ?p3 "true"^^<http://www.w3.org/2001/XMLSchema\_boolean>.} \\\texttt{?n1 mtg:\_hasBond ?n2.} } \\ 
+ 696.5 & 24151 & \makecell{\texttt{?n1 ?p3 "true"^^<http://www.w3.org/2001/XMLSchema\_boolean>.} \\\texttt{?n1 mtg:\_hasAtom ?n2.} } \\ 
+ -1950.4 & 23753 & \makecell{\texttt{?n1 mtg:\_cytogen\_sce "true"^^<http://www.w3.org/2001/XMLSchema\_boolean>.} \\\texttt{?n1 mtg:\_salmonella ?n3.} \\\texttt{?n2 ?p4 ?n3.} } \\ 
+ -420.0 & 21546 & \makecell{\texttt{?n2 ?p4 ?n1.} \\\texttt{?n2 mtg:\_hasAtom ?n3.} \\\texttt{?n2 mtg:\_salmonella ?n1.} } \\ 
+ -1910.1 & 21282 & \makecell{\texttt{?n1 ?p5 ?n3.} \\\texttt{?n1 rdf:type ?n2.} \\\texttt{?n1 mtg:\_cytogen\_sce "true"^^<http://www.w3.org/2001/XMLSchema\_boolean>.} \\\texttt{?n4 mtg:\_amesTestPositive "true"^^<http://www.w3.org/2001/XMLSchema\_boolean>.} } \\ 
+ -2105.7 & 19740 & \makecell{\texttt{mtg:\_Alcohol rdf:type owl:Class.} \\\texttt{?n1 rdf:type owl:Class.} \\\texttt{?n2 rdf:type owl:Class.} } \\ 
+ -1927.1 & 19705 & \makecell{\texttt{?n1 mtg:\_isMutagenic "false"^^<http://www.w3.org/2001/XMLSchema\_boolean>.} \\\texttt{?n1 mtg:\_salmonella "false"^^<http://www.w3.org/2001/XMLSchema\_boolean>.} \\\texttt{?n2 mtg:\_amesTestPositive "false"^^<http://www.w3.org/2001/XMLSchema\_boolean>.} } \\ 
+ -1670.4 & 19420 & \makecell{\texttt{?n1 ?p5 ?n3.} \\\texttt{?n1 rdf:type ?n2.} \\\texttt{?n1 mtg:\_hasAtom ?n4.} } \\ 
+ -1400.8 & 19320 & \makecell{\texttt{?n1 ?p4 owl:Class.} \\\texttt{?n2 ?p4 owl:Class.} \\\texttt{?n2 rdfs:subClassOf ?n3.} } \\ 
+ 55384.0 & 18634 & \makecell{\texttt{?n1 mtg:\_hasBond ?n2.} \\\texttt{?n2 mtg:\_inBond ?n3.} } \\ 
+ 178304.4 & 18634 & \makecell{\texttt{?n1 mtg:\_hasAtom ?n3.} \\\texttt{?n1 mtg:\_hasBond ?n2.} \\\texttt{?n2 mtg:\_inBond ?n3.} } \\ 
+ 90447.5 & 18634 & \makecell{\texttt{?n1 mtg:\_hasBond ?n2.} \\\texttt{?n2 mtg:\_inBond ?n4.} \\\texttt{?n2 mtg:\_inBond ?n3.} } \\ 
+ -2081.1 & 18542 & \makecell{\texttt{?n2 ?p4 ?n1.} \\\texttt{?n2 mtg:\_salmonella ?n3.} } \\ 
+ -1515.2 & 17361 & \makecell{\texttt{?n3 rdf:type ?n2.} \\\texttt{?n4 rdf:type ?n2.} \\\texttt{?n4 rdfs:subClassOf ?n1.} } \\ 
+ -1929.4 & 17066 & \makecell{\texttt{?n2 rdfs:subClassOf ?n5.} \\\texttt{?n5 rdf:type ?n1.} \\\texttt{?n4 rdf:type ?n1.} \\\texttt{?n4 rdfs:subClassOf ?n3.} } \\ 
+ -1915.8 & 15522 & \makecell{\texttt{?n1 rdf:type ?n2.} \\\texttt{?n1 mtg:\_amesTestPositive ?n4.} \\\texttt{?n1 mtg:\_cytogen\_sce ?n5.} \\\texttt{?n3 mtg:\_amesTestPositive ?n5.} } \\ 
+ -2110.1 & 15510 & \makecell{\texttt{mtg:\_Alcohol rdf:type owl:Class.} \\\texttt{?n1 rdf:type owl:Class.} \\\texttt{?n2 rdf:type mtg:\_Alcohol.} } \\ 
+ -1024.2 & 13134 & \makecell{\texttt{?n1 ?p4 "true"^^<http://www.w3.org/2001/XMLSchema\_boolean>.} \\\texttt{?n1 ?p3 ?n2.} } \\ 
+ -2003.2 & 12482 & \makecell{\texttt{mtg:\_d147 mtg:\_hasAtom ?n1.} \\\texttt{mtg:\_d147 mtg:\_hasBond ?n2.} \\\texttt{?n2 mtg:\_inBond ?n3.} } \\ 
+ -2114.9 & 11772 & \makecell{\texttt{mtg:\_alcohol-2306 rdf:type mtg:\_Alcohol.} \\\texttt{?n1 rdf:type mtg:\_Alcohol.} \\\texttt{?n2 rdf:type mtg:\_Alcohol.} } \\ 
+ -1869.4 & 11641 & \makecell{\texttt{?n2 ?p3 ?n1.} \\\texttt{?n2 mtg:\_isMutagenic "true"^^<http://www.w3.org/2001/XMLSchema\_boolean>.} } \\ 
+ -844.1 & 11049 & \makecell{\texttt{?n1 mtg:\_hasBond ?n4.} \\\texttt{?n4 mtg:\_inBond ?n2.} \\\texttt{?n3 mtg:\_inBond ?n2.} } \\ 
+ -1711.7 & 10481 & \makecell{\texttt{?n1 ?p3 "true"^^<http://www.w3.org/2001/XMLSchema\_boolean>.} \\\texttt{?n1 mtg:\_hasAtom ?n2.} \\\texttt{?n1 mtg:\_salmonella "true"^^<http://www.w3.org/2001/XMLSchema\_boolean>.} } \\ 
+ -2081.2 & 10035 & \makecell{\texttt{?n1 rdf:type mtg:\_Hydrogen-1.} \\\texttt{?n2 mtg:\_hasAtom ?n3.} \\\texttt{?n2 mtg:\_hasAtom ?n1.} } \\ 
+ -1125.8 & 9887 & \makecell{\texttt{?n1 rdf:type ?n2.} \\\texttt{?n1 mtg:\_inBond ?n3.} \\\texttt{?n4 mtg:\_hasAtom ?n5.} \\\texttt{?n4 mtg:\_hasAtom ?n3.} \\\texttt{?n4 mtg:\_hasBond ?n1.} } \\ 
+ 8725.9 & 9599 & \makecell{\texttt{?n1 mtg:\_hasAtom ?n3.} \\\texttt{?n2 mtg:\_inBond ?n3.} } \\ 
+ 20309.3 & 9317 & \makecell{\texttt{?n1 mtg:\_hasBond ?n2.} } \\ 
+ -2033.6 & 9248 & \makecell{\texttt{?n2 rdfs:subClassOf ?n5.} \\\texttt{?n5 rdf:type ?n1.} \\\texttt{?n3 rdfs:subClassOf ?n6.} \\\texttt{?n6 rdf:type ?n1.} \\\texttt{?n6 rdfs:subClassOf ?n4.} } \\ 
+ -2108.2 & 9189 & \makecell{\texttt{mtg:\_Compound owl:disjointWith mtg:\_Structure.} \\\texttt{?n2 rdf:type mtg:\_Compound.} \\\texttt{?n2 mtg:\_hasAtom ?n1.} } \\ 
+ 29466.0 & 9189 & \makecell{\texttt{?n1 mtg:\_hasAtom ?n2.} } \\ 
+ 97237.8 & 9189 & \makecell{\texttt{?n1 mtg:\_hasAtom ?n2.} \\\texttt{?n2 mtg:\_charge ?n3.} } \\ 
+ 79027.5 & 8924 & \makecell{\texttt{?n1 mtg:\_hasAtom ?n2.} \\\texttt{?n2 rdf:type ?n3.} } \\ 
+ 93819.3 & 8924 & \makecell{\texttt{?n2 rdf:type ?n3.} \\\texttt{?n2 mtg:\_charge ?n1.} } \\ 
+ -1092.9 & 8245 & \makecell{\texttt{?n1 rdf:type ?n2.} \\\texttt{?n1 mtg:\_inBond ?n6.} \\\texttt{?n1 mtg:\_inBond ?n5.} \\\texttt{?n3 mtg:\_hasAtom ?n6.} \\\texttt{?n3 mtg:\_hasAtom ?n4.} \\\texttt{?n3 mtg:\_hasBond ?n1.} } \\ 
+ -1990.5 & 8105 & \makecell{\texttt{?n1 rdf:type mtg:\_Hydrogen-3.} \\\texttt{?n1 mtg:\_charge ?n3.} \\\texttt{?n2 mtg:\_charge ?n3.} } \\ 
+ 6281.3 & 7541 & \makecell{\texttt{?n1 mtg:\_hasAtom ?n4.} \\\texttt{?n1 mtg:\_hasBond ?n2.} \\\texttt{?n2 mtg:\_inBond ?n5.} \\\texttt{?n3 mtg:\_inBond ?n5.} \\\texttt{?n3 mtg:\_inBond ?n4.} } \\ 
+ -1769.7 & 7315 & \makecell{\texttt{?n1 rdf:type mtg:\_Compound.} \\\texttt{?n1 mtg:\_cytogen\_sce ?n3.} \\\texttt{?n1 mtg:\_hasAtom ?n2.} } \\ 
+ -1810.1 & 7315 & \makecell{\texttt{?n1 rdf:type ?n2.} \\\texttt{?n1 mtg:\_cytogen\_sce ?n4.} \\\texttt{?n1 mtg:\_hasAtom ?n3.} } \\ 
+ 13499.3 & 6863 & \makecell{\texttt{?n1 mtg:\_hasAtom ?n4.} \\\texttt{?n2 mtg:\_inBond ?n4.} \\\texttt{?n2 mtg:\_inBond ?n3.} } \\ 
+ -284.0 & 6781 & \makecell{\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ 41312.6 & 6781 & \makecell{\texttt{?n1 ?p3 ?n2.} \\\texttt{?n2 rdf:type mtg:\_Bond-1.} } \\ 
+ 41352.5 & 6781 & \makecell{\texttt{?n1 mtg:\_hasBond ?n2.} \\\texttt{?n2 rdf:type mtg:\_Bond-1.} } \\ 
+ 41311.3 & 6781 & \makecell{\texttt{?n1 mtg:\_hasBond ?n2.} \\\texttt{?n2 ?p3 mtg:\_Bond-1.} } \\ 
+ -2112.2 & 6780 & \makecell{\texttt{mtg:\_bond6746 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2110.6 & 6780 & \makecell{\texttt{mtg:\_bond4087 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2110.2 & 6780 & \makecell{\texttt{mtg:\_bond362 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2111.3 & 6780 & \makecell{\texttt{mtg:\_bond5036 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2110.3 & 6780 & \makecell{\texttt{mtg:\_bond3785 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2110.3 & 6780 & \makecell{\texttt{mtg:\_bond3807 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2113.1 & 6780 & \makecell{\texttt{mtg:\_bond8955 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2112.6 & 6780 & \makecell{\texttt{mtg:\_bond7702 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2109.1 & 6780 & \makecell{\texttt{mtg:\_bond2647 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2106.9 & 6780 & \makecell{\texttt{mtg:\_bond1545 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ 10254.3 & 6687 & \makecell{\texttt{?n1 rdf:type ?n2.} \\\texttt{?n1 mtg:\_inBond ?n4.} \\\texttt{?n3 mtg:\_hasBond ?n1.} } \\ 
+ 7433.6 & 6574 & \makecell{\texttt{?n1 rdf:type ?n2.} } \\ 
+ 605.0 & 6367 & \makecell{\texttt{?n1 mtg:\_hasAtom ?n3.} \\\texttt{?n1 mtg:\_hasBond ?n6.} \\\texttt{?n6 mtg:\_inBond ?n4.} \\\texttt{?n2 mtg:\_inBond ?n4.} \\\texttt{?n2 mtg:\_inBond ?n3.} \\\texttt{?n5 mtg:\_inBond ?n4.} } \\ 
+ 30774.6 & 6219 & \makecell{\texttt{?n1 mtg:\_hasBond ?n2.} \\\texttt{?n2 rdf:type ?n3.} } \\ 
+ -2113.1 & 6187 & \makecell{\texttt{mtg:\_bond886 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2111.6 & 6087 & \makecell{\texttt{mtg:\_bond5553 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2111.0 & 5944 & \makecell{\texttt{mtg:\_bond4691 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2105.6 & 5765 & \makecell{\texttt{mtg:\_bond1186 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -319.0 & 5699 & \makecell{\texttt{?n2 ?p4 "true"^^<http://www.w3.org/2001/XMLSchema\_boolean>.} \\\texttt{?n2 ?p3 ?n1.} \\\texttt{?n2 mtg:\_salmonella "true"^^<http://www.w3.org/2001/XMLSchema\_boolean>.} } \\ 
+ 2075.7 & 5671 & \makecell{\texttt{?n1 ?p3 mtg:\_Bond-1.} \\\texttt{?n1 mtg:\_inBond ?n2.} } \\ 
+ -2089.5 & 5596 & \makecell{\texttt{?n1 ?p5 ?n3.} \\\texttt{?n1 rdf:type ?n2.} \\\texttt{?n1 mtg:\_cytogen\_sce ?n4.} } \\ 
+ -76.8 & 5307 & \makecell{\texttt{?n1 mtg:\_inBond ?n2.} \\\texttt{?n2 rdf:type ?n3.} } \\ 
+ -2112.2 & 5160 & \makecell{\texttt{mtg:\_bond6818 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2112.7 & 5113 & \makecell{\texttt{mtg:\_bond7792 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2107.3 & 4897 & \makecell{\texttt{mtg:\_bond1677 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2109.7 & 4866 & \makecell{\texttt{mtg:\_bond3131 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ 265.9 & 4776 & \makecell{\texttt{?n2 ?p4 ?n1.} \\\texttt{?n2 rdf:type ?n3.} \\\texttt{?n2 mtg:\_cytogen\_sce "true"^^<http://www.w3.org/2001/XMLSchema\_boolean>.} } \\ 
+ -2110.1 & 4769 & \makecell{\texttt{mtg:\_bond3561 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2113.2 & 4715 & \makecell{\texttt{mtg:\_bond9238 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ 1148.4 & 4648 & \makecell{\texttt{?n1 mtg:\_hasBond ?n2.} \\\texttt{?n2 mtg:\_inBond ?n3.} \\\texttt{?n3 ?p4 mtg:\_Carbon-10.} } \\ 
+ 1183.2 & 4648 & \makecell{\texttt{?n1 rdf:type mtg:\_Carbon-10.} \\\texttt{?n2 mtg:\_hasBond ?n3.} \\\texttt{?n3 mtg:\_inBond ?n1.} } \\ 
+ -2122.4 & 4621 & \makecell{\texttt{mtg:\_bond2253 rdf:type mtg:\_Bond-1.} \\\texttt{mtg:\_bond2256 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2108.5 & 4589 & \makecell{\texttt{mtg:\_bond2298 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -1098.7 & 4568 & \makecell{\texttt{?n1 rdf:type ?n2.} \\\texttt{?n1 mtg:\_amesTestPositive "false"^^<http://www.w3.org/2001/XMLSchema\_boolean>.} \\\texttt{?n1 mtg:\_cytogen\_sce ?n4.} \\\texttt{?n1 mtg:\_hasAtom ?n3.} } \\ 
+ -2112.5 & 4557 & \makecell{\texttt{mtg:\_bond7325 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ 4350.8 & 4465 & \makecell{\texttt{?n1 rdf:type ?n2.} \\\texttt{?n1 mtg:\_inBond ?n4.} \\\texttt{?n3 ?p5 ?n1.} } \\ 
+ -2112.6 & 4437 & \makecell{\texttt{mtg:\_bond7697 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -1115.4 & 4308 & \makecell{\texttt{?n2 ?p3 ?n1.} \\\texttt{?n2 mtg:\_isMutagenic "false"^^<http://www.w3.org/2001/XMLSchema\_boolean>.} } \\ 
+ -1999.2 & 4295 & \makecell{\texttt{?n2 rdf:type mtg:\_Compound.} \\\texttt{?n2 mtg:\_cytogen\_sce "true"^^<http://www.w3.org/2001/XMLSchema\_boolean>.} \\\texttt{?n2 mtg:\_hasAtom ?n1.} } \\ 
+ -2038.7 & 4295 & \makecell{\texttt{?n2 rdf:type ?n3.} \\\texttt{?n2 mtg:\_cytogen\_sce "true"^^<http://www.w3.org/2001/XMLSchema\_boolean>.} \\\texttt{?n2 mtg:\_hasAtom ?n1.} } \\ 
+ -1851.8 & 4250 & \makecell{\texttt{?n2 rdf:type ?n1.} \\\texttt{?n3 ?p4 mtg:\_Atom.} \\\texttt{?n3 rdf:type ?n1.} } \\ 
+ -2107.0 & 4245 & \makecell{\texttt{mtg:\_bond1562 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -1809.8 & 4230 & \makecell{\texttt{?n1 rdf:type owl:Class.} \\\texttt{?n2 ?p3 mtg:\_Atom.} \\\texttt{?n2 rdf:type owl:Class.} } \\ 
+ -1833.0 & 4230 & \makecell{\texttt{?n1 ?p4 owl:Class.} \\\texttt{?n2 ?p4 owl:Class.} \\\texttt{?n2 ?p3 mtg:\_Atom.} } \\ 
+ -2110.6 & 4213 & \makecell{\texttt{mtg:\_bond4069 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2101.2 & 4200 & \makecell{\texttt{?n1 ?p4 ?n3.} \\\texttt{?n1 rdfs:domain mtg:\_Compound.} \\\texttt{?n2 ?p4 mtg:\_Compound.} } \\ 
+ -2108.4 & 4163 & \makecell{\texttt{mtg:\_bond2216 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ 4561.1 & 4134 & \makecell{\texttt{?n1 rdf:type mtg:\_Bond-7.} \\\texttt{?n1 mtg:\_inBond ?n3.} \\\texttt{?n2 mtg:\_hasBond ?n1.} } \\ 
+ 1896.5 & 4134 & \makecell{\texttt{?n1 ?p3 mtg:\_Bond-7.} \\\texttt{?n1 mtg:\_inBond ?n2.} } \\ 
+ 8451.4 & 4134 & \makecell{\texttt{?n1 ?p4 mtg:\_Bond-7.} \\\texttt{?n1 mtg:\_inBond ?n3.} \\\texttt{?n1 mtg:\_inBond ?n2.} } \\ 
+ -2111.8 & 4065 & \makecell{\texttt{mtg:\_bond5899 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 

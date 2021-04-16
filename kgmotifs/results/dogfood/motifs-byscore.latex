@@ -1,0 +1,100 @@
+ 361495.0 & 10475 & \makecell{\texttt{?n1 dc:creator ?n2.} \\\texttt{?n1 foaf:maker ?n2.} \\\texttt{?n2 foaf:made ?n1.} } \\ 
+ 244579.5 & 7674 & \makecell{\texttt{?n1 dc:creator ?n2.} \\\texttt{?n1 foaf:maker ?n2.} \\\texttt{?n1 swrs:author ?n2.} } \\ 
+ 220360.2 & 12138 & \makecell{\texttt{?n1 foaf:maker ?n2.} \\\texttt{?n2 foaf:made ?n1.} } \\ 
+ 189627.3 & 9888 & \makecell{\texttt{?n1 foaf:member ?n2.} \\\texttt{?n2 swrs:affiliation ?n1.} } \\ 
+ 187972.9 & 10475 & \makecell{\texttt{?n1 dc:creator ?n2.} \\\texttt{?n2 foaf:made ?n1.} } \\ 
+ 187786.0 & 10331 & \makecell{\texttt{?n1 ?p3 ?n2.} \\\texttt{?n2 ?p4 ?n1.} } \\ 
+ 166559.1 & 10493 & \makecell{\texttt{?n1 dc:creator ?n2.} \\\texttt{?n1 foaf:maker ?n2.} } \\ 
+ 166514.9 & 10493 & \makecell{\texttt{?n1 ?p3 ?n2.} \\\texttt{?n1 foaf:maker ?n2.} } \\ 
+ 164799.7 & 9155 & \makecell{\texttt{?n1 swrs:author ?n2.} \\\texttt{?n2 foaf:made ?n1.} } \\ 
+ 131963.3 & 8787 & \makecell{\texttt{?n1 foaf:maker ?n2.} \\\texttt{?n1 swrs:author ?n2.} } \\ 
+ 124179.2 & 11549 & \makecell{\texttt{?n1 dc:creator ?n2.} \\\texttt{?n2 rdfs:label ?n3.} \\\texttt{?n2 foaf:made ?n1.} } \\ 
+ 122560.5 & 5709 & \makecell{\texttt{?n1 swc:heldBy ?n2.} \\\texttt{?n2 swc:holdsRole ?n1.} } \\ 
+ 117383.9 & 6436 & \makecell{\texttt{?n1 swrs:author ?n2.} \\\texttt{?n2 rdfs:label ?n3.} \\\texttt{?n2 foaf:name ?n3.} \\\texttt{?n2 foaf:made ?n1.} } \\ 
+ 114232.2 & 9182 & \makecell{\texttt{?n1 ?p3 ?n2.} \\\texttt{?n1 swrs:author ?n2.} } \\ 
+ 112605.6 & 7674 & \makecell{\texttt{?n1 dc:creator ?n2.} \\\texttt{?n1 swrs:author ?n2.} } \\ 
+ 109452.0 & 5594 & \makecell{\texttt{?n1 dc:creator ?n2.} \\\texttt{?n1 foaf:maker ?n2.} \\\texttt{?n1 swrs:author ?n2.} \\\texttt{?n2 rdfs:label ?n3.} } \\ 
+ 100479.1 & 14405 & \makecell{\texttt{?n2 dc:creator ?n3.} \\\texttt{?n2 foaf:maker ?n3.} \\\texttt{?n2 swrs:author ?n3.} \\\texttt{?n2 dc:subject ?n1.} } \\ 
+ 96151.9 & 4623 & \makecell{\texttt{?n1 swc:holdsRole ?n2.} \\\texttt{?n2 ?p3 ?n1.} } \\ 
+ 87491.5 & 24130 & \makecell{\texttt{?n2 foaf:maker ?n3.} \\\texttt{?n2 dc:subject ?n1.} \\\texttt{?n3 foaf:made ?n2.} } \\ 
+ 84688.8 & 25156 & \makecell{\texttt{?n2 dc:creator ?n3.} \\\texttt{?n2 foaf:maker ?n3.} \\\texttt{?n2 swrs:author ?n3.} \\\texttt{?n2 swrs:author ?n1.} } \\ 
+ 76479.6 & 20027 & \makecell{\texttt{?n2 dc:creator ?n3.} \\\texttt{?n2 foaf:maker ?n1.} \\\texttt{?n3 foaf:made ?n2.} } \\ 
+ 60189.5 & 19545 & \makecell{\texttt{?n2 dc:creator ?n3.} \\\texttt{?n2 swrs:author ?n3.} \\\texttt{?n3 foaf:made ?n1.} } \\ 
+ 58735.8 & 6314 & \makecell{\texttt{?n2 swrs:author ?n3.} \\\texttt{?n3 foaf:name ?n1.} \\\texttt{?n3 foaf:made ?n2.} } \\ 
+ 58147.6 & 6245 & \makecell{\texttt{?n1 dc:creator ?n2.} \\\texttt{?n1 swrs:author ?n2.} \\\texttt{?n2 rdfs:label ?n3.} } \\ 
+ 57516.0 & 6120 & \makecell{\texttt{?n1 rdfs:label ?n2.} \\\texttt{?n1 foaf:name ?n2.} \\\texttt{?n1 foaf:made ?n4.} \\\texttt{?n1 foaf:firstName ?n3.} \\\texttt{?n4 swrs:author ?n1.} } \\ 
+ 56214.3 & 2418 & \makecell{\texttt{?n1 swc:isSuperEventOf ?n2.} \\\texttt{?n2 swc:isSubEventOf ?n1.} } \\ 
+ 56174.1 & 2418 & \makecell{\texttt{?n1 swc:isSubEventOf ?n2.} \\\texttt{?n2 ?p3 ?n1.} } \\ 
+ 53902.6 & 1845 & \makecell{\texttt{?n1 ?p3 ?n2.} \\\texttt{?n1 foaf:maker ?n2.} \\\texttt{?n2 foaf:made ?n1.} } \\ 
+ 52237.6 & 2637 & \makecell{\texttt{?n1 foaf:member ?n2.} \\\texttt{?n2 rdf:type foaf:Person.} \\\texttt{?n2 swrs:affiliation ?n1.} } \\ 
+ 51100.3 & 6327 & \makecell{\texttt{?n2 dc:creator ?n3.} \\\texttt{?n2 foaf:maker ?n3.} \\\texttt{?n3 foaf:name ?n1.} } \\ 
+ 47019.6 & 2646 & \makecell{\texttt{?n1 ?p3 swrs:InProceedings.} \\\texttt{?n1 rdfs:label ?n2.} \\\texttt{?n1 dc:title ?n2.} } \\ 
+ 44585.2 & 6057 & \makecell{\texttt{?n1 foaf:member ?n3.} \\\texttt{?n3 swrs:affiliation ?n1.} \\\texttt{?n2 foaf:maker ?n3.} } \\ 
+ 44002.8 & 2773 & \makecell{\texttt{?n2 rdf:type swrs:InProceedings.} \\\texttt{?n2 rdfs:label ?n1.} \\\texttt{?n2 dc:title ?n1.} } \\ 
+ 42128.7 & 3767 & \makecell{\texttt{?n1 swc:hasPart ?n2.} \\\texttt{?n2 rdf:type ?n3.} } \\ 
+ 41966.7 & 1481 & \makecell{\texttt{?n1 vu:~mcaklein/onto/swrc\_ext/2005/05\_authorList ?n2.} \\\texttt{?n1 foaf:maker ?n3.} \\\texttt{?n1 swrs:author ?n3.} \\\texttt{?n2 rdf:\_1 ?n3.} } \\ 
+ 41937.2 & 1899 & \makecell{\texttt{?n2 vu:~mcaklein/onto/swrc\_ext/2005/05\_authorList ?n3.} \\\texttt{?n2 foaf:maker ?n1.} \\\texttt{?n2 swrs:author ?n1.} \\\texttt{?n3 ?p4 ?n1.} } \\ 
+ 41688.2 & 3695 & \makecell{\texttt{?n1 swc:hasPart ?n2.} \\\texttt{?n2 rdf:type swrs:InProceedings.} } \\ 
+ 41645.9 & 3695 & \makecell{\texttt{?n1 swc:hasPart ?n2.} \\\texttt{?n2 ?p3 swrs:InProceedings.} } \\ 
+ 41036.5 & 2977 & \makecell{\texttt{?n2 swc:isPartOf ?n3.} \\\texttt{?n2 swrs:month ?n1.} } \\ 
+ 39073.9 & 33888 & \makecell{\texttt{?n2 swc:heldBy ?n3.} \\\texttt{?n3 swc:holdsRole ?n1.} } \\ 
+ 37520.8 & 18112 & \makecell{\texttt{?n2 foaf:member ?n3.} \\\texttt{?n3 foaf:made ?n1.} } \\ 
+ 35246.8 & 3839 & \makecell{\texttt{?n1 ?p3 swrs:InProceedings.} \\\texttt{?n1 swc:isPartOf ?n2.} } \\ 
+ 33634.0 & 4070 & \makecell{\texttt{?n1 ?p4 ?n2.} \\\texttt{?n2 rdfs:label ?n3.} \\\texttt{?n2 foaf:name ?n3.} } \\ 
+ 31847.6 & 3660 & \makecell{\texttt{?n1 foaf:member ?n3.} \\\texttt{?n3 swrs:affiliation ?n1.} \\\texttt{?n2 rdf:\_1 ?n3.} } \\ 
+ 31723.6 & 10045 & \makecell{\texttt{?n2 dc:creator ?n3.} \\\texttt{?n2 swrs:url ?n1.} \\\texttt{?n3 foaf:made ?n2.} } \\ 
+ 30615.4 & 3081 & \makecell{\texttt{?n2 rdf:type ?n3.} \\\texttt{?n2 swrs:month ?n1.} } \\ 
+ 29855.5 & 2997 & \makecell{\texttt{?n2 rdf:type swrs:InProceedings.} \\\texttt{?n2 swrs:month ?n1.} } \\ 
+ 28209.0 & 5807 & \makecell{\texttt{?n1 swc:heldBy ?n2.} } \\ 
+ 27799.9 & 1056 & \makecell{\texttt{?n1 swc:hasRole ?n2.} \\\texttt{?n2 rdf:type ?n3.} \\\texttt{?n2 swc:isRoleAt ?n1.} } \\ 
+ 27764.1 & 1057 & \makecell{\texttt{?n1 swc:hasRole ?n2.} \\\texttt{?n2 ?p4 ?n1.} \\\texttt{?n2 rdf:type ?n3.} } \\ 
+ 27716.3 & 1679 & \makecell{\texttt{?n1 dct:creator ?n2.} \\\texttt{?n2 foaf:made ?n1.} } \\ 
+ 26923.6 & 8252 & \makecell{\texttt{?n1 ?p4 ?n3.} \\\texttt{?n3 foaf:made ?n2.} \\\texttt{?n2 foaf:maker ?n3.} } \\ 
+ 26543.8 & 5865 & \makecell{\texttt{?n1 swc:holdsRole ?n2.} } \\ 
+ 25704.0 & 803 & \makecell{\texttt{?n2 swc:hasRole ?n3.} \\\texttt{?n3 ?p5 ?n1.} \\\texttt{?n3 ?p4 ?n2.} } \\ 
+ 24708.4 & 5025 & \makecell{\texttt{?n2 swc:isSuperEventOf ?n3.} \\\texttt{?n3 ?p4 ?n1.} } \\ 
+ 24358.8 & 1530 & \makecell{\texttt{?n1 rdf:type swrs:InProceedings.} \\\texttt{?n1 vu:~mcaklein/onto/swrc\_ext/2005/05\_authorList ?n3.} \\\texttt{?n2 swc:hasPart ?n1.} } \\ 
+ 23838.5 & 2459 & \makecell{\texttt{?n1 rdfs:label ?n2.} \\\texttt{?n1 foaf:name ?n2.} } \\ 
+ 23304.9 & 1098 & \makecell{\texttt{?n1 rdf:\_1 ?n2.} \\\texttt{?n4 vu:~mcaklein/onto/swrc\_ext/2005/05\_authorList ?n1.} \\\texttt{?n4 swrs:month ?n3.} \\\texttt{?n4 swrs:author ?n2.} } \\ 
+ 23214.4 & 3592 & \makecell{\texttt{?n1 vu:~mcaklein/onto/swrc\_ext/2005/05\_authorList ?n2.} \\\texttt{?n1 swrs:month ?n4.} \\\texttt{?n1 swrs:author ?n3.} \\\texttt{?n2 ?p5 ?n3.} } \\ 
+ 22664.6 & 3734 & \makecell{\texttt{?n1 swc:hasPart ?n2.} \\\texttt{?n2 rdfs:label ?n3.} } \\ 
+ 22637.2 & 3375 & \makecell{\texttt{?n2 swc:isPartOf ?n3.} \\\texttt{?n2 dc:title ?n1.} } \\ 
+ 22453.4 & 2851 & \makecell{\texttt{?n2 rdf:type ?n3.} \\\texttt{?n2 swc:isSubEventOf ?n1.} } \\ 
+ 22444.6 & 10260 & \makecell{\texttt{?n2 foaf:based\_near ?n3.} \\\texttt{?n2 foaf:made ?n1.} } \\ 
+ 22430.1 & 9494 & \makecell{\texttt{?n2 swrs:url ?n3.} \\\texttt{?n2 foaf:maker ?n1.} \\\texttt{?n2 swrs:author ?n1.} } \\ 
+ 22355.0 & 3733 & \makecell{\texttt{?n1 swc:hasPart ?n2.} } \\ 
+ 21617.9 & 1625 & \makecell{\texttt{?n1 vu:~mcaklein/onto/swrc\_ext/2005/05\_authorList ?n2.} \\\texttt{?n1 foaf:maker ?n3.} \\\texttt{?n2 rdf:\_1 ?n3.} } \\ 
+ 20342.5 & 1642 & \makecell{\texttt{?n1 dc:creator ?n2.} \\\texttt{?n2 rdf:type foaf:Person.} \\\texttt{?n2 foaf:made ?n1.} } \\ 
+ 20088.7 & 1542 & \makecell{\texttt{?n1 vu:~mcaklein/onto/swrc\_ext/2005/05\_authorList ?n2.} \\\texttt{?n1 swrs:author ?n3.} \\\texttt{?n2 rdf:\_1 ?n3.} } \\ 
+ 20053.7 & 759 & \makecell{\texttt{?n1 ?p4 ?n2.} \\\texttt{?n1 foaf:maker ?n2.} \\\texttt{?n2 ?p3 ?n1.} } \\ 
+ 19911.3 & 1498 & \makecell{\texttt{?n1 swrs:author ?n2.} \\\texttt{?n1 dct:creator ?n2.} } \\ 
+ 19512.5 & 1057 & \makecell{\texttt{?n1 swc:isRoleAt ?n2.} \\\texttt{?n2 swc:hasRole ?n1.} } \\ 
+ 19462.9 & 1058 & \makecell{\texttt{?n1 swc:hasRole ?n2.} \\\texttt{?n2 ?p3 ?n1.} } \\ 
+ 19177.2 & 4949 & \makecell{\texttt{?n2 dc:creator ?n3.} \\\texttt{?n2 foaf:maker ?n3.} \\\texttt{?n2 foaf:topic ?n1.} } \\ 
+ 18897.8 & 5494 & \makecell{\texttt{?n1 swc:hasRole ?n2.} \\\texttt{?n2 ?p4 ?n1.} \\\texttt{?n2 swc:heldBy ?n3.} } \\ 
+ 18866.0 & 5494 & \makecell{\texttt{?n1 ?p5 ?n2.} \\\texttt{?n2 ?p4 ?n1.} \\\texttt{?n2 swc:heldBy ?n3.} } \\ 
+ 18791.7 & 1609 & \makecell{\texttt{?n1 foaf:maker ?n2.} \\\texttt{?n2 rdf:type foaf:Person.} \\\texttt{?n2 foaf:made ?n1.} } \\ 
+ 18540.3 & 2676 & \makecell{\texttt{?n2 dc:title ?n3.} \\\texttt{?n2 swrs:month ?n1.} } \\ 
+ 17482.9 & 1368 & \makecell{\texttt{?n1 ?p4 ?n2.} \\\texttt{?n1 swrs:author ?n3.} \\\texttt{?n2 rdf:\_1 ?n3.} } \\ 
+ 16484.8 & 10642 & \makecell{\texttt{?n1 swc:hasPart ?n2.} \\\texttt{?n2 dc:creator ?n3.} } \\ 
+ 16451.9 & 1561 & \makecell{\texttt{?n1 swc:hasPart ?n2.} \\\texttt{?n2 vu:~mcaklein/onto/swrc\_ext/2005/05\_authorList ?n3.} } \\ 
+ 16433.9 & 1799 & \makecell{\texttt{?n1 ?p4 ?n2.} \\\texttt{?n2 vu:~mcaklein/onto/swrc\_ext/2005/05\_authorList ?n3.} } \\ 
+ 15939.3 & 1695 & \makecell{\texttt{?n1 rdf:type ?n2.} \\\texttt{?n1 swc:hasRelatedDocument ?n4.} \\\texttt{?n3 swc:hasPart ?n4.} } \\ 
+ 15938.1 & 5021 & \makecell{\texttt{?n1 foaf:based\_near ?n2.} } \\ 
+ 15731.7 & 2138 & \makecell{\texttt{?n2 rdf:type foaf:Person.} \\\texttt{?n2 foaf:based\_near ?n1.} } \\ 
+ 15622.8 & 8121 & \makecell{\texttt{?n2 swrs:affiliation ?n3.} \\\texttt{?n2 foaf:made ?n1.} } \\ 
+ 15247.4 & 2075 & \makecell{\texttt{?n2 foaf:maker ?n3.} \\\texttt{?n3 swrs:affiliation ?n1.} \\\texttt{?n3 foaf:made ?n2.} } \\ 
+ 14891.1 & 5635 & \makecell{\texttt{?n2 swrs:author ?n3.} \\\texttt{?n2 dct:creator ?n3.} \\\texttt{?n2 dct:subject ?n1.} } \\ 
+ 14784.8 & 1661 & \makecell{\texttt{?n1 ?p3 ?n2.} \\\texttt{?n2 ?p4 swrs:InProceedings.} } \\ 
+ 14671.0 & 8700 & \makecell{\texttt{?n1 ?p5 ?n2.} \\\texttt{?n2 ?p4 ?n1.} \\\texttt{?n2 swc:holdsRole ?n3.} } \\ 
+ 14420.5 & 4888 & \makecell{\texttt{?n1 foaf:made ?n2.} \\\texttt{?n2 ?p4 ?n3.} \\\texttt{?n2 foaf:maker ?n3.} } \\ 
+ 13816.1 & 3869 & \makecell{\texttt{?n1 swc:isPartOf ?n2.} } \\ 
+ 13656.0 & 3399 & \makecell{\texttt{?n1 swrs:year ?n2.} } \\ 
+ 13482.9 & 972 & \makecell{\texttt{?n1 swc:hasRelatedDocument ?n2.} \\\texttt{?n2 ?p3 ?n1.} } \\ 
+ 13195.6 & 9910 & \makecell{\texttt{?n1 foaf:member ?n2.} } \\ 
+ 12972.1 & 1776 & \makecell{\texttt{?n1 ?p4 ?n2.} \\\texttt{?n2 ?p3 ?n1.} \\\texttt{?n2 rdf:type foaf:Person.} } \\ 
+ 12601.7 & 3503 & \makecell{\texttt{?n1 ?p4 ?n3.} \\\texttt{?n2 dc:creator ?n3.} \\\texttt{?n2 swrs:author ?n3.} } \\ 
+ 12505.7 & 3324 & \makecell{\texttt{?n2 rdf:type swrs:InProceedings.} \\\texttt{?n2 dc:title ?n1.} } \\ 
+ 12143.3 & 3047 & \makecell{\texttt{?n1 swrs:month ?n2.} } \\ 
+ 12134.6 & 1512 & \makecell{\texttt{?n2 vu:~mcaklein/onto/swrc\_ext/2005/05\_authorList ?n3.} \\\texttt{?n2 swc:isPartOf ?n1.} } \\ 
+ 12037.6 & 8933 & \makecell{\texttt{?n2 swc:heldBy ?n3.} \\\texttt{?n3 ?p4 ?n2.} \\\texttt{?n3 swc:holdsRole ?n1.} } \\ 

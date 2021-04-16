@@ -1,0 +1,474 @@
+Sep 06, 2018 3:39:17 AM nl.peterbloem.kit.Global info
+INFO: Starting
+Sep 06, 2018 3:39:17 AM nl.peterbloem.kit.Global info
+INFO: New seed: 5131342949696771598
+Sep 06, 2018 3:39:17 AM nl.peterbloem.kit.Global info
+INFO: [--experiment, real-world, --iterations, 100000, --topk, 100, --data, dogfood, --max-time, 5]
+Sep 06, 2018 3:39:21 AM nl.peterbloem.kit.Global info
+INFO: Using 32 separate processes.
+Sep 06, 2018 3:39:33 AM nl.peterbloem.kit.Global info
+INFO: 500 iterations finished.
+Sep 06, 2018 3:39:54 AM nl.peterbloem.kit.Global info
+INFO: 1000 iterations finished.
+Sep 06, 2018 3:40:12 AM nl.peterbloem.kit.Global info
+INFO: 1500 iterations finished.
+Sep 06, 2018 3:40:28 AM nl.peterbloem.kit.Global info
+INFO: 2000 iterations finished.
+Sep 06, 2018 3:40:44 AM nl.peterbloem.kit.Global info
+INFO: 2500 iterations finished.
+Sep 06, 2018 3:41:01 AM nl.peterbloem.kit.Global info
+INFO: 3000 iterations finished.
+Sep 06, 2018 3:41:18 AM nl.peterbloem.kit.Global info
+INFO: 3500 iterations finished.
+Sep 06, 2018 3:41:38 AM nl.peterbloem.kit.Global info
+INFO: 4000 iterations finished.
+Sep 06, 2018 3:41:56 AM nl.peterbloem.kit.Global info
+INFO: 4500 iterations finished.
+Sep 06, 2018 3:42:14 AM nl.peterbloem.kit.Global info
+INFO: 5000 iterations finished.
+Sep 06, 2018 3:42:32 AM nl.peterbloem.kit.Global info
+INFO: 5500 iterations finished.
+Sep 06, 2018 3:42:52 AM nl.peterbloem.kit.Global info
+INFO: 6000 iterations finished.
+Sep 06, 2018 3:43:06 AM nl.peterbloem.kit.Global info
+INFO: 6500 iterations finished.
+Sep 06, 2018 3:43:24 AM nl.peterbloem.kit.Global info
+INFO: 7000 iterations finished.
+Sep 06, 2018 3:43:38 AM nl.peterbloem.kit.Global info
+INFO: 7500 iterations finished.
+Sep 06, 2018 3:43:52 AM nl.peterbloem.kit.Global info
+INFO: 8000 iterations finished.
+Sep 06, 2018 3:44:13 AM nl.peterbloem.kit.Global info
+INFO: 8500 iterations finished.
+Sep 06, 2018 3:44:26 AM nl.peterbloem.kit.Global info
+INFO: 9000 iterations finished.
+Sep 06, 2018 3:44:40 AM nl.peterbloem.kit.Global info
+INFO: 9500 iterations finished.
+Sep 06, 2018 3:44:52 AM nl.peterbloem.kit.Global info
+INFO: 10000 iterations finished.
+Sep 06, 2018 3:45:06 AM nl.peterbloem.kit.Global info
+INFO: 10500 iterations finished.
+Sep 06, 2018 3:45:32 AM nl.peterbloem.kit.Global info
+INFO: 11000 iterations finished.
+Sep 06, 2018 3:45:47 AM nl.peterbloem.kit.Global info
+INFO: 11500 iterations finished.
+Sep 06, 2018 3:46:08 AM nl.peterbloem.kit.Global info
+INFO: 12000 iterations finished.
+Sep 06, 2018 3:46:26 AM nl.peterbloem.kit.Global info
+INFO: 12500 iterations finished.
+Sep 06, 2018 3:46:47 AM nl.peterbloem.kit.Global info
+INFO: 13000 iterations finished.
+Sep 06, 2018 3:47:06 AM nl.peterbloem.kit.Global info
+INFO: 13500 iterations finished.
+Sep 06, 2018 3:47:20 AM nl.peterbloem.kit.Global info
+INFO: 14000 iterations finished.
+Sep 06, 2018 3:47:31 AM nl.peterbloem.kit.Global info
+INFO: 14500 iterations finished.
+Sep 06, 2018 3:47:47 AM nl.peterbloem.kit.Global info
+INFO: 15000 iterations finished.
+Sep 06, 2018 3:48:04 AM nl.peterbloem.kit.Global info
+INFO: 15500 iterations finished.
+Sep 06, 2018 3:48:23 AM nl.peterbloem.kit.Global info
+INFO: 16000 iterations finished.
+Sep 06, 2018 3:48:35 AM nl.peterbloem.kit.Global info
+INFO: 16500 iterations finished.
+Sep 06, 2018 3:48:53 AM nl.peterbloem.kit.Global info
+INFO: 17000 iterations finished.
+Sep 06, 2018 3:49:09 AM nl.peterbloem.kit.Global info
+INFO: 17500 iterations finished.
+Sep 06, 2018 3:49:22 AM nl.peterbloem.kit.Global info
+INFO: 18000 iterations finished.
+Sep 06, 2018 3:49:39 AM nl.peterbloem.kit.Global info
+INFO: 18500 iterations finished.
+Sep 06, 2018 3:49:57 AM nl.peterbloem.kit.Global info
+INFO: 19000 iterations finished.
+Sep 06, 2018 3:50:16 AM nl.peterbloem.kit.Global info
+INFO: 19500 iterations finished.
+Sep 06, 2018 3:50:37 AM nl.peterbloem.kit.Global info
+INFO: 20000 iterations finished.
+Sep 06, 2018 3:50:50 AM nl.peterbloem.kit.Global info
+INFO: 20500 iterations finished.
+Sep 06, 2018 3:51:09 AM nl.peterbloem.kit.Global info
+INFO: 21000 iterations finished.
+Sep 06, 2018 3:51:27 AM nl.peterbloem.kit.Global info
+INFO: 21500 iterations finished.
+Sep 06, 2018 3:51:46 AM nl.peterbloem.kit.Global info
+INFO: 22000 iterations finished.
+Sep 06, 2018 3:52:00 AM nl.peterbloem.kit.Global info
+INFO: 22500 iterations finished.
+Sep 06, 2018 3:52:15 AM nl.peterbloem.kit.Global info
+INFO: 23000 iterations finished.
+Sep 06, 2018 3:52:36 AM nl.peterbloem.kit.Global info
+INFO: 23500 iterations finished.
+Sep 06, 2018 3:52:52 AM nl.peterbloem.kit.Global info
+INFO: 24000 iterations finished.
+Sep 06, 2018 3:53:06 AM nl.peterbloem.kit.Global info
+INFO: 24500 iterations finished.
+Sep 06, 2018 3:53:28 AM nl.peterbloem.kit.Global info
+INFO: 25000 iterations finished.
+Sep 06, 2018 3:53:45 AM nl.peterbloem.kit.Global info
+INFO: 25500 iterations finished.
+Sep 06, 2018 3:54:00 AM nl.peterbloem.kit.Global info
+INFO: 26000 iterations finished.
+Sep 06, 2018 3:54:20 AM nl.peterbloem.kit.Global info
+INFO: 26500 iterations finished.
+Sep 06, 2018 3:54:38 AM nl.peterbloem.kit.Global info
+INFO: 27000 iterations finished.
+Sep 06, 2018 3:54:55 AM nl.peterbloem.kit.Global info
+INFO: 27500 iterations finished.
+Sep 06, 2018 3:55:09 AM nl.peterbloem.kit.Global info
+INFO: 28000 iterations finished.
+Sep 06, 2018 3:55:24 AM nl.peterbloem.kit.Global info
+INFO: 28500 iterations finished.
+Sep 06, 2018 3:55:38 AM nl.peterbloem.kit.Global info
+INFO: 29000 iterations finished.
+Sep 06, 2018 3:55:51 AM nl.peterbloem.kit.Global info
+INFO: 29500 iterations finished.
+Sep 06, 2018 3:56:10 AM nl.peterbloem.kit.Global info
+INFO: 30000 iterations finished.
+Sep 06, 2018 3:56:29 AM nl.peterbloem.kit.Global info
+INFO: 30500 iterations finished.
+Sep 06, 2018 3:56:42 AM nl.peterbloem.kit.Global info
+INFO: 31000 iterations finished.
+Sep 06, 2018 3:56:56 AM nl.peterbloem.kit.Global info
+INFO: 31500 iterations finished.
+Sep 06, 2018 3:57:11 AM nl.peterbloem.kit.Global info
+INFO: 32000 iterations finished.
+Sep 06, 2018 3:57:30 AM nl.peterbloem.kit.Global info
+INFO: 32500 iterations finished.
+Sep 06, 2018 3:57:43 AM nl.peterbloem.kit.Global info
+INFO: 33000 iterations finished.
+Sep 06, 2018 3:58:04 AM nl.peterbloem.kit.Global info
+INFO: 33500 iterations finished.
+Sep 06, 2018 3:58:22 AM nl.peterbloem.kit.Global info
+INFO: 34000 iterations finished.
+Sep 06, 2018 3:58:38 AM nl.peterbloem.kit.Global info
+INFO: 34500 iterations finished.
+Sep 06, 2018 3:58:53 AM nl.peterbloem.kit.Global info
+INFO: 35000 iterations finished.
+Sep 06, 2018 3:59:13 AM nl.peterbloem.kit.Global info
+INFO: 35500 iterations finished.
+Sep 06, 2018 3:59:29 AM nl.peterbloem.kit.Global info
+INFO: 36000 iterations finished.
+Sep 06, 2018 3:59:42 AM nl.peterbloem.kit.Global info
+INFO: 36500 iterations finished.
+Sep 06, 2018 4:00:04 AM nl.peterbloem.kit.Global info
+INFO: 37000 iterations finished.
+Sep 06, 2018 4:00:15 AM nl.peterbloem.kit.Global info
+INFO: 37500 iterations finished.
+Sep 06, 2018 4:00:28 AM nl.peterbloem.kit.Global info
+INFO: 38000 iterations finished.
+Sep 06, 2018 4:00:43 AM nl.peterbloem.kit.Global info
+INFO: 38500 iterations finished.
+Sep 06, 2018 4:00:57 AM nl.peterbloem.kit.Global info
+INFO: 39000 iterations finished.
+Sep 06, 2018 4:01:13 AM nl.peterbloem.kit.Global info
+INFO: 39500 iterations finished.
+Sep 06, 2018 4:01:29 AM nl.peterbloem.kit.Global info
+INFO: 40000 iterations finished.
+Sep 06, 2018 4:01:44 AM nl.peterbloem.kit.Global info
+INFO: 40501 iterations finished.
+Sep 06, 2018 4:02:01 AM nl.peterbloem.kit.Global info
+INFO: 41000 iterations finished.
+Sep 06, 2018 4:02:14 AM nl.peterbloem.kit.Global info
+INFO: 41500 iterations finished.
+Sep 06, 2018 4:02:31 AM nl.peterbloem.kit.Global info
+INFO: 42000 iterations finished.
+Sep 06, 2018 4:02:45 AM nl.peterbloem.kit.Global info
+INFO: 42500 iterations finished.
+Sep 06, 2018 4:03:01 AM nl.peterbloem.kit.Global info
+INFO: 43000 iterations finished.
+Sep 06, 2018 4:03:18 AM nl.peterbloem.kit.Global info
+INFO: 43500 iterations finished.
+Sep 06, 2018 4:03:34 AM nl.peterbloem.kit.Global info
+INFO: 44000 iterations finished.
+Sep 06, 2018 4:03:48 AM nl.peterbloem.kit.Global info
+INFO: 44500 iterations finished.
+Sep 06, 2018 4:04:02 AM nl.peterbloem.kit.Global info
+INFO: 45000 iterations finished.
+Sep 06, 2018 4:04:21 AM nl.peterbloem.kit.Global info
+INFO: 45500 iterations finished.
+Sep 06, 2018 4:04:40 AM nl.peterbloem.kit.Global info
+INFO: 46000 iterations finished.
+Sep 06, 2018 4:04:56 AM nl.peterbloem.kit.Global info
+INFO: 46500 iterations finished.
+Sep 06, 2018 4:05:09 AM nl.peterbloem.kit.Global info
+INFO: 47000 iterations finished.
+Sep 06, 2018 4:05:23 AM nl.peterbloem.kit.Global info
+INFO: 47500 iterations finished.
+Sep 06, 2018 4:05:39 AM nl.peterbloem.kit.Global info
+INFO: 48000 iterations finished.
+Sep 06, 2018 4:05:56 AM nl.peterbloem.kit.Global info
+INFO: 48500 iterations finished.
+Sep 06, 2018 4:06:11 AM nl.peterbloem.kit.Global info
+INFO: 49000 iterations finished.
+Sep 06, 2018 4:06:32 AM nl.peterbloem.kit.Global info
+INFO: 49500 iterations finished.
+Sep 06, 2018 4:06:47 AM nl.peterbloem.kit.Global info
+INFO: 50000 iterations finished.
+Sep 06, 2018 4:07:00 AM nl.peterbloem.kit.Global info
+INFO: 50500 iterations finished.
+Sep 06, 2018 4:07:21 AM nl.peterbloem.kit.Global info
+INFO: 51000 iterations finished.
+Sep 06, 2018 4:07:36 AM nl.peterbloem.kit.Global info
+INFO: 51500 iterations finished.
+Sep 06, 2018 4:07:53 AM nl.peterbloem.kit.Global info
+INFO: 52000 iterations finished.
+Sep 06, 2018 4:08:10 AM nl.peterbloem.kit.Global info
+INFO: 52500 iterations finished.
+Sep 06, 2018 4:08:30 AM nl.peterbloem.kit.Global info
+INFO: 53000 iterations finished.
+Sep 06, 2018 4:08:47 AM nl.peterbloem.kit.Global info
+INFO: 53500 iterations finished.
+Sep 06, 2018 4:09:04 AM nl.peterbloem.kit.Global info
+INFO: 54000 iterations finished.
+Sep 06, 2018 4:09:15 AM nl.peterbloem.kit.Global info
+INFO: 54500 iterations finished.
+Sep 06, 2018 4:09:28 AM nl.peterbloem.kit.Global info
+INFO: 55000 iterations finished.
+Sep 06, 2018 4:09:47 AM nl.peterbloem.kit.Global info
+INFO: 55500 iterations finished.
+Sep 06, 2018 4:10:04 AM nl.peterbloem.kit.Global info
+INFO: 56000 iterations finished.
+Sep 06, 2018 4:10:18 AM nl.peterbloem.kit.Global info
+INFO: 56500 iterations finished.
+Sep 06, 2018 4:10:33 AM nl.peterbloem.kit.Global info
+INFO: 57000 iterations finished.
+Sep 06, 2018 4:10:50 AM nl.peterbloem.kit.Global info
+INFO: 57500 iterations finished.
+Sep 06, 2018 4:11:08 AM nl.peterbloem.kit.Global info
+INFO: 58000 iterations finished.
+Sep 06, 2018 4:11:27 AM nl.peterbloem.kit.Global info
+INFO: 58500 iterations finished.
+Sep 06, 2018 4:11:42 AM nl.peterbloem.kit.Global info
+INFO: 59000 iterations finished.
+Sep 06, 2018 4:11:58 AM nl.peterbloem.kit.Global info
+INFO: 59500 iterations finished.
+Sep 06, 2018 4:12:15 AM nl.peterbloem.kit.Global info
+INFO: 60000 iterations finished.
+Sep 06, 2018 4:12:31 AM nl.peterbloem.kit.Global info
+INFO: 60500 iterations finished.
+Sep 06, 2018 4:12:51 AM nl.peterbloem.kit.Global info
+INFO: 61000 iterations finished.
+Sep 06, 2018 4:13:07 AM nl.peterbloem.kit.Global info
+INFO: 61500 iterations finished.
+Sep 06, 2018 4:13:21 AM nl.peterbloem.kit.Global info
+INFO: 62000 iterations finished.
+Sep 06, 2018 4:13:42 AM nl.peterbloem.kit.Global info
+INFO: 62500 iterations finished.
+Sep 06, 2018 4:13:59 AM nl.peterbloem.kit.Global info
+INFO: 63000 iterations finished.
+Sep 06, 2018 4:14:15 AM nl.peterbloem.kit.Global info
+INFO: 63500 iterations finished.
+Sep 06, 2018 4:14:36 AM nl.peterbloem.kit.Global info
+INFO: 64000 iterations finished.
+Sep 06, 2018 4:14:52 AM nl.peterbloem.kit.Global info
+INFO: 64500 iterations finished.
+Sep 06, 2018 4:15:06 AM nl.peterbloem.kit.Global info
+INFO: 65000 iterations finished.
+Sep 06, 2018 4:15:25 AM nl.peterbloem.kit.Global info
+INFO: 65500 iterations finished.
+Sep 06, 2018 4:15:37 AM nl.peterbloem.kit.Global info
+INFO: 66000 iterations finished.
+Sep 06, 2018 4:15:54 AM nl.peterbloem.kit.Global info
+INFO: 66500 iterations finished.
+Sep 06, 2018 4:16:11 AM nl.peterbloem.kit.Global info
+INFO: 67000 iterations finished.
+Sep 06, 2018 4:16:28 AM nl.peterbloem.kit.Global info
+INFO: 67500 iterations finished.
+Sep 06, 2018 4:16:48 AM nl.peterbloem.kit.Global info
+INFO: 68000 iterations finished.
+Sep 06, 2018 4:17:07 AM nl.peterbloem.kit.Global info
+INFO: 68500 iterations finished.
+Sep 06, 2018 4:17:26 AM nl.peterbloem.kit.Global info
+INFO: 69000 iterations finished.
+Sep 06, 2018 4:17:42 AM nl.peterbloem.kit.Global info
+INFO: 69500 iterations finished.
+Sep 06, 2018 4:18:00 AM nl.peterbloem.kit.Global info
+INFO: 70000 iterations finished.
+Sep 06, 2018 4:18:18 AM nl.peterbloem.kit.Global info
+INFO: 70500 iterations finished.
+Sep 06, 2018 4:18:31 AM nl.peterbloem.kit.Global info
+INFO: 71000 iterations finished.
+Sep 06, 2018 4:18:50 AM nl.peterbloem.kit.Global info
+INFO: 71500 iterations finished.
+Sep 06, 2018 4:19:03 AM nl.peterbloem.kit.Global info
+INFO: 72000 iterations finished.
+Sep 06, 2018 4:19:15 AM nl.peterbloem.kit.Global info
+INFO: 72500 iterations finished.
+Sep 06, 2018 4:19:35 AM nl.peterbloem.kit.Global info
+INFO: 73000 iterations finished.
+Sep 06, 2018 4:19:51 AM nl.peterbloem.kit.Global info
+INFO: 73500 iterations finished.
+Sep 06, 2018 4:20:09 AM nl.peterbloem.kit.Global info
+INFO: 74000 iterations finished.
+Sep 06, 2018 4:20:27 AM nl.peterbloem.kit.Global info
+INFO: 74500 iterations finished.
+Sep 06, 2018 4:20:46 AM nl.peterbloem.kit.Global info
+INFO: 75000 iterations finished.
+Sep 06, 2018 4:21:08 AM nl.peterbloem.kit.Global info
+INFO: 75500 iterations finished.
+Sep 06, 2018 4:21:24 AM nl.peterbloem.kit.Global info
+INFO: 76000 iterations finished.
+Sep 06, 2018 4:21:40 AM nl.peterbloem.kit.Global info
+INFO: 76500 iterations finished.
+Sep 06, 2018 4:21:55 AM nl.peterbloem.kit.Global info
+INFO: 77000 iterations finished.
+Sep 06, 2018 4:22:17 AM nl.peterbloem.kit.Global info
+INFO: 77500 iterations finished.
+Sep 06, 2018 4:22:36 AM nl.peterbloem.kit.Global info
+INFO: 78000 iterations finished.
+Sep 06, 2018 4:22:49 AM nl.peterbloem.kit.Global info
+INFO: 78500 iterations finished.
+Sep 06, 2018 4:23:06 AM nl.peterbloem.kit.Global info
+INFO: 79000 iterations finished.
+Sep 06, 2018 4:23:21 AM nl.peterbloem.kit.Global info
+INFO: 79500 iterations finished.
+Sep 06, 2018 4:23:36 AM nl.peterbloem.kit.Global info
+INFO: 80000 iterations finished.
+Sep 06, 2018 4:23:51 AM nl.peterbloem.kit.Global info
+INFO: 80500 iterations finished.
+Sep 06, 2018 4:24:08 AM nl.peterbloem.kit.Global info
+INFO: 81000 iterations finished.
+Sep 06, 2018 4:24:26 AM nl.peterbloem.kit.Global info
+INFO: 81500 iterations finished.
+Sep 06, 2018 4:24:45 AM nl.peterbloem.kit.Global info
+INFO: 82000 iterations finished.
+Sep 06, 2018 4:24:54 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:25:01 AM nl.peterbloem.kit.Global info
+INFO: 82500 iterations finished.
+Sep 06, 2018 4:25:20 AM nl.peterbloem.kit.Global info
+INFO: 83000 iterations finished.
+Sep 06, 2018 4:25:37 AM nl.peterbloem.kit.Global info
+INFO: 83500 iterations finished.
+Sep 06, 2018 4:25:53 AM nl.peterbloem.kit.Global info
+INFO: 84000 iterations finished.
+Sep 06, 2018 4:26:09 AM nl.peterbloem.kit.Global info
+INFO: 84500 iterations finished.
+Sep 06, 2018 4:26:28 AM nl.peterbloem.kit.Global info
+INFO: 85000 iterations finished.
+Sep 06, 2018 4:26:50 AM nl.peterbloem.kit.Global info
+INFO: 85500 iterations finished.
+Sep 06, 2018 4:27:09 AM nl.peterbloem.kit.Global info
+INFO: 86000 iterations finished.
+Sep 06, 2018 4:27:29 AM nl.peterbloem.kit.Global info
+INFO: 86500 iterations finished.
+Sep 06, 2018 4:27:36 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:27:44 AM nl.peterbloem.kit.Global info
+INFO: 87000 iterations finished.
+Sep 06, 2018 4:27:58 AM nl.peterbloem.kit.Global info
+INFO: 87500 iterations finished.
+Sep 06, 2018 4:27:59 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:28:08 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:28:16 AM nl.peterbloem.kit.Global info
+INFO: 88000 iterations finished.
+Sep 06, 2018 4:28:38 AM nl.peterbloem.kit.Global info
+INFO: 88500 iterations finished.
+Sep 06, 2018 4:28:44 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:28:53 AM nl.peterbloem.kit.Global info
+INFO: 89000 iterations finished.
+Sep 06, 2018 4:29:17 AM nl.peterbloem.kit.Global info
+INFO: 89500 iterations finished.
+Sep 06, 2018 4:29:25 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:29:36 AM nl.peterbloem.kit.Global info
+INFO: 90000 iterations finished.
+Sep 06, 2018 4:29:52 AM nl.peterbloem.kit.Global info
+INFO: 90500 iterations finished.
+Sep 06, 2018 4:30:12 AM nl.peterbloem.kit.Global info
+INFO: 91000 iterations finished.
+Sep 06, 2018 4:30:32 AM nl.peterbloem.kit.Global info
+INFO: 91500 iterations finished.
+Sep 06, 2018 4:30:42 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:30:44 AM nl.peterbloem.kit.Global info
+INFO: 92000 iterations finished.
+Sep 06, 2018 4:30:56 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:31:06 AM nl.peterbloem.kit.Global info
+INFO: 92500 iterations finished.
+Sep 06, 2018 4:31:28 AM nl.peterbloem.kit.Global info
+INFO: 93000 iterations finished.
+Sep 06, 2018 4:31:44 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:31:51 AM nl.peterbloem.kit.Global info
+INFO: 93500 iterations finished.
+Sep 06, 2018 4:32:10 AM nl.peterbloem.kit.Global info
+INFO: 94000 iterations finished.
+Sep 06, 2018 4:32:13 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:32:32 AM nl.peterbloem.kit.Global info
+INFO: 94500 iterations finished.
+Sep 06, 2018 4:32:53 AM nl.peterbloem.kit.Global info
+INFO: 95000 iterations finished.
+Sep 06, 2018 4:33:17 AM nl.peterbloem.kit.Global info
+INFO: 95500 iterations finished.
+Sep 06, 2018 4:33:19 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:33:29 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:33:44 AM nl.peterbloem.kit.Global info
+INFO: 96000 iterations finished.
+Sep 06, 2018 4:33:51 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:34:01 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:34:08 AM nl.peterbloem.kit.Global info
+INFO: 96500 iterations finished.
+Sep 06, 2018 4:34:32 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:34:44 AM nl.peterbloem.kit.Global info
+INFO: 97000 iterations finished.
+Sep 06, 2018 4:34:46 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:34:58 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:35:01 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:35:07 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:35:11 AM nl.peterbloem.kit.Global info
+INFO: 97500 iterations finished.
+Sep 06, 2018 4:35:40 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:35:42 AM nl.peterbloem.kit.Global info
+INFO: 98000 iterations finished.
+Sep 06, 2018 4:36:05 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:36:07 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:36:28 AM nl.peterbloem.kit.Global info
+INFO: 98500 iterations finished.
+Sep 06, 2018 4:36:33 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:37:11 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:37:14 AM nl.peterbloem.kit.Global info
+INFO: 99000 iterations finished.
+Sep 06, 2018 4:37:19 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:37:40 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:38:02 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:38:29 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:38:29 AM nl.peterbloem.kit.Global info
+INFO: 99500 iterations finished.
+Sep 06, 2018 4:39:18 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:39:27 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:41:40 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:42:10 AM nl.peterbloem.kit.Global info
+INFO: Finished searching
+Sep 06, 2018 4:42:10 AM nl.peterbloem.kit.Global info
+INFO: Search finished.
+Sep 06, 2018 4:42:10 AM nl.peterbloem.kit.Global info
+INFO: Finished.

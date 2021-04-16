@@ -1,0 +1,100 @@
+ 79234.0 & 7555 & \makecell{\texttt{?n1 ?p3 ?n2.} \\\texttt{?n2 ?p4 ?n1.} } \\ 
+ 61310.4 & 4154 & \makecell{\texttt{?n1 swrs:publication ?n2.} \\\texttt{?n2 ?p3 ?n1.} } \\ 
+ 57641.1 & 3965 & \makecell{\texttt{?n1 swrs:publication ?n2.} \\\texttt{?n2 swrs:author ?n1.} } \\ 
+ 57603.1 & 3965 & \makecell{\texttt{?n1 swrs:author ?n2.} \\\texttt{?n2 ?p3 ?n1.} } \\ 
+ 19415.6 & 64575 & \makecell{\texttt{?n2 ?p4 ?n1.} \\\texttt{?n2 swrs:publication ?n3.} \\\texttt{?n3 swrs:author ?n2.} } \\ 
+ 18674.0 & 24900 & \makecell{\texttt{?n1 ?p4 ?n2.} \\\texttt{?n2 swrs:author ?n3.} } \\ 
+ 15390.2 & 8404 & \makecell{\texttt{?n1 rdf:type ?n2.} \\\texttt{?n3 swrs:publication ?n1.} \\\texttt{?n4 swrs:publishes ?n1.} } \\ 
+ 14906.5 & 4163 & \makecell{\texttt{?n1 swrs:publication ?n2.} } \\ 
+ 14440.9 & 6323 & \makecell{\texttt{?n1 ?p4 ?n2.} \\\texttt{?n2 swrs:year ?n3.} } \\ 
+ 13431.3 & 21178 & \makecell{\texttt{?n1 ?p4 ?n3.} \\\texttt{?n2 swrs:publication ?n3.} } \\ 
+ 13212.3 & 8317 & \makecell{\texttt{?n1 swrs:publication ?n2.} \\\texttt{?n2 rdf:type ?n3.} } \\ 
+ 13129.7 & 8317 & \makecell{\texttt{?n2 swrs:publication ?n3.} \\\texttt{?n3 ?p4 ?n1.} } \\ 
+ 11322.8 & 5323 & \makecell{\texttt{?n1 swrs:author ?n2.} \\\texttt{?n2 rdf:type ?n3.} \\\texttt{?n2 swrs:publication ?n1.} } \\ 
+ 11270.9 & 1217 & \makecell{\texttt{?n1 swrs:publishes ?n2.} \\\texttt{?n2 rdf:type swrs:Publication.} } \\ 
+ 11233.0 & 1217 & \makecell{\texttt{?n1 swrs:publishes ?n2.} \\\texttt{?n2 ?p3 swrs:Publication.} } \\ 
+ 11160.7 & 6332 & \makecell{\texttt{?n1 ?p3 ?n2.} \\\texttt{?n2 rdf:type swrs:Publication.} } \\ 
+ 10965.9 & 5177 & \makecell{\texttt{?n1 ?p4 ?n3.} \\\texttt{?n2 swrs:publishes ?n3.} } \\ 
+ 10905.3 & 7400 & \makecell{\texttt{?n1 ?p3 ?n2.} \\\texttt{?n2 ?p4 swrs:Publication.} } \\ 
+ 10745.9 & 4124 & \makecell{\texttt{?n1 rdf:type ?n2.} } \\ 
+ 10309.2 & 6328 & \makecell{\texttt{aifb:/Forschungsgruppen/viewForschungsgruppeOWL/id3instance swrs:publishes ?n2.} \\\texttt{?n2 rdf:type ?n3.} \\\texttt{?n1 swrs:publication ?n2.} } \\ 
+ 9738.5 & 2434 & \makecell{\texttt{?n1 swrs:publishes ?n2.} \\\texttt{?n2 rdf:type ?n3.} } \\ 
+ 9557.2 & 1217 & \makecell{\texttt{?n1 ?p3 swrs:Publication.} \\\texttt{?n1 swrs:year ?n2.} } \\ 
+ 8968.2 & 7626 & \makecell{\texttt{?n1 ?p3 ?n2.} } \\ 
+ 8892.2 & 2477 & \makecell{\texttt{?n1 swrs:isAbout ?n2.} } \\ 
+ 8587.9 & 2444 & \makecell{\texttt{?n2 rdf:type ?n3.} \\\texttt{?n2 swrs:year ?n1.} } \\ 
+ 8491.7 & 9963 & \makecell{\texttt{?n2 swrs:publication ?n3.} \\\texttt{?n3 swrs:author ?n1.} } \\ 
+ 8245.8 & 4154 & \makecell{\texttt{?n2 swrs:publication ?n3.} \\\texttt{?n3 swrs:year ?n1.} } \\ 
+ 7509.8 & 4026 & \makecell{\texttt{?n2 swrs:publishes ?n3.} \\\texttt{?n3 swrs:author ?n1.} } \\ 
+ 7146.0 & 3164 & \makecell{\texttt{aifb:/Forschungsgruppen/viewForschungsgruppeOWL/id3instance swrs:publishes ?n2.} \\\texttt{?n1 swrs:publication ?n2.} } \\ 
+ 7102.3 & 6719 & \makecell{\texttt{?n1 rdf:type ?n2.} \\\texttt{?n3 ?p5 ?n1.} \\\texttt{?n4 swrs:publication ?n1.} } \\ 
+ 7016.7 & 1217 & \makecell{\texttt{?n1 rdf:type ?n2.} \\\texttt{?n1 rdf:type swrs:Publication.} } \\ 
+ 7011.6 & 1235 & \makecell{\texttt{?n1 ?p3 swrs:Publication.} \\\texttt{?n1 rdf:type ?n2.} } \\ 
+ 6988.1 & 4033 & \makecell{\texttt{aifb:/Forschungsgruppen/viewForschungsgruppeOWL/id3instance swrs:publishes ?n2.} \\\texttt{?n1 ?p3 ?n2.} } \\ 
+ 6973.1 & 5867 & \makecell{\texttt{?n2 ?p3 ?n1.} \\\texttt{?n2 rdf:type swrs:Publication.} } \\ 
+ 6929.9 & 6374 & \makecell{\texttt{aifb:/Forschungsgruppen/viewForschungsgruppeOWL/id3instance ?p4 ?n2.} \\\texttt{?n1 ?p3 ?n2.} } \\ 
+ 6926.0 & 1298 & \makecell{\texttt{?n1 ?p3 ?n2.} \\\texttt{?n1 ?p3 swrs:Publication.} } \\ 
+ 6813.3 & 11543 & \makecell{\texttt{?n1 ?p4 ?n2.} \\\texttt{?n2 swrs:isAbout ?n3.} } \\ 
+ 6739.1 & 759 & \makecell{\texttt{?n2 swrs:year ?n3.} \\\texttt{?n2 swrs:month ?n1.} } \\ 
+ 6595.7 & 1217 & \makecell{\texttt{?n2 swrs:publishes ?n3.} \\\texttt{?n3 swrs:title ?n1.} } \\ 
+ 6585.3 & 876 & \makecell{\texttt{aifb:/Forschungsgruppen/viewForschungsgruppeOWL/id3instance swrs:publishes ?n1.} \\\texttt{?n1 rdf:type swrs:Publication.} } \\ 
+ 6548.2 & 876 & \makecell{\texttt{aifb:/Forschungsgruppen/viewForschungsgruppeOWL/id3instance swrs:publishes ?n1.} \\\texttt{?n1 ?p2 swrs:Publication.} } \\ 
+ 6516.1 & 876 & \makecell{\texttt{aifb:/Forschungsgruppen/viewForschungsgruppeOWL/id3instance ?p2 ?n1.} \\\texttt{?n1 ?p3 swrs:Publication.} } \\ 
+ 6483.2 & 16896 & \makecell{\texttt{?n1 swrs:publication ?n3.} \\\texttt{?n2 swrs:publication ?n3.} } \\ 
+ 6100.8 & 1852 & \makecell{\texttt{aifb:/Forschungsgruppen/viewForschungsgruppeOWL/id3instance ?p3 ?n1.} \\\texttt{?n1 rdf:type ?n2.} } \\ 
+ 5946.5 & 1752 & \makecell{\texttt{aifb:/Forschungsgruppen/viewForschungsgruppeOWL/id3instance swrs:publishes ?n1.} \\\texttt{?n1 rdf:type ?n2.} } \\ 
+ 5909.6 & 6234 & \makecell{\texttt{aifb:/Forschungsgruppen/viewForschungsgruppeOWL/id3instance swrs:publishes ?n2.} \\\texttt{?n2 ?p3 ?n1.} } \\ 
+ 5834.8 & 4163 & \makecell{\texttt{?n1 rdf:type swrs:Person.} \\\texttt{?n1 swrs:name ?n3.} \\\texttt{?n1 swrs:publication ?n2.} } \\ 
+ 5719.1 & 2590 & \makecell{\texttt{?n1 rdf:type ?n3.} \\\texttt{?n1 rdf:type ?n2.} } \\ 
+ 5315.5 & 5170 & \makecell{\texttt{?n2 ?p4 ?n1.} \\\texttt{?n2 rdf:type ?n3.} } \\ 
+ 5295.4 & 8282 & \makecell{\texttt{?n2 swrs:publication ?n3.} \\\texttt{?n3 swrs:isAbout ?n1.} } \\ 
+ 5267.1 & 1227 & \makecell{\texttt{?n2 swrs:title ?n3.} \\\texttt{?n2 swrs:year ?n1.} } \\ 
+ 5250.2 & 4163 & \makecell{\texttt{?n1 swrs:publication ?n2.} \\\texttt{?n2 ?p3 swrs:Publication.} } \\ 
+ 5207.8 & 5587 & \makecell{\texttt{?n1 ?p4 ?n2.} \\\texttt{?n2 swrs:hasProject ?n3.} } \\ 
+ 5192.8 & 4163 & \makecell{\texttt{?n1 swrs:publication ?n2.} \\\texttt{?n2 rdf:type swrs:Publication.} } \\ 
+ 5166.5 & 1380 & \makecell{\texttt{?n2 rdf:type ?n3.} \\\texttt{?n2 swrs:name ?n1.} } \\ 
+ 5094.3 & 3986 & \makecell{\texttt{?n1 swrs:author ?n2.} } \\ 
+ 5092.2 & 1217 & \makecell{\texttt{?n1 swrs:publishes ?n2.} } \\ 
+ 4948.2 & 751 & \makecell{\texttt{?n2 rdf:type swrs:Publication.} \\\texttt{?n2 swrs:month ?n1.} } \\ 
+ 4911.8 & 751 & \makecell{\texttt{?n1 ?p3 swrs:Publication.} \\\texttt{?n1 swrs:month ?n2.} } \\ 
+ 4891.9 & 3051 & \makecell{\texttt{aifb:/Forschungsgruppen/viewForschungsgruppeOWL/id3instance swrs:publishes ?n2.} \\\texttt{?n2 swrs:author ?n1.} } \\ 
+ 4889.0 & 3051 & \makecell{\texttt{aifb:/Forschungsgruppen/viewForschungsgruppeOWL/id3instance ?p3 ?n1.} \\\texttt{?n1 swrs:author ?n2.} } \\ 
+ 4741.2 & 1510 & \makecell{\texttt{?n2 rdf:type ?n3.} \\\texttt{?n2 swrs:month ?n1.} } \\ 
+ 4685.3 & 6656 & \makecell{\texttt{?n1 rdf:type ?n2.} \\\texttt{?n1 swrs:author ?n3.} \\\texttt{?n4 swrs:projectInfo ?n1.} } \\ 
+ 4658.4 & 7473 & \makecell{\texttt{?n1 swrs:projectInfo ?n2.} \\\texttt{?n2 ?p5 ?n3.} \\\texttt{?n2 swrs:author ?n4.} } \\ 
+ 4480.4 & 2798 & \makecell{\texttt{?n1 ?p4 ?n2.} \\\texttt{?n2 rdf:type ?n3.} \\\texttt{?n2 swrs:publication ?n1.} } \\ 
+ 4431.3 & 2609 & \makecell{\texttt{?n1 ?p5 ?n4.} \\\texttt{?n1 swrs:author ?n2.} \\\texttt{?n3 ?p6 ?n1.} } \\ 
+ 4406.8 & 683 & \makecell{\texttt{?n1 swrs:publishes ?n2.} \\\texttt{?n2 rdf:type swrs:InProceedings.} } \\ 
+ 4390.3 & 1128 & \makecell{\texttt{?n2 swrs:projectInfo ?n3.} \\\texttt{?n3 swrs:hasProject ?n1.} } \\ 
+ 4370.6 & 683 & \makecell{\texttt{?n1 swrs:publishes ?n2.} \\\texttt{?n2 ?p3 swrs:InProceedings.} } \\ 
+ 4316.1 & 3528 & \makecell{\texttt{?n1 ?p3 ?n2.} \\\texttt{?n2 rdf:type swrs:InProceedings.} } \\ 
+ 4297.9 & 2580 & \makecell{\texttt{?n2 swrs:publication ?n3.} \\\texttt{?n3 swrs:month ?n1.} } \\ 
+ 4280.2 & 3528 & \makecell{\texttt{?n1 ?p3 ?n2.} \\\texttt{?n2 ?p4 swrs:InProceedings.} } \\ 
+ 4209.1 & 12511 & \makecell{\texttt{?n2 swrs:projectInfo ?n3.} \\\texttt{?n3 ?p4 ?n1.} } \\ 
+ 4078.4 & 7623 & \makecell{\texttt{?n2 swrs:publishes ?n3.} \\\texttt{?n3 ?p4 ?n1.} } \\ 
+ 4012.3 & 4032 & \makecell{\texttt{?n2 rdf:type ?n3.} \\\texttt{?n2 swrs:author ?n1.} } \\ 
+ 3990.5 & 11193 & \makecell{\texttt{?n1 swrs:isAbout ?n2.} \\\texttt{?n1 swrs:author ?n3.} \\\texttt{?n4 swrs:projectInfo ?n1.} } \\ 
+ 3948.9 & 10210 & \makecell{\texttt{?n1 ?p4 ?n3.} \\\texttt{?n1 ?p4 ?n2.} } \\ 
+ 3914.5 & 11350 & \makecell{\texttt{?n1 swrs:isAbout ?n3.} \\\texttt{?n1 swrs:isAbout ?n2.} } \\ 
+ 3866.0 & 944 & \makecell{\texttt{?n1 ?p4 ?n2.} \\\texttt{?n2 swrs:title ?n3.} } \\ 
+ 3798.9 & 1904 & \makecell{\texttt{?n1 swrs:projectInfo ?n2.} \\\texttt{?n2 rdf:type ?n3.} } \\ 
+ 3779.0 & 357 & \makecell{\texttt{?n1 swrs:dealtWithIn ?n2.} \\\texttt{?n2 swrs:isAbout ?n1.} } \\ 
+ 3747.5 & 357 & \makecell{\texttt{?n1 swrs:isAbout ?n2.} \\\texttt{?n2 ?p3 ?n1.} } \\ 
+ 3675.6 & 3504 & \makecell{\texttt{?n2 swrs:publication ?n3.} \\\texttt{?n3 swrs:hasProject ?n1.} } \\ 
+ 3630.3 & 3051 & \makecell{\texttt{?n1 swrs:projectInfo ?n2.} \\\texttt{?n2 swrs:isAbout ?n3.} } \\ 
+ 3573.0 & 13812 & \makecell{\texttt{?n2 ?p4 ?n1.} \\\texttt{?n2 swrs:isAbout ?n3.} } \\ 
+ 3409.6 & 1035 & \makecell{\texttt{?n2 rdf:type swrs:Person.} \\\texttt{?n2 swrs:name ?n1.} } \\ 
+ 3236.6 & 6436 & \makecell{\texttt{?n1 ?p4 swrs:Person.} \\\texttt{?n1 ?p3 ?n2.} } \\ 
+ 3198.6 & 1227 & \makecell{\texttt{?n1 swrs:year ?n2.} } \\ 
+ 3030.3 & 3328 & \makecell{\texttt{?n2 swrs:projectInfo ?n3.} \\\texttt{?n3 swrs:author ?n1.} } \\ 
+ 3022.9 & 5142 & \makecell{\texttt{?n2 ?p3 ?n1.} \\\texttt{?n2 rdf:type swrs:Person.} } \\ 
+ 3003.2 & 876 & \makecell{\texttt{aifb:/Forschungsgruppen/viewForschungsgruppeOWL/id3instance swrs:publishes ?n2.} \\\texttt{?n2 swrs:title ?n1.} } \\ 
+ 2995.8 & 8582 & \makecell{\texttt{?n2 ?p4 ?n1.} \\\texttt{?n2 swrs:hasProject ?n3.} } \\ 
+ 2971.1 & 952 & \makecell{\texttt{?n1 swrs:projectInfo ?n2.} } \\ 
+ 2914.7 & 152 & \makecell{\texttt{?n1 rdf:type owl:Restriction.} \\\texttt{?n1 owl:allValuesFrom ?n3.} \\\texttt{?n1 owl:onProperty ?n2.} } \\ 
+ 2907.6 & 2127 & \makecell{\texttt{?n2 swrs:publishes ?n3.} \\\texttt{?n3 swrs:isAbout ?n1.} } \\ 
+ 2892.3 & 951 & \makecell{\texttt{aifb:/Forschungsgruppen/viewForschungsgruppeOWL/id3instance ?p2 ?n1.} } \\ 
+ 2887.1 & 60922 & \makecell{\texttt{?n1 swrs:hasProject ?n2.} \\\texttt{?n2 swrs:projectInfo ?n3.} } \\ 
+ 2791.2 & 1097 & \makecell{\texttt{?n2 ?p4 ?n1.} \\\texttt{?n2 swrs:name ?n3.} } \\ 
+ 2782.0 & 9739 & \makecell{\texttt{aifb:/Forschungsgruppen/viewForschungsgruppeOWL/id3instance ?p4 ?n2.} \\\texttt{?n2 ?p3 ?n1.} } \\ 
+ 2714.1 & 4597 & \makecell{\texttt{?n2 rdf:type ?n3.} \\\texttt{?n2 swrs:isAbout ?n1.} } \\ 

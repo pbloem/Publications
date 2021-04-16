@@ -1,0 +1,100 @@
+ 2062.8 & 93843 & \makecell{\texttt{?n2 swc:isPartOf ?n3.} \\\texttt{?n3 swc:hasPart ?n1.} } \\ 
+ -3483.0 & 71428 & \makecell{\texttt{?n1 swc:heldBy ?n3.} \\\texttt{?n1 swc:heldBy ?n2.} } \\ 
+ -856.3 & 60501 & \makecell{\texttt{?n1 swc:holdsRole ?n2.} \\\texttt{?n2 swc:heldBy ?n3.} } \\ 
+ -3732.0 & 56406 & \makecell{\texttt{?n1 swrs:month "September".} \\\texttt{?n2 swrs:month "September".} } \\ 
+ -1398.3 & 55992 & \makecell{\texttt{?n1 rdf:\_1 ?n2.} \\\texttt{?n3 foaf:maker ?n2.} \\\texttt{?n4 vu:~mcaklein/onto/swrc\_ext/2005/05\_authorList ?n1.} } \\ 
+ -3736.8 & 53293 & \makecell{\texttt{?n1 swrs:affiliation ?n3.} \\\texttt{?n2 swrs:affiliation ?n3.} } \\ 
+ -2824.6 & 48993 & \makecell{\texttt{?n1 rdf:\_1 ?n2.} \\\texttt{?n4 vu:~mcaklein/onto/swrc\_ext/2005/05\_authorList ?n1.} \\\texttt{?n4 foaf:maker ?n3.} } \\ 
+ -1872.4 & 45271 & \makecell{\texttt{?n1 rdf:\_1 ?n2.} \\\texttt{?n3 vu:~mcaklein/onto/swrc\_ext/2005/05\_authorList ?n1.} \\\texttt{?n4 swc:heldBy ?n2.} } \\ 
+ -2668.9 & 36679 & \makecell{\texttt{?n1 rdf:\_1 ?n2.} \\\texttt{?n1 rdf:\_3 ?n4.} \\\texttt{?n1 rdf:\_5 ?n3.} } \\ 
+ 38340.9 & 32717 & \makecell{\texttt{?n2 swc:heldBy ?n3.} \\\texttt{?n3 swc:holdsRole ?n2.} \\\texttt{?n3 swc:holdsRole ?n1.} } \\ 
+ 1294.6 & 27887 & \makecell{\texttt{?n1 rdf:\_1 ?n2.} \\\texttt{?n2 swrs:affiliation ?n3.} \\\texttt{?n4 vu:~mcaklein/onto/swrc\_ext/2005/05\_authorList ?n1.} } \\ 
+ 2542.8 & 26019 & \makecell{\texttt{?n2 foaf:maker ?n3.} \\\texttt{?n3 foaf:made ?n1.} } \\ 
+ 736.2 & 25611 & \makecell{\texttt{?n2 ?p4 ?n1.} \\\texttt{?n2 rdf:\_3 ?n3.} } \\ 
+ 11981.9 & 25139 & \makecell{\texttt{?n1 swc:holdsRole ?n3.} \\\texttt{?n1 swc:holdsRole ?n2.} } \\ 
+ 3489.1 & 25083 & \makecell{\texttt{?n2 swrs:author ?n3.} \\\texttt{?n3 foaf:made ?n1.} } \\ 
+ -3709.6 & 22052 & \makecell{\texttt{dsw:conference/iswc/2010/research/reviewer ?p3 ?n1.} \\\texttt{dsw:conference/iswc/2010/research/reviewer swc:heldBy ?n2.} } \\ 
+ -2132.6 & 21992 & \makecell{\texttt{?n1 rdf:\_1 ?n2.} \\\texttt{?n1 rdf:\_2 ?n4.} \\\texttt{?n3 foaf:member ?n2.} } \\ 
+ 15509.5 & 21365 & \makecell{\texttt{?n2 dc:creator ?n3.} \\\texttt{?n2 foaf:maker ?n3.} \\\texttt{?n2 foaf:maker ?n1.} } \\ 
+ -3258.5 & 20079 & \makecell{\texttt{?n1 ?p4 ?n3.} \\\texttt{?n2 swc:isRoleAt ?n3.} } \\ 
+ 8226.0 & 18600 & \makecell{\texttt{?n2 rdf:\_1 ?n3.} \\\texttt{?n2 rdf:\_2 ?n1.} } \\ 
+ 432.8 & 18055 & \makecell{\texttt{?n1 vu:~mcaklein/onto/swrc\_ext/2005/05\_authorList ?n2.} \\\texttt{?n2 rdf:\_1 ?n3.} } \\ 
+ -3050.2 & 17498 & \makecell{\texttt{?n2 swc:isPartOf ?n3.} \\\texttt{?n3 ?p4 ?n1.} } \\ 
+ -2319.9 & 17419 & \makecell{\texttt{?n1 ?p4 ?n2.} \\\texttt{?n2 rdf:\_1 ?n3.} } \\ 
+ -129.3 & 16967 & \makecell{\texttt{?n2 ?p4 ?n1.} \\\texttt{?n2 rdf:\_2 ?n3.} } \\ 
+ -1133.6 & 16328 & \makecell{\texttt{?n1 vu:~mcaklein/onto/swrc\_ext/2005/05\_authorList ?n2.} \\\texttt{?n2 rdf:\_2 ?n3.} } \\ 
+ -3306.9 & 16256 & \makecell{\texttt{?n1 ?p3 "GMT+2".} \\\texttt{?n2 ?p3 "GMT+2".} } \\ 
+ 52.1 & 16032 & \makecell{\texttt{?n2 vu:~mcaklein/onto/swrc\_ext/2005/05\_authorList ?n3.} \\\texttt{?n3 ?p4 ?n1.} } \\ 
+ 4343.6 & 15917 & \makecell{\texttt{?n1 ?p4 ?n2.} \\\texttt{?n2 foaf:made ?n3.} } \\ 
+ -1453.8 & 15770 & \makecell{\texttt{?n1 vu:~mcaklein/onto/swrc\_ext/2005/05\_authorList ?n3.} \\\texttt{?n2 vu:~mcaklein/onto/swrc\_ext/2005/05\_authorList ?n3.} } \\ 
+ -3225.3 & 15182 & \makecell{\texttt{?n1 ?p4 ?n2.} \\\texttt{?n2 swc:hasPart ?n3.} } \\ 
+ 19153.4 & 15072 & \makecell{\texttt{?n2 foaf:member ?n3.} \\\texttt{?n3 foaf:made ?n1.} } \\ 
+ -120.2 & 14039 & \makecell{\texttt{?n2 rdf:\_2 ?n3.} \\\texttt{?n3 foaf:made ?n1.} } \\ 
+ 779.6 & 13935 & \makecell{\texttt{?n2 rdf:\_1 ?n3.} \\\texttt{?n2 rdf:\_3 ?n1.} } \\ 
+ -2387.3 & 13713 & \makecell{\texttt{?n1 ?p4 ?n2.} \\\texttt{?n2 rdf:\_2 ?n3.} } \\ 
+ 534.3 & 13656 & \makecell{\texttt{?n1 swrs:affiliation ?n2.} \\\texttt{?n1 foaf:made ?n4.} \\\texttt{?n3 ?p5 ?n1.} } \\ 
+ 220490.4 & 13092 & \makecell{\texttt{?n1 ?p3 ?n2.} \\\texttt{?n2 ?p4 ?n1.} } \\ 
+ 2254.5 & 12952 & \makecell{\texttt{?n2 rdf:\_1 ?n3.} \\\texttt{?n3 foaf:made ?n1.} } \\ 
+ 1222.2 & 12834 & \makecell{\texttt{?n2 rdf:\_2 ?n3.} \\\texttt{?n2 rdf:\_3 ?n1.} } \\ 
+ 7539.5 & 12470 & \makecell{\texttt{?n2 ?p4 ?n1.} \\\texttt{?n2 rdf:type ?n3.} } \\ 
+ -3385.3 & 12250 & \makecell{\texttt{?n1 vu:~mcaklein/onto/swrc\_ext/2005/05\_authorList ?n2.} \\\texttt{?n2 rdf:\_3 ?n3.} } \\ 
+ 350.6 & 12237 & \makecell{\texttt{?n1 rdf:\_1 ?n2.} \\\texttt{?n4 vu:~mcaklein/onto/swrc\_ext/2005/05\_authorList ?n1.} \\\texttt{?n4 swc:hasTopic ?n3.} } \\ 
+ 220360.2 & 12138 & \makecell{\texttt{?n1 foaf:maker ?n2.} \\\texttt{?n2 foaf:made ?n1.} } \\ 
+ 10404.9 & 12054 & \makecell{\texttt{?n2 swc:isPartOf ?n3.} \\\texttt{?n2 foaf:maker ?n1.} } \\ 
+ -3069.1 & 11741 & \makecell{\texttt{?n2 foaf:maker ?n3.} \\\texttt{?n3 swc:holdsRole ?n1.} \\\texttt{?n3 foaf:status "Academia".} } \\ 
+ 18525.7 & 11637 & \makecell{\texttt{?n1 swc:hasPart ?n2.} \\\texttt{?n2 foaf:maker ?n3.} } \\ 
+ -819.3 & 11344 & \makecell{\texttt{?n1 http://purl.org/NET/c4dm/event.owl\_place ?n3.} \\\texttt{?n2 swc:hasLocation ?n3.} } \\ 
+ -3618.7 & 10922 & \makecell{\texttt{?n1 foaf:maker ?n2.} \\\texttt{?n2 swrs:affiliation ?n4.} \\\texttt{?n2 foaf:made ?n3.} } \\ 
+ -3444.7 & 10920 & \makecell{\texttt{dsw:conference/www/proceedings ?p4 ?n2.} \\\texttt{?n1 ?p3 dsw:conference/www/proceedings.} } \\ 
+ -3095.9 & 10781 & \makecell{\texttt{?n1 vu:~mcaklein/onto/swrc\_ext/2005/05\_authorList ?n2.} \\\texttt{?n2 ?p5 ?n3.} \\\texttt{?n3 swrs:affiliation ?n4.} } \\ 
+ 166559.1 & 10493 & \makecell{\texttt{?n1 dc:creator ?n2.} \\\texttt{?n1 foaf:maker ?n2.} } \\ 
+ 187972.9 & 10475 & \makecell{\texttt{?n1 dc:creator ?n2.} \\\texttt{?n2 foaf:made ?n1.} } \\ 
+ -3502.3 & 10411 & \makecell{\texttt{?n1 ?p4 ?n2.} \\\texttt{?n2 rdf:\_3 ?n3.} } \\ 
+ 5215.7 & 10393 & \makecell{\texttt{?n2 ?p4 ?n1.} \\\texttt{?n2 ical:\_tzid ?n3.} } \\ 
+ -3252.9 & 10381 & \makecell{\texttt{?n2 foaf:maker ?n3.} \\\texttt{?n3 ?p4 "Academia".} \\\texttt{?n3 swc:holdsRole ?n1.} } \\ 
+ 9167.7 & 10273 & \makecell{\texttt{?n2 swrs:year ?n3.} \\\texttt{?n2 foaf:maker ?n1.} } \\ 
+ -3571.4 & 10008 & \makecell{\texttt{?n1 ?p5 ?n4.} \\\texttt{?n1 rdf:\_1 ?n2.} \\\texttt{?n3 swc:heldBy ?n4.} } \\ 
+ 13195.6 & 9910 & \makecell{\texttt{?n1 foaf:member ?n2.} } \\ 
+ 189627.3 & 9888 & \makecell{\texttt{?n1 foaf:member ?n2.} \\\texttt{?n2 swrs:affiliation ?n1.} } \\ 
+ 8557.8 & 9847 & \makecell{\texttt{?n2 dc:creator ?n3.} \\\texttt{?n2 swrs:year ?n1.} } \\ 
+ -2482.5 & 9752 & \makecell{\texttt{?n1 ?p5 ?n2.} \\\texttt{?n2 swc:holdsRole ?n4.} \\\texttt{?n2 swc:holdsRole ?n3.} } \\ 
+ 1272.2 & 9676 & \makecell{\texttt{?n2 swrs:author ?n3.} \\\texttt{?n3 foaf:name ?n1.} } \\ 
+ -3222.8 & 9297 & \makecell{\texttt{?n2 ?p4 ?n1.} \\\texttt{?n2 rdf:\_4 ?n3.} } \\ 
+ 5462.1 & 8788 & \makecell{\texttt{?n2 rdf:type foaf:Organization.} \\\texttt{?n2 foaf:member ?n1.} } \\ 
+ 131963.3 & 8787 & \makecell{\texttt{?n1 foaf:maker ?n2.} \\\texttt{?n1 swrs:author ?n2.} } \\ 
+ 8471.8 & 8618 & \makecell{\texttt{?n2 ?p4 rdf:Seq.} \\\texttt{?n2 rdf:\_1 ?n3.} \\\texttt{?n3 foaf:made ?n1.} } \\ 
+ 1730.8 & 8329 & \makecell{\texttt{?n2 rdf:type ?n3.} \\\texttt{?n2 foaf:member ?n1.} } \\ 
+ 4377.4 & 8171 & \makecell{\texttt{?n2 swc:isPartOf ?n3.} \\\texttt{?n2 swrs:author ?n1.} } \\ 
+ 5861.5 & 8091 & \makecell{\texttt{?n2 rdf:\_1 ?n3.} \\\texttt{?n2 rdf:type rdf:Seq.} \\\texttt{?n3 foaf:made ?n1.} } \\ 
+ 1075.0 & 7973 & \makecell{\texttt{?n1 ?p4 ?n2.} \\\texttt{?n2 foaf:name ?n3.} } \\ 
+ 4286.1 & 7952 & \makecell{\texttt{?n1 rdf:\_1 ?n2.} \\\texttt{?n1 rdf:type ?n4.} \\\texttt{?n2 foaf:made ?n3.} } \\ 
+ -966.0 & 7700 & \makecell{\texttt{?n2 dc:creator ?n3.} \\\texttt{?n3 swc:holdsRole ?n1.} } \\ 
+ 112605.6 & 7674 & \makecell{\texttt{?n1 dc:creator ?n2.} \\\texttt{?n1 swrs:author ?n2.} } \\ 
+ 9534.3 & 7557 & \makecell{\texttt{?n1 dc:subject ?n2.} } \\ 
+ -3181.2 & 7540 & \makecell{\texttt{?n2 rdf:\_1 ?n3.} \\\texttt{?n2 rdf:\_4 ?n1.} } \\ 
+ -1525.7 & 7432 & \makecell{\texttt{?n2 foaf:maker ?n3.} \\\texttt{?n3 swc:holdsRole ?n1.} } \\ 
+ 11404.1 & 7067 & \makecell{\texttt{?n1 swc:holdsRole ?n3.} \\\texttt{?n1 swc:holdsRole ?n2.} \\\texttt{?n3 ?p4 ?n1.} } \\ 
+ 2896.4 & 7028 & \makecell{\texttt{?n2 swrs:year ?n3.} \\\texttt{?n2 swrs:author ?n1.} } \\ 
+ -3642.4 & 7004 & \makecell{\texttt{?n2 ?p3 ?n1.} \\\texttt{?n2 rdf:type swc:ProgrammeCommitteeMember.} } \\ 
+ -3676.4 & 6967 & \makecell{\texttt{?n1 ?p4 swc:ProgrammeCommitteeMember.} \\\texttt{?n1 ?p3 ?n2.} } \\ 
+ -3030.6 & 6962 & \makecell{\texttt{?n2 rdf:\_2 ?n3.} \\\texttt{?n2 rdf:\_4 ?n1.} } \\ 
+ 10235.9 & 6685 & \makecell{\texttt{?n1 ?p3 ?n2.} } \\ 
+ -1883.4 & 6639 & \makecell{\texttt{?n1 swc:heldBy ?n3.} \\\texttt{?n2 rdf:\_1 ?n3.} } \\ 
+ -3282.2 & 6075 & \makecell{\texttt{?n2 rdf:\_1 ?n3.} \\\texttt{?n3 swc:holdsRole ?n1.} } \\ 
+ 28209.0 & 5807 & \makecell{\texttt{?n1 swc:heldBy ?n2.} } \\ 
+ -682.9 & 5805 & \makecell{\texttt{?n2 rdf:type ?n3.} \\\texttt{?n2 swc:heldBy ?n1.} } \\ 
+ 122560.5 & 5709 & \makecell{\texttt{?n1 swc:heldBy ?n2.} \\\texttt{?n2 swc:holdsRole ?n1.} } \\ 
+ 34072.2 & 5654 & \makecell{\texttt{?n2 swc:heldBy ?n3.} \\\texttt{?n3 foaf:firstName ?n1.} \\\texttt{?n3 swc:holdsRole ?n2.} } \\ 
+ 26070.9 & 5607 & \makecell{\texttt{?n1 swc:holdsRole ?n2.} } \\ 
+ -2934.4 & 5595 & \makecell{\texttt{?n2 dct:creator ?n3.} \\\texttt{?n3 swc:holdsRole ?n1.} } \\ 
+ -1341.6 & 5555 & \makecell{\texttt{?n1 swc:hasRole ?n2.} \\\texttt{?n2 swc:heldBy ?n3.} } \\ 
+ -913.3 & 5396 & \makecell{\texttt{?n2 rdf:\_2 ?n3.} \\\texttt{?n3 swrs:affiliation ?n1.} } \\ 
+ -1454.1 & 5310 & \makecell{\texttt{?n1 ?p4 ?n2.} \\\texttt{?n1 rdf:type rdf:Seq.} \\\texttt{?n2 foaf:made ?n3.} } \\ 
+ 511.7 & 5136 & \makecell{\texttt{?n2 dc:creator ?n3.} \\\texttt{?n2 foaf:topic ?n1.} } \\ 
+ 8309.6 & 4985 & \makecell{\texttt{?n1 rdf:type ?n2.} } \\ 
+ 6219.7 & 4907 & \makecell{\texttt{?n1 ?p4 rdf:Seq.} \\\texttt{?n1 ?p3 ?n2.} } \\ 
+ -1001.9 & 4761 & \makecell{\texttt{?n1 ?p4 ?n2.} \\\texttt{?n2 swc:holdsRole ?n3.} } \\ 
+ 32492.0 & 4758 & \makecell{\texttt{?n1 foaf:maker ?n2.} \\\texttt{?n2 rdfs:label ?n3.} \\\texttt{?n2 foaf:made ?n1.} } \\ 
+ -947.3 & 4710 & \makecell{\texttt{?n1 ?p4 ?n3.} \\\texttt{?n2 swc:heldBy ?n3.} } \\ 
+ 3011.1 & 4701 & \makecell{\texttt{?n1 ?p4 ?n2.} \\\texttt{?n2 rdf:type ?n3.} } \\ 
+ -1409.9 & 4689 & \makecell{\texttt{?n2 rdf:\_1 ?n3.} \\\texttt{?n3 foaf:name ?n1.} } \\ 

@@ -1,0 +1,100 @@
+ 55384.0 & 18634 & \makecell{\texttt{?n1 mtg:\_hasBond ?n2.} \\\texttt{?n2 mtg:\_inBond ?n3.} } \\ 
+ 7310.6 & 15429 & \makecell{\texttt{?n1 rdf:type ?n2.} } \\ 
+ -2114.4 & 11772 & \makecell{\texttt{mtg:\_alcohol-158 rdf:type mtg:\_Alcohol.} \\\texttt{?n1 rdf:type mtg:\_Alcohol.} \\\texttt{?n2 rdf:type mtg:\_Alcohol.} } \\ 
+ 79052.0 & 9317 & \makecell{\texttt{?n1 mtg:\_hasBond ?n2.} \\\texttt{?n2 rdf:type ?n3.} } \\ 
+ 20309.3 & 9317 & \makecell{\texttt{?n1 mtg:\_hasBond ?n2.} } \\ 
+ 29466.0 & 9189 & \makecell{\texttt{?n1 mtg:\_hasAtom ?n2.} } \\ 
+ 97237.8 & 9189 & \makecell{\texttt{?n1 mtg:\_hasAtom ?n2.} \\\texttt{?n2 mtg:\_charge ?n3.} } \\ 
+ 7377.5 & 8983 & \makecell{\texttt{?n1 mtg:\_hasAtom ?n3.} \\\texttt{?n2 mtg:\_inBond ?n3.} } \\ 
+ 72503.5 & 8462 & \makecell{\texttt{?n1 mtg:\_hasAtom ?n2.} \\\texttt{?n2 rdf:type ?n3.} } \\ 
+ -2138.5 & 8246 & \makecell{\texttt{?n1 rdf:type mtg:\_Bond-7.} \\\texttt{?n2 rdf:type mtg:\_Bond-7.} } \\ 
+ 41352.5 & 6781 & \makecell{\texttt{?n1 mtg:\_hasBond ?n2.} \\\texttt{?n2 rdf:type mtg:\_Bond-1.} } \\ 
+ -2103.2 & 6781 & \makecell{\texttt{mtg:\_Bond-1 ?p2 owl:Class.} \\\texttt{?n1 ?p2 mtg:\_Bond-1.} } \\ 
+ -2108.0 & 6780 & \makecell{\texttt{mtg:\_bond2015 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2129.7 & 6780 & \makecell{\texttt{mtg:\_bond1130 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 ?p2 mtg:\_Bond-1.} } \\ 
+ -2130.3 & 6780 & \makecell{\texttt{mtg:\_bond5642 ?p2 mtg:\_Bond-1.} \\\texttt{?n1 ?p2 mtg:\_Bond-1.} } \\ 
+ -2109.1 & 6780 & \makecell{\texttt{mtg:\_bond2689 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2129.7 & 6780 & \makecell{\texttt{mtg:\_bond4755 ?p2 mtg:\_Bond-1.} \\\texttt{?n1 ?p2 mtg:\_Bond-1.} } \\ 
+ -2133.8 & 6780 & \makecell{\texttt{mtg:\_bond2948 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 ?p2 mtg:\_Bond-1.} } \\ 
+ -2109.8 & 6780 & \makecell{\texttt{mtg:\_bond3223 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2111.2 & 6780 & \makecell{\texttt{mtg:\_bond4928 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ 34069.9 & 6353 & \makecell{\texttt{?n2 mtg:\_hasBond ?n3.} \\\texttt{?n3 ?p4 ?n1.} } \\ 
+ -2112.9 & 6250 & \makecell{\texttt{mtg:\_bond8331 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2111.4 & 6090 & \makecell{\texttt{mtg:\_bond5171 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ 1755.0 & 6063 & \makecell{\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2111.0 & 5862 & \makecell{\texttt{mtg:\_bond4605 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ 26992.5 & 5597 & \makecell{\texttt{?n1 mtg:\_hasBond ?n2.} \\\texttt{?n2 ?p3 mtg:\_Bond-1.} } \\ 
+ -2136.5 & 5391 & \makecell{\texttt{mtg:\_bond6580 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 ?p2 mtg:\_Bond-1.} } \\ 
+ -2135.0 & 5242 & \makecell{\texttt{mtg:\_bond4250 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 ?p2 mtg:\_Bond-1.} } \\ 
+ -2108.7 & 5033 & \makecell{\texttt{mtg:\_bond2392 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ 1183.2 & 4648 & \makecell{\texttt{?n1 rdf:type mtg:\_Carbon-10.} \\\texttt{?n2 mtg:\_hasBond ?n3.} \\\texttt{?n3 mtg:\_inBond ?n1.} } \\ 
+ -2112.2 & 4373 & \makecell{\texttt{mtg:\_bond6668 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -1851.8 & 4250 & \makecell{\texttt{?n2 rdf:type ?n1.} \\\texttt{?n3 ?p4 mtg:\_Atom.} \\\texttt{?n3 rdf:type ?n1.} } \\ 
+ -1809.8 & 4230 & \makecell{\texttt{?n1 rdf:type owl:Class.} \\\texttt{?n2 ?p3 mtg:\_Atom.} \\\texttt{?n2 rdf:type owl:Class.} } \\ 
+ -1833.0 & 4230 & \makecell{\texttt{?n1 ?p4 owl:Class.} \\\texttt{?n2 ?p4 owl:Class.} \\\texttt{?n2 ?p3 mtg:\_Atom.} } \\ 
+ 920.5 & 4203 & \makecell{\texttt{?n1 ?p2 mtg:\_Bond-1.} } \\ 
+ 1896.5 & 4134 & \makecell{\texttt{?n1 ?p3 mtg:\_Bond-7.} \\\texttt{?n1 mtg:\_inBond ?n2.} } \\ 
+ 1807.8 & 4113 & \makecell{\texttt{?n2 rdf:type mtg:\_Bond-7.} \\\texttt{?n2 mtg:\_inBond ?n1.} } \\ 
+ -2110.5 & 3967 & \makecell{\texttt{mtg:\_bond4026 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2127.8 & 3954 & \makecell{\texttt{mtg:\_bond2743 ?p2 mtg:\_Bond-1.} \\\texttt{?n1 ?p2 mtg:\_Bond-1.} } \\ 
+ -2111.0 & 3950 & \makecell{\texttt{mtg:\_bond4681 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2109.2 & 3891 & \makecell{\texttt{mtg:\_bond2743 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2113.2 & 3863 & \makecell{\texttt{mtg:\_bond977 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2112.0 & 3839 & \makecell{\texttt{mtg:\_bond6214 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2112.2 & 3825 & \makecell{\texttt{mtg:\_bond680 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -1875.7 & 3807 & \makecell{\texttt{?n2 rdf:type ?n1.} \\\texttt{?n3 rdf:type ?n1.} \\\texttt{?n3 rdfs:subClassOf mtg:\_Atom.} } \\ 
+ -1902.0 & 3807 & \makecell{\texttt{?n1 ?p4 ?n3.} \\\texttt{?n2 rdf:type ?n3.} \\\texttt{?n2 rdfs:subClassOf mtg:\_Atom.} } \\ 
+ -1829.1 & 3807 & \makecell{\texttt{?n1 rdf:type owl:Class.} \\\texttt{?n2 rdf:type owl:Class.} \\\texttt{?n2 rdfs:subClassOf mtg:\_Atom.} } \\ 
+ -2124.9 & 3773 & \makecell{\texttt{mtg:\_bond1356 ?p2 mtg:\_Bond-1.} \\\texttt{?n1 ?p2 mtg:\_Bond-1.} } \\ 
+ -346.6 & 3736 & \makecell{\texttt{?n1 ?p3 mtg:\_Bond-1.} \\\texttt{?n1 mtg:\_inBond ?n2.} } \\ 
+ -2112.8 & 3677 & \makecell{\texttt{mtg:\_bond8087 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ 5393.0 & 3632 & \makecell{\texttt{?n1 rdf:type mtg:\_Hydrogen-3.} } \\ 
+ 5353.4 & 3632 & \makecell{\texttt{?n1 ?p2 mtg:\_Hydrogen-3.} } \\ 
+ -2110.5 & 3631 & \makecell{\texttt{mtg:\_d144\_49 rdf:type mtg:\_Hydrogen-3.} \\\texttt{?n1 rdf:type mtg:\_Hydrogen-3.} } \\ 
+ -2126.2 & 3595 & \makecell{\texttt{mtg:\_bond1791 ?p2 mtg:\_Bond-1.} \\\texttt{?n1 ?p2 mtg:\_Bond-1.} } \\ 
+ 622.9 & 3544 & \makecell{\texttt{?n1 ?p4 ?n2.} \\\texttt{?n2 mtg:\_inBond ?n3.} } \\ 
+ -1960.7 & 3526 & \makecell{\texttt{?n1 mtg:\_hasStructure ?n2.} } \\ 
+ 27647.3 & 3526 & \makecell{\texttt{?n1 mtg:\_hasStructure ?n2.} \\\texttt{?n2 rdf:type ?n3.} } \\ 
+ -2136.3 & 3503 & \makecell{\texttt{mtg:\_bond6214 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 ?p2 mtg:\_Bond-1.} } \\ 
+ -2111.3 & 3484 & \makecell{\texttt{mtg:\_bond5085 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2110.2 & 3440 & \makecell{\texttt{mtg:\_bond3695 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -1275.9 & 3397 & \makecell{\texttt{?n2 rdf:type mtg:\_Bond-1.} \\\texttt{?n2 mtg:\_inBond ?n1.} } \\ 
+ -2124.4 & 3350 & \makecell{\texttt{mtg:\_bond122 ?p2 mtg:\_Bond-1.} \\\texttt{?n1 ?p2 mtg:\_Bond-1.} } \\ 
+ -2112.2 & 3342 & \makecell{\texttt{mtg:\_bond6738 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2108.0 & 3339 & \makecell{\texttt{mtg:\_bond2005 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2111.4 & 3328 & \makecell{\texttt{mtg:\_bond5201 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2105.8 & 3327 & \makecell{\texttt{mtg:\_bond122 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2111.4 & 3304 & \makecell{\texttt{mtg:\_bond517 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2110.9 & 3292 & \makecell{\texttt{mtg:\_bond4503 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2112.0 & 3281 & \makecell{\texttt{mtg:\_bond6353 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2112.5 & 3278 & \makecell{\texttt{mtg:\_bond7346 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2112.6 & 3266 & \makecell{\texttt{mtg:\_bond7635 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ 4650.7 & 3242 & \makecell{\texttt{?n1 ?p3 ?n2.} } \\ 
+ -2113.2 & 3236 & \makecell{\texttt{mtg:\_bond976 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2113.0 & 3236 & \makecell{\texttt{mtg:\_bond8577 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2129.6 & 3221 & \makecell{\texttt{mtg:\_bond4643 ?p2 mtg:\_Bond-1.} \\\texttt{?n1 ?p2 mtg:\_Bond-1.} } \\ 
+ -2105.6 & 3216 & \makecell{\texttt{mtg:\_bond1171 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2133.3 & 3205 & \makecell{\texttt{mtg:\_bond2566 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 ?p2 mtg:\_Bond-1.} } \\ 
+ -2110.5 & 3190 & \makecell{\texttt{mtg:\_bond4007 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2128.8 & 3190 & \makecell{\texttt{mtg:\_bond3602 ?p2 mtg:\_Bond-1.} \\\texttt{?n1 ?p2 mtg:\_Bond-1.} } \\ 
+ -2112.1 & 3167 & \makecell{\texttt{mtg:\_bond6571 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2112.9 & 3157 & \makecell{\texttt{mtg:\_bond8503 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2107.6 & 3150 & \makecell{\texttt{mtg:\_bond181 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2109.0 & 3129 & \makecell{\texttt{mtg:\_bond2596 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2111.0 & 3124 & \makecell{\texttt{mtg:\_bond4604 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2126.1 & 3120 & \makecell{\texttt{mtg:\_bond1742 ?p2 mtg:\_Bond-1.} \\\texttt{?n1 ?p2 mtg:\_Bond-1.} } \\ 
+ -2108.1 & 3115 & \makecell{\texttt{mtg:\_bond2063 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2110.6 & 3107 & \makecell{\texttt{mtg:\_bond4150 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2112.2 & 3106 & \makecell{\texttt{mtg:\_bond6796 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2107.6 & 3101 & \makecell{\texttt{mtg:\_bond1828 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2136.7 & 3095 & \makecell{\texttt{mtg:\_bond7195 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 ?p2 mtg:\_Bond-1.} } \\ 
+ -2129.1 & 3086 & \makecell{\texttt{mtg:\_bond4007 ?p2 mtg:\_Bond-1.} \\\texttt{?n1 ?p2 mtg:\_Bond-1.} } \\ 
+ -2110.8 & 3083 & \makecell{\texttt{mtg:\_bond4426 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2112.6 & 3075 & \makecell{\texttt{mtg:\_bond7539 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2110.9 & 3071 & \makecell{\texttt{mtg:\_bond4551 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2107.4 & 3064 & \makecell{\texttt{mtg:\_bond1742 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2113.0 & 3041 & \makecell{\texttt{mtg:\_bond8797 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2110.6 & 3036 & \makecell{\texttt{mtg:\_bond4133 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2107.0 & 3032 & \makecell{\texttt{mtg:\_bond1556 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 
+ -2130.0 & 3023 & \makecell{\texttt{mtg:\_bond5201 ?p2 mtg:\_Bond-1.} \\\texttt{?n1 ?p2 mtg:\_Bond-1.} } \\ 
+ -2108.9 & 3021 & \makecell{\texttt{mtg:\_bond2539 rdf:type mtg:\_Bond-1.} \\\texttt{?n1 rdf:type mtg:\_Bond-1.} } \\ 

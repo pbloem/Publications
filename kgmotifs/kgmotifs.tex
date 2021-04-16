@@ -1,29 +1,18 @@
-\documentclass[letterpaper]{article} %DO NOT CHANGE THIS
+\documentclass[runningheads]{style/llncs}
 
-\usepackage{aaai19}    % Required
-\usepackage{times}     % Required
-\usepackage{helvet}    % Required
-\usepackage{courier}   % Required
-\usepackage{url}       % Required
-\usepackage{graphicx}  % Required
-\frenchspacing         % Required
-\setlength{\pdfpagewidth}{8.5in}  % Required
-\setlength{\pdfpageheight}{11in}  % Required
-\usepackage{makecell}
-\usepackage{arydshln}
+\usepackage{url}       
+\usepackage{graphicx}  
 \usepackage{float}
 
-% PDF Info Is Required:
-\pdfinfo{
-/Title (Detecting Motifs in Knowledge Graphs using Compression)
-/Author (...)}
-
-\setcounter{secnumdepth}{0}    
+\usepackage{makecell}
+\usepackage{arydshln}
 
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{url}
 \usepackage{float}
+
+\usepackage{booktabs}
 
 \usepackage{easylist}
 \usepackage{soul}
@@ -37,6 +26,8 @@
 \newcommand{\G}{{\cal G}}
 \newcommand{\cS}{{\cal S}}
 
+\newcommand{\p}{\;\text{.}}
+
 \newcommand{\I}{{\cal I}}
 \newcommand{\tab}{\hspace*{5mm}}
 \newcommand{\from}{\leftarrow}
@@ -45,24 +36,29 @@
 \newfloat{pseudo}{h}{lop}
 \floatname{pseudo}{Algorithm}
 
-\title{Detecting Motifs in Knowledge Graphs using Compression}
-\author{
-Author names withheld
-% Peter Bloem\\
-% Knowledge Representation \& Reasoning Group\\
-% VU University\\
-% vu@peterbloem.nl\\
-}
-
 \begin{document}
+
+\title{Finding Motifs in Knowledge Graphs using Compression}
+\titlerunning{Finding Motifs in Knowledge Graphs}
+
+\author{Peter Bloem\\ \orcidID{0000-0002-0189-5817}}
+% 
+%
+% First names are abbreviated in the running head.
+% If there are more than two authors, 'et al.' is used.
+%
+\institute{Knowledge Representation and Reasoning group,\\ Vrije Universiteit Amsterdam \\
+\email{vu@peterbloem.nl} \\
+\url{peterbloem.nl}}
 
 \maketitle
 
 \begin{abstract}
-\noindent We introduce a method to detect \emph{network motifs} in knowledge graphs. Network motifs are useful patterns or meaningful subunits of the graph that recur frequently. We extend the common definition of a network motif to coincide with a \emph{basic graph pattern}, commonly used in the knowledge graph literature. We introduce an approach, inspired by recent work for simple graphs, for inducing these for a given knowledge knowledge graph, and show that the motifs returned, reflect the basic structure of the graph. Specifically we show that in random graphs, no motifs are found, and that when we insert a motif artificially, it can be detected, even if as few as 10 instances are inserted. Finally, we show the results of motif induction on three real-world knowledge graphs, and show that our method provides good suggestions for motifs that reflect the structure of the graph in an intuitive way.
+\noindent We introduce a method to find \emph{network motifs} in knowledge graphs. Network motifs are useful patterns or meaningful subunits of the graph that recur frequently. We extend the common definition of a network motif to coincide with a \emph{basic graph pattern}. We introduce an approach, inspired by recent work for simple graphs, to induce these from a given knowledge knowledge graph, and show that the motifs found reflect the basic structure of the graph. Specifically, we show that in random graphs, no motifs are found, and that when we insert a motif artificially, it can be detected. Finally, we show the results of motif induction on three real-world knowledge graphs.
 \end{abstract}
 
-\noindent \emph{Knowledge graphs} are an extremely versatile way of storing knowledge. They allow knowledge to be encoded without a predefined schema, they allow different amounts of data to be encoded for different entities and they allow different modalities to be integrated seamlessly \cite{wilcke2017knowledge}. This versatility comes at a price. For a given knowledge graph, it can be difficult to see the forest for the trees: how is the graph structured at the lowest level? What kind of things can I ask of what types of entities? What are small, recurring patterns that might represent a novel insight into the data? Answering these questions could benefit problem domains like graph simplification, graph navigation and schema induction.
+\section{Introduction}
+\noindent \emph{Knowledge graphs} are an extremely versatile and flexible data model. They allow knowledge to be encoded without a predefined format and they are extremely robust in the face of missing data. This versatility comes at a price. For a given knowledge graph, it can be difficult to see the forest for the trees: how is the graph structured at the lowest level? What kind of things can I ask of what types of entities? What are small, recurring patterns that might represent a novel insight into the data? Answering these questions could benefit problem domains like graph simplification, graph navigation and schema induction.
 
 In the domain of unlabeled simple graphs, \emph{network motifs} \cite{milo2002network} were introduced as a tool to provide insight into local graph structure. Network motifs are small subgraphs whose frequency in the graph is unexpected with respect to a \emph{null model}. 
 
@@ -71,7 +67,7 @@ In the domain of unlabeled simple graphs, \emph{network motifs} \cite{milo2002ne
 \begin{figure*}[bth]
   \centering
     \includegraphics[width=\textwidth]{example.pdf}
-    \caption{An example of the principle behind our motif code. a) A basic knowledge graph. Note that in our analysis, we consider only the indices of the nodes and relations, not their labels. b) A motif that occurs frequently. c) A compressed representation; we remove all edges that are part of an occurrence of the motif. We then store separately which nodes match the motif. The motif, together with the template graph and the matches can be used to reconstruct the graph. We take this as a heuristic: the better the motif compresses, the more characteristic it is likely to be for the graph.}
+    \caption{An example of the principle behind our motif code. a) A basic knowledge graph. We consider only the indices of the nodes and relations, not their labels. b) A motif that occurs frequently. c) A compressed representation; we remove all edges that are part of an occurrence of the motif and store separately which nodes match the motif.}
     \label{figure:example}
   \label{figure:codes}
 \end{figure*}
@@ -82,135 +78,92 @@ Unfortunately, estimating this probability usually requires repeating the subgra
 
 %\footnotetext{This procedure has the structure of a hypothesis test, but it is important not to interpret it as \emph{statistical evidence} for the meaningfulness of the motif. The only thing it shows (in a frequentist statistical sense) is that $p^\text{null}$ is not the true source of the data. This is usually not a surprise: we are rarely able to model all aspects of a realistic data-generating process in a single distribution. The $p$-values used in motif analysis should be interpreted strictly as \emph{heuristics}. See also \cite{bloem2017large}.}
 
-In this paper, we extend the compression-based motif analysis to knowledge graphs. For the purposes of this research we define knowledge graphs as labeled, directed multigraphs. Nodes are uniquely labeled with entity names, and links are non-uniquely labeled with relations.  We extend the definition of a motif to that of a \emph{basic graph pattern}: that is, a motif is a small graph with \emph{some} of its nodes and links labeled with entities and relations as they occur in the graph. Other nodes and links are labeled as \emph{variables}. A pattern matches at a particular location in the graph, if the variables can be replaced with values from the graph, and the motif becomes a subgraph as a result. 
-The intuition behind our method is that the more compactly a pattern compresses the graph, the better the motif. Figure~\ref{figure:example} shows an illustration of the basic principle. In the preliminaries section below, we justify this intuition more formally.
+In this paper, we extend this compression-based motif analysis to \emph{knowledge graphs}. For the purposes of this research we define knowledge graphs as labeled, directed multigraphs. Nodes are uniquely labeled with entity names, and links are non-uniquely labeled with relations.  We extend the definition of a motif to that of a \emph{basic graph pattern}: a small graph labeled with both variables and explicit entitites and relations. A pattern matches if the variables can be replaced with specific values from the graph so that the pattern becomes a subgraph as a result. 
 
-We perform several experiments to show that our method returns meaningful subgraphs. First we test the intuition that a random graph should contain no motifs. We also show that when we artificially insert motifs into a random graph, we can then detect these as motifs, sometimes with as few as 10 instances inserted into the graph. Finally, we show the results of motif analysis on three real-world knowledge graphs.
+The intuition behind our method is that we can use graph patterns to \emph{compress the graph}: we store the pattern, its instances, and the remainder of the graph. The better this representation compresses the graph, the more relevant the pattern. Figure~\ref{figure:example} illustrates the principle. In Section~\ref{section:preliminaries}, we justify this intuition more formally.
 
-All code and datasets used in this paper are available, under open licenses.\footnotemark
+We perform several experiments to show that our method returns meaningful subgraphs. First we test the intuition that a random graph should contain no motifs. We also show that when we artificially insert motifs into a random graph, we can then detect these as motifs. Finally, we show the results of motif analysis on three real-world knowledge graphs, compared to the baseline of selecting the most frequent graph patterns.
 
-\footnotetext{URL withheld for purposes of blind reviewing.}
+All code and datasets used in this paper are available online.\footnotemark
+
+\footnotetext{\url{https://github.com/MaestroGraph/motive-rdf}}
 
 \paragraph{Related Work}
 
-Network motifs for unlabeled simple graphs were introduced in \cite{milo2002network}. A more comprehensive overview of the related literature can be found in \cite[Section~1.1]{bloem2017large}. In \cite{bloem2017large}, the principle of Minimum Description Length (MDL) was first connected to motif analysis. However, the idea had earlier been exploited for detecting meaningful subgraphs in the SUBDUE algorithm \cite{cook1994substructure}.
+Network motifs for unlabeled simple graphs were introduced in \cite{milo2002network}. A more comprehensive overview of the related literature can be found in \cite{bloem2017large}. In \cite{bloem2017large}, the principle of Minimum Description Length (MDL) was first connected to motif analysis. However, the idea had earlier been exploited for detecting meaningful subgraphs in the SUBDUE algorithm \cite{cook1994substructure}.
 
-A few other methods have been proposed for inducing the structure of a given knowledge graph. In \cite{pham2015deriving}, the authors use the principle of characteristic sets to characterize a knowledge graph in terms of the star patterns it contains. In \cite{pham2016exploiting}, they show that the majority of the LOD cloud can be efficiently described using such principles, showing the highly tabular structure of many knowledge graphs. In \cite{volker2011statistical}, association rules mining is used to induce basic patterns in the graph. 
+A few other methods have been proposed for inducing the structure of a given knowledge graph in terms of subgraphs. In \cite{pham2015deriving}, the authors use the principle of characteristic sets to characterize a knowledge graph in terms of the star patterns it contains. In \cite{pham2016exploiting}, they show that the majority of the LOD cloud can be efficiently described using such principles, showing the highly tabular structure of many knowledge graphs. In \cite{volker2011statistical}, association rule mining is used to induce basic patterns in the graph. 
 
 To the best of our knowledge, ours is the first method presented that can potentially induce any basic graph pattern.
 
 \subsection{Preliminaries}
 
-\paragraph{Minimum Description Length}
-Our method is based on the MDL principle: that we should favour models that compress the data. We will show briefly how this intuition can be made mathematically precise. For more details, we refer the reader to \cite{grunwald2007minimum} for MDL in general, and to \cite{bloem2017large}, for a more extensive discussion these principles in the domain of graph analysis.
- 
-Let $\B$ be the set of all finite-length binary strings. We use $|b|$ to represent the length of $b \in \B$. Let $\log(x) = \log_2(x)$. A \emph{code} for a set of objects $\cal X$ (such as graphs) is an injective function $f: {\cal X} \to \B$, mapping objects to binary code words. All codes in this paper are \emph{prefix-free}: no code word is the prefix of another. We will denote a \emph{codelength function} with the letter $L$, ie. $L(x) = |f(x)|$. We commonly compute $L(x)$ directly, without first computing $f(x)$ and we refer to $L(x)$ as a code.
+\label{section:preliminaries}
 
-A well known result in information theory is the association between codes and probability distributions, implied by the \emph{Kraft inequality}: for each probability distribution $p$ on $\cal X$, there exists a prefix-free code $L$ such that for all $x \in \cal X$: $- \log p(x) \leq L(x) < -\log p(x) + 1$. Inversely, for every prefix-free code $L$ for $\cal X$, there exists a probability distribution $p$ such that for all $x \in \cal X$: $p(x) = 2^{-L(x)}$. For proofs, see \cite[Section~3.2.1]{grunwald2007minimum} or \cite[Theorem~5.2.1]{cover2006elements}. To explain the intuition, note that we can easily transform a code $L$ into a sampling algorithm for $p$ by feeding the decoding function random bits until it produces an output. To transform a probability distribution to a code, techniques like arithmetic coding \cite{rissanen1979arithmetic} can be used.\footnotemark 
-\footnotetext{
-As explained in \cite[page 96]{grunwald2007minimum}, the fact that $-\log p^*(x)$ is real-valued and $L^*(x)$ is integer-valued can be safely ignored and we may \emph{identify} codes with probability distributions, allowing codes to take non-integer values. 
-}
+\paragraph{Minimum Description Length}
+Our method is based on the MDL principle: we should favour models that compress the data. We will show briefly how this intuition can be made mathematically precise. For more details, we refer the reader to \cite{grunwald2007minimum} for MDL in general, and to \cite{bloem2018tutorial}, for a more extensive discussion these principles in the domain of graph analysis.
+ 
+Let $\B$ be the set of all finite-length binary strings. We use $|b|$ to represent the length of $b \in \B$. Let $\log(x) = \log_2(x)$. A \emph{code} for a set of objects $\cal X$  is an injective function $f: {\cal X} \to \B$. All codes in this paper are \emph{prefix-free}: no code word is the prefix of another. We will denote a \emph{codelength function} with the letter $L$, ie. $L(x) = |f(x)|$. We commonly compute $L(x)$ directly, without first computing $f(x)$.
+
+There is a strong relation between codes and probability distributions: for each probability distribution $p$ on $\cal X$, there exists a prefix-free code $L$ such that for all $x \in \cal X$: $- \log p(x) \leq L(x) < -\log p(x) + 1$. Inversely, for every prefix-free code $L$ for $\cal X$, there exists a probability distribution $p$ such that for all $x \in \cal X$: $p(x) = 2^{-L(x)}$. For proofs, see \cite[Section~3.2.1]{grunwald2007minimum} or \cite[Theorem~5.2.1]{cover2006elements}.
+
+% To explain the intuition, note that we can easily transform a code $L$ into a sampling algorithm for $p$ by feeding the decoding function random bits until it produces an output. To transform a probability distribution to a code, techniques like arithmetic coding \cite{rissanen1979arithmetic} can be used.\footnotemark 
+%\footnotetext{
+%As explained in \cite[page 96]{grunwald2007minimum}, the fact that $-\log p^*(x)$ is real-valued and $L^*(x)$ is integer-valued can be safely ignored and we may \emph{identify} codes with probability distributions, allowing codes to take non-integer values. 
+%}
 
 % When we need to encode a single choice from a finite set $S$ of options, we will often use the code with length $\log |S|$, corresponding to a uniform distribution on $S$. In some cases, we can allow codes with multiple codewords for a single object. If a code $L$ has multiple codewords for some object  $x$, we may indicate the choice for a particular codeword by a parameter $a$ as $L(x; a)$.
 
-\paragraph{Relevance testing} We will use the MDL principle to perform a hypothesis test. Assume we have some data $x$ and a null hypothesis that it was sampled from distribution $p^\text{null}$. Let $L^\text{null}$ be the corresponding codelength. A simple but crucial result, known as the \emph{no-hypercompression inequality} \cite[p103]{grunwald2007minimum} tells us that the probability of sampling data $x$ from $p^\text{null}$ that can be described shorter than $L^\text{null}(x)$ by $k$ or more bits, \emph{using any code} is less than $2^{-k}$.
-Thus, an MDL hypothesis test would consist of stating the null hypothesis in terms of a code $L^\text{null}$, designing a code (before seeing the data) which compresses the data better than $L^\text{null}$ by, say, 10 bits and rejecting the null hypothesis with confidence $2^{-10}$. For a longer, more intuitive explanation of this principle in pattern induction, we refer the reader to \cite[Section~2]{bloem2017large}.
+\paragraph{Relevance testing} We will use the MDL principle to perform a hypothesis test. Assume we have some data $x \in \B$ and a null hypothesis stating that it was sampled from distribution $p^\text{null}$ (with corresponding code $L^\text{null}$). A simple but crucial result, known as the \emph{no-hypercompression inequality} \cite[p103]{grunwald2007minimum} tells us that the probability of sampling any data $x$ from $p^\text{null}$ that can be described in less than $L^\text{null}(x) - k$ or more bits, \emph{using any code} is less than $2^{-k}$.
+Thus, we can reject the hypothesis that the data was sampled from $p^\text{null}$ by designing a code which compresses the data better than $L^\text{null}$ by, say, 10 bits and rejecting the null hypothesis with confidence $2^{-10}$. For a longer, more intuitive explanation of this principle in pattern induction, we refer the reader to \cite{bloem2018tutorial}.
 
-Note that when we use this procedure to find motifs, we are not providing evidence for the hypothesis that the motif is ``correct'' \cite[Section~2]{bloem2017large}.
+Note that when we use this procedure to find motifs, we are not providing statistical evidence for the hypothesis that the motif is ``correct'' \cite[Section~4.1]{bloem2018tutorial}. We are simply using the principle of hypothesis testing as a \emph{heuristic} for pattern mining. The only assertion we are proving (in a statistical sense) is that the data did not come from the null model.
+
 \paragraph{Common codes}
-In the construction of our codes for graphs, we require some simpler codes as building blocks. First, when we store any positive integer $n$, we do so with the code corresponding to the distribution $p^\N(n) = 1/(n(n+1))$, and denote it $L^\N(n)$. For nonnegative numbers we add 1 to the argument. for the full range of integers, we add an extra bit for the sign, and then use the first code for negative integers and the second for positive ones.
+In the construction of our graph codes, we require some simpler codes as building blocks. First, when we store any positive integer $n$, we do so with the code corresponding to the distribution $p^\N(n) = 1/(n(n+1))$, and denote it $L^\N(n)$. For nonnegative numbers we add 1 to the argument. For the full range of integers ($L^\Z$), we add an extra bit for the sign, and then use the first code for negative integers and the second for positive ones.
 
-We will often need to encode sequences of integers. These will be highly skewed, with only a subset of integers occurring frequently, and others occurring infrequently or not at all. As noted in \cite{de2016names} a code based on the Pitman-Yor model \cite{pitman1997two} is very effective in such situations. Let $S = \langle S_1, ..., S_n\rangle$ be a sequence of integers of length $n$. We first store its members $m(s)$ in the order in which they first occur: we first store $n$ and the first member using the codes described above. The rest of the members are stored sequentially using the distance from the current to the next member.
+We will often need to encode \emph{sequences} of integers as well. These will be highly skewed, with only a subset of integers occurring frequently, and others occurring infrequently or not at all. As noted in \cite{de2016names} a code based on the Pitman-Yor model \cite{pitman1997two} is very effective in such situations. Let $S = \langle S_1, ..., S_n\rangle$ be a sequence of integers of length $n$. We first store its members $m(S)$ in the order in which they occur: we first store $n$ and the first member using $L^\N$ and then store each subsequent member by encoding the distance to the previous member using $L^\Z$. Having encoded the members of $S$ we can store the sequence itself using the Pitman-Yor model as follows.
 
-Let $f(A, B)$ be the frequency of symbol $A$ in sequence $B$.We then store the complete sequence using the code corresponding to the following distribution:
-\begin{align*}
-&p^\text{PY}_{\alpha,d}(S) = \prod_{i \in [1,k]} \text{PY}_{\alpha,d}(S_i\mid S_{1:i-1}) \\
-&\text{PY}_{\alpha,d}(S_i \mid S') = 
+Let $f(A, B)$ be the frequency of symbol $A$ in sequence $B$. We then store the complete sequence using the code corresponding to the following distribution:
+\[
+p(S) = \prod_{i \in [1,k]} p(S_i\mid S_{1:i-1})\;\;\text{with}\;\;
+p(S_i \mid S') = 
 \begin{cases}
-\frac{\alpha - d |m(S)|}{|m(S)| + \alpha} & \text{if} f(S_i, S') = 0 \\ 
-\frac{f(S_i, S') - d}{|m(S)| + \alpha} & \text{otherwise}
+\frac{\alpha - d |m(S')|}{|m(S')| + \alpha} & \text{if} f(S_i, S') = 0 \\ 
+\frac{f(S_i, S') - d}{|m(S')| + \alpha} & \text{otherwise}
 \end{cases}
-\end{align*}
-See \cite{de2016names} for a more intuitive explanation. In all experiments we use $\alpha = 0.5$, $d=0.1$. We will refer to the total codelength for a sequence under this procedure as $L^{PY}(S)$
+\]
+See \cite{de2016names} for a more intuitive explanation. In all experiments we use $\alpha = 0.5$, $d=0.1$. We will refer to the total resulting codelength as $L^{PY}(S)$.
 
 \section{Method}
-To comfortably define probabilities and codes on graphs, we will slightly deviate from conventional definitions. Specifically, we will analyse the \emph{structure} of knowledge graphs only, ignoring any meaning they have outside the graph. Under this assumption we can assume that the node and link labels of our knowledge graphs are simply natural numbers.\footnotemark~This leads to the following definition.
 
+We will first give a precise definition of a knowledge graph as used in this paper. We will then describe the null model which is used both as a point of comparison in our hypothesis test, and within the motif code to compress the remainder of the graph. Next, we describe how to compress a graph using a given motif, and a set of instances. Finally, we will describe how to search for likely motifs using simulated annealing.
+%
+%We analyse the \emph{structure} of knowledge graphs only, ignoring any meaning in relation to other graphs, encoded in the content of names or literals, or from ontology languages. 
+Specifically, we model a knowledge graph as a multigraph with nodes and edges labeled with integers that map to entities and relations. This mapping is stored, but only the integer-labeled graph is modelled.\footnotemark
 \footnotetext{For practitioners this restriction is not noticeable, as the indices can simply be mapped back to the original strings when the found motifs are presented.}
 
-A \emph{knowledge graph} $G$, hereafter simply a \emph{graph}, is a tuple $G = (v_G, r_G, E_G)$. $v_G \in \N$ is the number of nodes in the graph, and $r_G \in \N$ is the number of relations. We define the nodeset as $V_G = \{0, \ldots, v_G-1\}$ and the relation-set as $R_G = \{0, \ldots, r_G\}$. The \emph{tripleset} $E_G \subset V_G \times R \times V_G$ determines the edges of the graph and their labels. 
+A \emph{knowledge graph} $G$, is a tuple $G = (v_G, r_G, E_G)$. $v_G \in \N$ is the number of nodes in the graph, and $r_G \in \N$ is the number of relations. We define the nodeset of $G$ as $V_G = \{0, \ldots, v_G-1\}$ and the relation-set as $R_G = \{0, \ldots, r_G\}$. The \emph{tripleset} $E_G \subset V_G \times R \times V_G$ determines the edges of the graph and their labels: each triple $(s, r, o) \in E_G$ encodes the originated node $s$, the target node $o$ and the relation $r$ of an edge in the graph. 
 
-As shown in Figure~\ref{figure:example}, the patterns that we aim to find are partially labeled: some nodes and edges are labeled with as variables. We will represent these with negative integers. A pattern $M$ for graph $G$ is a tuple $(V_M, R_M, G, E_M)$. Let $v_M$ and $r_M$ indicate the number of variable nodes and variable links in $M$ respectively, then $V_M \subseteq \{-v'_M, \ldots, v_G-1\}$ and $R_M \subseteq \{-(r'_M+v'M), \ldots,-v'M, 0,\ldots, r_G-1\}$, with $E_M \subset V_M \times R_M \times V_M$, as for regular graphs. That is; nodes can be labeled either with nonnegative integers referring to $G$'s nodes or with negative integers representing a variable node, and similar for relations. The negative integers are always contiguous within a single graph, with the highest representing the node labels and the lowest representing the edge labels.
-\begin{table}[H]x
-\centering
-\tiny
-\begin{tabular}{r r p{0.5\linewidth}}
-\hline
-log-factor & frequency & \\
-\hline
-\multicolumn{3}{c}{Dogfood , top 5 by log-factor ($>100$ positive)}\\
-\hline	
- 83119.1 & 9344 & \makecell{\texttt{?n1 dc:creator ?n2.} \\\texttt{?n2 rdfs:label ?n3.} \\\texttt{?n2 foaf:name ?n3.} } \\ 
- \hdashline
- 81075.1 & 10322 & \makecell{\texttt{?n1 foaf:maker ?n2.} \\\texttt{?n2 rdfs:label ?n3.} \\\texttt{?n2 foaf:name ?n3.} } \\
-  \hdashline 
- 77692.6 & 5234 & \makecell{\texttt{?n2 rdf:type ?n3.} \\\texttt{?n2 rdfs:label ?n1.} \\\texttt{?n2 foaf:name ?n1.} } \\ 
-  \hdashline
- 75632.3 & 3536 & \makecell{\texttt{?n1 swc:isPartOf ?n2.} \\\texttt{?n2 swc:hasPart ?n1.} } \\ 
-  \hdashline
- 75592.4 & 3536 & \makecell{\texttt{?n1 swc:isPartOf ?n2.} \\\texttt{?n2 ?p3 ?n1.} } \\ 
-\hline
-\multicolumn{3}{c}{Dogfood, top 3 by frequency}\\
-\hline	
- -3032.5 & 137008 & \makecell{\texttt{?n1 rdf:\_1 ?n2.} \\\texttt{?n1 rdf:\_2 ?n4.} \\\texttt{?n1 rdf:\_3 ?n3.} } \\ 
-  \hdashline
- -3251.4 & 109315 & \makecell{\texttt{?n1 swc:isPartOf ?n3.} \\\texttt{?n2 swc:isPartOf ?n3.} } \\ 
- \hdashline
- 2089.0 & 92165 & \makecell{\texttt{?n2 swc:isPartOf ?n3.} \\\texttt{?n3 swc:hasPart ?n1.} } \\ 
-\hline
-\multicolumn{3}{c}{AIFB, top 5 by log-factor ($>100$ positive)}\\
-\hline	
- 79234.0 & 7728 & \makecell{\texttt{?n1 ?p3 ?n2.} \\\texttt{?n2 ?p4 ?n1.} } \\ \hdashline
- 61310.4 & 4154 & \makecell{\texttt{?n1 swrs:publication ?n2.} \\\texttt{?n2 ?p3 ?n1.} } \\ \hdashline
- 57641.1 & 3965 & \makecell{\texttt{?n1 swrs:publication ?n2.} \\\texttt{?n2 swrs:author ?n1.} } \\ \hdashline
- 57603.1 & 3965 & \makecell{\texttt{?n1 swrs:author ?n2.} \\\texttt{?n2 ?p3 ?n1.} } \\ \hdashline
- 42110.1 & 17512 & \makecell{\texttt{?n1 swrs:publication ?n3.} \\\texttt{?n3 swrs:author ?n2.} \\\texttt{?n3 swrs:author ?n1.} \\\texttt{?n2 swrs:publication ?n3.} } \\ 
-\hline
-\multicolumn{3}{c}{AIFB, top 3 by frequency}\\
-\hline
- 2287.7 & 198668 & \makecell{\texttt{?n1 swrs:publication ?n3.} \\\texttt{?n1 swrs:publication ?n2.} } \\ \hdashline
- 7822.1 & 191083 & \makecell{\texttt{?n1 swrs:author ?n2.} \\\texttt{?n2 swrs:publication ?n3.} } \\ \hdashline
- 1264.0 & 190636 & \makecell{\texttt{?n1 swrs:isAbout ?n3.} \\\texttt{?n2 swrs:isAbout ?n3.} } \\ 
-\hline
-\multicolumn{3}{c}{Mutag, top 5 by log-factor ($87$ positive)}\\
-\hline
- 178304.4 & 18634 & \makecell{\texttt{?n1 mtg:\_hasAtom ?n3.} \\\texttt{?n1 mtg:\_hasBond ?n2.} \\\texttt{?n2 mtg:\_inBond ?n3.} } \\ \hdashline
- 97237.8 & 9189 & \makecell{\texttt{?n1 mtg:\_hasAtom ?n2.} \\\texttt{?n2 mtg:\_charge ?n3.} } \\ \hdashline
- 90447.5 & 18634 & \makecell{\texttt{?n1 mtg:\_hasBond ?n2.} \\\texttt{?n2 mtg:\_inBond ?n4.} \\\texttt{?n2 mtg:\_inBond ?n3.} } \\ \hdashline
- 79052.0 & 9317 & \makecell{\texttt{?n1 mtg:\_hasBond ?n2.} \\\texttt{?n2 rdf:type ?n3.} } \\ \hdashline
- 58973.9 & 7892 & \makecell{\texttt{?n1 mtg:\_hasAtom ?n2.} \\\texttt{?n2 rdf:type ?n3.} } \\ 
-\hline
-\multicolumn{3}{c}{Mutag, top 3 by frequency}\\
-\hline
- 1025.7 & 341143 & \makecell{\texttt{?n2 mtg:\_hasAtom ?n3.} \\\texttt{?n2 mtg:\_hasBond ?n1.} } \\ \hdashline
- -374.5 & 178837 & \makecell{\texttt{?n1 mtg:\_charge ?n3.} \\\texttt{?n2 mtg:\_charge ?n3.} } \\ \hdashline
- -2088.0 & 52985 & \makecell{\texttt{?n1 rdf:type owl:Class.} \\\texttt{?n3 rdfs:subClassOf ?n2.} \\\texttt{?n4 ?p5 owl:Class.} \\\texttt{?n4 rdfs:subClassOf ?n2.} } \\ 
-\hline
-\end{tabular}
-\caption{Results of the experiment on real-world data. For each experiment we also report the number of motifs found with a positive log-factor.}
-\label{table:topk}
-\end{table}
-An \emph{instance} for $M$ in $G$ is a pair of sequences of integers: $I = (I^n, I^r)$. $I^n$ is a sequence of distinct integers of length $v'_M$. $I^r$ is a sequence of non-distinct integers of length $r'_M$. For each edge $(s, p, o) \in E_M$ containing a negative $s$, $p$ or $o$, there is a corresponding link in $E_G$ with a negative $s$ replaced by $I^n_{-s}$, a negative $o$ replaced by $I^n_{-o}$, and a negative $p$ replaced by $I^r_{-p - v'_M}$. Put simply: for a pattern to match, variable edges marked with the same negative integer, must map to the same relation in order for the pattern to match, but variable links labeled with different negative integers \emph{may} map to the same relation. Variable nodes are always labeled distinctly and may never map to the same node in $G$. An instance describes a subgraph of $G$ that \emph{matches} the pattern $M$. Each edge in the motif may only match one edge in the graph. In other words, the occurrence of the motif in the graph must have as many edges as the motif itself.
+This definition is compatible with RDF data. We interpret literals as nodes, considered the same node if they are expressed by the same string.
 
-We will first assume that a target pattern $M$ is given for the data $G$ and that we have a set of instances $\I$. Moreover, we require that all instances in $\I$ are mutually disjoint: no two subgraphs defined by member of $\I$ may share an edge, but nodes may be shared. 
+%As shown in Figure~\ref{figure:example}, the patterns that we aim to find are partially labeled: some nodes and edges are labeled as \emph{variables}. We will represent these with negative integers. 
 
+A \emph{pattern} $M$ for graph $G$ is a tuple $(V_M, R_M, G, E_M)$. Let $v_M$ and $r_M$ indicate the number of variable nodes and variable links in $M$ respectively, then $V_M \subseteq \{-v'_M, \ldots, v_G-1\}$ and $R_M \subseteq \{-(r'_M+v'M), \ldots,-v'M, 0,\ldots, r_G-1\}$, with $E_M \subset V_M \times R_M \times V_M$ representing the edges as before. That is; nodes can be labeled either with nonnegative integers referring to $G$'s nodes or with negative integers representing a variable node, and similar for relations. The negative integers are always contiguous within a single pattern, with the highest representing the node labels and the lowest representing the edge labels
 
-\paragraph{Null model}
-The most common null model for classical motif analysis is the degree-sequence model (also known a the configuration model \cite{newman2010networks}): a uniform distribution over all graphs with a particular degree sequence. We extend this to knowledge graphs by also including the degree of each relation: that is, the frequency with which it occurs in the tripleset. Let a \emph{degree sequence} $D$ of length $n$ be a triple of three integer sequences: $(D^\text{in}, D^\text{rel}, D^\text{out})$. If $D$ is the degree sequence of a graph, then node $i$ has $D^\text{in}_i$ incoming links,  $D^\text{out}_i$ outgoing links and for each relation $r$, there are $D^\text{rel}_r$ triples.
+An \emph{instance} for $M$ in $G$ is a pair of sequences of integers: $I = (I^n, I^r)$. $I^n$ is a sequence of distinct integers of length $v'_M$. $I^r$ is a sequence of non-distinct integers of length $r'_M$. For each edge $(s, p, o) \in E_M$ with any or all of $s$, $p$ and $o$ negative, there is a corresponding link in $E_G$ with a negative $s$ replaced by $I^n_{-s}$, a negative $o$ replaced by $I^n_{-o}$, and a negative $p$ replaced by $I^r_{-p - v'_M}$. Put simply: for a pattern to match, variable edges marked with the same negative integer, must map to the same relation in order for the pattern to match, but variable links labeled with different negative integers \emph{may} map to the same relation. Variable nodes are always labeled distinctly and may never map to the same node in $G$. An instance describes a subgraph of $G$ that \emph{matches} the pattern $M$. Each edge in the motif may only match one edge in the graph. In other words, the occurrence of the motif in the graph must have as many edges as the motif itself.\footnotemark
 
-Let $\G_D$ be the set of all graphs with degree sequence $D$. Then the configuration model can be expressed simply as
+\footnotetext{In this aspect our definition differs from the SPARQL Basic Graph Pattern. Patterns for which this distinction is relevant are rare, and patterns returned by our method are still compatible with SPARQL.}
+
+\subsection{Null model}
+
+For a proper hypothesis test, we must compare the compression achieved by our motif code to the compression under a general model for knowledge graphs: a null model. 
+
+The most common null model in classical motif analysis is the degree-sequence model (also known as the configuration model \cite{newman2010networks}): a uniform distribution over all graphs with a particular degree sequence. We extend this to knowledge graphs by also including the degree of each relation: that is, degree of a relation is the frequency with which it occurs in the tripleset. Let a \emph{degree sequence} $D$ of length $n$ be a triple of three integer sequences: $(D^\text{in}, D^\text{rel}, D^\text{out})$. If $D$ is the degree sequence of a graph, then node $i$ has $D^\text{in}_i$ incoming links,  $D^\text{out}_i$ outgoing links and for each relation $r$, there are $D^\text{rel}_r$ triples.
+
+Let $\G_D$ be the set of all graphs with degree sequence $D$. Then the degree-sequence model can be expressed simply as
 \[
-p^C(G) = \frac{1}{|\G_D|}
+p^\text{DS}(G) = \frac{1}{|\G_D|}
 \]
 for any $G$ that satisfies $D$ and $p(G) = 0$ otherwise. Unfortunately, there is no efficient way to compute $|\G_D|$ and even approximations tend to be costly for large graphs. Following the approach in \cite{bloem2017large}, we define a fast approximation to the configuration model, which works well in practice for motif detection. 
 
@@ -231,51 +184,40 @@ We can thus use
 \[
 p^\text{EL}_D(G) =  \frac{m!}{{m \choose {D_1^\text{out}, \ldots, D_n^\text{out}} }
  {m \choose {D_1^\text{rel}, \ldots, D_{|R_G|}^\text{rel}} }
- {m \choose {D_1^\text{in}, \ldots, D_n^\text{in}} }} \leq p^C(G) \text{.}
+ {m \choose {D_1^\text{in}, \ldots, D_n^\text{in}} }} \leq p^\text{DS}(G) \text{.}
 \]
 
 Filling in the definition of the multinomial coefficient, and rewriting, we get a codelength of:
 \begin{align*}
-- &\log p^\text{EL}_D(G) = 2 \log(m!) \\
-&- \sum_i \log(D_i^\text{in}!)- \sum_i \log(D_i^\text{rel}!)- \sum_i \log(D_i^\text{out}!)
+- \log p^\text{EL}_D(G) = 2 \log(m!)
+- \sum_i \log(D_i^\text{in}!)- \sum_i \log(D_i^\text{rel}!)- \sum_i \log(D_i^\text{out}!)
 \end{align*}
 
-as an approximation for the DS model. We call this the edgelist (EL) model. It gives a probability that always lower-bounds the configuration model, since it affords some probability mass to graphs that cannot exist.\footnotemark ~Experiments in the classical motif setting have shown that the EL model is an acceptable proxy for the DS model \cite{bloem2017large}, especially considering the extra scalability it affords.
+as an approximation for the DS model. We call this the edgelist (EL) model. It gives a probability that always lower-bounds the configuration model, since it affords some probability mass to graphs that cannot exist. Experiments in the classical motif setting have shown that the EL model is an acceptable proxy for the DS model \cite{bloem2017large}, especially considering the extra scalability it affords.
 
-\footnotetext{Note that we cannot simply think of $p^\text{EL}$ as a uniform model for graphs containing multiple links, since we can only divide by $m!$ if we know that all triples are unique.}
- 
- \paragraph{Encoding D} In order to encode a graph with $L^\text{EL}_D$, we must first encode $D$. \footnote{Or, equivalently, to make $p^\text{EL}$ a complete distribution on all graphs, we must provide it with a prior on $D$.} For each of the three sequences in $D$ we use the following model:
+%\footnotetext{Note that we cannot simply think of $p^\text{EL}$ as a uniform model for graphs containing multiple links, since we can only divide by $m!$ if we know that all triples are unique.}
+% 
+ \paragraph{Encoding D} In order to encode a graph with $L^\text{EL}_D$, we must first encode $D$.\footnotemark~For each of the three sequences $D'$ in $D$ we use the following model:
 \[
- p(D) = \prod_i q^{\N}(D_i)\;\;\;\;\;
- L(D) = - \sum_i \log q^{\N}(D_i)
+ p(D') = \prod_i q^{\N}(D'_i)\;\;\;\;\;
+ L(D') = - \sum_i \log q^{\N}(D'_i)
 \]
 
+\footnotetext{Or, equivalently, to make $p^\text{EL}$ a complete distribution on all graphs, we must provide it with a prior on $D$.}
+
 where $1^{\N}$ is any distribution on the natural numbers. This is an optimal encoding for $D$ assuming that its members are independently drawn from $q^{\N}$. When we use $p^\text{EL}$ as the null model, we use the data distribution for $q^{\N}$ to ensure that we have a lower bound to the optimal code-lengthn (in essence, we cheat, giving the null model a slightly lower than optimal codelength). When we use $p^\text{EL}$ as part of the motif code, we must use a fair encoding, so we use the Pitman-Yor code to store each sequence in $D$.
-
-In the design of our method, we will constantly aim to find a trade-off between completeness and efficiency that allows the method to scale to very large graphs. Specifically, when we economize, we will only do so in a way that makes the hypothesis test \emph{more conservative}.
-
-\begin{table}[tbp]
-\small
-\begin{tabular}{r r p{4cm} r}
-\hline
-log-factor & frequency & &  \\
-\hline
-220360.2 & 12138 & \makecell{\texttt{?n1 foaf:maker ?n2.} \\\texttt{?n2 foaf:made ?n1.}} & D  \\ \hdashline
- 3157.0 & 1011 & \makecell{\texttt{?n1 ?p2 "false".}}  & M \\ \hdashline
-  3150.2 & 985 & \makecell{\texttt{?n1 ?p2 "true".}} & M \\ \hdashline
-   12871.8 & 8308 & \makecell{\texttt{?n1 rdf:type ?n2.} \\\texttt{?n1 swrs:year ?n3.} \\\texttt{?n4 swrs:publication ?n1.} }& A \\ 
-\hdashline
-\end{tabular}
-\caption{Selected motifs.The last column indicates the dataset.}
-\label{table:selected}
-\end{table}
-
+%
+%In the design of our method, we will constantly aim to find a trade-off between completeness and efficiency that allows the method to scale to very large graphs. Specifically, when we economize, we will only do so in a way that makes the hypothesis test \emph{more conservative}.
 
 \subsection{Motif code}
 
-As described above, we can perform our relevance test with any compression method which exploits the pattern $M$, and its instances $\I$ to store the graph efficiently. The better our method, the more motifs we will find. Note that there is no need for our code to be optimal in any sense. So long as we accept that we won't find all motifs that exist, we are free to trade off compression performance against efficiency of computation.
+Having defined our representation of a knowledge graph, and a general null model for compressing such knowledge graphs, we can now define how we use a given motif (together with its instances) to compress a dataset. 
 
-We store the graph by encoding various aspects, one after the other. The information in all of these together is sufficient to reconstruct the graph. Note that everything is stored using prefix-free codes, so that we can simply concatenate the codewords (or rather, sum the codelengths we get for each aspect).
+We will assume that a target pattern $M$ is given for the data $G$ and that we have a set of instances $\I$ of $M$ in $G$. Moreover, we require that all instances in $\I$ are mutually disjoint: no two subgraphs defined by a member of $\I$ may share an edge, but nodes may be shared. Given this information, we will define a motif code that will help us determine whether or not $M$ is a likely motif for $G$. In section Section~\ref{section:search}, we detail a method to search for pairs $(M, \I)$ to pass to the motif code.
+
+As described above, we can perform our relevance test with any compression method which exploits the pattern $M$ and its instances $\I$ to store the graph efficiently. The better our method, the more motifs we will find. Note that there is no need for our code to be optimal in any sense. We know that we will not find all motifs that exist, and we will not use them optimally to represent the graph, but the test is still valid. This also means that we are free to trade off compression performance against efficiency of computation.
+
+We store the graph by encoding various aspects, one after the other. The information in all of these together is sufficient to reconstruct the graph. Note that everything is stored using prefix-free codes, so that we can simply concatenate the codewords we get for each aspect, to get a codeword for the whole graph.
 
 We also assume that we are given a code $L^\text{base}$ for generic knowledge graphs (in practice, this will be the null model, although the motif code is valid for any base code).
 
@@ -300,13 +242,13 @@ The precise computation of the codelength is given in Algorithm~\ref{algorithm:m
 \\
 $b_\text{dim} \leftarrow L^\N(|V_G|) + L^\N(|R_G|) + L^\N(|E_G|)$ \\
 
-\emph{\# Turn the pattern into a normal knowledge graph}\\
+\emph{// Turn the pattern into a normal knowledge graph}\\
 $E_{M'} \leftarrow$ the edges of $M$ with contiguous integer labels \\
 $M' \leftarrow (|V_M|, |R_M|, E_{M'})$ \\
 $S_M \leftarrow$ the labels of M in canonical order \\
 $b_\text{pattern} \leftarrow L^\text{base}(M') + L^{PY}(S_M) $\\
 
-\emph{\# Store the template graph}\\
+\emph{// Store the template graph}\\
 $E'_G \leftarrow E_G - \cup_{\I \in {\cal I}} \text{triples}(I)$ \\
 $b_\text{template} \leftarrow L_\text{base}((V_G, R_G, E'_G))$\\
 
@@ -316,13 +258,15 @@ $b_\text{instances} \leftarrow -\log p_M(\I) + \sum_{D \in D^{\I}} L^{PY}(D)$\\
 }
 \end{pseudo} 
 
-\paragraph{Encoding motif instances} To encode a list of instances $\I$ of a given pattern $M$, we generalize  the idea of the edgelist model described above. To understand the following ,it may be instructive to think of a single triple as an instance for the pattern \texttt{?n1 ?rel ?n2}. We can think of the edgelist model as storing a sequence of instances for this pattern, which together make up the entire knowledge graph.
+\paragraph{Encoding motif instances} To encode a list of instances $\I$ of a given pattern $M$, we generalize  the idea of the edgelist model described above. 
+
+%To understand the following ,it may be instructive to think of a single triple as an instance for the pattern \texttt{?n1 ?rel ?n2}. We can think of the edgelist model as storing a sequence of instances for this pattern, which together make up the entire knowledge graph.
  
  To generalize this notion to arbitrary patterns, to be defined for a given template graph, we define the \emph{degree constraint} $D^\I$ of a list of instances for a given pattern as follows: for each variable node $i$ in the pattern, the degree constraint provides an integer sequence $D^i$ of length $v_G$, indicating how often each node in the completed knowledge graph takes that position in the pattern. Similarly, for each variable link $j$ in the pattern, the degree sequence provides an integer sequence $C^j$ of length $r_G$ indicating for each relation how often it takes that position in the pattern.
  
  We store these sequences in the same manner as the degree sequence of the template graph, using the Pitman-Yor code for each.
  
-Given this information, all we need to do is describe which of the possible sequences of matches for this pattern satisfying the given degree sequence we are encoding. As with the configuration model, the ideal is a uniform code over all possible configurations, for which we will define an approximation. Given $w$ variable nodes in a pattern, and $l$ variable links, we can define such a collection of instances using $w+l$ integer sequences: $N^1, \ldots, N^n, L^1, \ldots, L^l$, with the $t$-th instance defined by the integer tuple $(N^1_t, \ldots, N^n_t, L^1_t, \ldots, L^l_t)$. If this set of sequences satisfies the degree constraint, we know that node $q$ must occur $D^i_q$ times in sequence $N^i$, and similarly for the variable links. Let $\cS_\I$ be the set of all such integer sequences satisfying the degree constraint. We will follow the same logic as for the EdgeList model. Let $k$ be the number of matches of the pattern. We have:
+Given this information, all we need to do is describe which of the possible sequences of matches for this pattern satisfying the given degree sequence we are encoding. As with the configuration model, the ideal is a uniform code over all possible configurations, for which we will define an approximation. Given $w$ variable nodes in a pattern, and $l$ variable links, we can define such a collection of instances using $w+l$ integer sequences: $N^1, \ldots, N^n, L^1, \ldots, L^l$, with the $t$-th instance defined by the integer tuple $(N^1_t, \ldots, N^n_t, L^1_t, \ldots, L^l_t)$. If this set of sequences satisfies the degree constraint, we know that node $q$ must occur $D^i_q$ times in sequence $N^i$, and similarly for the variable links. Let $\cS_\I$ be the set of all such integer sequences satisfying the  constraint. We follow the same logic as for the EL model. Let $k$ be the number of matches of the pattern. We have:
 \begin{align*}
 |\cS| = &{k \choose D^1_1, \ldots, D^1_v}\times \ldots \times{k \choose D^w_1, \ldots, D^w_v}\times \\
 &{k \choose C^1_1, \ldots, C^1_r}\times \ldots \times{k \choose C^l_1, \ldots, C^l_r}
@@ -338,46 +282,51 @@ p_M(G) =  \frac{k!}{|\cS_D|} < \frac{1}{\G_D} \text{,}
 \]
  with $-\log p_M(\I)$ as a code to store the instances. Rewriting as before, gives us a codelength of 
  \begin{align*}
- - \log p_M(G) &= (w+l-1)\log(k!) \\
-  -&\sum_{j\in [1,w], i} \log(D^j_i!) -\sum_{j\in [1,l], i} \log(C^j_i!)
+ - \log p_M(G) &= (w+l-1)\log(k!)
+  -\sum_{j\in [1,w], i} \log(D^j_i!) -\sum_{j\in [1,l], i} \log(C^j_i!)
  \end{align*}
  
 Note that if we store a graph with the pattern \texttt{?n1 ?rel ?n2} we obtain an empty template graph, and the motif code achieves the same codelength as the edgelist model, up to a small constant amount for storing the pattern.
 
 For a given graph and pattern, we can simply find the complete list of instances using a graph pattern search. Since we require a slightly different semantics than standard graph pattern matchers, we adapt the DualIso algorithm \cite{saltz2014dualiso} for knowledge graph matching. Before computing the motif code, we prune the list of instances provided by this search iterating over the instances and removing and instance that produces a triple also produced by an earlier instance. To guard against rare patterns that produce long-running searches we terminate all searches after 5 seconds, returning  only those matches that were found within the time limit.
 
-We express the strength of a motif by its log-factor: $-\log p^\text{null}(G) + \log p^\text{motif}(G; M, \I, L^\text{base})$. If this value is positive, the motif code compresses the graph better than the null model. If the log-factor is greater than 10 bits, it corresponds to a rejection of the null model at $p < 0.001$.
+We express the strength of a motif by its log-factor: 
+\[
+-\log p^\text{null}(G) + \log p^\text{motif}(G; M, \I, L^\text{base})\p
+\] 
+If this value is positive, the motif code compresses the graph better than the null model. If the log-factor is greater than 10 bits, it corresponds to a rejection of the null model at $p < 0.001$.
 
 \subsection{Motif search}
-
 
 \begin{figure}[tb]
   \centering
     \includegraphics[width=\linewidth]{synthetic-plot.pdf}
-    \caption{The result of the random graph experiment. We sort the motifs by their score in the $k=10$ experiment and plot their frequency and log-factor.}
+    \caption{The result of the random graph experiment. We sort the motifs by their score in the $k=75$ experiment and plot their frequency and log-factor.}
     \label{figure:synthetic}
 \end{figure}
 
 \label{section:search}
 
-Ultimately, we want to find any motifs that have a high log-factor for a given graph $G$. Since we can readily compute the log-factor, any black-box optimization algorithm can be used to search the space of all possible motifs. For the sake of simplicity, we will use basic simulated annealing here. The starting pattern is always a single random triple from the graph, with its relation made a variable. We define seven possible transition from one pattern to another: \\
-\textbf{Extend (2)} Choose an instance of the pattern and an adjacent triple not part of the instance. Add the triple to the pattern.\\
-\textbf{Make a node a variable (3)} Choose a random constant node, and turn it in to a variable node.\\
-\textbf{Make an edge a variable (3)} Choose a random constant edge label, and turn it in to a variable (always introducing a new variable).\\
-\textbf{Make a variable node constant (2)} Choose a random variable node and turn it into a constant. Take the value from a random instance.\\
-\textbf{Make a variable edge constant (2)} Choose a random variable edge and turn it into a constant. Take the value from a random instance.\\
-\textbf{Remove edge (3)} Remove a random edge from the pattern, ensuring that it stays connected.\\
-\textbf{Couple (1)} Take two distinct edge variables, which for at least one instance hold the same value and turn them into a single variable.
+Ultimately, we want to find any motifs that have a high log-factor for a given graph $G$. Since we can readily compute the log-factor, any black-box optimization algorithm can be used to search the space of all possible motifs. For the sake of simplicity, we will use basic simulated annealing here: We start with a given pattern, and iterate by modifying the pattern in one of seven ways, chosen randomly. At each iteration, we search for instances of the pattern (limiting the time per search to 5 seconds) and compute the log-factor. If the log factor is better, we move to the new pattern, if it is worse, we move to the new pattern with probability 0.5. 
 
-The values in brackets are the relative weights of each transition type (chosen by trial and error). We choose a transition at random using the normalized weights as probabilities and compute a new pattern. If the transition cannot be made (for instance, there are no constant node to make variable) or if the resultant pattern is in some way invalid, we sample a new transition.
+The starting pattern is always a single random triple from the graph, with its relation made a variable. We define seven possible transition from one pattern to another: \\
+\textbf{Extend} Choose an instance of the pattern and an adjacent triple not part of the instance. Add the triple to the pattern.\\
+\textbf{Make a node a variable} Choose a random constant node, and turn it in to a variable node.\\
+\textbf{Make an edge a variable } Choose a random constant edge label, and turn it in to a variable (always introducing a new variable).\\
+\textbf{Make a variable node constant} Choose a random variable node and turn it into a constant. Take the value from a random instance.\\
+\textbf{Make a variable edge constant} Choose a random variable edge and turn it into a constant. Take the value from a random instance.\\
+\textbf{Remove edge} Remove a random edge from the pattern, ensuring that it stays connected.\\
+\textbf{Couple} Take two distinct edge variables, which for at least one instance hold the same value and turn them into a single variable.
 
-Once a new pattern has been sampled, we compare its codelength under the motif model to that of the previous sample. If the codelength is lower, we continue with the new pattern. If the codelength is longer, we continue with the new sample with probability $\alpha$ or return to the previous pattern otherwise. We use $\alpha = 0.5$ in all experiments.
+All transitions are equally likely. If the transition cannot be made (for instance, there are no constant nodes to make variable) or if the resultant pattern is in some way invalid, we sample a new transition.
 
-We store all patterns seen and their scores. In order to exploit all available processor cores, we run several searches in parallel. After each the searches are finished, we take the top 1000 patterns from each and sort them by motif codelength. 
+%Once a new pattern has been sampled, we compare its codelength under the motif model to that of the previous sample. If the codelength is lower, we continue with the new pattern. If the codelength is longer, we continue with the new sample with probability $\alpha$ or return to the previous pattern otherwise. We use $\alpha = 0.5$ in all experiments.
+
+We store all encountered patterns and their scores. In order to exploit all available processor cores, we run several searches in parallel. We take the top 1000 patterns from each and sort them by motif codelength. Variables are re-ordered to a canonical ordering using the Nauty algorithm \cite{mckay1981practical}, so that isomorphic patterns are not tested twice.
  
  \begin{figure}[tb]
   \centering
-    \includegraphics[width=\linewidth]{synthrep-plot.pdf}
+    \includegraphics[width=0.9\linewidth]{synthrep-plot.pdf}
     \caption{The result of the repeated random graph experiment. Color and size show the number of matches of the pattern after pruning. Plot titles show the graph dimensions before adding instances.}
     \label{figure:synthrep}
 \end{figure}
@@ -385,46 +334,186 @@ We store all patterns seen and their scores. In order to exploit all available p
 
 \paragraph{Random graphs} To validate the method, we first test it on random graphs. We sample a directed graph with a given number of nodes $n$ and edges $m$, with no self-connections and multiple edges (that is, we sample from from the $G(n, m)$ Erd\H{o}s-Renyi model). We then label the nodes uniformly at random with one of the relations in $0, \ldots, r$. To make the dimensions realistic we base them on those of the Mutag dataset used later: $n=23644$, $m74567$, $r=24$.
 
-We then take one randomly chosen pattern, and insert $k$ instances of the pattern into the graph. We run the experiment for $k=0$, $k=75$ and $k=150$. The results are shown in Figure~\ref{figure:synthetic}. For $k=0$, as expected, we find no patterns with positive compression. For $k=75$, we find ...such patterns and for $k=150$ we find ... . While we only inserted one pattern we can expect to find more than one, since its subpatterns may also become motifs. However, the pattern we inserted should receive the highest log-factor.
+We then take one randomly chosen pattern, and insert $k=75$ instances of the pattern into the graph. We run a search for 100000 iterations. And collect the 10 motifs with the best log-factor. We then sample two other graphs by the same method: one with $k=0$ and one with $k=150$. We also test each of the 10 motifs found on these two graphs.
 
-Of course, this experiment only tests a single pattern. To see the effect of multiple random patterns, we repeat the experiment many times, sampling both the pattern and the random graph. 
+ The results are shown in Figure~\ref{figure:synthetic}. For $k=0$, as expected, we find no patterns with positive compression. We also ran a full search on this graph to verify that no motifs can be found unless they are explicitly added to the graph. 
+ 
+This experiment only tests a single pattern. To see the effect of multiple random patterns, we repeat the experiment many times, sampling both the pattern and the random graph. 
+
 To sample the pattern we first sample a random number of nodes $n$ from $U(3, 6)$, the uniform distribution over the integer range $(3, 6)$ (including both end points). We then sample a random number of links $m$ from $U(n, n^2 - n)$, and sample a random directed graph from $G(n, m)$. We make $U(0, n)$ nodes and $U(0, m)$ links into variables, choosing constants for the rest uniformly from the data. If the pattern is disconnected, we reject and sample again.
 
 We sample a random graph as in the previous experiments, using the dimensions from the three real world datasets used later. We then add $k$ instances of the motif to the graph and compute the log-factor of the sampled pattern (we do not conduct a search).
 
 We let $k$ range from 0 to 200, and repeat the experiment 25 times for each $k$, sampling a new graph and pattern each time. The results are shown in Figure~\ref{figure:synthrep}. We observe first that under this ad-hoc sampling regime, we produce some patterns that create only very few instances in the graph, after overlapping instances are pruned. Since it is no surprise that these don't allow significant compression, we plot these as small points so that they don't obscure the other points. 
 
-We see that most of the other instances---those that generate enough non-overlapping instances---can be retrieved as motifs. As the number of added instances increases, the proportion of motifs with separate instance that cannot be retrieved diminishes.
+We see that most of the other instances---those that generate enough non-overlapping instances---can be retrieved as motifs. 
+
+%\begin{table}[p]
+%\centering
+%\tiny
+%\begin{tabular}{r r p{0.5\linewidth}}
+%\hline
+%log-factor & frequency & \\
+%\hline
+%\multicolumn{3}{c}{Dogfood , top 5 by log-factor ($>100$ positive)}\\
+%\hline	
+% 83119.1 & 9344 & \makecell{\texttt{?n1 dc:creator ?n2.} \\\texttt{?n2 rdfs:label ?n3.} \\\texttt{?n2 foaf:name ?n3.} } \\ 
+% \hdashline
+% 81075.1 & 10322 & \makecell{\texttt{?n1 foaf:maker ?n2.} \\\texttt{?n2 rdfs:label ?n3.} \\\texttt{?n2 foaf:name ?n3.} } \\
+%  \hdashline 
+% 77692.6 & 5234 & \makecell{\texttt{?n2 rdf:type ?n3.} \\\texttt{?n2 rdfs:label ?n1.} \\\texttt{?n2 foaf:name ?n1.} } \\ 
+%  \hdashline
+% 75632.3 & 3536 & \makecell{\texttt{?n1 swc:isPartOf ?n2.} \\\texttt{?n2 swc:hasPart ?n1.} } \\ 
+%  \hdashline
+% 75592.4 & 3536 & \makecell{\texttt{?n1 swc:isPartOf ?n2.} \\\texttt{?n2 ?p3 ?n1.} } \\ 
+%\hline
+%\multicolumn{3}{c}{Dogfood, top 3 by frequency}\\
+%\hline	
+% -3032.5 & 137008 & \makecell{\texttt{?n1 rdf:\_1 ?n2.} \\\texttt{?n1 rdf:\_2 ?n4.} \\\texttt{?n1 rdf:\_3 ?n3.} } \\ 
+%  \hdashline
+% -3251.4 & 109315 & \makecell{\texttt{?n1 swc:isPartOf ?n3.} \\\texttt{?n2 swc:isPartOf ?n3.} } \\ 
+% \hdashline
+% 2089.0 & 92165 & \makecell{\texttt{?n2 swc:isPartOf ?n3.} \\\texttt{?n3 swc:hasPart ?n1.} } \\ 
+%\hline
+%\multicolumn{3}{c}{AIFB, top 5 by log-factor ($>100$ positive)}\\
+%\hline	
+% 79234.0 & 7728 & \makecell{\texttt{?n1 ?p3 ?n2.} \\\texttt{?n2 ?p4 ?n1.} } \\ \hdashline
+% 61310.4 & 4154 & \makecell{\texttt{?n1 swrs:publication ?n2.} \\\texttt{?n2 ?p3 ?n1.} } \\ \hdashline
+% 57641.1 & 3965 & \makecell{\texttt{?n1 swrs:publication ?n2.} \\\texttt{?n2 swrs:author ?n1.} } \\ \hdashline
+% 57603.1 & 3965 & \makecell{\texttt{?n1 swrs:author ?n2.} \\\texttt{?n2 ?p3 ?n1.} } \\ \hdashline
+% 42110.1 & 17512 & \makecell{\texttt{?n1 swrs:publication ?n3.} \\\texttt{?n3 swrs:author ?n2.} \\\texttt{?n3 swrs:author ?n1.} \\\texttt{?n2 swrs:publication ?n3.} } \\ 
+%\hline
+%\multicolumn{3}{c}{AIFB, top 3 by frequency}\\
+%\hline
+% 2287.7 & 198668 & \makecell{\texttt{?n1 swrs:publication ?n3.} \\\texttt{?n1 swrs:publication ?n2.} } \\ \hdashline
+% 7822.1 & 191083 & \makecell{\texttt{?n1 swrs:author ?n2.} \\\texttt{?n2 swrs:publication ?n3.} } \\ \hdashline
+% 1264.0 & 190636 & \makecell{\texttt{?n1 swrs:isAbout ?n3.} \\\texttt{?n2 swrs:isAbout ?n3.} } \\ 
+%\hline
+%\multicolumn{3}{c}{Mutag, top 5 by log-factor ($87$ positive)}\\
+%\hline
+% 178304.4 & 18634 & \makecell{\texttt{?n1 mtg:\_hasAtom ?n3.} \\\texttt{?n1 mtg:\_hasBond ?n2.} \\\texttt{?n2 mtg:\_inBond ?n3.} } \\ \hdashline
+% 97237.8 & 9189 & \makecell{\texttt{?n1 mtg:\_hasAtom ?n2.} \\\texttt{?n2 mtg:\_charge ?n3.} } \\ \hdashline
+% 90447.5 & 18634 & \makecell{\texttt{?n1 mtg:\_hasBond ?n2.} \\\texttt{?n2 mtg:\_inBond ?n4.} \\\texttt{?n2 mtg:\_inBond ?n3.} } \\ \hdashline
+% 79052.0 & 9317 & \makecell{\texttt{?n1 mtg:\_hasBond ?n2.} \\\texttt{?n2 rdf:type ?n3.} } \\ \hdashline
+% 58973.9 & 7892 & \makecell{\texttt{?n1 mtg:\_hasAtom ?n2.} \\\texttt{?n2 rdf:type ?n3.} } \\ 
+%\hline
+%\multicolumn{3}{c}{Mutag, top 3 by frequency}\\
+%\hline
+% 1025.7 & 341143 & \makecell{\texttt{?n2 mtg:\_hasAtom ?n3.} \\\texttt{?n2 mtg:\_hasBond ?n1.} } \\ \hdashline
+% -374.5 & 178837 & \makecell{\texttt{?n1 mtg:\_charge ?n3.} \\\texttt{?n2 mtg:\_charge ?n3.} } \\ \hdashline
+% -2088.0 & 52985 & \makecell{\texttt{?n1 rdf:type owl:Class.} \\\texttt{?n3 rdfs:subClassOf ?n2.} \\\texttt{?n4 ?p5 owl:Class.} \\\texttt{?n4 rdfs:subClassOf ?n2.} } \\ 
+%\hline
+%\end{tabular}
+%\vspace{2mm}
+%\caption{Results of the experiment on real-world data. For each experiment we also report the number of motifs found with a positive log-factor.}
+%\label{table:topk}
+%\end{table}
 
 
-\paragraph{Real-world data} Finally, we will test our method on real-world dat, to confirm that the motifs found coincide with our intuition. We test three datasets: The semantic Web dogfood dataset \cite{moller2007recipes} ($n=7611$,$m=242256$,$r=170$) describing researchers and publications in the Semantic Web domain, the AIFB dataset \cite{bloehdorn2007kernel} ($n=8285$,$m=29226$,$r=47$) describing the structure of the AIFB institute, and the Mutag RDF dataset \footnotemark ($n=23644$,$m=74567$,$r=24$), describing a set of carcinogenic and non-carcinogenic molecules both in structure and properties.
+\begin{table}[p]
+\centering
+\tiny
+\begin{tabular}{r r p{0.5\linewidth}}
+\hline
+log-factor & frequency & \\
+\hline
+\multicolumn{3}{c}{Dogfood , top 5 by log-factor ($>100$ positive)}\\
+\hline	
+ 361495.0 & 10475 & \makecell{\texttt{?n1 dc:creator ?n2.} \\\texttt{?n1 foaf:maker ?n2.} \\\texttt{?n2 foaf:made ?n1.} } \\ 
+ \hdashline 244579.5 & 7674 & \makecell{\texttt{?n1 dc:creator ?n2.} \\\texttt{?n1 foaf:maker ?n2.} \\\texttt{?n1 swrs:author ?n2.} } \\ 
+  \hdashline 220360.2 & 12138 & \makecell{\texttt{?n1 foaf:maker ?n2.} \\\texttt{?n2 foaf:made ?n1.} } \\ 
+ \hdashline  189627.3 & 9888 & \makecell{\texttt{?n1 foaf:member ?n2.} \\\texttt{?n2 swrs:affiliation ?n1.} } \\ 
+ \hdashline  187972.9 & 10475 & \makecell{\texttt{?n1 dc:creator ?n2.} \\\texttt{?n2 foaf:made ?n1.} } \\ 
+\hline
+\multicolumn{3}{c}{Dogfood, top 3 by frequency}\\
+\hline	
+ -3076.2 & 134853 & \makecell{\texttt{?n1 rdf:\_1 ?n2.} \\\texttt{?n1 rdf:\_2 ?n4.} \\\texttt{?n1 rdf:\_3 ?n3.} } \\ 
+ \hdashline  -3435.0 & 116074 & \makecell{\texttt{?n1 swc:heldBy ?n3.} \\\texttt{?n1 swc:heldBy ?n2.} } \\ 
+ \hdashline  -2379.9 & 110461 & \makecell{\texttt{?n1 rdf:type owl:Thing.} \\\texttt{?n2 rdf:type owl:Thing.} } \\ 
+\hline
+\multicolumn{3}{c}{AIFB, top 5 by log-factor ($>100$ positive)}\\
+\hline	
+ 79234.0 & 7549 & \makecell{\texttt{?n1 ?p3 ?n2.} \\\texttt{?n2 ?p4 ?n1.} } \\ 
+ \hdashline 61310.4 & 4154 & \makecell{\texttt{?n1 swrs:publication ?n2.} \\\texttt{?n2 ?p3 ?n1.} } \\ 
+ \hdashline 57641.1 & 3965 & \makecell{\texttt{?n1 swrs:publication ?n2.} \\\texttt{?n2 swrs:author ?n1.} } \\ 
+ \hdashline 57603.1 & 3965 & \makecell{\texttt{?n1 swrs:author ?n2.} \\\texttt{?n2 ?p3 ?n1.} } \\ 
+ \hdashline 33168.0 & 7930 & \makecell{\texttt{?n1 swrs:publication ?n2.} \\\texttt{?n2 rdf:type ?n3.} \\\texttt{?n2 swrs:author ?n1.} } \\ 
+\hline
+\multicolumn{3}{c}{AIFB, top 3 by frequency}\\
+\hline
+ -908.2 & 181246 & \makecell{\texttt{?n1 swrs:year ?n3.} \\\texttt{?n2 swrs:year ?n3.} } \\ 
+ \hdashline -1524.3 & 173059 & \makecell{\texttt{?n1 swrs:publication ?n3.} \\\texttt{?n1 swrs:publication ?n2.} } \\ 
+ \hdashline -1667.9 & 103434 & \makecell{\texttt{?n1 swrs:member ?n2.} \\\texttt{?n3 ?p5 ?n1.} \\\texttt{?n4 swrs:author ?n2.} } \\  
+\hline
+\multicolumn{3}{c}{Mutag, top 5 by log-factor ($87$ positive)}\\
+\hline
+ 178304.4 & 18634 & \makecell{\texttt{?n1 mtg:\_hasAtom ?n3.} \\\texttt{?n1 mtg:\_hasBond ?n2.} \\\texttt{?n2 mtg:\_inBond ?n3.} } \\ 
+ \hdashline 97237.8 & 9189 & \makecell{\texttt{?n1 mtg:\_hasAtom ?n2.} \\\texttt{?n2 mtg:\_charge ?n3.} } \\ 
+ \hdashline 93819.3 & 8924 & \makecell{\texttt{?n2 rdf:type ?n3.} \\\texttt{?n2 mtg:\_charge ?n1.} } \\ 
+ \hdashline 90447.5 & 18634 & \makecell{\texttt{?n1 mtg:\_hasBond ?n2.} \\\texttt{?n2 mtg:\_inBond ?n4.} \\\texttt{?n2 mtg:\_inBond ?n3.} } \\ 
+ \hdashline 79027.5 & 8924 & \makecell{\texttt{?n1 mtg:\_hasAtom ?n2.} \\\texttt{?n2 rdf:type ?n3.} } \\ 
+\hline
+\multicolumn{3}{c}{Mutag, top 3 by frequency}\\
+\hline
+   -2040.6 & 68514 & \makecell{\texttt{?n1 rdfs:subClassOf ?n2.} \\\texttt{?n3 rdf:type owl:Class.} \\\texttt{?n4 rdf:type owl:Class.} \\\texttt{?n4 rdfs:subClassOf ?n2.} } \\ 
+ \hdashline -2077.8 & 60832 & \makecell{\texttt{?n1 ?p5 owl:Class.} \\\texttt{?n3 rdfs:subClassOf ?n2.} \\\texttt{?n4 ?p5 owl:Class.} \\\texttt{?n4 rdfs:subClassOf ?n2.} } \\ 
+ \hdashline -1532.6 & 32009 & \makecell{\texttt{?n1 mtg:\_cytogen\_sce "true".} \\\texttt{?n1 mtg:\_salmonella ?n3.} \\\texttt{?n2 mtg:\_amesTestPositive ?n3.} } \\ 
+\hline
+\end{tabular}
+\vspace{2mm}
+\caption{Results of the experiment on real-world data. For each experiment we also report the number of motifs found with a positive log-factor.}
+\label{table:topk}
+\end{table}
 
-\footnotetext{Distributed as an example dataset with the DL-Learner framework. \cite{lehmann2009dl}}
 
-For all datasets we run 32 parallel searches, with 3125 iterations per search. For each dataset we report the top 5 motifs by log-factor, and the top 3 motifs by frequency. Note that these are the top 10 motifs for frequency in the set of 32000 high-log-factor motifs resulting from the parallel search. The supplemental materials show the top 100 motifs for both criteria.
+\paragraph{Real data} Finally, we will test our method on real data, to confirm that the motifs found coincide with our intuition. We test three datasets: The Semantic Web dogfood dataset \cite{moller2007recipes} ($n=7611, m=242256, r=170$) describing researchers and publications in the Semantic Web domain, the AIFB dataset \cite{bloehdorn2007kernel} ($n=8285, m=29226, r=47$) describing the structure of the AIFB institute, and the Mutag RDF dataset\footnotemark~ ($n=23644, m=74567, r=24$), describing a set of carcinogenic and non-carcinogenic molecules both in structure and properties.
 
-The patterns with negative score but high frequency show the pitfalls our code avoids. For instance, in the top motif by frequency for the Dogfood dataset, we see a four-node pattern with two edges fanning in to a single node. These are caused by a single node having the same ingoing relation to many other nodes. Clearly such a pattern is very frequent in the data, but capturing just three of these incoming links does not constitute a satisfying motif, and indeed such patterns receive a negative log-factor.
+\footnotetext{Originally distributed as an example dataset with the DL-Learner framework \cite{lehmann2009dl}.}
+
+For all datasets, we run 32 parallel searches, with 3125 iterations per search. Table~\ref{table:topk} reports the top 5 motifs by log-factor, and the top 3 motifs by frequency. We provide the top 100 motifs under both criteria online. \footnotemark
+
+\footnotetext{\url{https://github.com/MaestroGraph/motive-rdf}}
+
+\begin{table}[bt]
+\centering
+\begin{tabular}{r r c r}
+\hline
+log-factor & frequency & &  \\
+\hline
+220360.2 & 12138 & \makecell{\texttt{?n1 foaf:maker ?n2.} \\\texttt{?n2 foaf:made ?n1.}} & Dogfood  \\ \hdashline
+ 3157.0 & 1011 & \makecell{\texttt{?n1 ?p2 "false".}}  & Mutag \\ \hdashline
+  3150.2 & 985 & \makecell{\texttt{?n1 ?p2 "true".}} & Mutag \\ \hdashline
+   12871.8 & 8308 & \makecell{\texttt{?n1 rdf:type ?n2.} \\\texttt{?n1 swrs:year ?n3.} \\\texttt{?n4 swrs:publication ?n1.} }& AIFB \\ 
+\hdashline
+\end{tabular}
+\vspace{2mm}
+\caption{Selected motifs. The frequency is the number of matches found in the set time limit. The last column indicates the dataset.}
+\label{table:selected}
+\end{table}
+
+The method provides many positives. To see that these are not just random noise, consider those patterns that have high frequency, but a negative log-factor. For instance, the most frequent pattern in the AIFB data describes entities having the same ``year'' property. Clearly, such a pattern can be matched often, and in many different ways, but it does not provide a satisfying explanation of the the structure of the graph.
 
 Much of what the motif code picks up on is redundancy in the original data. For instance, in the AIFB data both the \texttt{swrs:publication} relation and its inverse \texttt{swrs:author} are always included. Extracting these into a motif is simple way of achieving compression. In fact, the AIFB data caontains so many of these relation pairs that the two-node loop with variable labels is the highest scoring motif. In the Dogfood data, we see similar patterns emerge.
 
-Table~\ref{table:selected} shows some interesting motifs from the top 100 for each dataset. We see, for instance that e=the assertions that something is true or false are both motifs. The example from the AIFB date shows
+Table~\ref{table:selected} shows some interesting motifs from the top 100 for each dataset. We see, for instance that the assertions that something is true or false are both motifs. While these are single triples with only one variable, they occur often enough, that encoding them separately provides a positive compression. The example from the AIFB date shows a typical "star" pattern likely to emerge from relational data: a single entity, surrounded by a set of attributes.
+
 \section{Discussion}
 
-We have presented a new method for inducing graph patterns from knowledge graphs. To our knowledge, this is the first method presented that can potentially find arbitrary graph patterns to describe the innate structure of a knowledge graph.
+We have presented a new method for mining graph patterns from knowledge graphs. To our knowledge, this is the first method presented that can potentially find arbitrary basic graph patterns to describe the innate structure of a knowledge graph.
 
-\subsection{Limitations and future work}
+\paragraph{Limitations and future work}
 
-Currently, the greatest limitation of this method is scalability. In \cite{bloem2017large}, the original method on which this method is based was shown to scale to graphs with billions of links. However, this scalability did not translate directly to knowledge graphs, since the sampling approach, used there is exteremely unlikely to generate the patterns that are succesful for motifs. If a better sampling method could be divised, we could likely scale the method up to web-scale knowledge graphs.
+Currently, the greatest limitation of this method is scalability. In \cite{bloem2017large}, the original method on which this method is based was shown to scale to graphs with billions of links. However, this scalability does not translate directly to knowledge graphs, since the sampling approach used there is exteremely unlikely to generate the patterns that are succesful for knowledge graphs (requiring the use of simulated annealing istead). Since the motif test is just as scalable as it simple-graph equivalent, the only thing that is required to make the full motif-finding method scalable, is a faster search algorithm, perhaps based on an adaptation of the sampling approach from \cite{bloem2017large}.
 
-Our method currently produces a large number of motifs. We can show that worthwhile motifs are included, and that it performs better than a baseline like selecting by frequency, but it still takes some manual effort to sort through the suggestions to find the kind of motifs that fit a particular usecase. This is not surprising; it is the nature of knowledge graphs that many different and overlapping substructures can be seen as natural or meaningful. One promising avenue to reduce this manual effort is to search of a \emph{set} of motifs which together compress well, each motif claiming a certain part of the knowledge graph to represent. If such an approach were fruitful it would truly represent a versatile and powerful form of schema induction for knowledge graphs.
+Our method currently produces a large number of motifs. We can show that worthwhile motifs are included, and that it performs better than a frequency baseline, but it still takes some manual effort to sort through the suggestions to find the kind of motifs that fit a particular use case. This is not surprising; it is the nature of knowledge graphs that many different and overlapping substructures can be seen as natural or meaningful. One promising avenue to reduce this manual effort is to search for a \emph{set} of motifs which together compress well, each motif claiming a certain part of the knowledge graph to represent. 
 
-% \section{Acknowledgments}
+\paragraph{Acknowledgements}
 
-% This publication was supported by the Amsterdam Academic Alliance Data Science (AAA-DS) Program Award to the UvA and VU Universities. 
+This publication was supported by the Amsterdam Academic Alliance Data Science (AAA-DS) Program Award to the UvA and VU Universities. 
 
 % References and End of Paper
 \bibliography{kgmotifs}
-\bibliographystyle{aaai}
+\bibliographystyle{style/splncs04}
 
 
 \end{document}
