@@ -1,0 +1,221 @@
+\indexentry{Variance!maximization|hyperpage}{41}
+\indexentry{Variance!sum of|hyperpage}{42}
+\indexentry{Information|hyperpage}{43}
+\indexentry{Eigenvector|hyperpage}{44}
+\indexentry{Matrix transformations|hyperpage}{44}
+\indexentry{Domain coloring|hyperpage}{44}
+\indexentry{Mona Lisa|hyperpage}{44}
+\indexentry{Eigenvector|hyperpage}{45}
+\indexentry{Eigenvector!of a diagonal matrix|hyperpage}{46}
+\indexentry{Eigenvector!definition|hyperpage}{46}
+\indexentry{Eigenvector!of a rotation matrix|hyperpage}{47}
+\indexentry{Diagonalization|hyperpage}{50}
+\indexentry{Eigendecomposition|hyperpage}{50}
+\indexentry{Spectral theorem|hyperpage}{51}
+\indexentry{Spectral methods|hyperpage}{51}
+\indexentry{Orthogonal matrix|hyperpage}{51}
+\indexentry{Orthogonal matrix!inverse of|hyperpage}{52}
+\indexentry{Spectral theorem!statement|hyperpage}{52}
+\indexentry{Eigenvectors!ordering of|hyperpage}{53}
+\indexentry{Canonical orthogonal diagonalization|hyperpage}{53}
+\indexentry{Covariance matrix|hyperpage}{53}
+\indexentry{Variance|hyperpage}{55}
+\indexentry{Covariance!definition|hyperpage}{56}
+\indexentry{Covariance!as a matrix|hyperpage}{57}
+\indexentry{Normalization|hyperpage}{58}
+\indexentry{Latent variable|hyperpage}{58}
+\indexentry{Hidden variable|hyperpage}{58}
+\indexentry{Observed variable|hyperpage}{58}
+\indexentry{Standard basis|hyperpage}{61}
+\indexentry{Basis!standard|hyperpage}{61}
+\indexentry{Basis!orthonormal|hyperpage}{62}
+\indexentry{Decorrelated|hyperpage}{63}
+\indexentry{Whitening|hyperpage}{63}
+\indexentry{Whitening!Cholesky|hyperpage}{64}
+\indexentry{Cholesky whitening|hyperpage}{64}
+\indexentry{Whitening!PCA|hyperpage}{64}
+\indexentry{PCA!Whitening|hyperpage}{64}
+\indexentry{Ellipsoid|hyperpage}{71}
+\indexentry{Eigenbasis|hyperpage}{72}
+\indexentry{Major axis of ellipse|hyperpage}{79}
+\indexentry{Variance \emph{mini}mization|hyperpage}{80}
+\indexentry{Decorrelation|hyperpage}{83}
+\indexentry{Bias in data|hyperpage}{83}
+\indexentry{orthogonal matrix|hyperpage}{86}
+\indexentry{Orthogonally diagonalizable|hyperpage}{87}
+\indexentry{Spectral theorem|hyperpage}{87}
+\indexentry{Determinant of a matrix|hyperpage}{87}
+\indexentry{Determinant!Negative-valued|hyperpage}{93}
+\indexentry{Negative area|hyperpage}{94}
+\indexentry{Signed area|hyperpage}{94}
+\indexentry{Signed volume|hyperpage}{94}
+\indexentry{Skew transformation|hyperpage}{98}
+\indexentry{Shear transformation|hyperpage}{98}
+\indexentry{Skew invariance|hyperindexformat{\textbf}}{98}
+\indexentry{Multilinearity|hyperindexformat{\textbf}}{100}
+\indexentry{Alternativity|hyperpage}{101}
+\indexentry{Simple vector|hyperpage}{101}
+\indexentry{Vector!Simple|hyperpage}{101}
+\indexentry{Skew invariance|hyperpage}{102}
+\indexentry{alternativity|hyperpage}{102}
+\indexentry{Skew invariance|hyperpage}{103}
+\indexentry{Multilinearity|hyperpage}{103}
+\indexentry{Alternativity|hyperpage}{103}
+\indexentry{Mirror image|hyperpage}{104}
+\indexentry{Alternativity|hyperpage}{105}
+\indexentry{Simple vector|hyperpage}{105}
+\indexentry{Parallellotope|hyperpage}{107}
+\indexentry{Permutation|hyperpage}{108}
+\indexentry{Leibniz formulation|hyperpage}{109}
+\indexentry{Determinant!Leibniz formulation|hyperpage}{109}
+\indexentry{Characteristic polynomial|hyperpage}{110}
+\indexentry{Complex numbers|hyperpage}{112}
+\indexentry{Negarive numbers|hyperpage}{114}
+\indexentry{Exponentiation|hyperpage}{115}
+\indexentry{Pythagoras|hyperpage}{116}
+\indexentry{Pythagoreans|hyperpage}{116}
+\indexentry{Hippasus of Metapontum|hyperpage}{116}
+\indexentry{Roots of a polynomial|hyperpage}{117}
+\indexentry{Polynomial!roots of|hyperpage}{117}
+\indexentry{Complex numbers!addition|hyperpage}{118}
+\indexentry{Complex numbers!multiplication|hyperpage}{118}
+\indexentry{Complex numbers!Cartesian notation|hyperpage}{118}
+\indexentry{$\mathbb C$|hyperpage}{119}
+\indexentry{Complex numbers!addition|hyperpage}{119}
+\indexentry{Complex numbers!multiplication|hyperpage}{119}
+\indexentry{Complex plane|hyperpage}{119}
+\indexentry{Complex multiplication|hyperpage}{121}
+\indexentry{Polar notation|hyperpage}{121}
+\indexentry{Cartesian notation|hyperpage}{121}
+\indexentry{Complex numbers!polar notation|hyperindexformat{\textbf}}{121}
+\indexentry{Complex numbers!Cartesian notation|hyperindexformat{\textbf}}{121}
+\indexentry{Roots!of the characteristic polynomial|hyperpage}{128}
+\indexentry{Fundamental theorem of algebra|hyperindexformat{\textbf}}{128}
+\indexentry{Multiplicities|hyperpage}{128}
+\indexentry{Magnitude function|hyperpage}{129}
+\indexentry{Dominant terms of a polynomial|hyperpage}{130}
+\indexentry{Polynomial!dominant terms of|hyperpage}{130}
+\indexentry{Euclidian division|hyperindexformat{\textbf}}{136}
+\indexentry{Multiplicities|hyperindexformat{\textbf}}{137}
+\indexentry{Root!real|hyperpage}{138}
+\indexentry{Root!complex|hyperpage}{138}
+\indexentry{Real root|hyperpage}{138}
+\indexentry{Complex root|hyperpage}{138}
+\indexentry{Complex conjugate|hyperindexformat{\textbf}}{138}
+\indexentry{Conjugate|hyperindexformat{\textbf}}{138}
+\indexentry{Complex roots!pairs of|hyperpage}{139}
+\indexentry{Complex eigenvalues|hyperpage}{141}
+\indexentry{Eigenvalues!complex|hyperpage}{141}
+\indexentry{Complex vectors|hyperpage}{142}
+\indexentry{Vectors!complex-valued|hyperpage}{142}
+\indexentry{Complex scalar/vector multiplication|hyperpage}{143}
+\indexentry{Complex dot product|hyperpage}{143}
+\indexentry{Dot product!complex|hyperpage}{143}
+\indexentry{Conjugate transpose|hyperindexformat{\textbf}}{143}
+\indexentry{Matrix notation for complex numbers|hyperpage}{144}
+\indexentry{Complex numbers!matrix notation|hyperpage}{144}
+\indexentry{Conjugate transpose|hyperpage}{145}
+\indexentry{Conjugate transpose!properties |(hyperpage}{145}
+\indexentry{Unit vector!complex|hyperpage}{147}
+\indexentry{Complex unit vector|hyperpage}{147}
+\indexentry{Conjugate transpose!properties|)}{147}
+\indexentry{Unit eigenvector!complex|hyperpage}{148}
+\indexentry{Schur decomposition|hyperpage}{148}
+\indexentry{Schur decomposition|hyperindexformat{\textbf}}{148}
+\indexentry{Proof by induction|hyperpage}{149}
+\indexentry{Induction|hyperpage}{149}
+\indexentry{Schur decomposition!proof|(hyperpage}{149}
+\indexentry{Schur decomposition!proof|)}{151}
+\indexentry{Spectral theorem!proof|(hyperpage}{152}
+\indexentry{Spectral theorem!proof|)}{153}
+\indexentry{Singular value decomposition|hyperpage}{154}
+\indexentry{Singular vectors|hyperpage}{156}
+\indexentry{Vector of greatest stretch|hyperpage}{159}
+\indexentry{Ellipsoid|hyperpage}{160}
+\indexentry{Quadratic function|hyperpage}{162}
+\indexentry{Singular values|hyperindexformat{\textbf}}{163}
+\indexentry{Right singular vector|hyperpage}{163}
+\indexentry{Singular vector!right|hyperpage}{163}
+\indexentry{Left singular vector|hyperpage}{163}
+\indexentry{Singular vector!left|hyperpage}{163}
+\indexentry{Negative eigenvalues!of $\gc{\mbM}^T\gc{\mbM}$|hyperpage}{163}
+\indexentry{Positive semidefinite matrix|hyperpage}{163}
+\indexentry{Variance|hyperpage}{166}
+\indexentry{Standard deviation|hyperpage}{166}
+\indexentry{Eigenvalues!analogy to variance|hyperpage}{166}
+\indexentry{singular values!analogy to standard deviation|hyperpage}{166}
+\indexentry{Eigendecomposition!recipe|hyperpage}{167}
+\indexentry{Orthogonal basis|hyperpage}{168}
+\indexentry{Null space|hyperpage}{168}
+\indexentry{Orthogonal matrix|hyperpage}{169}
+\indexentry{Orthonormal basis|hyperpage}{169}
+\indexentry{Singular value decomposition!recipe|hyperpage}{171}
+\indexentry{Full singular value decomposition|hyperindexformat{\textbf}}{172}
+\indexentry{Singular value decomposition!full|hyperpage}{172}
+\indexentry{Compact singular value decomposition|hyperindexformat{\textbf}}{175}
+\indexentry{Singular value decomposition!compact|hyperpage}{175}
+\indexentry{Truncated singular value decomposition|hyperindexformat{\textbf}}{176}
+\indexentry{Singular value decomposition!truncated|hyperpage}{176}
+\indexentry{Computing SVD!by projective gradient descent|hyperpage}{176}
+\indexentry{Dimensionality reduction!PCA|hyperpage}{177}
+\indexentry{Reconstruction!PCA|hyperpage}{177}
+\indexentry{Whitening!PCA|hyperpage}{178}
+\indexentry{Tall data|hyperpage}{180}
+\indexentry{Wide data|hyperpage}{180}
+\indexentry{Rank|hyperpage}{180}
+\indexentry{Matrix rank|hyperpage}{180}
+\indexentry{Compressibility|hyperpage}{181}
+\indexentry{Column rank|hyperpage}{182}
+\indexentry{Rank!column|hyperpage}{182}
+\indexentry{Row rank|hyperpage}{182}
+\indexentry{Rank!row|hyperpage}{182}
+\indexentry{Linear combination|hyperpage}{183}
+\indexentry{Basis|hyperpage}{183}
+\indexentry{Rank decomposition|hyperpage}{184}
+\indexentry{Decomposition!rank|hyperpage}{184}
+\indexentry{Rank!equality of column - and row -|(hyperpage}{184}
+\indexentry{Rank!equality of column - and row -|)}{186}
+\indexentry{Full rank matrix|hyperpage}{186}
+\indexentry{Rank deficient|hyperpage}{186}
+\indexentry{Image!of a matrix|hyperpage}{186}
+\indexentry{Invertible matrix!rank of|hyperpage}{187}
+\indexentry{Singular matrix!rank of|hyperpage}{187}
+\indexentry{Rank|hyperindexformat{\and singular values}}{188}
+\indexentry{Rank!computing|(hyperpage}{189}
+\indexentry{QR Decomposition|hyperpage}{189}
+\indexentry{Rank!computing|)}{191}
+\indexentry{Matrix denoising|hyperpage}{191}
+\indexentry{Pseudo-inverse|hyperindexformat{\textbf}}{191}
+\indexentry{Linear regression|hyperpage}{192}
+\indexentry{Linear regression!removing the bias term|hyperpage}{194}
+\indexentry{Column space|hyperpage}{194}
+\indexentry{Linear subspace|hyperpage}{195}
+\indexentry{Subspace!linear|hyperpage}{195}
+\indexentry{Pythagorean theorem|hyperpage}{198}
+\indexentry{Normal equation|hyperpage}{199}
+\indexentry{Pseudo-inverse|hyperindexformat{\textbf}}{199}
+\indexentry{Eigendecomposition|hyperpage}{200}
+\indexentry{Invertibility!of diagonal matrices|hyperpage}{201}
+\indexentry{Pseudo-inverse! for singular $\mbX^T\mbX$|hyperpage}{201}
+\indexentry{Pre-image|hyperindexformat{\textbf}}{203}
+\indexentry{Pseudo-inverse!properties of|hyperpage}{207}
+\indexentry{Pseudo-inverse!computing by SVD|hyperpage}{208}
+\indexentry{eigendecomposition|hyperpage}{212}
+\indexentry{Noise|hyperpage}{217}
+\indexentry{Eckart-Young-Mirsky theorem|hyperpage}{224}
+\indexentry{Bi-linear optimization|hyperpage}{226}
+\indexentry{Recommendation|hyperpage}{230}
+\indexentry{Matrix factorization!incomplete|hyperpage}{235}
+\indexentry{Principal component analysis!as matrix decomposition|hyperpage}{235}
+\indexentry{Singular value decomposition!with missing values|hyperpage}{238}
+\indexentry{Power iteration|hyperpage}{246}
+\indexentry{Orthogonal iteration|hyperpage}{246}
+\indexentry{QR iteration|hyperpage}{246}
+\indexentry{Pagerank|(hyperpage}{247}
+\indexentry{Reputation|hyperpage}{247}
+\indexentry{Web graph|hyperpage}{251}
+\indexentry{Adjacency matrix|hyperpage}{251}
+\indexentry{Matrix multiplication!iteration of|hyperpage}{253}
+\indexentry{Pagerank|)}{254}
+\indexentry{Power iteration|hyperindexformat{\textbf}}{259}
+\indexentry{QR decomposition|hyperindexformat{\\textbf}}{261}

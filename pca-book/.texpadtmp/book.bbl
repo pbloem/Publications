@@ -1,0 +1,37 @@
+\begin{thebibliography}{}
+
+\bibitem[Gilbert et~al., 2022]{gilbert2022revealing}
+Gilbert, E., Shanmugam, A., and Cavalleri, G.~L. (2022).
+\newblock Revealing the recent demographic history of europe via haplotype sharing in the uk biobank.
+\newblock {\em Proceedings of the National Academy of Sciences}, 119(25):e2119281119.
+
+\bibitem[Golub and Van~Loan, 2013]{golub2013matrix}
+Golub, G.~H. and Van~Loan, C.~F. (2013).
+\newblock {\em Matrix computations}.
+\newblock JHU press.
+
+\bibitem[Koren et~al., 2009]{koren2009matrix}
+Koren, Y., Bell, R., and Volinsky, C. (2009).
+\newblock Matrix factorization techniques for recommender systems.
+\newblock {\em Computer}, 42(8):30--37.
+
+\bibitem[Lay, 1994]{lay1994linear}
+Lay, D.~C. (1994).
+\newblock Linear algebra and its applications (instructor's ed.).
+
+\bibitem[Novembre et~al., 2008]{novembre2008genes}
+Novembre, J., Johnson, T., Bryc, K., Kutalik, Z., Boyko, A.~R., Auton, A., Indap, A., King, K.~S., Bergmann, S., Nelson, M.~R., et~al. (2008).
+\newblock Genes mirror geography within europe.
+\newblock {\em Nature}, 456(7218):98--101.
+
+\bibitem[Pearson, 1901]{pearson1901liii}
+Pearson, K. (1901).
+\newblock Liii. on lines and planes of closest fit to systems of points in space.
+\newblock {\em The London, Edinburgh, and Dublin philosophical magazine and journal of science}, 2(11):559--572.
+
+\bibitem[Young et~al., 2015]{young2015fossil}
+Young, N.~M., Capellini, T.~D., Roach, N.~T., and Alemseged, Z. (2015).
+\newblock Fossil hominin shoulders support an african ape-like last common ancestor of humans and chimpanzees.
+\newblock {\em Proceedings of the National Academy of Sciences}, 112(38):11829--11834.
+
+\end{thebibliography}

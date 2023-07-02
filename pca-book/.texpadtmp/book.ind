@@ -1,0 +1,357 @@
+\begin{theindex}
+
+  \item $\bc{\mbA}^\frac{1}{2}$, \hyperpage{58}
+  \item $\gc{\mbM}^\dagger$, \hyperpage{177}
+  \item \(\mathbb C\), \hyperpage{102}
+
+  \indexspace
+
+  \item Adjacency matrix, \hyperpage{212}
+  \item Alternativity, \hyperpage{87}, \hyperpage{90}, \hyperpage{92}
+  \item alternativity, \hyperpage{89}
+  \item Axis-aligned vector, \hyperpage{46}
+
+  \indexspace
+
+  \item Basis, \hyperpage{157}
+    \subitem orthonormal, \hyperpage{56}
+    \subitem standard, \hyperpage{55}
+  \item Bi-linear optimization, \hyperpage{192}
+  \item Bi-unit
+    \subitem circle, \hyperpage{61}
+    \subitem interval, \hyperpage{63}
+    \subitem sphere, \hyperpage{61}, \hyperpage{63}
+  \item Bias in data, \hyperpage{73}
+
+  \indexspace
+
+  \item Canonical orthogonal diagonalization, \hyperpage{48}
+  \item Cartesian notation, \hyperpage{105}
+  \item Characteristic polynomial, \hyperpage{95}
+  \item Cholesky whitening, \hyperpage{58}
+  \item Column rank, \hyperpage{157}
+  \item Column space, \hyperpage{166}
+  \item Compact singular value decomposition, 
+		\hyperindexformat{\textbf}{151}
+  \item Complex conjugate, \hyperindexformat{\textbf}{119}
+  \item Complex dot product, \hyperpage{123}
+  \item Complex eigenvalues, \hyperpage{121}
+  \item Complex numbers, \hyperpage{97}
+    \subitem addition, \hyperpage{102, 103}
+    \subitem Cartesian notation, \hyperpage{102}, 
+		\hyperindexformat{\textbf}{105}
+    \subitem exponentiation, \hyperpage{107}
+    \subitem matrix notation, \hyperpage{124}
+    \subitem multiplication, \hyperpage{102, 103}
+    \subitem polar notation, \hyperindexformat{\textbf}{105}
+  \item Complex plane, \hyperpage{104}
+  \item Complex root, \hyperpage{119}
+  \item Complex roots
+    \subitem pairs of, \hyperpage{120}
+  \item Complex scalar/vector multiplication, \hyperpage{123}
+  \item Complex unit vector, \hyperpage{126}
+  \item Complex vectors, \hyperpage{122}
+  \item Compressibility, \hyperpage{156}
+  \item Computing eigenvectors
+    \subitem by orthogonal iteration, \hyperpage{219}
+    \subitem by power iteration, \hyperpage{209}
+    \subitem by QR iteration, \hyperpage{228}
+  \item Computing SVD
+    \subitem by orthogonal iteration, \hyperpage{234}
+    \subitem by power iteration, \hyperpage{232}
+    \subitem by projective gradient descent, \hyperpage{152}
+    \subitem by the QR algorithm, \hyperpage{242}
+  \item Conjugate, \hyperindexformat{\textbf}{119}
+  \item Conjugate transpose, \hyperindexformat{\textbf}{124}, 
+		\hyperpage{125}
+    \subitem properties, 126
+    \subitem properties , \hyperpage{125}
+  \item Covariance
+    \subitem as a matrix, \hyperpage{51}
+    \subitem definition, \hyperpage{50}
+  \item Covariance matrix, \hyperpage{48}
+
+  \indexspace
+
+  \item Decomposition
+    \subitem rank, \hyperpage{158}
+  \item Decorrelated, \hyperpage{57}
+  \item Decorrelation, \hyperpage{72}
+  \item Descartes, \hyperpage{102}
+  \item Determinant
+    \subitem Leibniz formulation, \hyperpage{94}
+    \subitem Negative-valued, \hyperpage{81}
+  \item Determinant of a matrix, \hyperpage{76}
+  \item Diagonalization, \hyperpage{45}
+  \item Dimensionality reduction
+    \subitem PCA, \hyperpage{152}
+  \item Domain coloring, \hyperpage{40}
+  \item Dominant terms of a polynomial, \hyperpage{112}
+  \item Dot product
+    \subitem complex, \hyperpage{123}
+
+  \indexspace
+
+  \item Eckart-Young-Mirsky theorem, \hyperpage{190}
+  \item Eigenbasis, \hyperpage{64}
+  \item Eigendecomposition, \hyperpage{45}, \hyperpage{172}
+    \subitem recipe, \hyperpage{144}
+  \item eigendecomposition, \hyperpage{181}
+  \item Eigenvalues
+    \subitem analogy to variance, \hyperpage{143}
+    \subitem complex, \hyperpage{121}
+  \item Eigenvector, \hyperpage{39}, \hyperpage{41}
+    \subitem definition, \hyperpage{42}
+    \subitem of a diagonal matrix, \hyperpage{42}
+    \subitem of a rotation matrix, \hyperpage{42}
+  \item Eigenvectors
+    \subitem ordering of, \hyperpage{48}
+  \item Ellipsoid, \hyperpage{64}, \hyperpage{138}
+  \item Euclidean division
+    \subitem proof, \hyperpage{252}
+  \item Euclidian division, \hyperindexformat{\textbf}{117}
+  \item Exact truncated SVD
+    \subitem proof, \hyperpage{255}
+  \item Exponentiation, \hyperpage{99}
+
+  \indexspace
+
+  \item Frobenius norm, \hyperpage{192}
+  \item Full rank matrix, \hyperpage{159}
+  \item Full singular value decomposition, 
+		\hyperindexformat{\textbf}{148}
+  \item Fundamental theorem of algebra, \hyperindexformat{\textbf}{110}
+
+  \indexspace
+
+  \item Gram-Schmidt process, \hyperpage{224}
+
+  \indexspace
+
+  \item Hidden variable, \hyperpage{53}
+  \item Hippasus of Metapontum, \hyperpage{100}
+
+  \indexspace
+
+  \item Image
+    \subitem of a matrix, \hyperpage{160}
+  \item Induction, \hyperpage{128}
+  \item Information, \hyperpage{38}
+  \item Invertibility
+    \subitem of diagonal matrices, \hyperpage{172}
+  \item Invertible matrices, \hyperpage{78}
+  \item Invertible matrix
+    \subitem rank of, \hyperpage{161}
+
+  \indexspace
+
+  \item Latent variable, \hyperpage{53}
+  \item Left singular vector, \hyperpage{140}
+  \item Leibniz formulation, \hyperpage{94}
+  \item Linear combination, \hyperpage{157}
+  \item Linear factor, \hyperpage{117}
+  \item Linear regression, \hyperpage{165}
+    \subitem removing the bias term, \hyperpage{166}
+  \item Linear subspace, \hyperpage{167}
+  \item LQ Decomposition, \hyperpage{236}
+
+  \indexspace
+
+  \item Magnitude function, \hyperpage{111}
+  \item Major axis, \hyperpage{70}
+  \item Matrix denoising, \hyperpage{164}
+  \item Matrix factorization
+    \subitem incomplete, \hyperpage{198}
+  \item Matrix multiplication
+    \subitem iteration of, \hyperpage{214}
+  \item Matrix norm, \hyperpage{192}
+  \item Matrix notation for complex numbers, \hyperpage{124}
+  \item Matrix rank, \hyperpage{155}
+  \item Matrix similarity, \hyperpage{226}
+    \subitem in QR iteration, \hyperpage{229}
+  \item Matrix square root, \hyperpage{58}
+  \item Matrix transformations, \hyperpage{40}
+  \item Minor axis, \hyperpage{70}
+  \item Mirror image, \hyperpage{90}
+  \item Mona Lisa, \hyperpage{40}
+  \item Multilinearity, \hyperindexformat{\textbf}{86}, \hyperpage{89}
+  \item Multiplicities, \hyperpage{110}, 
+		\hyperindexformat{\textbf}{118}
+
+  \indexspace
+
+  \item Negarive numbers, \hyperpage{98}
+  \item Negative area, \hyperpage{81}
+  \item Negative eigenvalues
+    \subitem of \(\gc{\mbM}^T\gc{\mbM}\), \hyperpage{141}
+  \item Noise, \hyperpage{185}
+  \item Normal equation, \hyperpage{170}
+  \item Normalization, \hyperpage{53}
+  \item Null space, \hyperpage{145}
+
+  \indexspace
+
+  \item Observed variable, \hyperpage{53}
+  \item One-hot vector, \hyperpage{46}, \hyperpage{62}
+  \item Orthogonal basis, \hyperpage{145}
+  \item Orthogonal iteration, \hyperpage{208}, \hyperpage{219}
+  \item Orthogonal matrix, \hyperpage{46}, \hyperpage{146}
+    \subitem inverse of, \hyperpage{47}
+  \item orthogonal matrix, \hyperpage{75}
+  \item Orthogonal vectors
+    \subitem proof, \hyperpage{254}
+  \item Orthogonalization, \hyperpage{235}
+  \item Orthogonally diagonalizable, \hyperpage{75}
+  \item Orthonormal basis, \hyperpage{146}
+
+  \indexspace
+
+  \item Pagerank, \hyperpage{209--215}
+  \item Parallellotope, \hyperpage{92}
+  \item PCA
+    \subitem Whitening, \hyperpage{58}
+  \item Permutation, \hyperpage{93}
+  \item Permutation matrix, \hyperpage{93}
+  \item Polar notation, \hyperpage{105}
+  \item Polynomial
+    \subitem dominant terms of, \hyperpage{112}
+    \subitem roots of, \hyperpage{101}
+  \item Positive semidefinite matrix, \hyperpage{141}
+  \item Power iteration, \hyperpage{208}, 
+		\hyperindexformat{\textbf}{219}
+    \subitem for SVD, \hyperpage{233}
+    \subitem for the SVD, \hyperpage{232}
+  \item Pre-image, \hyperindexformat{\textbf}{174}, \hyperpage{256}
+  \item Principal component analysis
+    \subitem as matrix decomposition, \hyperpage{199}
+  \item Proof by induction, \hyperpage{128}
+  \item Pseudo-inverse, \hyperindexformat{\textbf}{164}, 
+		\hyperindexformat{\textbf}{170}
+    \subitem  for singular \(\mbX^T\mbX\), \hyperpage{172}
+    \subitem computing by SVD, \hyperpage{177}
+    \subitem definition, \hyperpage{177}
+    \subitem properties of, \hyperpage{177}
+  \item Pythagoras, \hyperpage{100}
+  \item Pythagorean theorem, \hyperpage{169}
+  \item Pythagoreans, \hyperpage{100}
+
+  \indexspace
+
+  \item QR algorithm
+    \subitem for SVD, \hyperpage{242}
+  \item QR decomposition, \hyperpage{162}, 
+		\hyperindexformat{\textbf}{221}, \hyperpage{230}
+    \subitem for a rectangular matrix, \hyperpage{243}
+    \subitem positive, \hyperpage{257}
+    \subitem uniqueness, \hyperpage{257}
+  \item QR iteration, \hyperpage{208}, \hyperindexformat{\textbf}{228}
+  \item Quadratic form, \hyperpage{60}
+    \subitem of a diagonal matrix, \hyperpage{62}
+  \item Quadratic function, \hyperpage{139}
+
+  \indexspace
+
+  \item Rank, \hyperpage{155}
+    \subitem and singular values, \hyperpage{161}
+    \subitem column, \hyperpage{157}
+    \subitem computing, \hyperpage{162--164}
+    \subitem equality of column - and row -, \hyperpage{158--159}
+    \subitem row, \hyperpage{157}
+  \item Rank decomposition, \hyperpage{158}
+  \item Rank deficient, \hyperpage{159}
+  \item Real eigenvectors
+    \subitem proof, \hyperpage{254}
+  \item Real root, \hyperpage{119}
+  \item Recommendation, \hyperpage{195}
+  \item Reconstruction
+    \subitem PCA, \hyperpage{153}
+  \item Reputation, \hyperpage{209}
+  \item Reverse iteration, \hyperpage{71}
+  \item Right singular vector, \hyperpage{140}
+  \item Root
+    \subitem complex, \hyperpage{119}
+    \subitem real, \hyperpage{119}
+  \item Roots
+    \subitem of the characteristic polynomial, \hyperpage{110}
+  \item Roots of a polynomial, \hyperpage{101}
+  \item Row rank, \hyperpage{157}
+
+  \indexspace
+
+  \item Schur decomposition, \hyperindexformat{\textbf}{128}, 
+		\hyperpage{128}
+    \subitem proof, \hyperpage{128--130}
+  \item Shear transformation, \hyperpage{85}
+  \item Signed area, \hyperpage{81}
+  \item Signed volume, \hyperpage{82}
+  \item Similar matrices, \hyperpage{226}
+  \item Simple vector, \hyperpage{87}, \hyperpage{92}
+  \item Singular basis, \hyperpage{236}
+  \item Singular matrices, \hyperpage{78}
+  \item Singular matrix
+    \subitem rank of, \hyperpage{161}
+  \item Singular value decomposition, \hyperpage{133}
+    \subitem compact, \hyperpage{151}
+    \subitem full, \hyperpage{148}
+    \subitem recipe, \hyperpage{147}
+    \subitem truncated, \hyperpage{151}
+    \subitem with missing values, \hyperpage{201}
+  \item Singular values, \hyperindexformat{\textbf}{140}
+  \item singular values
+    \subitem analogy to standard deviation, \hyperpage{143}
+  \item Singular vector, \hyperpage{233}
+    \subitem left, \hyperpage{140}
+    \subitem right, \hyperpage{140}
+  \item Singular vectors, \hyperpage{60}, \hyperpage{135}
+  \item Skew invariance, \hyperindexformat{\textbf}{85}, 
+		\hyperpage{88, 89}
+  \item Skew transformation, \hyperpage{85}
+  \item Span, \hyperpage{56}
+  \item Spectral methods, \hyperpage{46}
+  \item Spectral theorem, \hyperpage{46}, \hyperpage{76}, 
+		\hyperpage{226}
+    \subitem proof, \hyperpage{131--132}
+    \subitem statement, \hyperpage{47}
+  \item Spectrum (of a matrix), \hyperpage{46}
+  \item Square root
+    \subitem of a matrix, \hyperpage{58}
+  \item Standard basis, \hyperpage{55}
+  \item Standard deviation, \hyperpage{143}
+  \item Subspace
+    \subitem linear, \hyperpage{167}
+
+  \indexspace
+
+  \item Tall data, \hyperpage{155}
+  \item Truncated singular value decomposition, 
+		\hyperindexformat{\textbf}{151}
+
+  \indexspace
+
+  \item Unit eigenvector
+    \subitem complex, \hyperpage{127}
+  \item Unit vector
+    \subitem complex, \hyperpage{126}
+
+  \indexspace
+
+  \item Variance, \hyperpage{50}, \hyperpage{143}
+    \subitem maximization, \hyperpage{37}
+    \subitem sum of, \hyperpage{38}
+  \item Variance \emph{mini}mization, \hyperpage{70}
+  \item Vector
+    \subitem Simple, \hyperpage{87}
+  \item Vector of greatest stretch, \hyperpage{137}
+  \item Vectors
+    \subitem complex-valued, \hyperpage{122}
+
+  \indexspace
+
+  \item Web graph, \hyperpage{212}
+  \item Weighted sum, \hyperpage{62}, \hyperpage{66}, \hyperpage{69}
+  \item Whitening, \hyperpage{57}
+    \subitem Cholesky, \hyperpage{58}
+    \subitem PCA, \hyperpage{58}, \hyperpage{153}
+  \item Wide data, \hyperpage{155}
+
+\end{theindex}
